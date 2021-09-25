@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 37web漏洞-反序列化php</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>37web<hanla></hanla>漏洞-反序列化<hanla></hanla>php </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/11
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/反序列化漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                反序列化漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>思维导图</p>
+<span id="more"></span>
+
+<p><img src="https://i.loli.net/2021/08/11/bsMZrCThXl97E1S.png" alt="37_1.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/IZ8kVGyCKYwxrM9.png" alt="37_2.png"></p>
+<h1 id="PHP-反序列化"><a href="#PHP-反序列化" class="headerlink" title="PHP 反序列化"></a>PHP 反序列化</h1><p>原理：未对用户输入的序列化字符串进行检测，导致攻击者可以控制反序列化过程，从而导致代码</p>
+<p>执行，SQL 注入，目录遍历等不可控后果。在反序列化的过程中自动触发了某些魔术方法。当进行</p>
+<p>反序列化的时候就有可能会触发对象中的一些魔术方法。</p>
+<p>serialize()<br><hanla></hanla>//<hanla></hanla>将一个对象转换成一个字符串</p>
+<p><hanla></hanla>unserialize() //<hanla></hanla>将字符串还原成一个对象</p>
+<p>触发：unserialize 函数的变量可控，文件中存在可利用的类，类中有魔术方法：</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11403397.html">https://www.cnblogs.com/20175211lyz/p/11403397.html</a></p>
+<pre><code><hanla></hanla>__construct()//<hanla></hanla>创建对象时触发
+
+__destruct() //<hanla></hanla>对象被销毁时触发
+
+__call() //<hanla></hanla>在对象上下文中调用不可访问的方法时触发
+
+__callStatic() //<hanla></hanla>在静态上下文中调用不可访问的方法时触发
+
+__get() //<hanla></hanla>用于从不可访问的属性读取数据
+
+__set() //<hanla></hanla>用于将数据写入不可访问的属性
+
+__isset() //<hanla></hanla>在不可访问的属性上调用 isset()<hanla></hanla>或 empty()<hanla></hanla>触发
+
+__unset() //<hanla></hanla>在不可访问的属性上使用 unset()<hanla></hanla>时触发
+
+__invoke() //<hanla></hanla>当脚本尝试将对象调用为函数时触发
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11403397.html">https://www.cnblogs.com/20175211lyz/p/11403397.html</a></p>
+<p>测试：</p>
+<p><img src="https://i.loli.net/2021/08/11/wueaD6xQbTscyYS.png" alt="37_3.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/gEIO5uktHaBVrMm.png" alt="37_4.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/IkbenHZLKpV7q2Q.png" alt="37_5.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/eIcAMHOhbKLSBTs.png" alt="37_6.png"></p>
+<p><hanla></hanla>那么这样写就可以拿到<hanla></hanla>flag<hanla></hanla>了<br>注意如果是数字，没有引号，就不需要声明长度</p>
+<p><img src="https://i.loli.net/2021/08/11/6N9jrHlfpnBzDh4.png" alt="37_7.png"></p>
+<p>注意：这里面有三个等号，一个等号是赋值，两个是值相等，三个是类型也要判断。</p>
+<h1 id="ctf反序列化题："><a href="#ctf反序列化题：" class="headerlink" title="ctf反序列化题："></a><hanla></hanla>ctf<hanla></hanla>反序列化题：</h1><p><hanla></hanla>首先点<hanla></hanla>logoin<hanla></hanla>没有反应，根本没有发包</p>
+<p><img src="https://i.loli.net/2021/08/11/w64W2PnhovOl7CU.png" alt="37_8.png"></p>
+<p>首先右键查看源代码：</p>
+<p><img src="https://i.loli.net/2021/08/11/yqEbBv8oJPhlIRM.png" alt="37_9.png"></p>
+<p><hanla></hanla>发现里面有个<hanla></hanla>admin.css,<hanla></hanla>访问看一下</p>
+<p><img src="https://i.loli.net/2021/08/11/tLsxkyrMYP1EFdq.png" alt="37_10.png"></p>
+<p>访问一下？27030</p>
+<p><img src="https://i.loli.net/2021/08/11/xv6MbwmFnSuY3qL.png" alt="37_11.png"></p>
+<p>然后运行序列化的结果：</p>
+<p><img src="https://i.loli.net/2021/08/11/q2vNdUM41hzJraw.png" alt="37_12.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/6PkcaxDKOeNWgHm.png" alt="37_13.png"></p>
+<p><hanla></hanla>就拿到<hanla></hanla>flagl<hanla></hanla>了注意，代码里面要<hanla></hanla>cookie<hanla></hanla>去接受<hanla></hanla>$_GET[‘BUGKU’]<hanla></hanla>时，必须要<hanla></hanla>isset()  不成立也就是<hanla></hanla>$_GET[‘27030’]<hanla></hanla>不成立</p>
+<p><img src="https://i.loli.net/2021/08/11/rHAdK3IpCjmgsve.png" alt="37_14.png"></p>
+<h1 id="有类序列化，和反序列化"><a href="#有类序列化，和反序列化" class="headerlink" title="有类序列化，和反序列化"></a>有类序列化，和反序列化</h1><pre><code><hanla></hanla>class ABC{
+
+public $test;
+
+function __construct(){
+
+$test =1;
+
+echo '调用了构造函数<hanla></hanla><br>';
+
+}
+
+function __destruct(){
+
+echo '调用了析构函数<hanla></hanla><br>';
+
+}
+
+function __wakeup(){
+
+echo '调用了苏醒函数<hanla></hanla><br>';
+
+}
+}
+
+echo '创建对象 a<br>';
+
+$a = new ABC;
+
+echo '序列化<hanla></hanla><br>';
+
+$a_ser=serialize($a);echo '反序列化<hanla></hanla><br>';
+
+$a_unser = unserialize($a_ser);
+
+echo '对象快要死了！';
+
+?&gt;
+</code></pre>
+<p>执行结果</p>
+<p><img src="https://i.loli.net/2021/08/11/1CQU3JYMaiWerjA.png" alt="37_15.png"></p>
+<p><hanla></hanla>#下面是一道网鼎杯<hanla></hanla>2020<hanla></hanla>青龙组的反序列化题目</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52710947/article/details/116997381?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-1.base&amp;spm=1001.2101.3001.4242">解析</a></p>
+<p>知识点<br><hanla></hanla>PHP<hanla></hanla>反序列化漏洞、弱类型比较。<br>经过分析，这个题目需要传入一个序列化之后的类对象，并且要绕过两层防护：</p>
+<p>首先 ctf 命名及代码函数 unserialize 判断反序列化知识点</p>
+<p><img src="https://i.loli.net/2021/08/11/nkS7QhqZiRdmUDo.png" alt="37_16.png"></p>
+<pre><code><hanla></hanla>程序开始执行，会把<hanla></hanla>str<hanla></hanla>传到<hanla></hanla>is_valid<hanla></hanla>函数进行过滤   
+一：is_valid()   
+要求传入的<hanla></hanla>str<hanla></hanla>的每个字母的<hanla></hanla>ascii<hanla></hanla>值在<hanla></hanla>32<hanla></hanla>和<hanla></hanla>125<hanla></hanla>之间。因为<hanla></hanla>protected<hanla></hanla>属性在序列化之后会出  现不可见字符\00*\00，不符合上面的要求。  
+绕过方法：因为<hanla></hanla>php7.1<hanla></hanla>以上的版本对属性类型不敏感，所以可以将属性改为<hanla></hanla>public，public<hanla></hanla>属  性序列化不会出现不可见字符。  
+</code></pre>
+<p><img src="https://i.loli.net/2021/08/11/i3LT69DKznQu5wH.png" alt="37_17.png"></p>
+<p><hanla></hanla>二：destruct()<hanla></hanla>魔术方法<br><hanla></hanla>op===“2”，是强比较  </p>
+<p><img src="https://i.loli.net/2021/08/11/EUTCWKF4PyjdAVJ.png" alt="37_18.png"></p>
+<p><hanla></hanla>而在<hanla></hanla>process()<hanla></hanla>函数中,op==”2”<hanla></hanla>是弱比较</p>
+<p><img src="https://i.loli.net/2021/08/11/uThONXbzw4fIDCY.png" alt="37_19.png"></p>
+<p><hanla></hanla>绕过方法：可以使传入的<hanla></hanla>op<hanla></hanla>是数字<hanla></hanla>2，从而使第一个强比较返回<hanla></hanla>false,<hanla></hanla>而使第二个弱比较返回<hanla></hanla>true。</p>
+<p><img src="https://i.loli.net/2021/08/11/WvKySUfD2XmTR7w.png" alt="37_20.png"></p>
+<p><hanla></hanla>然后输出序列化结果，构造<hanla></hanla>payload,<br><hanla></hanla>f12<hanla></hanla>查看源码，找到<hanla></hanla>flag</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

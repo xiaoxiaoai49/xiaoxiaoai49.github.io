@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || web漏洞-逻辑越权之验证码与token及接口</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>web<hanla></hanla>漏洞-逻辑越权之验证码与<hanla></hanla>token<hanla></hanla>及接口 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/9
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/web-逻辑越权漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                web-逻辑越权漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>思维导图</p>
+<span id="more"></span>
+
+<p><img src="https://i.loli.net/2021/08/09/f6GbDhM38UdnpKH.png" alt="33_1.png"></p>
+<p><img src="https://i.loli.net/2021/08/09/zyCkEHTBtVWMbLf.png" alt="36_1.png"></p>
+<p><img src="https://i.loli.net/2021/08/09/1rhAR9zmX2dq7bS.png" alt="36_2.png"></p>
+<h1 id="验证码安全"><a href="#验证码安全" class="headerlink" title="验证码安全"></a>验证码安全</h1><p>分类：图片，手机或邮箱，语音，视频，操作等</p>
+<p>原理：验证生成或验证过程中的逻辑问题危害：账户权限泄漏，短信轰炸，遍历，任意用户操作等</p>
+<p><hanla></hanla>漏洞：客户端回显<hanla></hanla>(已讲)，验证码复用，验证码爆破<hanla></hanla>(已讲)，绕过等</p>
+<h1 id="token-安全"><a href="#token-安全" class="headerlink" title="token 安全"></a>token 安全</h1><p>基本上述同理，主要是验证中可存在绕过可继续后续测试</p>
+<p>token 爆破，token 客户端回显等</p>
+<h1 id="验证码识别插件工具使用"><a href="#验证码识别插件工具使用" class="headerlink" title="验证码识别插件工具使用"></a>验证码识别插件工具使用</h1><p><hanla></hanla>captcha-killer，Pkav_Http_Fuzz,reCAPTCHA 等 </p>
+<h1 id="接口安全问题"><a href="#接口安全问题" class="headerlink" title="接口安全问题"></a>接口安全问题</h1><p>调用，遍历，未授权，篡改等</p>
+<p>调用案例：短信轰炸</p>
+<p>遍历案列：UID 等遍历</p>
+<p>callback 回调 JSONP</p>
+<p>参数篡改：墨者靶场</p>
+<p>水平越权：</p>
+<p>xiaodi uid=10</p>
+<p>1-1000 尝试能不能获取到其他编号对应的用户信息</p>
+<p>未授权访问：</p>
+<p>与越权漏洞区别</p>
+<p>Jboss 未授权访问</p>
+<p>Jenkins 未授权访问</p>
+<p>ldap 未授权访问</p>
+<p>Redis 未授权访问</p>
+<p>elasticsearch 未授权访问</p>
+<p>MenCache 未授权访问</p>
+<p>Mongodb 未授权访问</p>
+<p>Rsync 未授权访问</p>
+<p>Zookeeper 未授权访问</p>
+<p>Docker 未授权访问</p>
+<h1 id="验证码识别插件及工具操作演示-实例"><a href="#验证码识别插件及工具操作演示-实例" class="headerlink" title="验证码识别插件及工具操作演示-实例"></a>验证码识别插件及工具操作演示-实例</h1><p><hanla></hanla>captcha-killer，Pkav_Http_Fuzz,reCAPTCHA 等</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/c0ny1/captcha-killer/releases/tag/0.1.2">https://github.com/c0ny1/captcha-killer/releases/tag/0.1.2</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/bit4woo/reCAPTCHA/releases/tag/v1.0">https://github.com/bit4woo/reCAPTCHA/releases/tag/v1.0</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nul1/p/12071115.html">https://www.cnblogs.com/nul1/p/12071115.html</a>  </p>
+<p>Pkav_Http_Fuzz:  <a target="_blank" rel="noopener" href="https://www.lanzous.com/i1z2s3e">https://www.lanzous.com/i1z2s3e</a>  </p>
+<p><img src="https://i.loli.net/2021/08/09/SoFLjA1DZpHs9be.png" alt="36_3.png"></p>
+<p><img src="https://i.loli.net/2021/08/09/ZYjtuV9DsAgOPdm.png" alt="36_4.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cwkiller/p/12659549.html"><hanla></hanla>captcha-killer burp<hanla></hanla>验证码识别插件初体验 - cwkiller - 博客园 (cnblogs.com)</a></p>
+<p>测试网站：</p>
+<p><a target="_blank" rel="noopener" href="https://manage.yyxueche.com//panel/login.php">https://manage.yyxueche.com//panel/login.php</a></p>
+<p>首先抓图片验证码地址的包：发送到插件</p>
+<p><img src="https://i.loli.net/2021/08/09/UnYwHbQ9x13c26y.png" alt="36_5.png"></p>
+<p>创建一个应用</p>
+<p><img src="https://i.loli.net/2021/08/09/FQ1stAZ64URLlKx.png" alt="36_6.png"></p>
+<p><hanla></hanla>获取<hanla></hanla>access_token<br><hanla></hanla>比如这样<br><a target="_blank" rel="noopener" href="https://aip.baidubce.com/oauth/2.0/token?grant%5C_type=client_credentials&amp;c"><hanla></hanla>https://aip.baidubce.com/oauth/2.0/token?grant\_type=client_credentials&amp;c</a><br>lient_id=VNba4C4UvGlvspy6yTMCTDjm&amp;client_secret=y13lfCsg5zbGZxK7wTiaV4lf<br>4zvSCPyl</p>
+<p><img src="https://i.loli.net/2021/08/09/bnVq8yzacWuApF6.png" alt="36_7.png"></p>
+<p><hanla></hanla>把<hanla></hanla>access_token<hanla></hanla>粘贴到这里：</p>
+<p><img src="https://i.loli.net/2021/08/09/Cbc6dPRyS9YkwGv.png" alt="36_8.png"></p>
+<p>然后获取识别，但是我这里识别不出来，不知道哪里有问题：</p>
+<p><img src="https://i.loli.net/2021/08/09/tPxnhM278Eo64mR.png" alt="36_9.png"></p>
+<h1 id="验证码绕过本地及远程验证-本地及实例"><a href="#验证码绕过本地及远程验证-本地及实例" class="headerlink" title="验证码绕过本地及远程验证-本地及实例"></a>验证码绕过本地及远程验证-本地及实例</h1><p>如果验证码没有销毁，这个验证码可以重复使用，这是一个服务端的验证</p>
+<p><img src="https://i.loli.net/2021/08/09/dxfRhJ37i6KHQTc.png" alt="36_10.png"></p>
+<p>而客户端绕过，只要抓包就验证绕过了<br><hanla></hanla>前端验证一般是<hanla></hanla>js，<br>源代码看的见就是前端验证  </p>
+<p>比如我想短信轰炸调用这个接口：   </p>
+<p><img src="https://i.loli.net/2021/08/09/RFuKsQ3OU6hmdIH.png" alt="36_11.png"></p>
+<p>如果发送成功会提示：</p>
+<p><img src="https://i.loli.net/2021/08/09/SRxlPuaiXOdVwtL.png" alt="36_12.png"></p>
+<p>经过测试验证码可以复用，或者让他为空就可以继续发送</p>
+<p><img src="https://i.loli.net/2021/08/09/3KGWNU51Xc6m8ln.png" alt="36_13.png"></p>
+<p><hanla></hanla>查看回显结果发现只能<hanla></hanla>60<hanla></hanla>秒发一次，这里就实现了验证码绕过</p>
+<h1 id="Token-客户端回显绕过登录爆破演示-本地"><a href="#Token-客户端回显绕过登录爆破演示-本地" class="headerlink" title="Token 客户端回显绕过登录爆破演示-本地"></a>Token 客户端回显绕过登录爆破演示-本地</h1><p><hanla></hanla>首先抓个包，发现有<hanla></hanla>token</p>
+<p><img src="https://i.loli.net/2021/08/09/gUw5YtQrFuo4MeP.png" alt="36_14.png"></p>
+<p><hanla></hanla>然后发送,<hanla></hanla>会发现回显数据包中带了<hanla></hanla>token:</p>
+<p><img src="https://i.loli.net/2021/08/09/XqZ7j9YUL4TWyfD.png" alt="36_15.png"></p>
+<p><hanla></hanla>其实这就是下一次发送的<hanla></hanla>token<br><hanla></hanla>inturder<hanla></hanla>模块发包：<br><hanla></hanla>attack type<hanla></hanla>要选<hanla></hanla>Pitchfork<hanla></hanla>模式<br><hanla></hanla>首先来说下<hanla></hanla>burp Suite<hanla></hanla>的暴力破解（intruder）的 四种爆破模式：<br>Sniper（狙击手模式）：单点爆破模式，跟狙击手一样，每次只会对一个点进行参数爆破，<br>当存在多个参数时，会对每个参数使用一个字典进行多次爆破，其余参数不变<br><hanla></hanla>Batteringram（攻城锤模式）：多点爆破模式，会同时对多个参数进行爆破，但是使用的时候用一个字典<br><hanla></hanla>Pichfork（草叉模式）：类似于<hanla></hanla>Batteringram<hanla></hanla>模式，但是使用的是多个字典，并且多个点的字典内容一一匹配进行爆破<br><hanla></hanla>Cluserbamb（集束炸弹模式）：多点爆破模式，会对不同点的内容采用多字典，进行笛卡尔乘积模式爆破    </p>
+<p><img src="https://i.loli.net/2021/08/09/rGETDbg7M3uVUdq.png" alt="36_16.png"></p>
+<p>密码参数正常设置就可以：</p>
+<p><img src="https://i.loli.net/2021/08/09/RTs9z3wKubQEJAy.png" alt="36_17.png"></p>
+<p><hanla></hanla>第一个参数选择字典攻击然后进入<hanla></hanla>option<hanla></hanla>模块，<br>第二个参数选择：</p>
+<p><img src="https://i.loli.net/2021/08/09/oEWbDKZkgp3yT51.png" alt="36_18.png"></p>
+<p><hanla></hanla>然后进入<hanla></hanla>optionos<hanla></hanla>模块自上而下进行修改：<br><hanla></hanla>因为<hanla></hanla>token，对于每一个包返回来的<hanla></hanla>token<hanla></hanla>值都是不一样的<br>，所以我们只能选择单线程进行攻击  </p>
+<p><img src="https://i.loli.net/2021/08/09/wWeOl2IJnPsbgpD.png" alt="36_19.png"></p>
+<p>添加正则表达式步骤：</p>
+<p><img src="https://i.loli.net/2021/08/09/B6dzTxJNHDmn9rO.png" alt="36_20.png"></p>
+<p><img src="https://i.loli.net/2021/08/09/wxKtWq1g3v6rEdL.png" alt="36_21.png"></p>
+<p><img src="https://i.loli.net/2021/08/09/uWY9mKXSqTsNwhy.png" alt="36_22.png"></p>
+<p><hanla></hanla>这里输入你第一次捕获<hanla></hanla>token<hanla></hanla>的值：</p>
+<p><img src="https://i.loli.net/2021/08/09/sGpa3NLRcMzFdrf.png" alt="36_23.png"></p>
+<p><hanla></hanla>然后点<hanla></hanla>start<hanla></hanla>就可以开始了<hanla></hanla>123456<hanla></hanla>就是正确的啦</p>
+<p><img src="https://i.loli.net/2021/08/09/RkbLngtqjGamplh.png" alt="36_24.png"></p>
+<h1 id="某-URL-下载接口-ID-值调用遍历测试-实例"><a href="#某-URL-下载接口-ID-值调用遍历测试-实例" class="headerlink" title="某 URL 下载接口 ID 值调用遍历测试-实例"></a>某 URL 下载接口 ID 值调用遍历测试-实例</h1><p><hanla></hanla>水平越权，可以尝试爆破<hanla></hanla>uid<br>1-1000 尝试能不能获取其他用户信息</p>
+<h1 id="Callback-自定义返回调用安全-漏洞测试-实例"><a href="#Callback-自定义返回调用安全-漏洞测试-实例" class="headerlink" title="Callback 自定义返回调用安全-漏洞测试-实例"></a>Callback 自定义返回调用安全-漏洞测试-实例</h1><p><img src="https://i.loli.net/2021/08/09/YdN1aq2BAWMpDJ9.png" alt="36_25.png"></p>
+<p>这种位置很有可能存在跨站漏洞</p>
+<p><img src="https://i.loli.net/2021/08/09/CsHjxPkdX4oJl5B.png" alt="36_26.png"></p>
+<h1 id="补：上述在实战中如何做到漏洞发现-bp-功能点"><a href="#补：上述在实战中如何做到漏洞发现-bp-功能点" class="headerlink" title="补：上述在实战中如何做到漏洞发现-bp 功能点"></a>补：上述在实战中如何做到漏洞发现-bp 功能点</h1><p>爬虫模块<br><img src="https://i.loli.net/2021/08/09/pDLsUPqjeNl2bor.png" alt="36_27.png"></p>
+<p>搜索</p>
+<p><img src="https://i.loli.net/2021/08/09/vYkJqG1ZHhuwsrQ.png" alt="36_28.png"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

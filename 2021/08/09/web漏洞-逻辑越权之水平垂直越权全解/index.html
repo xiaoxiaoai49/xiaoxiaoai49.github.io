@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || web漏洞-逻辑越权之水平垂直越权全解</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>web<hanla></hanla>漏洞-逻辑越权之水平垂直越权全解 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/9
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/web-逻辑越权漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                web-逻辑越权漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h1 id="水平垂直越权"><a href="#水平垂直越权" class="headerlink" title="水平垂直越权"></a>水平垂直越权</h1><p>收集的网址有时间可以看一下：  </p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://bbs.ichunqiu.com/thread-21161-1-1.html"><hanla></hanla>漏洞挖掘之逻辑漏洞挖掘<hanla></hanla>_<hanla></hanla>白帽子技术<hanla></hanla>/<hanla></hanla>思路<hanla></hanla>_i<hanla></hanla>春秋社区-分享你的技术，为安全加点温度. (ichunqiu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.ioin.in/writeup/blog.heysec.org/_archives_643/index.html">密码逻辑漏洞小总结 (ioin.in)</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ChiXtcrEyQeLkGOkm4PTog">逻辑漏洞之越权访问 (qq.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/w22omfxO8vU6XzixXWmBxg">逻辑漏洞之支付漏洞 (qq.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Lynmqd_ieEoNJ3mmyv9eQQ">逻辑漏洞之密码重置 (qq.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/85947">【技术分享】逻辑至上——内含各种酷炫姿势 - 安全客，安全资讯平台 (anquanke.com)</a>  </p>
+<p><img src="https://i.loli.net/2021/08/09/f6GbDhM38UdnpKH.png" alt="33_1.png"></p>
+<h1 id="水平，垂直越权，未授权访问"><a href="#水平，垂直越权，未授权访问" class="headerlink" title="水平，垂直越权，未授权访问"></a>水平，垂直越权，未授权访问</h1><p>解释，原理，检测，利用，防御等</p>
+<p>通过更换的某个 ID 之类的身份标识，从而使 A 账号获取（修改、删除等）B 账号数据。</p>
+<p>使用低权限身份的账号，发送高权限账号才能有的请求，获得其高权限的操作。</p>
+<p>通过删除请求中的认证信息后重放该请求，依旧可以访问或者完成操作。</p>
+<p>原理：</p>
+<p>前端安全造成：界面<br><hanla></hanla>1、  功能存在 2、 根据用户的权限级别来决定是否显示功能，用户均有修改的权限<br>（内在原因：在执行功能时没有验证用户权限【个人理解】）。</p>
+<p>判断用户等级后，代码界面部分进行可选显示</p>
+<p>后盾安全造成：数据库</p>
+<p><hanla></hanla>user 表<hanla></hanla>(管理员和普通用户同表)</p>
+<p>id,username,password,usertype</p>
+<p>1,admin,123456,1</p>
+<p>2,xiaodi,11111,2</p>
+<p>登录用户 admin 或 xiaodi 时，代码是如何验证这个级别？（usertype 判断）</p>
+<p>如果在访问数据包中有传输用户的编号、用户组编号或类型编号的时候，那么尝试对这个值进行修</p>
+<p>改，就是测试越权漏洞的基本。</p>
+<h1 id="修复防御方案"><a href="#修复防御方案" class="headerlink" title="修复防御方案"></a>修复防御方案</h1><p><hanla></hanla>1.<hanla></hanla>前后端同时对用户输入信息进行校验，双重验证机制</p>
+<p><hanla></hanla>2.<hanla></hanla>调用功能前验证用户是否有权限调用相关功能</p>
+<p><hanla></hanla>3.<hanla></hanla>执行关键操作前必须验证用户身份，验证用户是否具备操作数据的权限</p>
+<p><hanla></hanla>4.<hanla></hanla>直接对象引用的加密资源 ID，防止攻击者枚举 ID，敏感数据特殊化处理</p>
+<p><hanla></hanla>5.<hanla></hanla>永远不要相信来自用户的输入，对于可控参数进行严格的检查与过滤</p>
+<h2 id="1-pikachu本地："><a href="#1-pikachu本地：" class="headerlink" title="1.pikachu本地："></a><hanla></hanla>1.pikachu<hanla></hanla>本地：</h2><p><img src="https://i.loli.net/2021/08/09/TyWowHZG6xqUazm.png" alt="33_2.png">  </p>
+<p>水平越权<br>点击查看个人信息：抓包</p>
+<p><img src="https://i.loli.net/2021/08/09/4gBtDWjpcxOAwd5.png" alt="33_3.png">  </p>
+<p><hanla></hanla>修改<hanla></hanla>lucy<hanla></hanla>为<hanla></hanla>kobe,<hanla></hanla>就实现了水平越权  </p>
+<p><img src="https://i.loli.net/2021/08/09/DLGf2wcoXqUECHj.png" alt="33_4.png"></p>
+<p><hanla></hanla>可是实际情况你怎么知道修改<hanla></hanla>lucy<hanla></hanla>为<hanla></hanla>kobe<hanla></hanla>呢？<br><hanla></hanla>1.<hanla></hanla>有些注册的时候会提示用户已存在<br><hanla></hanla>2，有些可以访问用户的空间，查找他的<hanla></hanla>id<hanla></hanla>什么的<br><hanla></hanla>3，或者提示用户以存在可以用<hanla></hanla>burp<hanla></hanla>爆破用户   </p>
+<p>垂直越权：<br><hanla></hanla>首先进入管理员界面，点击添加用户，抓包，发送<hanla></hanla>repeater<hanla></hanla>模块  </p>
+<p><img src="https://i.loli.net/2021/08/09/WM2R86ZNexgXbfw.png" alt="33_5.png"></p>
+<p><hanla></hanla>登录普通用户，更换<hanla></hanla>phpsessid<hanla></hanla>为普通用户的可以实现普通用户实现<hanla></hanla>root<hanla></hanla>用户的操作</p>
+<p><img src="https://i.loli.net/2021/08/09/m2oNEpu4DGZC351.png" alt="33_6.png"></p>
+<p><hanla></hanla>可是实践情况没有<hanla></hanla>root<hanla></hanla>的数据包：<br>前提条件：获取添加用户的数据包，怎么来的数据包：<br>1，普通用户前端有操作界面可以抓取数据包<br><hanla></hanla>2，通过网站源码本地搭建，自己去模拟抓取数据包<br>但是一般登录判断不好的可以直接登录高权限用户，上面很鸡肋  </p>
+<h2 id="墨者水平-身份认证失效漏洞实战（漏洞成因）："><a href="#墨者水平-身份认证失效漏洞实战（漏洞成因）：" class="headerlink" title="墨者水平-身份认证失效漏洞实战（漏洞成因）："></a>墨者水平-身份认证失效漏洞实战（漏洞成因）：</h2><p><a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/eUM3SktudHdrUVh6eFloU0VERz">https://www.mozhe.cn/bug/detail/eUM3SktudHdrUVh6eFloU0VERz</a><br>B4Zz09bW96aGUmozhe<br><hanla></hanla>用户登录后抓一个包，发现<hanla></hanla>card_id=<hanla></hanla>可能可以修改   或者<hanla></hanla>uid  mid  也可以修改  </p>
+<p><img src="https://i.loli.net/2021/08/09/HwiMAm8IKgVYJzG.png" alt="33_7.png"></p>
+<p><hanla></hanla>修改<hanla></hanla>card_id<hanla></hanla>发现有反应可能服务器是用这个作为主键对<hanla></hanla>car_id<hanla></hanla>后两位进行爆破：</p>
+<p><img src="https://i.loli.net/2021/08/09/9EdcN4gKLfMaJjb.png" alt="33_8.png"></p>
+<p>跑完有这些显示，寻找马春生</p>
+<p><img src="https://i.loli.net/2021/08/09/vnz8AGfB1yXeo6P.png" alt="33_9.png"></p>
+<p><img src="https://i.loli.net/2021/08/09/j1vunWPYhUOLzrb.png" alt="33_10.png"></p>
+<p>得到账号密码登录成功</p>
+<p>小米范越权漏洞检测工具：<br><a target="_blank" rel="noopener" href="https://github.com/ztosec/secscan-authcheck">https://github.com/ztosec/secscan-authcheck</a></p>
+<h2 id="burpsutie-authz插件"><a href="#burpsutie-authz插件" class="headerlink" title="burpsutie authz插件"></a><hanla></hanla>burpsutie authz<hanla></hanla>插件</h2><p><img src="https://i.loli.net/2021/08/09/9FBUDcejWprgl5k.png" alt="33_11.png"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

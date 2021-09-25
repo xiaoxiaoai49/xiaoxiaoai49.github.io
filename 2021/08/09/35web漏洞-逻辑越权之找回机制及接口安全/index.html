@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || web漏洞-逻辑越权之找回机制及接口安全</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>web<hanla></hanla>漏洞-逻辑越权之找回机制及接口安全 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/9
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/web-逻辑越权漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                web-逻辑越权漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>思维导图</p>
+<span id="more"></span>
+
+<p><img src="https://i.loli.net/2021/08/09/f6GbDhM38UdnpKH.png" alt="33_1.png"></p>
+<h1 id="找回重置机制"><a href="#找回重置机制" class="headerlink" title="找回重置机制"></a>找回重置机制</h1><p>客户端回显，Response 状态值，验证码爆破，找回流程绕过等</p>
+<h1 id="接口调用乱用"><a href="#接口调用乱用" class="headerlink" title="接口调用乱用"></a>接口调用乱用</h1><p>短信轰炸，来电轰炸等  </p>
+<h2 id="找回密码验证码逻辑-爆破测试-实例"><a href="#找回密码验证码逻辑-爆破测试-实例" class="headerlink" title="找回密码验证码逻辑-爆破测试-实例"></a>找回密码验证码逻辑-爆破测试-实例</h2><h2 id="墨者靶场密码重置-验证码套用-靶场"><a href="#墨者靶场密码重置-验证码套用-靶场" class="headerlink" title="墨者靶场密码重置-验证码套用-靶场"></a>墨者靶场密码重置-验证码套用-靶场</h2><p>第一个页面：输入手机号码：验证码<br>第二个页面：重置密码<br>如果这两个页面在同一个页面就可以进行篡改   </p>
+<p>比如获取验证码后重置时改成别人的验证码   </p>
+<h2 id="手机邮箱验证码逻辑-客户端回显-实例"><a href="#手机邮箱验证码逻辑-客户端回显-实例" class="headerlink" title="手机邮箱验证码逻辑-客户端回显-实例"></a>手机邮箱验证码逻辑-客户端回显-实例</h2><p>有的抓包的时候就能看见验证码  </p>
+<p><img src="https://i.loli.net/2021/08/09/fuOTsLKRNHUV4Sr.png" alt="35_1.png"></p>
+<h2 id="绑定手机验证码逻辑-Rep-状态值篡改-实例"><a href="#绑定手机验证码逻辑-Rep-状态值篡改-实例" class="headerlink" title="绑定手机验证码逻辑-Rep 状态值篡改-实例"></a>绑定手机验证码逻辑-Rep 状态值篡改-实例</h2><p>设置回包也抓</p>
+<p><img src="https://i.loli.net/2021/08/09/dVYToDrOHWc2jl5.png" alt="35_2.png"></p>
+<p>修改回包中的数据，如过不是以服务器端数据为准<br>那么更改回包数据就有效现错误验证码也可以登录</p>
+<p><img src="https://i.loli.net/2021/08/09/qzcfediO9WxKBtM.png" alt="35_3.png"></p>
+<p><hanla></hanla>如某手机<hanla></hanla>app<hanla></hanla>期货平台，重置手机密码的时候：<br>输入错误验证码返回数据是这样的</p>
+<p><img src="https://i.loli.net/2021/08/09/E9RnOLIwTAqjWVv.png" alt="35_4.png"></p>
+<p>输入真实验证码回包是这样的：</p>
+<p><img src="https://i.loli.net/2021/08/09/S14Oxa7WqytoLRB.png" alt="35_5.png"></p>
+<p>复制真实的后面数据</p>
+<p><img src="https://i.loli.net/2021/08/09/9PGsnM1QrYigJH8.png" alt="35_6.png"></p>
+<p>然后输入错误的验证码：抓回包数据：</p>
+<p><img src="https://i.loli.net/2021/08/09/HgWTZ7DeVnoGwFY.png" alt="35_7.png"></p>
+<p>用刚刚正确的数据修改这里，把包放出去</p>
+<p><img src="https://i.loli.net/2021/08/09/oZSvNBh1Wpgq9Ms.png" alt="35_8.png"></p>
+<p>网站进入密码重置界面<br>重置密码，测试登录，成功  </p>
+<p>那么我不需要手机收到验证码，那么我是不是可以更改别人的呢  </p>
+<h1 id="某-APP-短信轰炸接口乱用-实例接口调用发包"><a href="#某-APP-短信轰炸接口乱用-实例接口调用发包" class="headerlink" title="某 APP 短信轰炸接口乱用-实例接口调用发包"></a>某 APP 短信轰炸接口乱用-实例接口调用发包</h1><p>这种是违法行为千万不要搞：后果很严重<br>短信轰炸手机轰炸都是这个原理，一般收集这种发验证码的接口，<br>然后更改发送的手机号，自己写个脚本就实现短信轰炸了    </p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

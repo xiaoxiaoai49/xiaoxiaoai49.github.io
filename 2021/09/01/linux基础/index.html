@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || linux基础</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>linux<hanla></hanla>基础 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/1
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/基础">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                基础
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>linux:</p>
+ <span id="more"></span>
+
+<p>redhat<br>centos<br>ubuntu server<br>suse</p>
+<p>unix</p>
+<p>lamp<br>LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装<br> LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。<br>linux apach mysql php<br>lnmp<br>linux nginx mysql php</p>
+<p>macos</p>
+<p>linux 提权<br><hanla></hanla>内核<hanla></hanla>exp<hanla></hanla>利用 kernel<br>2.6.32<br>exploit-db.com</p>
+<p><img src="https://i.loli.net/2021/09/01/L2syB61fuKRw9Jc.png" alt="1.png"></p>
+<p>github </p>
+<p>kali 基于 debian</p>
+<p><img src="https://i.loli.net/2021/09/01/EjGvbN2dUth5HrV.png" alt="2.png"></p>
+<p>开源，免费，稳定，安全，高性能</p>
+<p><hanla></hanla>学习<hanla></hanla>linux<br><hanla></hanla>从命名开始打好基础<br>养成在命令行工作的习惯<br><hanla></hanla>学习<hanla></hanla>shell<hanla></hanla>命令解释器<br>学会使用文档<br><hanla></hanla>在<hanla></hanla>linux<hanla></hanla>论坛获取帮助<br>学习英文  </p>
+<p>安装：</p>
+<p><img src="https://i.loli.net/2021/09/01/N5HMg7bAlPzp4vZ.png" alt="3.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/5SDNIoPMKdc9ent.png" alt="4.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/wn4ZPyD3Mghb9ej.png" alt="5.png"></p>
+<p>linux 内核版本号命名特点<br><hanla></hanla>第<hanla></hanla>2<hanla></hanla>块<hanla></hanla>scsi<hanla></hanla>硬盘的第三个逻辑分区<br><hanla></hanla>/dev/sdb7<br>RHEL6 默认使用的文件系统类型是   ext4 </p>
+<p><img src="https://i.loli.net/2021/09/01/j4SPReYCp1vcEtL.png" alt="6.png"></p>
+<h1 id="inux操作系统补录："><a href="#inux操作系统补录：" class="headerlink" title="inux操作系统补录："></a><hanla></hanla>inux<hanla></hanla>操作系统补录：</h1><h3 id="1-安装vmtools"><a href="#1-安装vmtools" class="headerlink" title="1.安装vmtools"></a><hanla></hanla>1.<hanla></hanla>安装<hanla></hanla>vmtools</h3><p><hanla></hanla>###2.linux<hanla></hanla>目录结构： linux<hanla></hanla>世界，一切皆文件<br><hanla></hanla>window<hanla></hanla>是以多根的方式组织文件<br><hanla></hanla>linux<hanla></hanla>是以单根方式组织文件<br><hanla></hanla>Linux<hanla></hanla>目录结构<br>整理如下：  </p>
+<p><img src="https://i.loli.net/2021/09/01/AbHVf4ZaqBEh3KS.png" alt="7.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/9uTGIVni3NEslf1.png" alt="8.png"></p>
+<p><hanla></hanla>//<hanla></hanla>在<hanla></hanla>Centos7<hanla></hanla>之前，bin<hanla></hanla>目录和<hanla></hanla>sbin<hanla></hanla>目录直接存放于根目录中，Centos7<hanla></hanla>就移动到了<br><hanla></hanla>usr<hanla></hanla>目录中了，同样<hanla></hanla>tmp<hanla></hanla>目录也从<hanla></hanla>usr<hanla></hanla>移动到了<hanla></hanla>var<hanla></hanla>目录中去。<br><hanla></hanla>/<hanla></hanla>但是在根目录中，我们依然可以看到<hanla></hanla>bin<hanla></hanla>目录和<hanla></hanla>sbin<hanla></hanla>目录，这是为了照顾习惯了之<br>前版本的人，而创建的链接文件~<br>每个目录的用处总结如下：<br><hanla></hanla>bin&nbsp;&nbsp;存放普通用户使用的命令，如<hanla></hanla>/bin/ls<br><hanla></hanla>sbin&nbsp;存放管理员使用的命令，如<hanla></hanla>/sbin/service<br><hanla></hanla>dev&nbsp;&nbsp;存放设备文件，如<hanla></hanla>/dev/sda<br><hanla></hanla>root&nbsp;root<hanla></hanla>用户的<hanla></hanla>HOME<br><hanla></hanla>home&nbsp;普通用户的目录，如<hanla></hanla>/home/monster<br>proc&nbsp;虚拟的文件系统，反映出来的是内核，进程信息或实时状态<br><hanla></hanla>lib/lib64&nbsp;库文件<hanla></hanla>Glibc<br>tmp&nbsp;存放临时文件，包括进程产生的临时文件<br><hanla></hanla>var&nbsp;&nbsp;存放数据库、日志、邮件等变化文件<br><hanla></hanla>usr&nbsp;&nbsp;存放系统文件，相当于<hanla></hanla>C:\windows<br><hanla></hanla>boot&nbsp;存放的系统启动相关文件，例如<hanla></hanla>kernel、grub（引导装载程序）<br>etc&nbsp;&nbsp;配置文件，如网络 /etc/sysconfig/network<br>mnt media 挂载光驱的，因为你安装不一定安装了光驱全部内容，你需要<br>安装其他内容，挂载后就可以使用光驱了  </p>
+<p><hanla></hanla>suid<hanla></hanla>权限 谁调用他，谁就是他的所有者<br><hanla></hanla>select @@basedir;找物理路径，<br>mysql<br>/usr/local/mysql-5.5.1/<br>/usr/local/apache/conf/http.conf<br>dirctoryroot  /var/www/html/  </p>
+<p>echo select  </p>
+<p><hanla></hanla>命令行中#  代表管理员  uid=0<hanla></hanla>就是管理员<br><hanla></hanla>etc/passwd/<br><hanla></hanla>把<hanla></hanla>xy:x:0:0…改为<hanla></hanla>00<hanla></hanla>就把普通用户变成<hanla></hanla>root<hanla></hanla>了  </p>
+<p><hanla></hanla>例如我们查看<hanla></hanla>/proc<hanla></hanla>目录，该目录中的每一个数字都是一个进程<br><hanla></hanla>linux<hanla></hanla>文件路径分为绝对路径和相对路径  </p>
+<p>绝对路径从根目录开始查找，<br>相当路径从当前目录开始查找。<br><hanla></hanla>例如我们当前在<hanla></hanla>/etc<hanla></hanla>目录下，需要访问<hanla></hanla>network-scripts<hanla></hanla>目录，有两种方法：<br>绝对路径：cd /etc/sysconfig/network-scripts/  </p>
+<p><hanla></hanla>//pwd<hanla></hanla>命令可查看当前所在路径<br>相对路径：cd sysconfig/network-scripts/ </p>
+<p>.&nbsp;表示当前路径位置，..&nbsp;表示上一级路径位置：  </p>
+<p><img src="https://i.loli.net/2021/09/01/rszd7gXln1WRSk9.png" alt="9.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/YpSJLmXKbkovM54.png" alt="10.png"></p>
+<p>文件的第一个字符表示文件类型，如上图的 - 和 d<br><hanla></hanla>细心的小伙伴会发现目录文件的大小都是相同的，而且都很小<br><hanla></hanla>那是因为<hanla></hanla>Linux<hanla></hanla>下的目录不同于<hanla></hanla>window<hanla></hanla>中的文件夹，仅仅是个用于记录文件的<br>名字和位置的文件而已，就像我们书本的目录，记录了所有文章的位置，但仅仅占用一页纸</p>
+<p><img src="https://i.loli.net/2021/09/01/NuoX18IaSYTd4Jr.png" alt="11.png"></p>
+<p>sticky directory 粘性目录<br><hanla></hanla>通过<hanla></hanla>stat<hanla></hanla>方法，我们也可以查看文件的属性，包括时间属性：</p>
+<p><img src="https://i.loli.net/2021/09/01/LYvQiHoGhapWInX.png" alt="12.png"></p>
+<p><hanla></hanla>rhelt<hanla></hanla>中默认安装的桌面环境是什么<br><hanla></hanla>kde   gnome  </p>
+<p>如何从字符界面切换到图像界面<br><hanla></hanla>启动时进入字符界面,<hanla></hanla>后来想切换到图形界面  startx  init 5<br><hanla></hanla>启动时进入图形界面,<hanla></hanla>后来想切换到字符界面  ctrl+alt+f1  </p>
+<p><img src="https://i.loli.net/2021/09/01/ph6eIARNlWDnUP3.png" alt="13.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/BuGnhFPM7ife3vg.png" alt="14.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/DBzWLGpaxVkid9w.png" alt="15.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/IJ7CNrDzVGuRTZ6.png" alt="16.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/mwN2glxysMZn3c1.png" alt="17.png"></p>
+<h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><p><hanla></hanla>touch<hanla></hanla>创建文件：</p>
+<p><img src="https://i.loli.net/2021/09/01/yPTpzvDWtAf5IgJ.png" alt="18.png"></p>
+<p>mkdir 创建目录</p>
+<p><img src="https://i.loli.net/2021/09/01/dvtsMyXnVJxLmaE.png" alt="19.png"></p>
+<p>cp 复制  复制并改名</p>
+<p><img src="https://i.loli.net/2021/09/01/9K3xmpMhlUISRTe.png" alt="20.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/6fHth2eQzgibarj.png" alt="21.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/RqprmPjx13Fe9oC.png" alt="22.png"></p>
+<p><hanla></hanla>tail 看文本后<hanla></hanla>10<hanla></hanla>行<br><hanla></hanla>less 分页显示，上下键可以进行翻页，q<hanla></hanla>键退出。<br><hanla></hanla>相较于<hanla></hanla>cat，适合查看长文件，因为<hanla></hanla>cat<hanla></hanla>会一次显示，不会翻页。</p>
+<p>grep 针对文件内容进行过滤后显示：</p>
+<p><img src="https://i.loli.net/2021/09/01/TScIAqwW3YvF6Xp.png" alt="23.png"></p>
+<h1 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h1><p><img src="https://i.loli.net/2021/09/01/83ZYkQotV1Xzhv2.png" alt="24.png"></p>
+<p><hanla></hanla>文件有三种权限属性，分别是<hanla></hanla>r（读），w（写），x（执行）。  </p>
+<p>权限，代表了指定用户能以哪种方式访问文件。<br>每个文件都有三组权限，举个栗子：  </p>
+<p><img src="https://i.loli.net/2021/09/01/qSKymCiwuRhH5vg.png" alt="25.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/B6oGSA1VwqevzkW.png" alt="26.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/NvRS7kYynM8uV6w.png" alt="27.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/iJoWZhAeK5akcpO.png" alt="28.png"></p>
+<p><hanla></hanla>这段意思就是<hanla></hanla>kali 的主组和属组对<hanla></hanla>6<hanla></hanla>这个文件的权限是读写和读，其他人的权限是读</p>
+<p><img src="https://i.loli.net/2021/09/01/iuVT12SNrp8dyJE.png" alt="29.png"></p>
+<p><img src="https://i.loli.net/2021/09/01/MgGUNR7TWPyswKD.png" alt="30.png"></p>
+<p><hanla></hanla>//<hanla></hanla>如果是文件夹，加上-R<hanla></hanla>参数，会同时修改目录及目录下的所有文件的权限</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBK0r4"><img src="https://z3.ax1x.com/2021/09/01/hBK0r4.png" alt="hBK0r4.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKwMF"><img src="https://z3.ax1x.com/2021/09/01/hBKwMF.png" alt="hBKwMF.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKBqJ"><img src="https://z3.ax1x.com/2021/09/01/hBKBqJ.png" alt="hBKBqJ.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKaxU"><img src="https://z3.ax1x.com/2021/09/01/hBKaxU.png" alt="hBKaxU.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKU2T"><img src="https://z3.ax1x.com/2021/09/01/hBKU2T.png" alt="hBKU2T.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKcPx"><img src="https://z3.ax1x.com/2021/09/01/hBKcPx.png" alt="hBKcPx.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKyI1"><img src="https://z3.ax1x.com/2021/09/01/hBKyI1.png" alt="hBKyI1.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKsaR"><img src="https://z3.ax1x.com/2021/09/01/hBKsaR.png" alt="hBKsaR.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBKgG6"><img src="https://z3.ax1x.com/2021/09/01/hBKgG6.png" alt="hBKgG6.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBK2RK"><img src="https://z3.ax1x.com/2021/09/01/hBK2RK.png" alt="hBK2RK.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMNTA"><img src="https://z3.ax1x.com/2021/09/01/hBMNTA.png" alt="hBMNTA.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMaFI"><img src="https://z3.ax1x.com/2021/09/01/hBMaFI.png" alt="hBMaFI.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMYeH"><img src="https://z3.ax1x.com/2021/09/01/hBMYeH.png" alt="hBMYeH.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMdYt"><img src="https://z3.ax1x.com/2021/09/01/hBMdYt.png" alt="hBMdYt.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMtwd"><img src="https://z3.ax1x.com/2021/09/01/hBMtwd.png" alt="hBMtwd.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMwfP"><img src="https://z3.ax1x.com/2021/09/01/hBMwfP.png" alt="hBMwfP.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMr6S"><img src="https://z3.ax1x.com/2021/09/01/hBMr6S.png" alt="hBMr6S.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMBSf"><img src="https://z3.ax1x.com/2021/09/01/hBMBSf.png" alt="hBMBSf.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMDl8"><img src="https://z3.ax1x.com/2021/09/01/hBMDl8.png" alt="hBMDl8.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMsOg"><img src="https://z3.ax1x.com/2021/09/01/hBMsOg.png" alt="hBMsOg.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQC0H"><img src="https://z3.ax1x.com/2021/09/01/hBQC0H.png" alt="hBQC0H.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMz6O"><img src="https://z3.ax1x.com/2021/09/01/hBMz6O.png" alt="hBMz6O.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQSXD"><img src="https://z3.ax1x.com/2021/09/01/hBQSXD.png" alt="hBQSXD.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQ9ne"><img src="https://z3.ax1x.com/2021/09/01/hBQ9ne.png" alt="hBQ9ne.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBMvp6"><img src="https://z3.ax1x.com/2021/09/01/hBMvp6.png" alt="hBMvp6.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQP7d"><img src="https://z3.ax1x.com/2021/09/01/hBQP7d.png" alt="hBQP7d.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQktI"><img src="https://z3.ax1x.com/2021/09/01/hBQktI.png" alt="hBQktI.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQFAA"><img src="https://z3.ax1x.com/2021/09/01/hBQFAA.png" alt="hBQFAA.png"></a></p>
+<p><hanla></hanla>find<hanla></hanla>命令</p>
+<pre><code>find  /  -name "re*.conf"
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQV9P"><img src="https://z3.ax1x.com/2021/09/01/hBQV9P.png" alt="hBQV9P.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hBQAht"><img src="https://z3.ax1x.com/2021/09/01/hBQAht.png" alt="hBQAht.png"></a></p>
+<p>find / -user xy</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFBbw.png" alt="IJFBbw.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFgDi.png" alt="IJFgDi.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFw2U.png" alt="IJFw2U.png"></p>
+<p>设置行号  </p>
+<p>命令模式：<br>输入一些相关命令来对文本进行操控<br><hanla></hanla>G 进入文本尾部<br><hanla></hanla>gg  返回文首<br><hanla></hanla>ctrl+g  代表显示信息  行号  </p>
+<p>dd  删除光标所在行<br><hanla></hanla>D 删除光标所在位置到行尾<br><hanla></hanla>yy 复制光标所在行<br><hanla></hanla>p 粘贴  </p>
+<p>5dd 删除光标所在五行<br><hanla></hanla>5yy 复制光标所在位置向下<hanla></hanla>5<hanla></hanla>行<br><hanla></hanla>r 替换<br><hanla></hanla>R 替换整行<br><hanla></hanla>返回上一个操作按<hanla></hanla>u  </p>
+<p>a  i  o<br><hanla></hanla>插入模式：<br>编辑文本<br>底行模式：<br>按住 esc  先进入到命令模式下，才能进入底行模式  </p>
+<p>shift+:  </p>
+<p>底行模式可以输入底行命令  </p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJF4LO.png" alt="IJF4LO.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFf48.png" alt="IJFf48.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJF0Vk.png" alt="IJF0Vk.png"></p>
+<p>tar cvf x.tar 1.txt 2.txt<br><hanla></hanla>把<hanla></hanla>1.txt  2.txt 打包成 x.tar<br>tar tvf x.tar<br><hanla></hanla>查看 下<hanla></hanla>x.tar 下面有哪些东西<br><hanla></hanla>tar rvf x.tar 3.txt<br><hanla></hanla>把<hanla></hanla>3.txt<hanla></hanla>追加到<hanla></hanla>tar 中<br><hanla></hanla>tar xvf x.tar  </p>
+<p>gzip x.tar x.tar.gz  </p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJF2ke.png" alt="IJF2ke.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJF3yy.png" alt="IJF3yy.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFK7r.png" alt="IJFK7r.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFhS5.png" alt="IJFhS5.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkISp.png" alt="IJkISp.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkG7D.png" alt="IJkG7D.png"></p>
+<p>添加用户 ：<br>useradd xy<br><hanla></hanla>查看用户<br><hanla></hanla>cat /etc/passwd<br><hanla></hanla>修改密码<br><hanla></hanla>passwd xy<br><hanla></hanla>查看密码：<br>cat /etc/shadow  </p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFMk4.png" alt="IJFMk4.png"></p>
+<p>密码加密方式是特有的<br><hanla></hanla>可以用<hanla></hanla>john<hanla></hanla>进行密码破解<hanla></hanla>hashcat 强</p>
+<p>userdel xy<br><hanla></hanla>删除用户</p>
+<p>useradd xx<br>userdel -r xx<br><hanla></hanla>连同目录进行删除</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJFO9X.png" alt="IJFO9X.png"></p>
+<p>ps -aux</p>
+<p>kill 2605<br><hanla></hanla>删除进程</p>
+<p>netstat -tnlp<br><hanla></hanla>查看<hanla></hanla>tcp 的一些端口信息</p>
+<p>netstat -utnlp<br><hanla></hanla>查看<hanla></hanla>udp 的一些信息</p>
+<p>netstat ano<br><hanla></hanla>外部连接信息</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkL36.png" alt="IJkL36.png"></p>
+<p>rpm 安装的时候，安装依赖关系很烦<br><hanla></hanla>可以用<hanla></hanla>yum<hanla></hanla>进行安装</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkRPT.png" alt="IJkRPT.png"></p>
+<p>使用光盘的源，先挂载</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkquE.png" alt="IJkquE.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkWBQ.png" alt="IJkWBQ.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJknMh.png" alt="IJknMh.png"></p>
+<p>现在挂载的不是光盘，先卸载一下</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk78S.png" alt="IJk78S.png"></p>
+<p>先断开一下啊</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJklQH.png" alt="IJklQH.png"></p>
+<p>点击设置找到光驱</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkV3f.png" alt="IJkV3f.png"></p>
+<p> 重新挂载<br><hanla></hanla>mount  /dev/sr0  /media<br><hanla></hanla>然后<hanla></hanla>df-T</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkXuO.png" alt="IJkXuO.png"></p>
+<p>已经挂载上了<br>挂载之后哦编辑一下</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk6YL.png" alt="IJk6YL.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkARU.png" alt="IJkARU.png"></p>
+<p>后面都可以删除掉</p>
+<pre><code><hanla></hanla>enabled=1 默认是<hanla></hanla>0<hanla></hanla>不启用，改为<hanla></hanla>1 启用
+baseurl=file:///media/Server
+需要验证密钥，把<hanla></hanla>etc/*...<hanla></hanla>复制一下
+保存退出：
+</code></pre>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkcBw.png" alt="IJkcBw.png"></p>
+<p>导入密钥</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkUO8.png" alt="IJkUO8.png"></p>
+<p> 如果安装不了，清楚一下缓存</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJku8i.png" alt="IJku8i.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk1mk.png" alt="IJk1mk.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkHTe.png" alt="IJkHTe.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkmAu.png" alt="IJkmAu.png"></p>
+<p>重启服务</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkFOz.png" alt="IJkFOz.png"></p>
+<p><hanla></hanla>临时配置<hanla></hanla>ip</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkEfR.png" alt="IJkEfR.png"></p>
+<p>配置文件</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJks1t.png" alt="IJks1t.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkppG.png" alt="IJkppG.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkvT4.png" alt="IJkvT4.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkodX.png" alt="IJkodX.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk4YD.png" alt="IJk4YD.png"></p>
+<p>启动网站</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkBCp.png" alt="IJkBCp.png"></p>
+<p><hanla></hanla>启动<hanla></hanla>mysql</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkgq6.png" alt="IJkgq6.png"></p>
+<p>查看端口</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkCAh.png" alt="IJkCAh.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk2ZQ.png" alt="IJk2ZQ.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk0fE.png" alt="IJk0fE.png"></p>
+<p>  查看配置文件：</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkhaW.png" alt="IJkhaW.png"></p>
+<p>/etc/httpd/conf/httpd.conf</p>
+<p>Listen 80       监听端口<br><hanla></hanla>DirectoryRoot  W  网站根目录<br><hanla></hanla>DirectoryIndex index.html<br>ServerName <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com:80</a>  指定域名  </p>
+<p><hanla></hanla>/Listen    搜索<hanla></hanla>Listen   按<hanla></hanla>n<hanla></hanla>查找下一个  </p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkKpS.png" alt="IJkKpS.png"></p>
+<p>网站根目录</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkyd2.png" alt="IJkyd2.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJk9rH.png" alt="IJk9rH.png"></p>
+<p>源码托进来就可以搭建网站了</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkTKL.png" alt="IJkTKL.png"></p>
+<p>测试一下：</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkiqf.png" alt="IJkiqf.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkxHU.png" alt="IJkxHU.png"></p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkZX8.png" alt="IJkZX8.png"></p>
+<p><hanla></hanla>开发一个<hanla></hanla>81 端口</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkMZw.png" alt="IJkMZw.png"></p>
+<p>配置完重启一下</p>
+<p><img src="https://s3.jpg.cm/2021/09/01/IJkDfO.png" alt="IJkDfO.png"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

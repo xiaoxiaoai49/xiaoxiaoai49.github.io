@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 信息收集总结篇</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>信息收集总结篇 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/2
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/信息收集">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                信息收集
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>更好的发现网络安全问题，更全面发现网络信息</p>
+  <span id="more"></span>
+
+
+<h3 id="1-信息收集"><a href="#1-信息收集" class="headerlink" title="1.信息收集"></a><hanla></hanla>1.<hanla></hanla>信息收集</h3><p>我们要收集哪些信息<br>我们收集谁的信息</p>
+<p><img src="https://i.loli.net/2021/09/02/xzOIgmNXwqCJ9P1.png" alt="1.png"></p>
+<p><hanla></hanla>1.<hanla></hanla>要根据渗透的目标来收集<br><hanla></hanla>单个目标服务器（非<hanla></hanla>web）<br><hanla></hanla>web<hanla></hanla>服务器<br>整个网络拓扑<br>内网：<br>网络设备：交换机，路由器，防火墙，ids,  等<br><hanla></hanla>网络中的服务器：  文件服务器，dns ,http ,<hanla></hanla>域控制器等<br>外网：<br><hanla></hanla>相关联的其他服务器（ip<hanla></hanla>关联，服务关联）<br><hanla></hanla>旁站，c<hanla></hanla>段，邮件服务器，dns<hanla></hanla>服务器，代理服务器  </p>
+<p>web 漏洞多<br><hanla></hanla>owasp top10  </p>
+<p>其他服务：<br><hanla></hanla>1.<hanla></hanla>漏洞利用  smb  08067 17-010  rdp  12-020<br><hanla></hanla>2.<hanla></hanla>爆破口令   root 测试弱口令  system<br><hanla></hanla>3.<hanla></hanla>欺骗    arp<hanla></hanla>欺骗，数据被人嗅探窃取<br><hanla></hanla>4.<hanla></hanla>钓鱼    敏感信息被人窃取  </p>
+<p>服务收集：</p>
+<p>扫端口  nmap   </p>
+<h1 id="web-方向信息收集"><a href="#web-方向信息收集" class="headerlink" title="web 方向信息收集"></a>web 方向信息收集</h1><p><img src="https://i.loli.net/2021/09/02/lZOcBJRaNn9jzvM.png" alt="2.png"></p>
+<h2 id="一，域名收集"><a href="#一，域名收集" class="headerlink" title="一，域名收集"></a>一，域名收集</h2><p><img src="https://i.loli.net/2021/09/02/QDnzgAHO8M9NvJL.png" alt="3.png"></p>
+<h3 id="1-对应ip收集"><a href="#1-对应ip收集" class="headerlink" title="1.对应ip收集"></a><hanla></hanla>1.<hanla></hanla>对应<hanla></hanla>ip<hanla></hanla>收集</h3><p><hanla></hanla>IP 可以看地区，是不是阿里云<br>查询网：<a target="_blank" rel="noopener" href="https://www.ip138.com/">https://www.ip138.com</a></p>
+<p><img src="https://i.loli.net/2021/09/02/dOUpy9Pb36lDNB2.png" alt="4.png"></p>
+<h3 id="2，子域名收集："><a href="#2，子域名收集：" class="headerlink" title="2，子域名收集："></a>2，子域名收集：</h3><p>侧重于  学校   机构   大型公司  大型政府  ，企业  团体机构的站点<br>主站一般安全性高，对访问不多的网站可能疏忽<br><hanla></hanla>使用工具：layer<hanla></hanla>子域名挖掘机  </p>
+<p><img src="https://i.loli.net/2021/09/02/OiSV1EH2lkm3QGy.png" alt="5.png"></p>
+<p>在线查询接口：<br>在线子域名：<a target="_blank" rel="noopener" href="http://tools.bugscaner.com/subdomain/">http://tools.bugscaner.com/subdomain/</a>  </p>
+<p>在线查询接口：<br>在线子域名： <a target="_blank" rel="noopener" href="https://phpinfo.me/domain/">https://phpinfo.me/domain/</a>  </p>
+<p>脚本工具：<br><hanla></hanla>subDomainBrute<hanla></hanla>的特点是可以用小字典递归的发现三级域名、四级域名、甚至五<br>级域名等不容易被探测到的域名。<br>工具地址： <a target="_blank" rel="noopener" href="https://github.com/lijiejie/subDomainsBrute">https://github.com/lijiejie/subDomainsBrute</a>  </p>
+<p><img src="https://i.loli.net/2021/09/02/7axQBGqFEOTASHy.png" alt="6.png"></p>
+<p>用法：python subDomainsBrute.py xx.com<br><hanla></hanla>工具使用：<br><hanla></hanla>安装，以管理员身份运行<hanla></hanla>cmd  </p>
+<p><hanla></hanla>首先需要<hanla></hanla>python2.7   或者<hanla></hanla>3.5<hanla></hanla>的环境  </p>
+<p><img src="https://i.loli.net/2021/09/02/rjcoCdfSgqwymEO.png" alt="7.png"></p>
+<p><img src="https://i.loli.net/2021/09/02/TWbHiqhKC8B2nQN.png" alt="8.png"></p>
+<p><img src="https://i.loli.net/2021/09/02/fZq1bUgL9HQrWly.png" alt="9.png"></p>
+<p><hanla></hanla>两个文件都解压到<hanla></hanla>python<hanla></hanla>下面<br>运行</p>
+<p><img src="https://i.loli.net/2021/09/02/7uc9bFZNnm4tK13.png" alt="10.png"></p>
+<p>很多子域名：<br>根据容器分析漏洞存在情况：<br>iis apache nginx tomcat jboss te<br>iis 6.0  7.0  8.0  10.0   windows asp  aspx  jsp   漏洞可能多一些，低版本可能有解析漏洞<br><hanla></hanla>apache (win32)   phpstudy  upupw  宝塔  集成环境搭建<br><hanla></hanla>phpmyadmin mysql root root  </p>
+<h3 id="3-whois-查询域名注册人信息"><a href="#3-whois-查询域名注册人信息" class="headerlink" title="3,whois 查询域名注册人信息"></a>3,whois 查询域名注册人信息</h3><p>注册人姓名：<br>注册人邮箱<br>注册人电话<br>注册人地址<br><hanla></hanla>域名注册时间 貌似都不支持<hanla></hanla>gov  和  edu  查询    </p>
+<p>微步在线-<a target="_blank" rel="noopener" href="https://x.threatbook.cn/">https://x.threatbook.cn/</a><br><hanla></hanla>爱站网-<a target="_blank" rel="noopener" href="https://whois.aizhan.com/">https://whois.aizhan.com/</a><br><hanla></hanla>万网域名信息查询-<br><a target="_blank" rel="noopener" href="https://whois.aliyun.com/">https://whois.aliyun.com/</a><br><hanla></hanla>腾讯云域名信息查询-<br><a target="_blank" rel="noopener" href="https://whois.cloud.tencent.com/">https://whois.cloud.tencent.com/</a>  </p>
+<p>备案信息查询<br><a target="_blank" rel="noopener" href="http://icp.chinaz.com/"><hanla></hanla>http://icp.chinaz.com</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">https://beian.miit.gov.cn/#/Integrated/recordQuery</a>  </p>
+<p>对应利用：<br><hanla></hanla>1.<hanla></hanla>社工库查询<br><hanla></hanla>2.<hanla></hanla>注册人反查（姓名反查，邮箱反查）<br><hanla></hanla>3.<hanla></hanla>社工  （注册域名运营商）客服  </p>
+<h2 id="二-敏感目录"><a href="#二-敏感目录" class="headerlink" title="二.敏感目录"></a><hanla></hanla>二.<hanla></hanla>敏感目录</h2><p><img src="https://i.loli.net/2021/09/02/lRQDTwzNbmyMdFY.png" alt="11.png"></p>
+<h3 id="1-robots"><a href="#1-robots" class="headerlink" title="1,robots,"></a>1,robots,</h3><p><hanla></hanla>里面可能写着不让爬虫爬行的目录</p>
+<p><img src="https://i.loli.net/2021/09/02/mDytOYhJoCkQTgb.png" alt="12.png"></p>
+<p>iis6.0</p>
+<p><img src="https://i.loli.net/2021/09/02/F2mgvBqOPl7EAZQ.png" alt="13.png"></p>
+<p><img src="https://i.loli.net/2021/09/02/YPCK6vk1JRcELby.png" alt="14.png"></p>
+<p>后台目录，可以弱口令试一下</p>
+<p><hanla></hanla>item  科讯<hanla></hanla>cms  ks_inc</p>
+<h3 id="2-字典爆破"><a href="#2-字典爆破" class="headerlink" title="2.字典爆破"></a><hanla></hanla>2.<hanla></hanla>字典爆破</h3><h4 id="1-御剑扫描（软件不行）用7kbscan"><a href="#1-御剑扫描（软件不行）用7kbscan" class="headerlink" title="1.御剑扫描（软件不行）用7kbscan"></a><hanla></hanla>1.<hanla></hanla>御剑扫描（软件不行）用<hanla></hanla>7kbscan</h4><h4 id="2-菜刀爬行"><a href="#2-菜刀爬行" class="headerlink" title="2.菜刀爬行"></a><hanla></hanla>2.<hanla></hanla>菜刀爬行</h4><p><img src="https://i.loli.net/2021/09/02/6cCXEb5iFuKnovf.png" alt="15.png"></p>
+<h2 id="三，旁站c段"><a href="#三，旁站c段" class="headerlink" title="三，旁站c段"></a><hanla></hanla>三，旁站<hanla></hanla>c<hanla></hanla>段</h2><p>旁站在线查询网站<br><a target="_blank" rel="noopener" href="http://s.tool.chinaz.com/same"><hanla></hanla>http://s.tool.chinaz.com/same</a><br><a target="_blank" rel="noopener" href="http://www.webscan.cc/">http://www.webscan.cc</a><br><a target="_blank" rel="noopener" href="https://scan.top15.cn/web/webside">https://scan.top15.cn/web/webside</a><br><a target="_blank" rel="noopener" href="https://dns.aizhan.com/">https://dns.aizhan.com/</a>  </p>
+<p><hanla></hanla>C<hanla></hanla>段在线查询网站<br><a target="_blank" rel="noopener" href="http://www.webscan.cc/"><hanla></hanla>http://www.webscan.cc</a><br><a target="_blank" rel="noopener" href="https://www.chinabaiker.com/cduan.php">https://www.chinabaiker.com/cduan.php</a><br><a target="_blank" rel="noopener" href="https://phpinfo.me/bing.php">https://phpinfo.me/bing.php</a>    </p>
+<p><a target="_blank" rel="noopener" href="http://webscan.cc/">http://webscan.cc/</a><br>fofa<br><hanla></hanla>C<hanla></hanla>段查询  </p>
+<p><a target="_blank" rel="noopener" href="https://fofa.so/">https://fofa.so/</a>  </p>
+<p>语法:  </p>
+<p>ip=220.194.10.0/24  </p>
+<p><img src="https://i.loli.net/2021/09/02/fjdnKYeIuH5cDkr.png" alt="16.png"></p>
+<p><img src="https://i.loli.net/2021/09/02/MtvFuxycYEwTSXW.png" alt="17.png"></p>
+<p><hanla></hanla>使用<hanla></hanla>python<hanla></hanla>的脚本抓取</p>
+<p><img src="https://i.loli.net/2021/09/02/2F6AOylkYsu17cr.png" alt="18.png"></p>
+<p>需要俩个库</p>
+<p><img src="https://i.loli.net/2021/09/02/1yYwlMQVhogr4zt.png" alt="19.png"></p>
+<p>更换网址进行抓取</p>
+<p><img src="https://i.loli.net/2021/09/02/lH8reOZaMQU6KkA.png" alt="20.png"></p>
+<p><hanla></hanla>这里抓到了，所有工具开发，python<hanla></hanla>很有必要，以后能开发个自动挖<hanla></hanla>src<hanla></hanla>的岂不是美滋滋<br>旁站：<br>1.ip<br><hanla></hanla>2.<hanla></hanla>域名<br><hanla></hanla>3.<hanla></hanla>端口<br><hanla></hanla>4.<hanla></hanla>目录<br>域名：  </p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnYTA"><img src="https://z3.ax1x.com/2021/09/02/hrnYTA.png" alt="hrnYTA.png"></a></p>
+<p>看有没有防护：<br>and 1=1<br>order by<br><hanla></hanla>如果都没有报错可能没有没有防护<br>用字典扫但是误报可能有硬件防护  </p>
+<h2 id="四，整站分析"><a href="#四，整站分析" class="headerlink" title="四，整站分析"></a>四，整站分析</h2><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnGeH"><img src="https://z3.ax1x.com/2021/09/02/hrnGeH.png" alt="hrnGeH.png"></a></p>
+<h3 id="整站分析："><a href="#整站分析：" class="headerlink" title="整站分析："></a>整站分析：</h3><p><hanla></hanla>1.<hanla></hanla>操作系统<br>大小写可以判断，有的看网站返回的数据包可以判断<br><hanla></hanla>可以让网站报错有可能获取信息，robots.txt<hanla></hanla>里面也有可能存在信息<br><hanla></hanla>2.<hanla></hanla>网站容器<br><hanla></hanla>知道了这些信息之后，我们就需要知道网站用的<hanla></hanla>web<hanla></hanla>服务器是什么类型<br><hanla></hanla>的：Apache、Nginx、Tomcat 还是 IIS。知道了<hanla></hanla>web<hanla></hanla>服务器是哪种类型后，<br><hanla></hanla>我们还要探测<hanla></hanla>web<hanla></hanla>服务器具体的版本。比如<hanla></hanla>Ngnix<hanla></hanla>版本<hanla></hanla>&lt;0.83<hanla></hanla>会有解析漏洞 ，<br><hanla></hanla>IIS6.0<hanla></hanla>会有文件名解析漏洞、IIS7.0<hanla></hanla>会有畸形解析漏洞等。不同的<hanla></hanla>web<hanla></hanla>服务<br>器版本，存在着不同漏洞<br><hanla></hanla>3.<hanla></hanla>脚本语言<br><hanla></hanla>可以根据网站<hanla></hanla>URL<hanla></hanla>来判断<br><hanla></hanla>或者脚本<hanla></hanla>wappalyzer<br>asp access<br>aspx sqlserver  </p>
+<p>php mysql<br>posgresql  </p>
+<p>jsp + oracle<br>jsp +mysql/sqlserver<br>asp+oracle<br><hanla></hanla>常见搭配：<br>• ASP 和 ASPX：ACCESS、SQL Server<br>• PHP：MySQL、PostgreSQL<br>• JSP：Oracle、MySQL  </p>
+<h3 id="指纹识别"><a href="#指纹识别" class="headerlink" title="指纹识别"></a>指纹识别</h3><p>在渗透测试中，对目标服务器进行指纹识别是相当有必要的，因为只<br><hanla></hanla>有识别出相应的<hanla></hanla>Web<hanla></hanla>容器或者<hanla></hanla>CMS，才能查找与其相关的漏洞，然后才能进<br><hanla></hanla>行相应的渗透操作。CMS<hanla></hanla>又称内容管理系统。<br><hanla></hanla>常见的<hanla></hanla>CMS<hanla></hanla>有：<br>WordPress、Dedecms、Discuz、PhpWeb、PhpWind、Dvbbs、PhpCMS、<br><hanla></hanla>ECShop、、SiteWeaver、AspCMS、帝国、Z-Blog<hanla></hanla>等。<br>在线指纹识别网站<br><hanla></hanla>BugScaner：<a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a><br><hanla></hanla>云悉指纹：<a target="_blank" rel="noopener" href="http://www.yunsee.cn/finger.html">http://www.yunsee.cn/finger.html</a><br><hanla></hanla>潮汐指纹：<a target="_blank" rel="noopener" href="http://finger.tidesec.net/">http://finger.tidesec.net/</a><br><hanla></hanla>指纹收录平台：<a target="_blank" rel="noopener" href="https://fp.shuziguanxing.com/">https://fp.shuziguanxing.com/</a></p>
+<h3 id="waf判断"><a href="#waf判断" class="headerlink" title="waf判断"></a><hanla></hanla>waf<hanla></hanla>判断</h3><p><hanla></hanla>可以使用一些恶意语句，根据返回结果判断<hanla></hanla>waf<br><hanla></hanla>比如<br><hanla></hanla>安全狗<hanla></hanla>and 1=1<br><hanla></hanla>d<hanla></hanla>盾<hanla></hanla>order by  </p>
+<p><hanla></hanla>github<hanla></hanla>项目：主要国外的<hanla></hanla>waf<hanla></hanla>识别比较准确  </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/EnableSecurity/wafw00f">https://github.com/EnableSecurity/wafw00f</a>  </p>
+<h2 id="五-url采集"><a href="#五-url采集" class="headerlink" title="五.url采集"></a><hanla></hanla>五.url<hanla></hanla>采集</h2><h3 id="Google-Hacking"><a href="#Google-Hacking" class="headerlink" title="Google Hacking"></a><hanla></hanla>Google Hacking</h3><p><hanla></hanla>的含义原指利用<hanla></hanla>Google Google<hanla></hanla>搜索引擎搜索信息来进行入侵的技术和行为，<br><hanla></hanla>现指利用各种搜索引擎搜索信息来进行入侵的技术和行为,<hanla></hanla>当然，虽然说名字是<hanla></hanla>Google Hacking，但<br><hanla></hanla>并不是说只有<hanla></hanla>Google<hanla></hanla>才能使用这个语法，百度也同样能够使用<hanla></hanla>Google Hacking<hanla></hanla>语法。<br><hanla></hanla>常用的<hanla></hanla>Google hacking<hanla></hanla>语法：<br><hanla></hanla> intitle：搜索网页标题中包含有特定字符的网页。例如输入<hanla></hanla>“intitle:   any”，这样网页标题中带有<hanla></hanla>any<br><hanla></hanla>的网页都会被搜索出来。<br><hanla></hanla> inurl：搜索包含有特定字符的<hanla></hanla>URL。例如输入<hanla></hanla>“inurl:any”，则可以找到带有<hanla></hanla>any<hanla></hanla>字符的<hanla></hanla>URL。<br><hanla></hanla> intext:<hanla></hanla>搜索网页正文内容中的指定字符，例如输入<hanla></hanla>“intext:any”。这个语法类似我们平时在某些网站<br><hanla></hanla>中使用的<hanla></hanla>“文章内容搜索”<hanla></hanla>功能。<br><hanla></hanla> Filetype:<hanla></hanla>搜索指定类型的文件。例如输入<hanla></hanla>“filetype:doc”，将返回所有以<hanla></hanla>doc<hanla></hanla>结尾的文件<hanla></hanla>URL。<br><hanla></hanla>   Site：找到与指定网站有联系的<hanla></hanla>URL。例如输入<hanla></hanla>“Site：any.com”。所有和这个网站有联系的<hanla></hanla>URL<hanla></hanla>都<br>会被显示。  </p>
+<p><hanla></hanla>zoomeye<hanla></hanla>钟馗之眼<br><a target="_blank" rel="noopener" href="https://www.zoomeye.org/"><hanla></hanla>https://www.zoomeye.org</a> </p>
+<p>左侧部分：给出了本次搜索结果的<br>搜索类型（网站、设备数量）、年<br><hanla></hanla>份、所处国家、WEB<hanla></hanla>应用、WEB<hanla></hanla>容<br>器、组件、服务、设备、端口信息 </p>
+<p><hanla></hanla>中间部分：给出了搜素结果的<hanla></hanla>IP<hanla></hanla>地<br>址、使用的协议、开放的端口服务<br>、所处的国家、城市、搜索时间 </p>
+<p><hanla></hanla>右侧部分：给出了使用<hanla></hanla>HTTP<hanla></hanla>协议版<br>本信息、使用的组件名称、版本、<br>以及服务器的类型、主机的系统信息</p>
+<p>1、指定搜索的组件以及版本<br><hanla></hanla>App:<hanla></hanla>组件名称、ver:<hanla></hanla>组件版本<br><hanla></hanla>例如：搜索 apache<hanla></hanla>组件 版本<hanla></hanla>2.4 app:apache ver:2.4<br>2、指定搜索的端口<br><hanla></hanla>port：端口号<br><hanla></hanla>例如：搜索开放了<hanla></hanla>SSH<hanla></hanla>端口的主机 port:22<br>3、指定搜索的操作系统<br><hanla></hanla>OS：操作系统名称<br><hanla></hanla>例如：搜索<hanla></hanla>Linux<hanla></hanla>操作系统 OS:Linux<br>4、指定搜索的服务<br><hanla></hanla>Service：服务名称<br><hanla></hanla>例如，搜索<hanla></hanla>SSH<hanla></hanla>服务 service：SSH<br>5、指定搜索的地理位置<br><hanla></hanla>Country：国家名 city：城市名<br>例如：country：China city：Beijing<br>6、搜索指定的网站域名<br><hanla></hanla>Site：网站域名<br>例如：site：<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a><br>7、搜索指定的主机名<br>例如：hostname:zwl.cuit.edu.cn  </p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrn3Oe"><img src="https://z3.ax1x.com/2021/09/02/hrn3Oe.png" alt="hrn3Oe.png"></a></p>
+<p>在上一页的图片中的搜索结果包含两个部分，左侧的是大量汇总数据，包括：<br>•TOTAL RESULTS：总计结果<br>•TOP COUNTRIES：主要国家<br>•TOP SERVICES：使用最多的服务、端口<br>•TOP ORGANIZATIONS：使用最多的组织、ISP<br>•TOP PRODUCTS：使用最多的产品、软件名称<br>在中间的主页面我们可以看到包含如下的搜索结果：<br>•IP 地址<br>•主机名<br>•ISP<br>•该条目的收录收录时间<br>•该主机位于的国家<br>•Banner 信息  </p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrn1yD"><img src="https://z3.ax1x.com/2021/09/02/hrn1yD.png" alt="hrn1yD.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnJwd"><img src="https://z3.ax1x.com/2021/09/02/hrnJwd.png" alt="hrnJwd.png"></a></p>
+<p><hanla></hanla>shodan<hanla></hanla>还具备搜索过滤功能（当然，钟馗之眼也有搜索过滤的功能，不过并不和<hanla></hanla>shodan<br><hanla></hanla>的完全一样），常用的过滤命令如下：<br>1.hostname：搜索指定的主机或域名，例如 hostname:”google”<br>2.port：搜索指定的端口或服务，例如 port:”80”<br>3.country：搜索指定的国家，例如 country:”CN”<br>4.city：搜索指定的城市，例如 city:”Beijing”<br>5.org：搜索指定的组织或公司，例如 org:”baidu”<br><hanla></hanla>6.isp：搜索指定的<hanla></hanla>ISP<hanla></hanla>供应商，例如 isp:”China Telecom”<br><hanla></hanla>7.product：搜索指定的操作系统<hanla></hanla>/<hanla></hanla>软件<hanla></hanla>/<hanla></hanla>平台，例如 product:”Apache httpd”<br>8.version：搜索指定的软件版本，例如 version:”1.6.2”<br>9.geo：搜索指定的地理位置，参数为经纬度，例如 geo:”61.8349, 127.7468”<br><hanla></hanla>10.before/after：搜索指定收录时间前后的数据，格式为<hanla></hanla>dd-mm-yy，例如 before:”06-06-<br>18”<br><hanla></hanla>11.net：搜索指定的<hanla></hanla>IP<hanla></hanla>地址或子网，例如 net:”80.63.160.0/24”</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnNFI"><img src="https://z3.ax1x.com/2021/09/02/hrnNFI.png" alt="hrnNFI.png"></a></p>
+<p><hanla></hanla>url<hanla></hanla>采集可以自动化一些东西，但是要安装谷歌驱动器</p>
+<h2 id="六，服务器方向信息收集"><a href="#六，服务器方向信息收集" class="headerlink" title="六，服务器方向信息收集"></a>六，服务器方向信息收集</h2><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnwSf"><img src="https://z3.ax1x.com/2021/09/02/hrnwSf.png" alt="hrnwSf.png"></a></p>
+<h3 id="Scanport"><a href="#Scanport" class="headerlink" title="Scanport"></a>Scanport</h3><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnafP"><img src="https://z3.ax1x.com/2021/09/02/hrnafP.png" alt="hrnafP.png"></a></p>
+<h3 id="nmap-识别"><a href="#nmap-识别" class="headerlink" title="nmap 识别"></a>nmap 识别</h3><p><hanla></hanla>nc  telnet  链接<hanla></hanla>IP 端口<br>百度  6379  redis  </p>
+<p>ftp<br>admin admin system<br><hanla></hanla>nmap<hanla></hanla>语法：  </p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnDOg"><img src="https://z3.ax1x.com/2021/09/02/hrnDOg.png" alt="hrnDOg.png"></a><br><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrnB6S"><img src="https://z3.ax1x.com/2021/09/02/hrnB6S.png" alt="hrnB6S.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQwNj"><img src="https://z3.ax1x.com/2021/09/02/hrQwNj.png" alt="hrQwNj.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQcuT"><img src="https://z3.ax1x.com/2021/09/02/hrQcuT.png" alt="hrQcuT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQUHg"><img src="https://z3.ax1x.com/2021/09/02/hrQUHg.png" alt="hrQUHg.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQNDS"><img src="https://z3.ax1x.com/2021/09/02/hrQNDS.png" alt="hrQNDS.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQdEQ"><img src="https://z3.ax1x.com/2021/09/02/hrQdEQ.png" alt="hrQdEQ.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQ04s"><img src="https://z3.ax1x.com/2021/09/02/hrQ04s.png" alt="hrQ04s.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQDCn"><img src="https://z3.ax1x.com/2021/09/02/hrQDCn.png" alt="hrQDCn.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQsg0"><img src="https://z3.ax1x.com/2021/09/02/hrQsg0.png" alt="hrQsg0.png"></a></p>
+<h2 id="七-网络设备信息收集"><a href="#七-网络设备信息收集" class="headerlink" title="七.网络设备信息收集"></a><hanla></hanla>七.<hanla></hanla>网络设备信息收集</h2><p>内网比较多<br><hanla></hanla>防火墙<hanla></hanla>/ids/ips/  通过隧道穿越防火墙  </p>
+<p><hanla></hanla>设备<hanla></hanla>shodan<hanla></hanla>用的比较多，物联网  </p>
+<h2 id="八-后台"><a href="#八-后台" class="headerlink" title="八.后台"></a><hanla></hanla>八.<hanla></hanla>后台</h2><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQr3q"><img src="https://z3.ax1x.com/2021/09/02/hrQr3q.png" alt="hrQr3q.png"></a></p>
+<p>特比注意 ：有的技术支持，<br>建站企业，可以找这些网站建的其余网站的漏洞</p>
+<p><hanla></hanla>通过编辑器的漏洞也可以拿<hanla></hanla>getshell</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrQyvV"><img src="https://z3.ax1x.com/2021/09/02/hrQyvV.png" alt="hrQyvV.png"></a></p>
+<h2 id="九-cdn"><a href="#九-cdn" class="headerlink" title="九.cdn"></a>九.cdn</h2><p><hanla></hanla>cdn<hanla></hanla>全解<br><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/227818"><hanla></hanla>https://www.anquanke.com/post/id/227818</a></p>
+<h3 id="在本地hosts-绑定域名和ip"><a href="#在本地hosts-绑定域名和ip" class="headerlink" title="在本地hosts 绑定域名和ip"></a><hanla></hanla>在本地<hanla></hanla>hosts 绑定域名和<hanla></hanla>ip</h3><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrlMrT"><img src="https://z3.ax1x.com/2021/09/02/hrlMrT.png" alt="hrlMrT.png"></a></p>
+<p><hanla></hanla>如果你是真实的<hanla></hanla>ip  那么你访问百度就没有问题</p>
+<h3 id="2-邮件"><a href="#2-邮件" class="headerlink" title="2.邮件"></a><hanla></hanla>2.<hanla></hanla>邮件</h3><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrlQqU"><img src="https://z3.ax1x.com/2021/09/02/hrlQqU.png" alt="hrlQqU.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrl1ZF"><img src="https://z3.ax1x.com/2021/09/02/hrl1ZF.png" alt="hrl1ZF.png"></a></p>
+<h3 id="ip138查历史记录（国内）"><a href="#ip138查历史记录（国内）" class="headerlink" title="ip138查历史记录（国内）"></a><hanla></hanla>ip138<hanla></hanla>查历史记录（国内）</h3><p><a target="_blank" rel="noopener" href="http://toolbar.netcraft.com/site_report?url=www.xxx.com%EF%BC%88%E5%9B%BD%E5%A4%96%E7%BF%BB%E5%A2%99%EF%BC%89">http://toolbar.netcraft.com/site_report?url=www.xxx.com（国外翻墙）</a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrlnx0"><img src="https://z3.ax1x.com/2021/09/02/hrlnx0.png" alt="hrlnx0.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrlKMV"><img src="https://z3.ax1x.com/2021/09/02/hrlKMV.png" alt="hrlKMV.png"></a></p>
+<p><hanla></hanla>可能之前使用<hanla></hanla>ip<hanla></hanla>是真实的，现在使用的是<hanla></hanla>cdn</p>
+<h3 id="通过app抓包测试接口"><a href="#通过app抓包测试接口" class="headerlink" title="通过app抓包测试接口"></a><hanla></hanla>通过<hanla></hanla>app<hanla></hanla>抓包测试接口</h3><h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a><hanla></hanla>ping</h3><p>xxx.com 而不是 ping <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a><br><hanla></hanla>（现有很多<hanla></hanla>CDN<hanla></hanla>厂商基本只要求把<a target="_blank" rel="noopener" href="http://www.xxx.com/"><hanla></hanla>www.xxx.com</a><hanla></hanla> cname<hanla></hanla>到<hanla></hanla>cdn<hanla></hanla>主服务器上去）</p>
+<p><hanla></hanla>全球<hanla></hanla>ping<hanla></hanla>检测<br><a target="_blank" rel="noopener" href="http://ping.chinaz.com/"><hanla></hanla>http://ping.chinaz.com/</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.wepcc.com/">https://www.wepcc.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://fofa.so/">https://fofa.so/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zoomeye.org/">https://www.zoomeye.org/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.shodan.io/">https://www.shodan.io/</a></p>
+<p><hanla></hanla>查看域名对应的历史端口和服务找出可疑的<hanla></hanla>IP，<br><hanla></hanla>再结合<hanla></hanla>ip<hanla></hanla>域名反查（<a target="_blank" rel="noopener" href="https://dns.aizhan.com/%EF%BC%89%E6%9D%A5%E7%A1%AE%E5%AE%9A%E7%9C%9F%E5%AE%9EIP%E3%80%82"><hanla></hanla>https://dns.aizhan.com/）来确定真实<hanla></hanla>IP。</a></p>
+<p><hanla></hanla>ip<hanla></hanla>反查在线工具</p>
+<p><a target="_blank" rel="noopener" href="https://dns.aizhan.com/">https://dns.aizhan.com/</a></p>
+<p><a target="_blank" rel="noopener" href="http://tool.chinaz.com/">http://tool.chinaz.com/</a></p>
+<p><a target="_blank" rel="noopener" href="http://site.ip138.com/">http://site.ip138.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://phpinfo.me/bing.php">https://phpinfo.me/bing.php</a></p>
+<p>查询网：<br><a target="_blank" rel="noopener" href="https://site.ip138.com/">https://site.ip138.com/</a></p>
+<p><hanla></hanla>国外冷门<hanla></hanla>dns<br>nslookup<br>xxx.com 8.8.8.8<br><hanla></hanla>在线查询：</p>
+<p><a target="_blank" rel="noopener" href="https://webiplookup.com/">https://webiplookup.com/</a></p>
+<h2 id="十，社工"><a href="#十，社工" class="headerlink" title="十，社工"></a>十，社工</h2><p><hanla></hanla>1.<hanla></hanla>个人身份信息伪造：</p>
+<p>随机伪造完整的个人信息</p>
+<p><a target="_blank" rel="noopener" href="https://www.fakenamegenerator.com/gen-random-ch-us.php">https://www.fakenamegenerator.com/gen-random-ch-us.php</a><br><hanla></hanla>云手机短信接码平台</p>
+<p><a target="_blank" rel="noopener" href="https://www.materialtools.com/?page=1">https://www.materialtools.com/?page=1</a></p>
+<p><hanla></hanla>2.<hanla></hanla>综合性信息收集情报</p>
+<p><a target="_blank" rel="noopener" href="https://www.osint-labs.org/search/index.php">https://www.osint-labs.org/search/index.php</a></p>
+<p><hanla></hanla>3<hanla></hanla>社工库：</p>
+<p><a target="_blank" rel="noopener" href="http://site3.sjk.space/">http://site3.sjk.space</a></p>
+<p><a target="_blank" rel="noopener" href="https://haveibeenpwned.com/">https://haveibeenpwned.com/</a></p>
+<p>27017/27018<br><hanla></hanla>服务：mongodb&nbsp;&nbsp;&nbsp;&nbsp; 总结：未授权访问<hanla></hanla>/<hanla></hanla>爆破</p>
+<p><hanla></hanla>4Telegram 社工机器人<hanla></hanla>s<br><hanla></hanla>目前可用的社工查询机器人，需要自己翻墙创建<hanla></hanla>Telegram<hanla></hanla>账号。</p>
+<p><a target="_blank" rel="noopener" href="https://t.me/sgk123bot">https://t.me/sgk123bot</a></p>
+<p>还有其他微博 哔哩哔哩，各种微信公众号抖音等收集<br>客服，啥的</p>
+<h2 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h2><p>kali.org<br><hanla></hanla>安装自己百度吧，</p>
+<p><hanla></hanla>kali<hanla></hanla>可能需要更新，需要配置一下他的源，在<hanla></hanla>vi /etc/apt/sources.list</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrlJi9"><img src="https://z3.ax1x.com/2021/09/02/hrlJi9.png" alt="hrlJi9.png"></a></p>
+<p> 第一步升级：<br>apt-get update  刷新一些软件仓库</p>
+<p>apt-get remove sqlmap  卸载软件<br><hanla></hanla>apt-get install sqlmap 安装软件</p>
+<p><hanla></hanla>deb<hanla></hanla>的包用这个安装</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrl3a4"><img src="https://z3.ax1x.com/2021/09/02/hrl3a4.png" alt="hrl3a4.png"></a></p>
+<p>比如搜狗输入法</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrl8IJ"><img src="https://z3.ax1x.com/2021/09/02/hrl8IJ.png" alt="hrl8IJ.png"></a></p>
+<p>存在依赖关系怎么办<br><hanla></hanla>apt-get  –fix-boken install</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrlYGR"><img src="https://z3.ax1x.com/2021/09/02/hrlYGR.png" alt="hrlYGR.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hrltR1"><img src="https://z3.ax1x.com/2021/09/02/hrltR1.png" alt="hrltR1.png"></a></p>
+<p><hanla></hanla>–enum  检测做<hanla></hanla>dns<hanla></hanla>解析的服务器有没有区域传送漏洞防护<br><hanla></hanla>kali<hanla></hanla>模拟成<hanla></hanla>dns<hanla></hanla>服务器，申请域名所有文件下载到本地</p>
+<p><img src="https://i0.hdslb.com/bfs/album/04f7525c97064dacda8884566ea52987667e3d42.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/4c8082ecf9e5322d6eb3b315512671815c508ffc.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/9294bea153ecd7a51376386919d6bc04f54dc041.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/4b67664687979db3e3d340397d0a391d18605c11.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/52b49f73e74443e31d4d9ed5b396626f1fb389b9.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/7fc0676b5435b194661a2e2cdfc9471e417ed805.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/744eee2cafae239d7aba4ed2d42796edc0dec0b5.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/edba0709145549c24233782f0223340aaf1a87a0.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/cbf74f290cc896a0ebe125c31125dd3800bd54f5.png"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || web漏洞-逻辑越权之登录脆弱及支付篡改</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>web<hanla></hanla>漏洞-逻辑越权之登录脆弱及支付篡改 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/9
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/web-逻辑越权漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                web-逻辑越权漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>思维导图</p>
+<span id="more"></span>
+
+<p><img src="https://i.loli.net/2021/08/09/f6GbDhM38UdnpKH.png" alt="33_1.png"></p>
+<p>#登录应用功能点安全问题</p>
+<p>检测功能点，检测，危害，修复方案等</p>
+<p><hanla></hanla>1.<hanla></hanla>登录点暴力破解</p>
+<p>2.HTTP/HTTPS 传输</p>
+<p>3.Cookie 脆弱点验证</p>
+<p>4.Session 固定点测试</p>
+<p><hanla></hanla>5.<hanla></hanla>验证密文比对安全测试</p>
+<h1 id="数据篡改安全问题"><a href="#数据篡改安全问题" class="headerlink" title="数据篡改安全问题"></a>数据篡改安全问题</h1><p>原理，检测，危害，修复等</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/67080.html">https://www.secpulse.com/archives/67080.html</a></p>
+<h1 id="商品购买流程："><a href="#商品购买流程：" class="headerlink" title="商品购买流程："></a>商品购买流程：</h1><p>选择商品和数量-选择支付及配送方式-生成订单编号-订单支付选择-完成支付</p>
+<h1 id="常见篡改参数："><a href="#常见篡改参数：" class="headerlink" title="常见篡改参数："></a>常见篡改参数：</h1><p>商品编号 ID，购买价格，购买数量，支付方式，订单号，支付状态等</p>
+<h1 id="常见修改方法："><a href="#常见修改方法：" class="headerlink" title="常见修改方法："></a>常见修改方法：</h1><p>替换支付，重复支付，最小额支付，负数支付，溢出支付，优惠券支付等</p>
+<p>6000 大米测试产品</p>
+<p>/index.php?m=Member&amp;a=gobuy&amp;iscart=0&amp;id=127&amp;name=%E5%A4%A7%E7%B1%B3%E6%B5%8B%E8%</p>
+<p>AF%95%E4%BA%A7%E5%93%81&amp;qty=1&amp;price=6000&gt;ype=%E7%81%B0%E8%89%B2&amp;pic=/Public/Uplo</p>
+<p>ads/thumb/thumb_1393218295.jpg</p>
+<p>5400 大米手机 cms</p>
+<p>/index.php?m=Member&amp;a=gobuy&amp;iscart=0&amp;id=70&amp;name=%E5%A4%A7%E7%B1%B3%E6%89%8B%E6%9</p>
+<p>C%BACMS&amp;qty=2&amp;price=5400&gt;ype=%E7%81%B0%E8%89%B2&amp;pic=/Public/Uploads/thumb/thumb_13</p>
+<p>93218295.jpg</p>
+<p>index.php?s=/wap/pay/wchatQrcodePay 微信支付</p>
+<p>index.php?s=/wap/pay/alipay 支付宝支付</p>
+<p>index.php?s=<a target="_blank" rel="noopener" href="http://www.xiaodi8.com/alipay">http://www.xiaodi8.com/alipay</a> 调用其他的支付接口</p>
+<pre><code>$pay_name=$_GET['s'];
+</code></pre>
+<p>6000 是存储到数据库里，安全的做法：以数据库的数据值为准</p>
+<h1 id="登录点爆破"><a href="#登录点爆破" class="headerlink" title="登录点爆破"></a>登录点爆破</h1><p><hanla></hanla>http/https<hanla></hanla>传输：一般<hanla></hanla>http<hanla></hanla>可以爆破   </p>
+<p>搜索：inurl:zb_system/login.php<br><hanla></hanla>抓包：<br><img src="https://i.loli.net/2021/08/09/bKW4hn8P3fTdHum.png" alt="34_1.png"></p>
+<p><hanla></hanla>这里发现<hanla></hanla>password<hanla></hanla>进行了加密经过判断是<hanla></hanla>MD5<hanla></hanla>加密<br><hanla></hanla>进入<hanla></hanla>inturder<hanla></hanla>模块进行爆破    设置变量<br><hanla></hanla>注意密码要添加<hanla></hanla>MD5<hanla></hanla>加密：  </p>
+<p><img src="https://i.loli.net/2021/08/09/XuOAyZBiL8abJ92.png" alt="34_2.png"></p>
+<p>  是了一下没爆出来就不搞了</p>
+<p>  <img src="https://i.loli.net/2021/08/09/eLGPnkX5mxpgSEF.png" alt="34_3.png"></p>
+<h1 id="3-Cookie-脆弱点验证"><a href="#3-Cookie-脆弱点验证" class="headerlink" title="3.Cookie 脆弱点验证"></a>3.Cookie 脆弱点验证</h1><p><hanla></hanla>有些修改<hanla></hanla>cookie<hanla></hanla>可以进行登录  </p>
+<p><hanla></hanla>4.<hanla></hanla>支付漏洞总结：<br><a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/67080.html">https://www.secpulse.com/archives/67080.html
+</a></p>
+<p>#商品购买流程：</p>
+<p>选择商品和数量-选择支付及配送方式-生成订单编号-订单支付选择-完成支付</p>
+<p>#常见篡改参数：</p>
+<p>商品编号 ID，购买价格，购买数量，支付方式，订单号，支付状态等</p>
+<p>#常见修改方法：</p>
+<p>替换支付，重复支付，最小额支付，负数支付，溢出支付，优惠券支付等</p>
+<p>1，抓包数量可以改成负数  -1</p>
+<p>自己前后对比哪些可以改，原则都是抓包测试哪些可以更改，以低价或者不花钱进行购买</p>
+<p>支付方式：自己搞支付接口，进行支付，但是这个环境很难搭建</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

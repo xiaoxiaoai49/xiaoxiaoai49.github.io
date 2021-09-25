@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || windows基础</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>windows<hanla></hanla>基础 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/8/25
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/基础">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                基础
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h1 id="1-系统目录，服务，端口"><a href="#1-系统目录，服务，端口" class="headerlink" title="1.系统目录，服务，端口"></a><hanla></hanla>1.<hanla></hanla>系统目录，服务，端口</h1><p>  系统目录的了解</p>
+  <span id="more"></span>
+
+<h3 id="1-系统目录："><a href="#1-系统目录：" class="headerlink" title="1 系统目录："></a><hanla></hanla>1 系统目录：</h3><p><hanla></hanla>a.windows<hanla></hanla>目录 -system32 目录：<br>cmd  sethc 都存放在这里<br><hanla></hanla>config<hanla></hanla>中的<hanla></hanla>sam<hanla></hanla>文件<br><hanla></hanla>drivers/etc/hosts<hanla></hanla>文件 优先级高于<hanla></hanla>dns<hanla></hanla>解析我们可以钓鱼，d’n   </p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hVreYR"><img src="https://z3.ax1x.com/2021/08/25/hVreYR.png" alt="hVreYR.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hVrAw4"><img src="https://z3.ax1x.com/2021/08/25/hVrAw4.png" alt="hVrAw4.png"></a></p>
+<p><hanla></hanla>sethc 按五次可以出现粘滞键，比如扫到端口远程登录的时候，我们可以对登录界面进行爆破，用户名一般为<hanla></hanla>administrater<br><hanla></hanla>，远程登录的时候以后提权的时候也可以把粘滞键改为<hanla></hanla>cmd<hanla></hanla>窗口<br><img src="https://i0.hdslb.com/bfs/album/378f0534a275b34a1710a5dab44cac76beb71f4b.png"></p>
+<p><hanla></hanla>b. Program Filess<hanla></hanla>目录，文件安装的目录<br><hanla></hanla>c. 用户目录 管理员桌面，有可能有<hanla></hanla>idc  账号密码信息  其他黑客留的远控，挖矿，片子</p>
+<p>网络服务：</p>
+<p>web  ftp  mysql rdp<br>web 漏洞多<br><hanla></hanla>owasp top 10<br><hanla></hanla>网络服务：<br><hanla></hanla>1.<hanla></hanla>爆破（administrator  linux:root)  密码<br><hanla></hanla>2.<hanla></hanla>漏洞利用：(exp,msf)<hanla></hanla>漏洞利用<br><hanla></hanla>3.<hanla></hanla>欺骗（dns 欺骗)<br><hanla></hanla>4.<hanla></hanla>钓鱼（nishang,<hanla></hanla>提取钓鱼）<br>常见服务：<br><hanla></hanla>web   dns  dhcp  邮件服务  telnet<hanla></hanla>服务  ftp<hanla></hanla>服务  smb<hanla></hanla>服务   </p>
+<h3 id="端口："><a href="#端口：" class="headerlink" title="端口："></a>端口：</h3><p>计算机端口作用使用了区分服务<br>端口不可以重复使用，<br><hanla></hanla>端口范围从<hanla></hanla>1-65535（1-1024）<br>分给了系统自带的一些服务<br>木马病毒一般使用高位端口<br><hanla></hanla>根据端口，我们可以探测计算机开放的服务，操作系统,<hanla></hanla>网络角色   </p>
+<p><img src="https://i0.hdslb.com/bfs/album/c4b57df465488d5fdf5ab4a061c8749404a97f26.png"></p>
+<p>远程桌面连接</p>
+<p><img src="https://i0.hdslb.com/bfs/album/0986895bffc2ffb64fd30fff627b1f64b48d5a19.png"></p>
+<p>iis7/7.5 08<br>iis8/8.5 12<br>iis10  2016<br><hanla></hanla>常见端口：  </p>
+<p><img src="https://i0.hdslb.com/bfs/album/a1722c48f26eb183dbabcf124b9ac167f06218f5.png"></p>
+<p><hanla></hanla>12345<hanla></hanla>高位端口不知道：<br>1，百度<br><hanla></hanla>2，nmap 识别端口指纹看服务<br><hanla></hanla>3，加在<hanla></hanla>ip<hanla></hanla>或者域名后面看看是不是网站<br><hanla></hanla>4，测试是不是<hanla></hanla>3389 （有可能被改掉）<br>注册表： </p>
+<p><img src="https://i0.hdslb.com/bfs/album/6744d327a7bb4a1d02f4ca45c3d9294d8facb8be.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/cfff3bbd1da2121855be5330cc43aa2d7e75414f.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/bb316ac8b5bf277b14bb8ee85dedfe24eb61c6ba.png"></p>
+<p>可以克隆账号<br><hanla></hanla>dll 劫持<br><hanla></hanla>qq  dll（动态链接库）换成我们自己的<hanla></hanla>msf<hanla></hanla>生成的每次运行  </p>
+<h1 id="2，常见的dos命令"><a href="#2，常见的dos命令" class="headerlink" title="2，常见的dos命令"></a><hanla></hanla>2，常见的<hanla></hanla>dos<hanla></hanla>命令</h1><p><hanla></hanla>漏洞–后台–getshell  = 执行命令操作 - 提权 -工具,<hanla></hanla>管道符，–内网</p>
+<p><hanla></hanla>ping    TTL=128<hanla></hanla>可以简要判断一些操作系统（大小写）<br>tracert     <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 可以进行路由追踪<br><hanla></hanla>可以判断<hanla></hanla>c<hanla></hanla>段里面的主机是不是在一个地方  </p>
+<p><img src="https://i0.hdslb.com/bfs/album/641fd2a4e1a681a10087bc245d342e8235189f04.png"></p>
+<p>不是一个机房<br><hanla></hanla>什么站点可以搞<hanla></hanla>c<hanla></hanla>段<br><hanla></hanla>大学的站，政府的站，团体机构<hanla></hanla>c<hanla></hanla>段  </p>
+<p><img src="https://i0.hdslb.com/bfs/album/79c25c45f9eeac4deb15e57b60bed995cb378af2.png"></p>
+<p><hanla></hanla>ipconfig /release     释放<hanla></hanla>ip<br><hanla></hanla>ipconfig /renew   重新获取<hanla></hanla>ip<br>ipconfig /all         看到更详细<br><hanla></hanla>ipconfig /flushdns             清空<hanla></hanla>dns<hanla></hanla>缓存解析信息  </p>
+<p>systeminfo   </p>
+<p>arp -a<br><hanla></hanla>查看<hanla></hanla>arp<hanla></hanla>缓存表  </p>
+<p><img src="https://i0.hdslb.com/bfs/album/870fa210fbcead3eb7af6ef2245fe077b5e78645.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/a09f1dd960312241c10441c23a430ce4d96e64f7.png"></p>
+<p>shutdown -s -t 180 -c “fsfsdf”<br>   -r  是重启<br><hanla></hanla>shutdown -a<hanla></hanla>关掉<br><hanla></hanla>查看文件 type   123.txt    或者<hanla></hanla>start  </p>
+<p><img src="https://i0.hdslb.com/bfs/album/fd1229eb6539d359e2210f9739d0ed9dc92361c9.png"></p>
+<p> <img src="https://i0.hdslb.com/bfs/album/d8728da862a8d613f9c291cd689d98d0d89b348a.png"></p>
+<p><hanla></hanla>远程映射别人的<hanla></hanla>c<hanla></hanla>盘为自己的<hanla></hanla>k<hanla></hanla>盘：<br>就可以上传下载文件<br><img src="https://i0.hdslb.com/bfs/album/3def0dd63d3547ed965c35b55d85c1b549d8a9e2.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/3acdaea0147c95352057e98f33618faa27eb7270.png"></p>
+<p><hanla></hanla>其实我们默认<hanla></hanla>c<hanla></hanla>盘都是开着共享的</p>
+<p><img src="https://i0.hdslb.com/bfs/album/686adc76d5abb2774059f8be358527400386108c.png"></p>
+<p>关掉</p>
+<p><img src="https://i0.hdslb.com/bfs/album/04ebc33b51c1be2cb02d7defa402b91047c0d92f.png"></p>
+<p><hanla></hanla>用<hanla></hanla>net start<br>net stop 把服务用引号括起来，不然可能出错</p>
+<p><img src="https://i0.hdslb.com/bfs/album/02ce0bb06ba5f827dd5a30f82e0562e38f3b1a80.png"></p>
+<p><hanla></hanla>net&nbsp;localgroup&nbsp;/add&nbsp;administrators&nbsp;abc    将<hanla></hanla>abc&nbsp;添加到<hanla></hanla>administrators&nbsp;用户组中&nbsp;&nbsp;<br>把普通用户添加到这个组里面也是可以远程桌面访问的    </p>
+<p><hanla></hanla>你通过<hanla></hanla>sqlserver 注入拿到<hanla></hanla>sa<hanla></hanla>账号   sa<hanla></hanla>可以执行命令执行系统命令<br>但是服务器有安全狗<br><hanla></hanla>net user 1 1/add<br><hanla></hanla>但是你添加到管理员组会进行拦截<br>但是不拦截你添加到远程桌面组<br><hanla></hanla>你可以用远程桌面登录到<hanla></hanla>1<hanla></hanla>这个用户，没有权限访问控制<br><hanla></hanla>可以用<hanla></hanla>system<hanla></hanla>对<hanla></hanla>c<hanla></hanla>盘文件都进行降权，那么我可以访问了（借助<hanla></hanla>system<hanla></hanla>权限）</p>
+<p><img src="https://i0.hdslb.com/bfs/album/61cae2973229ad25089edc0e9b8734543939838e.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/bbfb18efbec42f5ce259518fb11675ae3a416f63.png"></p>
+<p>一些杀软的进程，可能杀不死，但是我们可以停掉他的服务，或者把注册表搞坏<br><hanla></hanla>然后他就起步来了，（system<hanla></hanla>权限）</p>
+<p><img src="https://i0.hdslb.com/bfs/album/ba7434b7621308cb024866b0e09a0acecc1f624c.png"></p>
+<p><hanla></hanla>一般用来导一句话木马   &gt;<hanla></hanla>符号有干扰可以在&gt;<hanla></hanla>前面<hanla></hanla>shift+6</p>
+<p><img src="https://i0.hdslb.com/bfs/album/a98df322226091d95f7a1c9de563ed59aa11bef5.png"></p>
+<p><hanla></hanla>query user<hanla></hanla>看管理员在登录没<br><hanla></hanla>msg admin “hello admin”  看见别的黑客也进来了，可以发信息</p>
+<h1 id="3-powershell使用"><a href="#3-powershell使用" class="headerlink" title="3,powershell使用"></a><hanla></hanla>3,powershell<hanla></hanla>使用</h1><p><img src="https://i0.hdslb.com/bfs/album/e3282b106de66747cf450b0f8f7a5c7fd3a6b9f5.png"></p>
+<p><hanla></hanla>08<hanla></hanla>服务器之后自带</p>
+<p><img src="https://i0.hdslb.com/bfs/album/e17392a8b54567760134dcde4ea7fb303651b800.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/888962c6ef35617cd4d9de6f475f24a9706844a2.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/b2b8c51761da90b4ac1c570f70c64d27342b64c1.png"></p>
+<p><img src="https://i0.hdslb.com/bfs/album/a230bb8d6b2702718eaa0e44d902b9d8baf5a3f7.png"></p>
+<p>powershell<br>nishang<br>empire<br>msf   ps1  </p>
+<p><hanla></hanla>无文件攻击，无法溯源，  bypass<hanla></hanla>相关 防护<br><hanla></hanla>360<hanla></hanla>不拦截（现在拦截了）</p>
+<p><img src="https://i0.hdslb.com/bfs/album/79ae795956a3ff7a4ecc1ad05590af43afbfa6a6.png"></p>
+<p><hanla></hanla>域控搭建  成员<hanla></hanla>pc<hanla></hanla>加入到域网络</p>
+<h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p><hanla></hanla>遇到的问题  开始用的<hanla></hanla>wmware workstation pro 的<hanla></hanla>player<hanla></hanla>版本没有快照</p>
+<p><hanla></hanla>找到一个 16<hanla></hanla>版本而且可以有激活码可以用的版本  感谢<hanla></hanla>up<hanla></hanla>主</p>
+<p><hanla></hanla>然后安装<hanla></hanla>windows 2003<hanla></hanla>版本 msdn   不记得选的那个呢下面应该都可以</p>
+<p>安装跟着提示安装即可<br>有一个安装激活码可以网上搜一下可以直接找到<br><hanla></hanla>windows<hanla></hanla>安装激活完成</p>
+<p>window server 2008 r2<br><hanla></hanla>安装了下载了三个镜像，安装了好几次，都是激活码不可以用，而且还安装不了<hanla></hanla>tools<br><hanla></hanla>笨笨的我还手输激活码：试了好久都不可以，<br>理清思路，<br><hanla></hanla>首先选择网上给出能够安装成功的<hanla></hanla>tools 镜像下载<br><hanla></hanla>然后安装发现还是不能安装<hanla></hanla>tools，网上查阅很多文章，记住搜索语法很重要<br>要搜索问题差不多的语法，而且不要什么文章都看，要找到一模一样 的解决方法的文章<br><hanla></hanla>不然就是浪费时间，最后终于找到一篇说<hanla></hanla>tools<hanla></hanla>版本太高要安装<hanla></hanla>15.5<hanla></hanla>的， 下载<br><hanla></hanla>用设置–镜像<hanla></hanla>ios–导入就可以安装了</p>
+<p><img src="https://pic8.58cdn.com.cn/nowater/webim/big/n_v29f51543c01084d22b63cc5d209ee707d.png"></p>
+<p>安装之后快速把网上所有的激活码都试了一遍没用，用破解软件试，结果还中毒了，又重装系统<br>啊，最后试了好几个终于找到一个可以破解的绿色软件</p>
+<p><img src="https://i0.hdslb.com/bfs/album/65e57b4aedf6284a6221bd5226c20cd77395ac8c.png"></p>
+<p>复制到序列机破解即可，保存快照完成</p>
+<h1 id="2008环境配置"><a href="#2008环境配置" class="headerlink" title="2008环境配置"></a><hanla></hanla>2008<hanla></hanla>环境配置</h1><p>添加角色</p>
+<p><img src="https://i0.hdslb.com/bfs/album/8517724c2ee2ab13ed573421aac7f42478c09917.png"></p>
+<p><hanla></hanla>点击下一步，勾选<hanla></hanla>IIS<hanla></hanla>服务器</p>
+<p><img src="https://i0.hdslb.com/bfs/album/5e978e26e6440226513aade0a75cc585f04ff281.png"></p>
+<p>下一步，勾选应用程序开发</p>
+<p><img src="https://i0.hdslb.com/bfs/album/9f4958d906ab050f004ab1a60622b77a1476b230.png"></p>
+<p>点击安装即可完成</p>
+<p><img src="https://i0.hdslb.com/bfs/album/71a664089589a0cbf0a094388f2b9aaa537ba740.png"></p>
+<p><hanla></hanla>输入<hanla></hanla>inetmgt 即可打开<hanla></hanla>iis<hanla></hanla>服务</p>
+<p><img src="https://i0.hdslb.com/bfs/album/6fc62e919a36a4904208c526e8970cd9b37c5a27.png"></p>
+<p>里面存在一个默认站点：</p>
+<p><img src="https://i0.hdslb.com/bfs/album/a95593de429b033eb23c504ecff49647ea55838f.png"></p>
+<p><hanla></hanla>我们删除原来站点，新建一个站点：存放在<hanla></hanla>c:/asp<hanla></hanla>目录下面</p>
+<p><img src="https://i0.hdslb.com/bfs/album/5a59181971d0567f5de6ebec575fa7619aae6a32.png"></p>
+<p><hanla></hanla>然后将我的<hanla></hanla>d:/cracer<hanla></hanla>共享文件中的内容全部托过来</p>
+<p><img src="https://i0.hdslb.com/bfs/album/0db67c2915c205cd957ea49b547954d85eafccda.png"></p>
+<p>然后应用程序池–应用程序默认设置</p>
+<p><img src="https://i0.hdslb.com/bfs/album/6d29f80f4bbc6d17f1f6a37386170b4c34b40e4e.png"></p>
+<p><hanla></hanla>让<hanla></hanla>flase 变为<hanla></hanla>true</p>
+<p><img src="https://i0.hdslb.com/bfs/album/b8e9540fe4ec76f004f864525b25c02467ad652b.png"></p>
+<p>启用父路径<br>默认文档要添加一个默认首页</p>
+<p><img src="https://i0.hdslb.com/bfs/album/43a264b6cf0b3fc02c4cd23cda365e90dd4d6ceb.png"></p>
+<p>然后浏览就可以了</p>
+<p><img src="https://i0.hdslb.com/bfs/album/05e7ba0dbce53ae8908d79e3cc1d2da05fc13ed8.png"></p>
+<p>access+asp+iis7   </p>
+<p><hanla></hanla>php<hanla></hanla>环境<hanla></hanla>+mysql+iis7<br><hanla></hanla>用<hanla></hanla>phpstudy<hanla></hanla>就可以了在<hanla></hanla>tools 代码审计里面又<hanla></hanla>phpstudy<br><hanla></hanla>双击解压到<hanla></hanla>c<hanla></hanla>盘  </p>
+<p><img src="https://i0.hdslb.com/bfs/album/ba9ba37a6c50805455552186abf24f6e1ff972c5.png"></p>
+<p><hanla></hanla>这里<hanla></hanla>iis 占用了<hanla></hanla>80<hanla></hanla>端口<br><hanla></hanla>apache<hanla></hanla>起不来  端口正常情况不能复用<br><hanla></hanla>调用<hanla></hanla>php 5.4    </p>
+<p><img src="https://i.loli.net/2021/08/25/b6WCQYEH4qFIyZf.png" alt="w48.png"></p>
+<p><hanla></hanla>在建一个<hanla></hanla>php<hanla></hanla>网站</p>
+<p><img src="https://i.loli.net/2021/08/25/dP3maFfJr259XAp.png" alt="w49.png"></p>
+<p><img src="https://i.loli.net/2021/08/25/IR6QJCN21PfVutW.png" alt="w50.png"></p>
+<p><hanla></hanla>默认文档添加一个<hanla></hanla>index.php</p>
+<p><img src="https://i.loli.net/2021/08/25/om3pzvLuf2DPKCM.png" alt="w51.png"></p>
+<p><hanla></hanla>这里遇到一个错误，php<hanla></hanla>环境要安装<hanla></hanla>v9<hanla></hanla>运行库，安装即可<br><hanla></hanla>在进入<hanla></hanla>install<hanla></hanla>目录进行安装</p>
+<p><img src="https://i.loli.net/2021/08/25/dHPN5T8U12xwkhm.png" alt="w52.png"></p>
+<p><hanla></hanla>这里连接数据库时，xycms<hanla></hanla>没有的话他可以自己创建：<br><hanla></hanla>但是有些不能创建就要自己<hanla></hanla>creat  database  xycms </p>
+<p><img src="https://i.loli.net/2021/08/25/rcd2g4aQnjYftGO.png" alt="w53.png"></p>
+<p>这里报错了  报错原因是创建之后要有一个连接文件，权限不够所有报错</p>
+<p><img src="https://i.loli.net/2021/08/25/5r8PfIgwLv9JYEa.png" alt="w54.png"></p>
+<p><img src="https://i.loli.net/2021/08/25/LU1us7SGfWaeTyI.png" alt="w55.png"></p>
+<p>安装完成</p>
+<p><img src="https://i.loli.net/2021/08/25/nVGM3uHURFbsNod.png" alt="w56.png"></p>
+<p>以你的物理机为路由器<br><hanla></hanla>物理机挂了<hanla></hanla>vpn  </p>
+<p>桥接<br>以你的物理路由器为路由器  </p>
+<p>仅主机不能上网  </p>
+<p><hanla></hanla>vm1<hanla></hanla>和<hanla></hanla>vm2<br><hanla></hanla>条件<br><hanla></hanla>1.<hanla></hanla>同一个网段<br><hanla></hanla>2，同一个网卡<br><hanla></hanla>3，ping<hanla></hanla>通关闭防火墙  </p>
+<p><hanla></hanla>关闭<hanla></hanla>windows<hanla></hanla>防火墙才能<hanla></hanla>ping<hanla></hanla>通</p>
+<p><hanla></hanla>本机<hanla></hanla>hosts<hanla></hanla>文件  钓鱼欺骗</p>
+<p>旁站：同一个服务器的不同网站<br><hanla></hanla>不同<hanla></hanla>IP<hanla></hanla>同端口  比较少<br><hanla></hanla>不同端口 同<hanla></hanla>IP （教育<hanla></hanla>/<hanla></hanla>学习<hanla></hanla>/ip<hanla></hanla>访问的站点<hanla></hanla>/<hanla></hanla>政府<hanla></hanla>/<hanla></hanla>云）<br><hanla></hanla>不同域名，同端口<hanla></hanla>ip<hanla></hanla>的   （最普遍）<br>同域名，不同目录        （站中站）        </p>
+<p>插件：  </p>
+<p><img src="https://i.loli.net/2021/08/25/cTQOpYUnav9ojsR.png" alt="w57.png"></p>
+<p><hanla></hanla>cookie  方便使用盗窃来的<hanla></hanla>cookie<br><hanla></hanla>modify  检测<hanla></hanla>http<hanla></hanla>头注入  bypass<hanla></hanla>等</p>
+<h1 id="用2008-搭建域控"><a href="#用2008-搭建域控" class="headerlink" title="用2008 搭建域控"></a><hanla></hanla>用<hanla></hanla>2008 搭建域控</h1><p><hanla></hanla>1，域控需要一个固定的<hanla></hanla>ip<br>ncpa.cpl<br><hanla></hanla>设置下面的<hanla></hanla>dns 和<hanla></hanla>ip<hanla></hanla>地址</p>
+<p><img src="https://i.loli.net/2021/08/25/pRMiDIzqgaedjN4.png" alt="w58.png"></p>
+<p><hanla></hanla>cmd<hanla></hanla>运行<hanla></hanla>dcpromo</p>
+<p>然后一直下一步：<br>在新林中新建域–</p>
+<p><img src="https://i.loli.net/2021/08/25/BqmJn8GrCZyHlej.png" alt="w59.png"></p>
+<p>因为在内网中不会起冲突，所有随便起域名都可以<br><hanla></hanla>级别越高可能功能越强，这里选择<hanla></hanla>2008 r2<br><hanla></hanla>下一步</p>
+<p><img src="https://i.loli.net/2021/08/25/PyTRS5iJU4hOcAf.png" alt="w60.png"></p>
+<p>是</p>
+<p><img src="https://i.loli.net/2021/08/25/uFV8mvZLrQN39cx.png" alt="w61.png"></p>
+<p>下一步<br>密码          123.com<br><hanla></hanla>下一步开始安装：</p>
+<p><img src="https://i.loli.net/2021/08/25/OIK6o7wuCTc4aih.png" alt="w62.png"></p>
+<p><hanla></hanla>此时管理员账号前面有个<hanla></hanla>xiao，输入<hanla></hanla>1234asdf5G<hanla></hanla>登录</p>
+<p><img src="https://i.loli.net/2021/08/25/OtKZYrdCU4TWNmk.png" alt="w63.png"></p>
+<p>进来之后会多这些东西</p>
+<p><img src="https://i.loli.net/2021/08/25/9tEHkKGXcdfxRBI.png" alt="w64.png"></p>
+<p><hanla></hanla>把<hanla></hanla>03<hanla></hanla>加入到域</p>
+<p><hanla></hanla>先把<hanla></hanla>03<hanla></hanla>的<hanla></hanla>dns<hanla></hanla>设置为<hanla></hanla>08<hanla></hanla>的地址</p>
+<p><img src="https://i.loli.net/2021/08/25/41RIoMecaqDx5sS.png" alt="w65.png"></p>
+<p><hanla></hanla>尝试<hanla></hanla>ping 一下<hanla></hanla>xiao.com<hanla></hanla>这个域名看能不能解析到<br><hanla></hanla>ipconfig /flushdns<br><hanla></hanla>再<hanla></hanla>ping<hanla></hanla>还是解析不到</p>
+<p><img src="https://i.loli.net/2021/08/25/6nzjPUGNHdqVZ8y.png" alt="w66.png"></p>
+<p>点击开始–我的电脑–属性–计算机名–更改–域–xiao.com</p>
+<p><img src="https://i.loli.net/2021/08/25/iIC2R7fuh4rYNg9.png" alt="w67.png"></p>
+<p><hanla></hanla>还要把<hanla></hanla>windows 2008<hanla></hanla>防火墙关掉<br><hanla></hanla>2008 要登录域账号</p>
+<p><img src="https://i.loli.net/2021/08/25/n8G9yCjs76wWKFH.png" alt="w69.png"></p>
+<p><hanla></hanla>终于<hanla></hanla>ping<hanla></hanla>通了两台主机要在一个网段</p>
+<p><img src="https://i.loli.net/2021/08/25/fEp7GIc1hFJytwl.png" alt="w70.png"></p>
+<p><img src="https://i.loli.net/2021/08/25/yTix9cOqYwbQBCv.png" alt="w71.png"></p>
+<p><hanla></hanla>在<hanla></hanla>008<hanla></hanla>上面创建一个用户给<hanla></hanla>03<hanla></hanla>登录<br><hanla></hanla>xiao01  1234.com</p>
+<p><img src="https://i.loli.net/2021/08/25/e5c3nCVUrdNFwJa.png" alt="w72.png"></p>
+<p><img src="https://i.loli.net/2021/08/25/aTohC2XV8fNU5xZ.png" alt="w73.png"></p>
+<p>域网络搭建起来了</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
