@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 内网环境配置</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>内网环境配置 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/8
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/内网篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                内网篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p><hanla></hanla>1.<hanla></hanla>拿到服务器<br>进入内网渗透</p>
+<span id="more"></span>
+
+<p>黑客是怎么进入的：<br><hanla></hanla>1.<hanla></hanla>通过外部开放的服务器（ web /<hanla></hanla>数据库 /<hanla></hanla>中间件 / ftp /smb<hanla></hanla>等）<br>拿到的服务器<br><hanla></hanla>2<hanla></hanla>通过钓鱼（邮件钓鱼， word<hanla></hanla>文档钓鱼， excel<hanla></hanla>钓鱼 dns<hanla></hanla>钓鱼，url<hanla></hanla>网址钓鱼）<br><hanla></hanla>个人<hanla></hanla>pc 电脑 </p>
+<!--more-->
+
+<h2 id="内网环境介绍"><a href="#内网环境介绍" class="headerlink" title="内网环境介绍"></a>内网环境介绍</h2><p><hanla></hanla>局域网<hanla></hanla>(Local Area Network，LAN)<hanla></hanla>是指在某一区域内由多台计算机互联成的计算机组。<br>一般是方圆几千米以内。局域网可以实现文件管理、应用软件共享、打印机共享、工作组内的日程安排、<br>电子邮件和传真通信服务等功能。局域网是封闭型的，可以由办公室内的两台计算机组成，也可以由一个<br>公司内的上千台计算机组成。 　　<br>局域网通常是分布在一个有限地理范围内的网络系统，一般所涉及的地理范围只有几公里<br>。局域网专用性非常强，具有比较稳定和规范的拓扑结构 </p>
+<h3 id="工作组"><a href="#工作组" class="headerlink" title="工作组"></a>工作组</h3><p><hanla></hanla>工作组<hanla></hanla>(Work Group)<hanla></hanla>是最常见最简单最普通的资源管理模式，就是将不同的电脑按功能分别列入不同的组中，以方便管理。比如在一个网络内，可能有成百上千台工作电脑，如果这些电脑不进行分组，都列在<hanla></hanla>“网上邻居”<hanla></hanla>内，可想而知会有多么乱<hanla></hanla>(恐怕网络邻居也会显示<hanla></hanla>“下一页”<hanla></hanla>吧)。为了解决这一问题，Windows 9x/NT/2000 才引用了<hanla></hanla>“工作组”<hanla></hanla>这个概念，比如一所高校，会分为诸如数学系、中文系之类的，然后数学系的电脑全都列入数学系的工作组中，中文系的电脑全部都列入到中文系的工作组中……如果你要访问某个系别的资源，就在<hanla></hanla>“网上邻居”<hanla></hanla>里找到那个系的工作组名，双击就可以看到那个系别的电脑了。</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwLxh"><img src="https://s3.jpg.cm/2021/10/08/IvwLxh.png" alt="IvwLxh.png"></a></p>
+<h3 id="域"><a href="#域" class="headerlink" title="域"></a>域</h3><p>域是一个有安全边界的计算机集合（安全边界是在两个域中，一个域中的用户无法访问另一个域中的资源），在同一个域中的计算机彼此之间已经建立了信任关系，在域内访问其他机器，不再需要被访问机器的许可了。<br>域控制器（DC）<br><hanla></hanla>域控制器是指在<hanla></hanla>“域”<hanla></hanla>模式下，至少有一台服务器负责每一台联入网络的电脑和用户的验证工作，相当于一个单位的门卫一样，称为<hanla></hanla>“域控制器（Domain   Controller，简写为<hanla></hanla>DC）”</p>
+<h3 id="父域和子域"><a href="#父域和子域" class="headerlink" title="父域和子域"></a>父域和子域</h3><p>出于管理及其他的需求，需要在网络中划分多个域！，第一个域为父域，各分部的域称为子域。<br>域树（Tree）：<br>指若干个域通过建立信任关系而组合成新的集合！<br><hanla></hanla>abc.com<hanla></hanla>及为父域，asia.abc.com<hanla></hanla>为子域，可见有一个子域必须以父域名为后缀名<br>域名服务器（Domain Name Server，DNS）：<br><hanla></hanla>指用于进行域名（Domain Name）和与之相对应的<hanla></hanla>IP<hanla></hanla>地址（IPAddress）转换的服务器。<br><hanla></hanla>一般内网渗透时，就是寻找<hanla></hanla>DNS<hanla></hanla>服务器来定位<hanla></hanla>DC（DNS<hanla></hanla>服务器和<hanla></hanla>DC<hanla></hanla>通常会处在同一台机器上）</p>
+<h3 id="活动目录"><a href="#活动目录" class="headerlink" title="活动目录"></a>活动目录</h3><p>是指域环境中提供目录服务的组件<br>目录是什么？<br>存储有关网络对象<br>如何调用？安装即可！<br>管理员可以在活动目录中忽略被管理对象的具体地理位置，而将这些对象按照一定的方式放置在不同的容器中，这种组织架构称之为逻辑架构<br>活动目录的逻辑架构包括上面讲到的组织单元（OU）、域、域树、域森林</p>
+<h3 id="域中的计算机分类"><a href="#域中的计算机分类" class="headerlink" title="域中的计算机分类"></a>域中的计算机分类</h3><p>域控制器（必有）：用于管理所有的网络访问<br>成员服务器：安装了服务器系统且加入了域，但没有安装活动目录的计算机<br>客户机：用户使用账号密码登录来访问并调用此间资源<br>独立服务器：和域没有关系。既不加入域也没有安装活动目录的服务器  </p>
+<h3 id="域内权限解读"><a href="#域内权限解读" class="headerlink" title="域内权限解读"></a>域内权限解读</h3><p>域本地组<br>域本地组主要用于授予本域内资源的访问权限，不能嵌套其他组中使用。<br>全局组<br>可以嵌套在其他组中，可以在域森林的任何域内指派权限。</p>
+<p>通用组<br>通用组成员来自域森林中任何域的用户账号，全局组和其他通用组，<br>可以在该域森林的任何域中指派权限，可以嵌套其他组中，非常适合在域森林内的跨域访问中使用。<br><hanla></hanla>A-G-DL-P<hanla></hanla>策略<br>指用户账号添加到全剧组中，将全局组添加到域本地组中，然后为域本地组分配资源权限。</p>
+<h2 id="域环境搭建配置"><a href="#域环境搭建配置" class="headerlink" title="域环境搭建配置"></a>域环境搭建配置</h2><p><hanla></hanla>1.<hanla></hanla>首先   08 作为主域控<br><hanla></hanla>1.<hanla></hanla>配置静态<hanla></hanla>ip,<hanla></hanla>设置<hanla></hanla>dns<hanla></hanla>为自己<hanla></hanla>ip<br><hanla></hanla>2.<hanla></hanla>运行输入<hanla></hanla>dcpromo<br><hanla></hanla>3.<hanla></hanla>创建域名称<br><hanla></hanla>4.<hanla></hanla>重启改域控管理密码<br><hanla></hanla>5.<hanla></hanla>将内网计算机加入域网络<br><hanla></hanla>6.<hanla></hanla>配置域策略到域内计算机  </p>
+<p><hanla></hanla>1.<hanla></hanla>使用<hanla></hanla>nat 网络<br><hanla></hanla>设置<hanla></hanla>192.168.43.10  dns<hanla></hanla>为自己的<hanla></hanla>ip<hanla></hanla>地址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvvZIT"><img src="https://s3.jpg.cm/2021/10/08/IvvZIT.png" alt="IvvZIT.png"></a></p>
+<p><hanla></hanla>2.<hanla></hanla>输入<hanla></hanla>dcpromo 打开域服务器文件<br>下一步，下一步，在新林中建新域</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwGUE"><img src="https://s3.jpg.cm/2021/10/08/IvwGUE.png" alt="IvwGUE.png"></a></p>
+<p><hanla></hanla>起名叫<hanla></hanla>xy.com</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwIoQ"><img src="https://s3.jpg.cm/2021/10/08/IvwIoQ.png" alt="IvwIoQ.png"></a></p>
+<p>尽量选择和系统比配版本</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvvM06"><img src="https://s3.jpg.cm/2021/10/08/IvvM06.png" alt="IvvM06.png"></a></p>
+<p>默认勾选下一步<br>然后选择是</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwR6S"><img src="https://s3.jpg.cm/2021/10/08/IvwR6S.png" alt="IvwR6S.png"></a></p>
+<p><hanla></hanla>可以看到这里有一个<hanla></hanla>NTDS  本地存放的数据库<br><hanla></hanla>后门域渗透要把<hanla></hanla>NTDS<hanla></hanla>下载到本地，去破解<hanla></hanla>NTDS<hanla></hanla>里面所有的域用户的，下一步</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwqFW"><img src="https://s3.jpg.cm/2021/10/08/IvwqFW.png" alt="IvwqFW.png"></a></p>
+<p>设置一个还原密码，活动目录的密码暂时用不到<br><hanla></hanla>123.com<br><hanla></hanla>勾选完成后重启，自动重启就行了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwWj2"><img src="https://s3.jpg.cm/2021/10/08/IvwWj2.png" alt="IvwWj2.png"></a></p>
+<p><hanla></hanla>等他重启，我们在用<hanla></hanla>windows 7 </p>
+<h3 id="2-让windows-7-加入到域中"><a href="#2-让windows-7-加入到域中" class="headerlink" title="2.让windows 7 加入到域中"></a><hanla></hanla>2.<hanla></hanla>让<hanla></hanla>windows 7 加入到域中</h3><p><hanla></hanla>windows 7 家庭版不能加入到域 ，旗舰版可以<br>题外话：<br>有时候桥接不能上网，这个网卡要自己指定，自动获取有时候获取不到</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw55H"><img src="https://s3.jpg.cm/2021/10/08/Ivw55H.png" alt="Ivw55H.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw7NL"><img src="https://s3.jpg.cm/2021/10/08/Ivw7NL.png" alt="Ivw7NL.png"></a></p>
+<p><hanla></hanla>在打开我们可以看到已经在<hanla></hanla>xy<hanla></hanla>域中了<br><hanla></hanla>输入<hanla></hanla>123.com</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwVD8"><img src="https://s3.jpg.cm/2021/10/08/IvwVD8.png" alt="IvwVD8.png"></a></p>
+<p>登录进来，还是使用的原来的密码<br><hanla></hanla>此时我们在创建用户就是创建的域用户在<hanla></hanla>windows 2008 r2<hanla></hanla>上面创建一个用户<br><hanla></hanla>pikachu Pkc11511</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw6ow"><img src="https://s3.jpg.cm/2021/10/08/Ivw6ow.png" alt="Ivw6ow.png"></a></p>
+<p><hanla></hanla>在<hanla></hanla>windows 里面设置静态<hanla></hanla>ip dns<hanla></hanla>地址为域控地址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwlUO"><img src="https://s3.jpg.cm/2021/10/08/IvwlUO.png" alt="IvwlUO.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvweLU"><img src="https://s3.jpg.cm/2021/10/08/IvweLU.png" alt="IvweLU.png"></a></p>
+<p><hanla></hanla>然后<hanla></hanla>ping xy.com 已经能<hanla></hanla>ping<hanla></hanla>通了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwQ0f"><img src="https://s3.jpg.cm/2021/10/08/IvwQ0f.png" alt="IvwQ0f.png"></a></p>
+<p><hanla></hanla>然后我们用<hanla></hanla>windows<hanla></hanla>加入到域中</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwXFk"><img src="https://s3.jpg.cm/2021/10/08/IvwXFk.png" alt="IvwXFk.png"></a></p>
+<p>然后加入到域中，输入域管理员账号和密码<br>输入的时候注意，别把账号密码输错了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwcye"><img src="https://s3.jpg.cm/2021/10/08/Ivwcye.png" alt="Ivwcye.png"></a></p>
+<p>此时会出现欢迎加入</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwA6i"><img src="https://s3.jpg.cm/2021/10/08/IvwA6i.png" alt="IvwA6i.png"></a></p>
+<p>然后他会提示你重启<br><hanla></hanla>切换账号登录到<hanla></hanla>xy<hanla></hanla>这个域</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwb5y"><img src="https://s3.jpg.cm/2021/10/08/Ivwb5y.png" alt="Ivwb5y.png"></a></p>
+<p>pikachu<br><hanla></hanla>Pkc11511<hanla></hanla>登录<br><hanla></hanla>然后在<hanla></hanla>008–开始—管理工具–Active Directory<hanla></hanla>用户和计算机<br><hanla></hanla>可以看到<hanla></hanla>cracer pc 已经加入进来了  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwuNr"><img src="https://s3.jpg.cm/2021/10/08/IvwuNr.png" alt="IvwuNr.png"></a></p>
+<p><hanla></hanla>比如设置策略，新建一个<hanla></hanla>ou（组织单位）</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwtbt"><img src="https://s3.jpg.cm/2021/10/08/Ivwtbt.png" alt="Ivwtbt.png"></a></p>
+<p><hanla></hanla>起名叫<hanla></hanla>test<hanla></hanla>确定，把我们需要设置策略的人移动到组织单位里面</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwSDz"><img src="https://s3.jpg.cm/2021/10/08/IvwSDz.png" alt="IvwSDz.png"></a></p>
+<p>然后到管理工具，组策略管理<br>找到这个组织单位<br>创建一个组策略对象</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwJLC"><img src="https://s3.jpg.cm/2021/10/08/IvwJLC.png" alt="IvwJLC.png"></a></p>
+<p><hanla></hanla>右键 组策略对象<hanla></hanla>a  编辑 然后就可以设置我们的策略了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwN4R"><img src="https://s3.jpg.cm/2021/10/08/IvwN4R.png" alt="IvwN4R.png"></a></p>
+<p>比如修改桌面环境<br><hanla></hanla>先将图片放到桌面的一个<hanla></hanla>test<hanla></hanla>文件夹<br>右键属性共享高级共享<br>共享此文件夹，权限–完全控制–确定</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw125"><img src="https://s3.jpg.cm/2021/10/08/Ivw125.png" alt="Ivw125.png"></a></p>
+<p>然后复制一下这个共享路径</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwrVu"><img src="https://s3.jpg.cm/2021/10/08/IvwrVu.png" alt="IvwrVu.png"></a></p>
+<p>\WIN-5CLS98DEGQ6\test<br><hanla></hanla>然后在组策略里面设置</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwEy4"><img src="https://s3.jpg.cm/2021/10/08/IvwEy4.png" alt="IvwEy4.png"></a></p>
+<p>cmd—gpupdate  /force  强制刷新策略，默认不刷新策略五分钟后才下发  </p>
+<p>但是好像图片并没有过来，桌面变黑了<br>里面策略还有很多功能</p>
+<h3 id="3-添加08子域服务器形成域树"><a href="#3-添加08子域服务器形成域树" class="headerlink" title="3.添加08子域服务器形成域树"></a><hanla></hanla>3.<hanla></hanla>添加<hanla></hanla>08<hanla></hanla>子域服务器形成域树</h3><p><hanla></hanla>首先测试能不能<hanla></hanla>ping<hanla></hanla>通主域<br><hanla></hanla>ncpa.cpl<br><hanla></hanla>子域设置静态<hanla></hanla>ip ,192.168.43.20<br>dns 写主域的 192.168.43.10<br><hanla></hanla>应为你添加子域的时候要有主域授权，所以这里要写主域的  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwskG"><img src="https://s3.jpg.cm/2021/10/08/IvwskG.png" alt="IvwskG.png"></a></p>
+<p>设置完成后，dcpromo 设置</p>
+<p>下一步，下一步，这时候我们不要选择在新林中建新域了，而是选择现有林–现有林中建新域</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwk7X"><img src="https://s3.jpg.cm/2021/10/08/Ivwk7X.png" alt="Ivwk7X.png"></a></p>
+<p>输入现有林，凭据<br><hanla></hanla>administrator<br>DCboss123</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwmND"><img src="https://s3.jpg.cm/2021/10/08/IvwmND.png" alt="IvwmND.png"></a></p>
+<p>然后一直下一步就可以了<br>重启<br>点击管理工具，可以看到子域和父域</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwobT"><img src="https://s3.jpg.cm/2021/10/08/IvwobT.png" alt="IvwobT.png"></a></p>
+<p>如果想跟另一个域树建立信任，可以在这里添加信任<br><hanla></hanla>比如<hanla></hanla>xy.com  跟 cracer.com 添加信任</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw44E"><img src="https://s3.jpg.cm/2021/10/08/Ivw44E.png" alt="Ivw44E.png"></a></p>
+<h3 id="4-win-xp-添加到子域"><a href="#4-win-xp-添加到子域" class="headerlink" title="4.win  xp 添加到子域"></a>4.win  xp 添加到子域</h3><p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwwP6"><img src="https://s3.jpg.cm/2021/10/08/IvwwP6.png" alt="IvwwP6.png"></a></p>
+<p><hanla></hanla>测试能<hanla></hanla>ping 通<hanla></hanla>dc 子域服务器</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwp2p"><img src="https://s3.jpg.cm/2021/10/08/Ivwp2p.png" alt="Ivwp2p.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwBMQ"><img src="https://s3.jpg.cm/2021/10/08/IvwBMQ.png" alt="IvwBMQ.png"></a></p>
+<p><hanla></hanla>重启，在<hanla></hanla>win  08 子域服务器中添加用户<br><hanla></hanla>net user kedaya Kdy11511 /add</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwgVh"><img src="https://s3.jpg.cm/2021/10/08/IvwgVh.png" alt="IvwgVh.png"></a></p>
+<p>我们还可以给主域控，添加一个备份服务器，以免主域崩溃，域内资源可以正常访问<br><hanla></hanla> 通过<hanla></hanla>windows 7 也可以登录到 子域上面去，因为子域和父域建立了信任关系<br>信任关系可以传递<br>这时候可以写<br><hanla></hanla>sub\kedaya<br>Kdy11511  </p>
+<p>这个关系就是，我信任了父域，父域信任了别的域，那我也会信任别的域，即信任的可传递信<br>两个人同时等一个账号也可以  </p>
+<p><hanla></hanla>假如我又建立了一个域树 cracer.com  他们<hanla></hanla>dns<hanla></hanla>不能相互解析<br>可以在管理工具–dns–转发器添加<br>这样这个服务器解析不到的时候就会转到另一个服务器解析  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwzkS"><img src="https://s3.jpg.cm/2021/10/08/IvwzkS.png" alt="IvwzkS.png"></a></p>
+<p>再在域和信任关系里面添加双向信任</p>
+<h2 id="内网环境搭建"><a href="#内网环境搭建" class="headerlink" title="内网环境搭建"></a>内网环境搭建</h2><p>网络环境拓扑</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw372"><img src="https://s3.jpg.cm/2021/10/08/Ivw372.png" alt="Ivw372.png"></a></p>
+<h3 id="用win-03-当作dmz区的服务器"><a href="#用win-03-当作dmz区的服务器" class="headerlink" title="用win 03 当作dmz区的服务器"></a><hanla></hanla>用<hanla></hanla>win 03 当作<hanla></hanla>dmz<hanla></hanla>区的服务器</h3><p><hanla></hanla>把它设置成<hanla></hanla>vmnet1</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw09W"><img src="https://s3.jpg.cm/2021/10/08/Ivw09W.png" alt="Ivw09W.png"></a></p>
+<h3 id="安装防火墙"><a href="#安装防火墙" class="headerlink" title="安装防火墙"></a>安装防火墙</h3><p>新建一个虚拟主机<br>下一步，下一步<br><hanla></hanla>选<hanla></hanla>ms-dos  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwCSH"><img src="https://s3.jpg.cm/2021/10/08/IvwCSH.png" alt="IvwCSH.png"></a></p>
+<p><hanla></hanla>主机名叫<hanla></hanla>firewall<br><hanla></hanla>磁盘大小不要给太小给<hanla></hanla>8<hanla></hanla>个<hanla></hanla>g<hanla></hanla>把<br>编辑设置<br><hanla></hanla>第一个设置为<hanla></hanla>vmnet1<br><hanla></hanla>第二个桥接<br><hanla></hanla>内存给<hanla></hanla>2g<br><hanla></hanla>镜像选<hanla></hanla>generic-pc-1.8.1.ios</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwTMw"><img src="https://s3.jpg.cm/2021/10/08/IvwTMw.png" alt="IvwTMw.png"></a></p>
+<p>然后启动<br><hanla></hanla>pfsense<hanla></hanla>也可以用</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivw94O"><img src="https://s3.jpg.cm/2021/10/08/Ivw94O.png" alt="Ivw94O.png"></a></p>
+<p><hanla></hanla>选择第<hanla></hanla>7<hanla></hanla>步安装到硬盘<br><hanla></hanla>选择<hanla></hanla>ad0 安装</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwyuU"><img src="https://s3.jpg.cm/2021/10/08/IvwyuU.png" alt="IvwyuU.png"></a></p>
+<p><hanla></hanla>proceed<hanla></hanla>继续<br><hanla></hanla>LAN  -&gt; le0  给了我内网<br><hanla></hanla>WAN -&gt; le1 给了我外</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwjPf"><img src="https://s3.jpg.cm/2021/10/08/IvwjPf.png" alt="IvwjPf.png"></a></p>
+<p><hanla></hanla>此时我的<hanla></hanla>vnnet1<hanla></hanla>在<hanla></hanla>10<hanla></hanla>网段，</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwK3L"><img src="https://s3.jpg.cm/2021/10/08/IvwK3L.png" alt="IvwK3L.png"></a></p>
+<p><hanla></hanla>选步骤<hanla></hanla>2<hanla></hanla>设置一下地址<br><hanla></hanla>192.168.10.100<br><hanla></hanla>子网掩码为<hanla></hanla>24<hanla></hanla>位，<br><hanla></hanla>是否启用<hanla></hanla>DHCP<hanla></hanla>服务器<br><hanla></hanla>如果这里启用了，要去吧虚拟机服务里面的<hanla></hanla>dhcp<hanla></hanla>停掉不然序列机获取总会块一步</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwD9k"><img src="https://s3.jpg.cm/2021/10/08/IvwD9k.png" alt="IvwD9k.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwi88"><img src="https://s3.jpg.cm/2021/10/08/Ivwi88.png" alt="Ivwi88.png"></a></p>
+<p>此时它获取到了地址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivwxki"><img src="https://s3.jpg.cm/2021/10/08/Ivwxki.png" alt="Ivwxki.png"></a></p>
+<p><hanla></hanla>用物理机访问一下<hanla></hanla>10.100<hanla></hanla>看能不能进来<br><hanla></hanla>用户名是<hanla></hanla>admin<br><hanla></hanla>密码是<hanla></hanla>mono</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwZSy"><img src="https://s3.jpg.cm/2021/10/08/IvwZSy.png" alt="IvwZSy.png"></a></p>
+<p><hanla></hanla>WAN<hanla></hanla>有时候获取不到，我们把它设置为静态的</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvwOQe"><img src="https://s3.jpg.cm/2021/10/08/IvwOQe.png" alt="IvwOQe.png"></a></p>
+<p><hanla></hanla>然后这里需要一个<hanla></hanla>mac<hanla></hanla>地址<br><hanla></hanla>这个<hanla></hanla>mac<hanla></hanla>地址就是我们第二块网卡的<hanla></hanla>mac<hanla></hanla>地址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoRBt"><img src="https://s3.jpg.cm/2021/10/08/IvoRBt.png" alt="IvoRBt.png"></a></p>
+<p><hanla></hanla>设置子网掩码<hanla></hanla>24<br><hanla></hanla>网关<hanla></hanla>43.1 ipconfig<hanla></hanla>可以查看本机网关</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoPuC"><img src="https://s3.jpg.cm/2021/10/08/IvoPuC.png" alt="IvoPuC.png"></a></p>
+<p>最下面有个锁定私有网络一定要取消掉<br>不然没法转发，设置就完成 了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoLR5"><img src="https://s3.jpg.cm/2021/10/08/IvoLR5.png" alt="IvoLR5.png"></a></p>
+<p><hanla></hanla>ping<hanla></hanla>一下<br><hanla></hanla>默认是<hanla></hanla>ping<hanla></hanla>不同的防火墙本身不让你<hanla></hanla>ping</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoG3r"><img src="https://s3.jpg.cm/2021/10/08/IvoG3r.png" alt="IvoG3r.png"></a></p>
+<p><hanla></hanla>假设我们<hanla></hanla>003<hanla></hanla>上面有一个网站，我们需要把它映射出去</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoqOR"><img src="https://s3.jpg.cm/2021/10/08/IvoqOR.png" alt="IvoqOR.png"></a></p>
+<p><hanla></hanla>此时从外部地址访问的是<hanla></hanla>192.168.10.128:8001</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivo7TG"><img src="https://s3.jpg.cm/2021/10/08/Ivo7TG.png" alt="Ivo7TG.png"></a></p>
+<p>在防火墙添加策略</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivon8z"><img src="https://s3.jpg.cm/2021/10/08/Ivon8z.png" alt="Ivon8z.png"></a></p>
+<p><hanla></hanla>要勾选<hanla></hanla>auto -add a firewall rule to permit traffic through this NAT rule</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivo5mu"><img src="https://s3.jpg.cm/2021/10/08/Ivo5mu.png" alt="Ivo5mu.png"></a></p>
+<p>应用改变</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvodQ4"><img src="https://s3.jpg.cm/2021/10/08/IvodQ4.png" alt="IvodQ4.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoeYX"><img src="https://s3.jpg.cm/2021/10/08/IvoeYX.png" alt="IvoeYX.png"></a></p>
+<p><hanla></hanla>但是现在还访问不到<hanla></hanla>192.168.43.44:8001 上<br>因为只有出去的流量没有回去的流量<br><hanla></hanla>在<hanla></hanla>win 03 中把网关设置成防火墙的地址<br><hanla></hanla>192.168.10.100<br><hanla></hanla>这里注意上面我全写错了时转发到<hanla></hanla>192.168.10.128<hanla></hanla>的端口上面去</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoXOE"><img src="https://s3.jpg.cm/2021/10/08/IvoXOE.png" alt="IvoXOE.png"></a></p>
+<h3 id="2-下面我们做这个服务器"><a href="#2-下面我们做这个服务器" class="headerlink" title="2.下面我们做这个服务器"></a><hanla></hanla>2.<hanla></hanla>下面我们做这个服务器</h3><p><hanla></hanla>既连接<hanla></hanla>vmnat1 又连接<hanla></hanla>nat</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoABT"><img src="https://s3.jpg.cm/2021/10/08/IvoABT.png" alt="IvoABT.png"></a></p>
+<p><hanla></hanla>用一个<hanla></hanla>xp<br><hanla></hanla>先添加一个网卡,nat<hanla></hanla>和<hanla></hanla>vmnat</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoVRp"><img src="https://s3.jpg.cm/2021/10/08/IvoVRp.png" alt="IvoVRp.png"></a></p>
+<p><hanla></hanla>我们先把第二块网卡设置成<hanla></hanla>wmnat1<br><hanla></hanla>第二块网卡设置为静态地址<hanla></hanla>192.168.10.132<br><hanla></hanla>网关为防火墙地址<hanla></hanla>192.168.10.100  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivol3D"><img src="https://s3.jpg.cm/2021/10/08/Ivol3D.png" alt="Ivol3D.png"></a></p>
+<h3 id="2-添加路由器"><a href="#2-添加路由器" class="headerlink" title="2.添加路由器"></a><hanla></hanla>2.<hanla></hanla>添加路由器</h3><p><hanla></hanla>去快路由下载一个最新的，用<hanla></hanla>32<hanla></hanla>位，没有那么占内存</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivo816"><img src="https://s3.jpg.cm/2021/10/08/Ivo816.png" alt="Ivo816.png"></a></p>
+<p><hanla></hanla>新建一个虚拟机，选择<hanla></hanla>linux ubuntu<br><hanla></hanla>大小我给的<hanla></hanla>4<hanla></hanla>个<hanla></hanla>g  10g  选择<hanla></hanla>ios<hanla></hanla>启动<br>设置网卡<br><hanla></hanla>先在编辑虚拟机网络设置里面把<hanla></hanla>wmnat4<hanla></hanla>网卡改为<hanla></hanla>20<hanla></hanla>网段<br>并且设置为仅主机模式</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoUAQ"><img src="https://s3.jpg.cm/2021/10/08/IvoUAQ.png" alt="IvoUAQ.png"></a></p>
+<p>启动<br><hanla></hanla>选择硬盘<hanla></hanla>1，安装</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Ivobmh"><img src="https://s3.jpg.cm/2021/10/08/Ivobmh.png" alt="Ivobmh.png"></a></p>
+<p>选择第一个绑定网卡<br><hanla></hanla>set wan1 eth1<br>q  退出</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvouTS"><img src="https://s3.jpg.cm/2021/10/08/IvouTS.png" alt="IvouTS.png"></a></p>
+<p><hanla></hanla>2。设置一下<hanla></hanla>lan1/wan<hanla></hanla>的地址<br><hanla></hanla>0  设置<hanla></hanla>lan1<hanla></hanla>的地址，就是<hanla></hanla>vmnat4<hanla></hanla>网卡分配网段的地址<br><hanla></hanla>192.168.20.50  </p>
+<p><hanla></hanla>1，设置<hanla></hanla>wan1<hanla></hanla>的地址，就是<hanla></hanla>nat 网卡分配的网段地址<br><hanla></hanla>192.168.43.50<hanla></hanla>吧<br>网关<br><hanla></hanla>192.168.43.2<br><hanla></hanla>这里要上网就要把网关交给序列机 的网关，我这里<hanla></hanla>nat<hanla></hanla>模式使用是<hanla></hanla>wmnet8<br><hanla></hanla>网关是<hanla></hanla>43.2</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoHdW"><img src="https://s3.jpg.cm/2021/10/08/IvoHdW.png" alt="IvoHdW.png"></a></p>
+<p><hanla></hanla>然后选择 4 测试一下<hanla></hanla>ping <a target="_blank" rel="noopener" href="http://www.baidu能不能成功/"><hanla></hanla>www.baidu<hanla></hanla>能不能成功</a></p>
+<p><hanla></hanla>这里刚开始我把<hanla></hanla>lan1   vmnat4(仅主机)<br><hanla></hanla>和<hanla></hanla>wan1 nat 模式设反了，导致不能从<hanla></hanla>nat  vmware 8 的网关出去<br>注意不要设反了鸭</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoJY2"><img src="https://s3.jpg.cm/2021/10/08/IvoJY2.png" alt="IvoJY2.png"></a></p>
+<p><hanla></hanla>访问<hanla></hanla>192.168.20.50<br><hanla></hanla>默认密码<hanla></hanla>admin,admin，新登录需要修改<br><hanla></hanla>我改了一下<hanla></hanla>admin888</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvoBqr"><img src="https://s3.jpg.cm/2021/10/08/IvoBqr.png" alt="IvoBqr.png"></a></p>
+<p><hanla></hanla>有的像奇安信当时的<hanla></hanla>icg<hanla></hanla>上网行为管控</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvogfC"><img src="https://s3.jpg.cm/2021/10/08/IvogfC.png" alt="IvogfC.png"></a></p>
+<p>网络设置—添加路由—<br>静态路由就是在网络中在划分的<br>假设这边还有路由，还有一些网络</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvofH5"><img src="https://s3.jpg.cm/2021/10/08/IvofH5.png" alt="IvofH5.png"></a></p>
+<p><hanla></hanla>比如这边还有一个<hanla></hanla>vmnat5,<hanla></hanla>在<hanla></hanla>192.168.40.0<hanla></hanla>网段<br><hanla></hanla>我们可以把<hanla></hanla>192.168.20.0<hanla></hanla>通过<hanla></hanla>lan1<hanla></hanla>去连接他   当我们通信时就可以通过<hanla></hanla>20.50<hanla></hanla>去连接<hanla></hanla>vmnat5 40.0<hanla></hanla>把信息交个下一个路由<br><hanla></hanla>如果要去<hanla></hanla>4<hanla></hanla>网段就要从<hanla></hanla>40.0<hanla></hanla>去<hanla></hanla>20.0，就要在<hanla></hanla>vmnat5<hanla></hanla>设置目的地<br><hanla></hanla>但是我们路由器只有<hanla></hanla>vmnat4  和<hanla></hanla>nat  只能在这两个内部通信</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IvooCy"><img src="https://s3.jpg.cm/2021/10/08/IvooCy.png" alt="IvooCy.png"></a></p>
+<p><hanla></hanla>高级应用–http<hanla></hanla>服务–添加</p>
+<p>路由，攻击<br><hanla></hanla>80<br>22<br>23telnet<br>69 端口<br><hanla></hanla>Cisco 升级  tftp</p>
+<p>爆破<br>漏洞<br><hanla></hanla>tplink  看型号找漏洞 爆过漏洞</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
