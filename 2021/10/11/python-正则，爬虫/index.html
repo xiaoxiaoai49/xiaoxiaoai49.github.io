@@ -1,0 +1,812 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || python 正则，爬虫</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>python 正则，爬虫 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/11
+        </span>
+
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled">
+            </a-icon></span>
+            
+            <span class="tag">
+                
+                <a href="/tags/python篇" style="color:#ffa2c4"><hanla></hanla>
+                    python<hanla></hanla>篇
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>python 正则表达式<br><hanla></hanla>python web<hanla></hanla>编程<br><hanla></hanla>python 多线程编程<br><hanla></hanla>python 网络编程<br><hanla></hanla>python 数据库编程</p>
+<span id="more"></span>
+
+<p>比如目录扫描</p>
+<p>信息收集</p>
+<p><hanla></hanla>信息匹配<hanla></hanla>&amp;sql<hanla></hanla>注入</p>
+<p><hanla></hanla>反弹<hanla></hanla>shell</p>
+<h2 id="1-正则表达式"><a href="#1-正则表达式" class="headerlink" title="1.正则表达式"></a><hanla></hanla>1.<hanla></hanla>正则表达式</h2><p>正则表达式使用单个字符串来描述，匹配一系列符合某个语法规则的字符串<br>简单理解就是对字符串的检索匹配和处理<br><hanla></hanla>re<hanla></hanla>模块</p>
+<h3 id="正则表达式入门"><a href="#正则表达式入门" class="headerlink" title="正则表达式入门"></a>正则表达式入门</h3><pre><code><hanla></hanla>[]  字符集。匹配集合中的任何字符
+[Pp]ython 
+[a-z0-9A-Z] 匹配集合
+[a-z\-]<hanla></hanla>匹配特殊字符
+[^0-9]<hanla></hanla>匹配不在集合中的任何字符
+</code></pre>
+<h3 id="快捷方式"><a href="#快捷方式" class="headerlink" title="快捷方式"></a>快捷方式</h3><pre><code><hanla></hanla>[\d]<hanla></hanla>匹配所有数字  \w  匹配所有字母,<hanla></hanla>包括数字<hanla></hanla>[A-Z] [a-z] [0-9] _ 这些
+\s 匹配空白字符，比如空格，tab,<hanla></hanla>换行
+\b  单词边界
+快捷方式取反
+\D  \W  \S
+^[python]  字符的开始
+python$  字符的结束
+.  任意字符，不能匹配换行符 \n
+？ 匹配可选字符 [honou?r]  匹配 honor 或者<hanla></hanla>honour
+{}  前一个字符重复的次数   \d{3}-\d{5}
+\d{4,5} 重复的区间
+\d{4,5}?  非贪婪模式
+\d{1,}    等同与  \d+
+\d{0,}    等同与  \d*
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwuy9Q"><img src="https://s3.jpg.cm/2021/10/11/Iwuy9Q.png" alt="Iwuy9Q.png"></a></p>
+<h3 id="正则表达式进阶"><a href="#正则表达式进阶" class="headerlink" title="正则表达式进阶"></a>正则表达式进阶</h3><pre><code><hanla></hanla>（\d{4}）分组，捕获数据
+<div>(.*?)</div>    提取<hanla></hanla>div<hanla></hanla>标签中的数据
+
+或条件   |   .mp4|.avi|.gif
+
+非捕获分组
+(?: 表达式 ) 不捕获数据
+(?:\d{2,5}|tel)[:\-](\d{5})
+
+分组回溯引用
+&lt;\w+&gt;(.*?)<!--\w+-->
+这里可以匹配<hanla></hanla><font><hanla></hanla>提示<hanla></hanla>
+但是我们想匹配的是 <font><hanla></hanla>提示<hanla></hanla><font>
+\N 可以引用编号为<hanla></hanla>N<hanla></hanla>的分组
+&lt;(\w+)&gt;.*?<!--\1-->
+</font></font></font></code></pre>
+<p>非捕获分组</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwujkE"><img src="https://s3.jpg.cm/2021/10/11/IwujkE.png" alt="IwujkE.png"></a></p>
+<p>提取电话号码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuhVT"><img src="https://s3.jpg.cm/2021/10/11/IwuhVT.png" alt="IwuhVT.png"></a></p>
+<p>回溯引用</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuCM6"><img src="https://s3.jpg.cm/2021/10/11/IwuCM6.png" alt="IwuCM6.png"></a></p>
+<h3 id="正向先行断言"><a href="#正向先行断言" class="headerlink" title="正向先行断言"></a>正向先行断言</h3><p>又称环视，有人称为预搜索<br>包括四种：<br><hanla></hanla>1.<hanla></hanla>正向先行断言<br><hanla></hanla>2.<hanla></hanla>反向先行断言<br><hanla></hanla>3.<hanla></hanla>正向后行断言<br><hanla></hanla>4.<hanla></hanla>反向后行断言  </p>
+<p><hanla></hanla>正向先行断言（？=<hanla></hanla>表达式   ），指在某个位置向右看，表示所在位置右侧必须能匹配表达式<br>例如：<br>我喜欢你  我喜欢  我喜欢我  喜欢  喜欢你  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwu34p"><img src="https://s3.jpg.cm/2021/10/11/Iwu34p.png" alt="Iwu34p.png"></a></p>
+<p>(?=.<em>?[a-z])(?=.</em>?[A-Z]).+ 提取至少包含一个大小写字母的字符串<br>密码强度验证</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuaSS"><img src="https://s3.jpg.cm/2021/10/11/IwuaSS.png" alt="IwuaSS.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwui3W"><img src="https://s3.jpg.cm/2021/10/11/Iwui3W.png" alt="Iwui3W.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuDP2"><img src="https://s3.jpg.cm/2021/10/11/IwuDP2.png" alt="IwuDP2.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuMuH"><img src="https://s3.jpg.cm/2021/10/11/IwuMuH.png" alt="IwuMuH.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuOBL"><img src="https://s3.jpg.cm/2021/10/11/IwuOBL.png" alt="IwuOBL.png"></a></p>
+<h2 id="python-web编程"><a href="#python-web编程" class="headerlink" title="python   web编程"></a><hanla></hanla>python   web<hanla></hanla>编程</h2><p>这里我主要学习爬虫<br>爬虫本质就是通过编写程序来获取到互联网上的资源<br>需求：用程序模拟浏览器，输入一个网址，从网址中获取到资源或者内容<br><hanla></hanla>特别注意，windows  open<hanla></hanla>函数 的时候一定要加<hanla></hanla>utf-8<hanla></hanla>不然会出现乱码  </p>
+<pre><code>from urllib.request import urlopen
+
+url = "http://www.baidu.com"
+resp = urlopen(url)
+
+with open("mybaidu.html",mode="w",encoding="UTF-8") as f:
+    f.write(resp.read().decode("utf-8"))
+print("over!")
+</code></pre>
+<p>使用 with as 操作已经打开的文件对象（本身就是上下文管理器），无论期间是否抛出异常，都能保证 with as 语句执行完毕后自动关闭已经打开的文件。</p>
+<h4 id="web请求过程"><a href="#web请求过程" class="headerlink" title="web请求过程"></a><hanla></hanla>web<hanla></hanla>请求过程</h4><p><hanla></hanla>1.<hanla></hanla>服务器渲染：在服务器那边直接把数据和<hanla></hanla>html<hanla></hanla>整合在一起，统一放回给浏览器<br>在页面源代码中能看到数据<br><hanla></hanla>2.<hanla></hanla>客户端渲染：第一次请求只要一个<hanla></hanla>html<hanla></hanla>骨架，第二次请求拿到数据，进行数据展示<br>在页面源代码中，看不到数据</p>
+<h4 id="requests"><a href="#requests" class="headerlink" title="requests"></a>requests</h4><p><hanla></hanla>添加<hanla></hanla>user-agent 是因为搜狗会检测来源<br><hanla></hanla>import requests  </p>
+<pre><code>import requests
+
+query=input("请输入您要搜索的歌手")
+url = f"https://www.sogou.com/sogou?query={query}"
+
+dic={
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44"
+}
+
+resp=requests.get(url,headers=dic)
+
+print(resp.text)
+</code></pre>
+<p><hanla></hanla>post<hanla></hanla>请求</p>
+<pre><code><hanla></hanla>import requests
+
+url = "https://fanyi.baidu.com/sug"
+
+s=input("请输入您要翻译的英文单词")
+dat={
+    "kw":s
+}
+#发送数据在<hanla></hanla>post，发送的数据必须在字典中，通过<hanla></hanla>data
+resp=requests.post(url,data=dat)
+print(resp.json()) #将服务器返回的内容直接处理成<hanla></hanla>json
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1qQ8"><img src="https://s3.jpg.cm/2021/10/11/Iw1qQ8.png" alt="Iw1qQ8.png"></a></p>
+<p>爬豆瓣的分类</p>
+<pre><code>import requests
+
+url="https://movie.douban.com/j/new_search_subjects"
+
+param = {
+    "sort":"U",
+    "range":"0,10",
+    "tags": "",
+    "start":20
+}
+
+headers={
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44"
+}
+
+resp=requests.get(url,params=param,headers=headers)
+
+print(resp.request.url)
+print(resp.json(),end="\n")
+</code></pre>
+<p>输出结果</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1P9w"><img src="https://s3.jpg.cm/2021/10/11/Iw1P9w.png" alt="Iw1P9w.png"></a></p>
+<p><hanla></hanla>resp.close()#关掉<hanla></hanla>resp</p>
+<h3 id="数据解析概述"><a href="#数据解析概述" class="headerlink" title="数据解析概述"></a>数据解析概述</h3><p><hanla></hanla>re<hanla></hanla>解析<br>这里正则已经学习过了，就不做笔记了</p>
+<pre><code><hanla></hanla>import re
+
+#findall: 匹配字符串中所有符合正则的类容
+lst = re.findall("：(\d{5})","我的电话号码是：10086，我女朋友的电话号码是：10010")
+print(lst)
+
+#finditer: 匹配字符串中所有的内容<hanla></hanla>[返回的内容是迭代器]
+it=re.finditer("(\d{5})","我的电话号码是：10086，我女朋友电话号码是：10010")
+for i in it:
+    print(i.group())
+
+#search,<hanla></hanla>找到一个结果就返回，返回的结果对象是<hanla></hanla>match<hanla></hanla>对象，拿数据需要。group（）
+s=re.search("\d+","我的电话号码是：10086，我女朋友电话号码是：10010")
+print(s.group())
+
+#match<hanla></hanla>是从头开始匹配
+t=re.match("\d+","10086，我女朋友电话号码是：10010")
+print(t.group())
+
+#预加载正则表达式
+obj=re.compile("\d+")
+ret=obj.finditer("我的电话号码是：10086，我女朋友电话号码是：10010")
+for i in ret:
+    print(i.group())
+</code></pre>
+<p>运行结果：<br>[‘10086’, ‘10010’]<br>10086<br>10010<br>10086<br>10086<br>10086<br>10010  </p>
+<p>进程已结束，退出代码为 0  </p>
+<p>匹配</p>
+<pre><code><hanla></hanla>import re
+
+s="""
+<div class="jay"><span id="1"><hanla></hanla>干嘛呀<hanla></hanla></span><div>
+<div class="lii"><span id="2"><hanla></hanla>别碰我<hanla></hanla></span><div>
+<div class="8iyj"><span id="3"><hanla></hanla>哎呀妈呀<hanla></hanla></span><div>
+<div class="uuuu"><span id="4"><hanla></hanla>嘀嘀嘀<hanla></hanla></span><div>
+<div class="xx"><span id="5"><hanla></hanla>靶靶机<hanla></hanla></span><div>
+"""
+
+obj=re.compile("<div class=".*?"><span id="(?P<dudu>\d+)">(?P<wahaha>.*?)</wahaha></span><div>",re.S)#re.S<hanla></hanla>能匹配换行符
+result=obj.finditer(s)
+for i in result:
+    print(i.group("dudu"),end=":")
+    print(i.group("wahaha"))
+</div></div></div></div></div></div></div></div></div></div></div></div></code></pre>
+<p><hanla></hanla>爬取豆瓣电影排行榜<hanla></hanla>top250</p>
+<pre><code>import requests
+import re
+import csv
+
+url="https://movie.douban.com/top250"
+param={
+    "start":0,
+    "filter":""
+}
+headers={
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44"
+}
+resp=requests.get(url,headers=headers,params=param)
+print(resp.url)
+s=resp.text
+
+obj=re.compile('&lt;li&gt;.*?&lt;span class="title"&gt;(?P&lt;name&gt;.*?)&lt;/span&gt;.*?&lt;br&gt;.*?(?P&lt;year&gt;\d+)&amp;nbsp'
+               '.*?&lt;span class="rating_num" property="v:average"&gt;(?P&lt;score&gt;.*?)&lt;/span&gt;'
+               '.*?&lt;span&gt;(?P&lt;evaluate&gt;.*?)&lt;/span&gt;',re.S)
+result=obj.finditer(s)
+
+f=open("movie1.csv",mode="w",encoding="UTF-8")
+csvwriter=csv.writer(f)
+
+for i in result:
+    # print(i.group("name"))
+    # print(i.group("year"))
+    # print(i.group("score"))
+    # print(i.group("evaluate"))
+    dic=i.groupdict()
+    dic['year']=dic['year'].strip() #这个是处理抓取的数据里有空格的，我没有不需要处理
+    csvwriter.writerow(dic.values())
+f.close()
+print("over!")
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1LkO"><img src="https://s3.jpg.cm/2021/10/11/Iw1LkO.png" alt="Iw1LkO.png"></a></p>
+<p>爬取盗版电影网站下载链接<br>我不知道为啥爬不了这个网站这里把代码放在这里做思路参考</p>
+<p><hanla></hanla>1.<hanla></hanla>定位到<hanla></hanla>2020<hanla></hanla>必看片<br><hanla></hanla>2.<hanla></hanla>从<hanla></hanla>2020<hanla></hanla>必看片中提取到子页面的链接地址<br><hanla></hanla>3.<hanla></hanla>请求子页面的链接地址，拿到我们想要的下载地址<br><hanla></hanla>import requests</p>
+<pre><code><hanla></hanla>domain="https://www.daytt89.com"
+resp=requests.get(domain,verify=False)      #verify=False 去掉安全验证
+resp.encoding='gb2312'  #指定字符集
+#print(resp.text)
+
+#拿到<hanla></hanla>ul<hanla></hanla>里面的<hanla></hanla>li
+obj1 = re.compile("2020<hanla></hanla>必看热片.*?<ul>(?P<ul>.*?)</ul>",re.S)
+obj2 = re.compile("<a href="(?P<href>.*?)" ",re.s)="" obj3="re.compile('@<hanla">片  名<hanla></hanla>(?P<movie>.*?)<br>.*?</movie></a><a href="(?P<download>.*?)">',re.S)
+
+result1=obj1.finditer(resp.text)
+child_href_list = []
+for it in result1:
+    ul = it.group('ul')
+
+    #提取子页面链接：
+    result2 = obj.finditer(ul)
+    for itt in result2:
+        #拼接子页面的<hanla></hanla>url<hanla></hanla>地址： 域名 + 子页面地址
+        child_href = domain + itt.group('href').strip("/")
+        child_href_list.append(child_href)  #把子页面链接保存起来
+#提取子页面内容
+for href in child_href_list:
+    child_resp = requests.get(href,verify=False)
+    child_resp.encoding = 'gb2312'
+    result3 = obj3.search(child_resp.text)
+    print(result3.group("movie"))
+    print(result3.group("download"))
+</a></ul></code></pre>
+<p><hanla></hanla>bs4<hanla></hanla>解析<br><hanla></hanla>那个网站变了用<hanla></hanla>bs4<hanla></hanla>不会搞了，用正则搞出来了  </p>
+<pre><code>import requests
+from bs4 import BeautifulSoup
+import re
+import csv
+
+url = "http://www.xinfadi.com.cn/getCat.html"
+resp = requests.post(url)
+#print(resp.text)
+f= open("caijia.csv",mode="w",encoding="UTF-8")
+caijia=csv.writer(f)
+
+obj= re.compile('"prodName":"(?P&lt;prodname&gt;.*?)".*?"lowPrice":"(?P&lt;lowprice&gt;.*?)","highPrice":"(?P&lt;highprice&gt;.*?)",'
+                '"avgPrice":"(?P&lt;avgprice&gt;.*?)","place":"(?P&lt;place&gt;.*?)",.*?"pubDate":"(?P&lt;pubdate&gt;.*?)"',re.S)
+result1=obj.finditer(resp.text)
+for i in result1:
+    #print(i.group("prodname","lowprice","highprice","avgprice","place","pubdate"))
+    dic=i.groupdict()
+    caijia.writerow(dic.values())
+f.close()
+print("over!")
+</code></pre>
+<p><hanla></hanla>pycharm<hanla></hanla>对文件会有索引，爬取图片过多回卡顿<br>可以对不需要的路径取消索引 </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1I8U"><img src="https://s3.jpg.cm/2021/10/11/Iw1I8U.png" alt="Iw1I8U.png"></a></p>
+<p>爬取优美图库图片代码<br><hanla></hanla>后来发现两个<hanla></hanla>ua<hanla></hanla>一样 的可以只用一个  </p>
+<pre><code><hanla></hanla>#!/usr/bin/python
+# -*- conding: UTF-8 -*-
+
+import requests
+from bs4 import BeautifulSoup
+import time
+
+url = "https://umei.cc/bizhitupian/weimeibizhi/"
+headers={
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44"
+}
+headers2={
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44"
+}
+resp=requests.get(url,headers=headers)
+resp.encoding="utf-8"
+#print(resp.text)
+
+#把源代码交给<hanla></hanla>bs4
+main_page = BeautifulSoup(resp.text,"html.parser")
+alist=main_page.find("div",class_="TypeList").find_all("a")  #把范围第一次缩小
+#print(alist)
+for a in alist:
+    href=a.get("href")  #直接通过<hanla></hanla>get<hanla></hanla>就可以拿到属性的值
+    url2="https://umei.cc/"+href
+    #print(url2)
+    #拿到子页面源代码
+    child_resp=requests.get(url2,headers=headers2)
+    child_resp.encoding="utf-8"
+    child_text=child_resp.text
+    #从子页面中拿到图片的下载路径
+    child_page=BeautifulSoup(child_text,"html.parser")
+    p=child_page.find("p",align="center")
+    img=p.find("img")
+    src=img.get("src")
+    #下载图片
+    img_resp=requests.get(src,headers=headers)
+    # img_resp.content    #这里拿到的是字节
+    img_name=src.split("/")[-1]  #拿到<hanla></hanla>url<hanla></hanla>中的最后一个<hanla></hanla>/<hanla></hanla>内容
+    with open("img/"+img_name,mode="wb") as f:
+        f.write(img_resp.content)       #图片内容写入到文件
+    print("over !!!",img_name)
+    time.sleep(1)
+print("all over!!!!")
+</code></pre>
+<p><hanla></hanla>xpath<hanla></hanla>解析<br>即高效又简单<br><hanla></hanla>xpath<hanla></hanla>是<hanla></hanla>xml<hanla></hanla>文档中搜索内容的一门语言<br>父子节点  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwuZMf"><img src="https://s3.jpg.cm/2021/10/11/IwuZMf.png" alt="IwuZMf.png"></a></p>
+<p><hanla></hanla>安装<hanla></hanla>lxml<hanla></hanla>模块<br><hanla></hanla>pin install lxml -i xxx<hanla></hanla>清华源<br><hanla></hanla>pip install lxml -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a> gevent  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1WSi"><img src="https://s3.jpg.cm/2021/10/11/Iw1WSi.png" alt="Iw1WSi.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1n3k"><img src="https://s3.jpg.cm/2021/10/11/Iw1n3k.png" alt="Iw1n3k.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw17Re"><img src="https://s3.jpg.cm/2021/10/11/Iw17Re.png" alt="Iw17Re.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1Quy"><img src="https://s3.jpg.cm/2021/10/11/Iw1Quy.png" alt="Iw1Quy.png"></a></p>
+<p><hanla></hanla>可以右键复制找到，需要的元素，复制<hanla></hanla>xpath  </p>
+<p>xpath 猪八戒网练习</p>
+<pre><code>import requests
+from lxml import etree
+
+url = "https://beijing.zbj.com/search/f/?kw=saas"
+resp=requests.get(url)
+#print(resp.text)
+
+#解析
+html = etree.HTML(resp.text)
+
+divs = html.xpath("/html/body/div[6]/div/div/div[2]/div[5]/div[1]/div")
+for div in divs:
+    price=div.xpath("./div/div/a[2]/div[2]/div[1]/span[1]/text()")[0].strip("¥")
+    title="saas".join(div.xpath("./div/div/a[2]/div[2]/div[2]/p/text()"))
+    name=div.xpath("./div/div/a[1]/div[1]/p/text()")[1].strip("\n")
+
+    print(price)
+</code></pre>
+<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1dBr"><img src="https://s3.jpg.cm/2021/10/11/Iw1dBr.png" alt="Iw1dBr.png"></a></p>
+<p><hanla></hanla>或者拿登录后的<hanla></hanla>cookie<hanla></hanla>去请求需要的网址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1cYu"><img src="https://s3.jpg.cm/2021/10/11/Iw1cYu.png" alt="Iw1cYu.png"></a></p>
+<p><hanla></hanla>爬取梨视频内容用，referer<hanla></hanla>处理防盗链</p>
+<pre><code>import requests
+
+url="https://www.pearvideo.com/video_1741505"
+contid=url.split("_")[1]
+
+videostaturl=f"https://www.pearvideo.com/videoStatus.jsp?contId={contid}&amp;mrd=0.5675983371840356"
+
+headers={
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.47",
+    "Referer": "https://www.pearvideo.com/video_1741505"
+}
+
+resp=requests.get(videostaturl,headers=headers)
+dic= resp.json()
+
+srcurl = dic['videoInfo']['videos']['srcUrl']
+systemtime=dic['systemTime']
+
+url1=srcurl.replace(systemtime,f"cont-{contid}")
+resp2=requests.get(url1)
+with open("a.mp4",mode="wb") as f:
+    f.write(resp2.content)
+</code></pre>
+<p>代理</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1XQz"><img src="https://s3.jpg.cm/2021/10/11/Iw1XQz.png" alt="Iw1XQz.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1uR4"><img src="https://s3.jpg.cm/2021/10/11/Iw1uR4.png" alt="Iw1uR4.png"></a></p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><pre><code><hanla></hanla>from threading import Thread
+
+def func():
+    for i in range(1000):
+        print("func",i)
+
+if __name__ == '__main__':
+    t=Thread(target=func)
+    t.start()
+
+    for i in range(1000):
+        print("main",i)
+
+
+class MyThread(Thread):
+    def run(self):
+        for i in range(1000):
+            print("子线程",i)
+            
+if __name__ == '__main__':
+    t=MyThread()
+    #t.run()  方法的调用。--&gt;  单线程？？？
+    t.start()#开启线程
+    
+    for i in range(1000):
+        print("主线程",i)
+</code></pre>
+<p>传参</p>
+<pre><code>from threading import Thread
+def func(name):
+    for i in range(1000):
+        print(name,i)
+
+if __name__ == '__main__':
+    t=Thread(target=func,args=("周杰伦",))
+    t.start()
+
+    t1=Thread(target=func,args=("林俊杰",))
+    t1.start()
+</code></pre>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><pre><code><hanla></hanla>from multiprocessing import Process
+
+def func():
+    for i in range(1000):
+        print("子进程",i)
+
+if __name__ == '__main__':
+    P = Process(target=func)
+    P.start()
+    for i in range(1000):
+        print("主进程",i)
+</code></pre>
+<p>输出结果比较有意思，是等主进程跑完了在子进程跑</p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><pre><code><hanla></hanla>#线程池： 一次性开辟一些线程，我梦用户直接给线程池提交任务，线程任务的调度交给线程池来完成
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+
+def fn(name):
+    for i in range(100):
+        print(name,i)
+
+if __name__ == '__main__':
+    #创建线程池
+    with ThreadPoolExecutor(50) as t:
+        for i in range(100):
+            t.submit(fn,name=f"线程<hanla></hanla>{i}")
+    #等待线程池中的任务全部执行完毕，才继续执行（守护)
+    print("123")
+</code></pre>
+<pre><code><hanla></hanla>我自己写的可能很累赘
+下面程序注意三个问题
+mode="a+" 不覆盖写入
+newline=''  去掉写入之间多余的空行
+ t.submit(downlaod_page,"http://www.xinfadi.com.cn/getCat.html",i)  传入多个参数往后跟就行了
+用<hanla></hanla>excel<hanla></hanla>打开好像是<hanla></hanla>gb2312<hanla></hanla>编码
+我们可以新建一个文档按下面图导入
+</code></pre>
+<pre><code><hanla></hanla>#1.<hanla></hanla>如何提取单个页面数据
+#2.<hanla></hanla>上线程池，多个页面同抓取
+
+import requests
+import csv
+from concurrent.futures import ThreadPoolExecutor
+
+def downlaod_page(url,id):
+    data={
+        "limit": 20,
+        "current": id,
+        "pubDateStartTime": "",
+        "pubDateEndTime": "",
+        "prodPcatid": "",
+        "prodCatid": "",
+        "prodName": "",
+    }
+    resp=requests.post(url,data=data)
+    txt=resp.json()
+    #print(txt)
+    # prodName=txt["list"]["0"]["avgPrice"]
+    # prinit(prodName)
+    name=txt['list']
+    #print(name)
+    f=open("caijia.csv",mode="a+",encoding='utf-8',newline='')
+    csvcaijia=csv.writer(f)
+    for i in range(20):
+        #print(name[i])
+        prodName=name[i]["prodName"]
+        lowPrice = name[i]["lowPrice"]
+        highPrice = name[i]["highPrice"]
+        avgPrice = name[i]["avgPrice"]
+        place = name[i]["place"]
+        pubDate = name[i]["pubDate"]
+        dic=[prodName,lowPrice,highPrice,avgPrice,place,pubDate]
+        #print(dic)
+        csvcaijia.writerow(dic)
+
+if __name__ == '__main__':
+    # for i in range(1,20):
+    #   downlaod_page("http://www.xinfadi.com.cn/getCat.html",i)
+    with ThreadPoolExecutor(50) as t:
+        for i in range(0,20):
+            t.submit(downlaod_page,"http://www.xinfadi.com.cn/getCat.html",i)
+            print(f"第<hanla></hanla>{i}<hanla></hanla>页下载完毕！")
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw18TR"><img src="https://s3.jpg.cm/2021/10/11/Iw18TR.png" alt="Iw18TR.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1Vmt"><img src="https://s3.jpg.cm/2021/10/11/Iw1Vmt.png" alt="Iw1Vmt.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1UCG"><img src="https://s3.jpg.cm/2021/10/11/Iw1UCG.png" alt="Iw1UCG.png"></a></p>
+<h4 id="python-编写协程程序"><a href="#python-编写协程程序" class="headerlink" title="python 编写协程程序"></a>python 编写协程程序</h4><pre><code><hanla></hanla>import asyncio
+import time
+
+async def func1():
+    print("你好鸭，我是唐老鸭")
+    #time.sleep(3)#当程序出现了同步操作的时候，异步就中断了 requests.get<hanla></hanla>也是
+    await asyncio.sleep(3) #异步操作代码
+    print("唐老鸭睡醒啦")
+
+
+async def func2():
+    print("你好鸭，我是<hanla></hanla>dudu")
+    #time.sleep(3)
+    await asyncio.sleep(3)
+    print("duud<hanla></hanla>睡醒啦")
+
+
+async def func3():
+    print("你好鸭，我是<hanla></hanla>kk")
+    #time.sleep(3)
+    await asyncio.sleep(3)
+    print("kk<hanla></hanla>睡醒啦")
+
+if __name__ == '__main__':
+    f1,f2,f3=func1(),func2(),func3()
+    list1=[
+        f1,f2,f3
+    ]
+    t1=time.time()
+    asyncio.run(asyncio.wait(list1))
+    t2=time.time()
+
+    print(t2-t1)
+</code></pre>
+<p><hanla></hanla>执行结果，用<hanla></hanla>time    花费<hanla></hanla>9<hanla></hanla>秒<br><hanla></hanla>用<hanla></hanla>asyncio.sleep    花费<hanla></hanla>3<hanla></hanla>秒<br><hanla></hanla>你好鸭，我是<hanla></hanla>kk<br><hanla></hanla>你好鸭，我是<hanla></hanla>dudu<br><hanla></hanla>你好鸭，我是唐老鸭<br><hanla></hanla>kk<hanla></hanla>睡醒啦<br><hanla></hanla>duud<hanla></hanla>睡醒啦<br>唐老鸭睡醒啦<br><hanla></hanla>3.0089263916015625  </p>
+<p>进程已结束，退出代码为 0  </p>
+<p>这里要特别注意，因为版本问题上面那个程序，之间之间丢掉列表里面可以执行，<br><hanla></hanla>可是有的地方会报错，3.8<hanla></hanla>已经摈弃了这种写法，因为突然这样使用显得代码很诡异<br><hanla></hanla>，就要加一个<hanla></hanla>asynico.create_task()<hanla></hanla>将协程对象包起来，如下<br>下面大约就是一个爬虫的标准模板了  </p>
+<pre><code>async def download(url):
+    print("准备开始下载")
+    await asyncio.sleep(2)  #网络请求  request.get()
+    print("下载完成")
+
+async def main():
+    urls=[
+        "http://www.baidu.com",
+        "http://www.bilibili.com",
+        "http://www.163.com",
+    ]
+    tasks=[]
+    for url in urls:
+        d=asyncio.create_task(download(url))
+        tasks.append(d)
+        print(tasks)
+
+    await asyncio.wait(tasks)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+</code></pre>
+<h2 id="爬取补天公益src域名"><a href="#爬取补天公益src域名" class="headerlink" title="爬取补天公益src域名"></a><hanla></hanla>爬取补天公益<hanla></hanla>src<hanla></hanla>域名</h2><pre><code><hanla></hanla>import requests
+import json
+import re
+
+# https://www.butian.net/Loo/submit?cid=63713
+def func(number):
+    url= "https://www.butian.net/Reward/pub"
+    data1={
+        "s":"1",
+        "p":number,
+        "token":"",
+    }
+    resp=requests.post(url,data=data1)
+    resp=json.loads(resp.text)
+    list1=resp['data']['list']
+
+    obj=re.compile('<li><span><hanla></hanla>域名或<hanla></hanla>ip：</span>.*?value="(?P<value>.*?)"',re.S)
+
+    for i in range(30):
+        id=list1[i]['company_id']
+        url2=f"https://www.butian.net/Loo/submit?cid={id}"
+        resp2=requests.get(url2,headers={
+            "Cookie":"btuc_ba52447ea424004a7da412b344e5e41a=46e41cd8ffb858e3d8367e9d9a4831d88544b787cb49b864ee53fa9780c4e05a; notice=0; PHPSESSID=7l9ae9o4rn7ejujg1egjtbdbv2; __q__=1631839753878"
+        })              #此处<hanla></hanla>cookie<hanla></hanla>换成登录后的<hanla></hanla>cookie<hanla></hanla>就可以了
+        # print(resp2.text)
+        result=obj.search(resp2.text)
+        yuming=result.group("value")
+        with open("yuming.txt",mode="a",newline="") as f:
+            f.write(yuming)
+            f.write('\r\n')
+        print(f"第<hanla></hanla>{i}<hanla></hanla>个域名写入成功")#爬取完成会在同一级目录生成<hanla></hanla>txt<hanla></hanla>文件
+
+if __name__ == '__main__':
+    for i in range(4): #此处的<hanla></hanla>10<hanla></hanla>修改为你需要爬取的页数，一页<hanla></hanla>30<hanla></hanla>个，所有<hanla></hanla>10<hanla></hanla>是<hanla></hanla>300<hanla></hanla>个，你也可以这样写（2，5）这样就是从第二页到第五页
+        func(i)         #此程序是单线程所以爬取会很慢，不知道这个线程池<hanla></hanla>ip<hanla></hanla>会不会被封
+</value></li></code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1NA6"><img src="https://s3.jpg.cm/2021/10/11/Iw1NA6.png" alt="Iw1NA6.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iw1JOp"><img src="https://s3.jpg.cm/2021/10/11/Iw1JOp.png" alt="Iw1JOp.png"></a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
