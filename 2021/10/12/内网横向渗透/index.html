@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 内网横向渗透</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>内网横向渗透 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/12
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/内网篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                内网篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p>横向渗透的方法：<br><hanla></hanla>1.<hanla></hanla>了解网络（信息收集)  </p>
+<span id="more"></span>
+<p><hanla></hanla>分析网络中有哪些主机 （pc ,server /linux/widows/<hanla></hanla>打印机)<br><hanla></hanla>分析服务，分析端口<br>扫描器分析服务  </p>
+<p>服务攻击<br><hanla></hanla>1.<hanla></hanla>爆破<br><hanla></hanla>2.<hanla></hanla>漏洞<br><hanla></hanla>3.<hanla></hanla>欺骗<br><hanla></hanla>4.<hanla></hanla>钓鱼  </p>
+<h2 id="流量监听工具的使用"><a href="#流量监听工具的使用" class="headerlink" title="流量监听工具的使用"></a>流量监听工具的使用</h2><p>常用工具：<br>wiresharke<br>cain  </p>
+<p>监听内容：(未加密的一些服务协议)<br><hanla></hanla>服务连接密码<br>网站登录密码<br>敏感数据  </p>
+<p><hanla></hanla>我们抓的是<hanla></hanla>http<br><hanla></hanla>未加密但是抓<hanla></hanla>https<br><hanla></hanla>1，我们强制他转换使用<hanla></hanla>http<hanla></hanla>协议<br><hanla></hanla>2，钓鱼<br>密码  时间函数<br><hanla></hanla>hsesha1256  </p>
+<h3 id="cain"><a href="#cain" class="headerlink" title="cain"></a>cain</h3><p><hanla></hanla>这个工具可以抓<hanla></hanla>ftp telnet  http<hanla></hanla>等<br><hanla></hanla>还可以进行<hanla></hanla>arp<hanla></hanla>欺骗，比较简洁明了<br>安装一直下一步，要安装在跳板机上，<br><hanla></hanla>我们用<hanla></hanla>nat<hanla></hanla>网络做实验就行了，用桥接有可能造成物理网络堵塞<br><hanla></hanla>现在另一台上网直接通过路由器，或者交换机连通网络，我们想获取他的流量就要做一个<hanla></hanla>arp<hanla></hanla>欺骗<br><hanla></hanla>使用：1.<hanla></hanla>点击小网卡 或者<hanla></hanla>configure,<hanla></hanla>选择自己所使用的网卡<br><hanla></hanla>在<hanla></hanla>filters  and ports<hanla></hanla>里面可以设置自己想要抓取的端口  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwvDqL"><img src="https://s3.jpg.cm/2021/10/12/IwvDqL.png" alt="IwvDqL.png"></a></p>
+<p>激活嗅探器<br><hanla></hanla>在<hanla></hanla>sniffer<hanla></hanla>右键<hanla></hanla>scan  mac address<br><hanla></hanla>这里我们默认扫<hanla></hanla>c<hanla></hanla>段就可以了  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwviCH"><img src="https://s3.jpg.cm/2021/10/12/IwviCH.png" alt="IwviCH.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwvaY2"><img src="https://s3.jpg.cm/2021/10/12/IwvaY2.png" alt="IwvaY2.png"></a></p>
+<p><hanla></hanla>然后选择<hanla></hanla>apr 点一下右边空白处，点上面那个加号<br><hanla></hanla>选择它的网关，可以<hanla></hanla>ipconfig 看一下<hanla></hanla>gateway 看一下网关<br>选择攻击目标点那个辐射标志开始欺骗  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwvM1f"><img src="https://s3.jpg.cm/2021/10/12/IwvM1f.png" alt="IwvM1f.png"></a></p>
+<p><hanla></hanla>在<hanla></hanla>xp<hanla></hanla>上查看<hanla></hanla>arp -a<br><hanla></hanla>网关和我的攻击机，mac<hanla></hanla>地址一样已经欺骗成功，改成静态就欺骗不了了<br><hanla></hanla>dynamic<hanla></hanla>动态</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwvTdW"><img src="https://s3.jpg.cm/2021/10/12/IwvTdW.png" alt="IwvTdW.png"></a></p>
+<p><hanla></hanla>在<hanla></hanla>xp<hanla></hanla>上登录，可以看到我们抓到了他的密码，但是抓错了，2690<hanla></hanla>明明是验证码，工具不好用<hanla></hanla>emmm</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwvOfU"><img src="https://s3.jpg.cm/2021/10/12/IwvOfU.png" alt="IwvOfU.png"></a></p>
+<p>services.msc<br><hanla></hanla>在<hanla></hanla>windows 03 上启动一下<hanla></hanla>telent<hanla></hanla>服务<br><hanla></hanla>控制面板–程序–添加<hanla></hanla>telnet<hanla></hanla>客户端<br><hanla></hanla>用<hanla></hanla>win xp 访问就可以抓到<br><hanla></hanla>ftp<hanla></hanla>也可以抓的到  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwvZOO"><img src="https://s3.jpg.cm/2021/10/12/IwvZOO.png" alt="IwvZOO.png"></a></p>
+<p>wirshark  抓取内网流量<br><hanla></hanla>1.<hanla></hanla>网段  （抓取内网不同网段，进行纵向渗透）<br><hanla></hanla>2.<hanla></hanla>抓取密文</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwIAw"><img src="https://s3.jpg.cm/2021/10/12/IwwIAw.png" alt="IwwIAw.png"></a></p>
+<p>一些简单的过滤规则<br><hanla></hanla>1.type<hanla></hanla>表示对象 如<hanla></hanla>IP<hanla></hanla>地址、子网或者端口  </p>
+<p><hanla></hanla>2.dir<hanla></hanla>表示数据包传输的方向            源地址<hanla></hanla>src、目的地址<hanla></hanla>dst  </p>
+<p><hanla></hanla>3.proto<hanla></hanla>表示数据包匹配的协议类型       如<hanla></hanla>ether、ip、tcp、arp<br>ip.addr<br>tcp dst port 80<br>tcp.port == 80 || ip.src == 192.168.1.1  </p>
+<p><hanla></hanla>比如有个<hanla></hanla>emil<hanla></hanla>服务器<br><hanla></hanla>http &amp;&amp; ip.dst ==192.168.8.155<br><hanla></hanla>有的包是分开的可以合成<hanla></hanla>tcp<hanla></hanla>流 </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwLp8"><img src="https://s3.jpg.cm/2021/10/12/IwwLp8.png" alt="IwwLp8.png"></a></p>
+<h2 id="arp欺骗原理利用"><a href="#arp欺骗原理利用" class="headerlink" title="arp欺骗原理利用"></a><hanla></hanla>arp<hanla></hanla>欺骗原理利用</h2><p>常用工具：<br>Netfuck<br>Foca evail  </p>
+<p>主要功能：<br>域名欺骗<br>网页内容欺骗<br><hanla></hanla>Dns<hanla></hanla>解析欺骗<br><hanla></hanla>解析欺骗<hanla></hanla>+<hanla></hanla>钓鱼攻击案例  </p>
+<h3 id="netfuck"><a href="#netfuck" class="headerlink" title="netfuck"></a>netfuck</h3><p><hanla></hanla>设置    嗅探设置 网卡选择后门一定要出<hanla></hanla>ip<hanla></hanla>地址<br>主动转发  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwPTi"><img src="https://s3.jpg.cm/2021/10/12/IwwPTi.png" alt="IwwPTi.png"></a></p>
+<p><hanla></hanla>欺骗设置，填写网关，攻击目标，还可以指定<hanla></hanla>mac</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwVpz"><img src="https://s3.jpg.cm/2021/10/12/IwwVpz.png" alt="IwwVpz.png"></a></p>
+<p><hanla></hanla>点击小扳手，这种欺骗是注入<hanla></hanla>html<hanla></hanla>代码到网页中。我们也可以写钓鱼链接，比如把<hanla></hanla>qq<hanla></hanla>空  间登录页面换掉<br><hanla></hanla>设置完成后点开始按钮，然后看<hanla></hanla>xp<hanla></hanla>已经被欺骗了<br><hanla></hanla>我们也可以让他跳转到别的网页，比如捆绑<hanla></hanla>flash，一上线就可以关掉了<br>因为是双向欺骗，他出去的，别人访问它的都会被欺骗<br><hanla></hanla>这个工具只针对老版本<hanla></hanla>03 使用  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iww8au"><img src="https://s3.jpg.cm/2021/10/12/Iww8au.png" alt="Iww8au.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iww6XR"><img src="https://s3.jpg.cm/2021/10/12/Iww6XR.png" alt="Iww6XR.png"></a></p>
+<h3 id="evil-foca"><a href="#evil-foca" class="headerlink" title="evil foca"></a>evil foca</h3><p><hanla></hanla>这个工具需要<hanla></hanla>dotnet 4.<hanla></hanla>几的环境，一般服务器都有</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwwcr4"><img src="https://s3.jpg.cm/2021/10/12/Iwwcr4.png" alt="Iwwcr4.png"></a></p>
+<p><hanla></hanla>dns Hijacking<hanla></hanla>正常<hanla></hanla>ping<hanla></hanla>百度是<hanla></hanla>dns<hanla></hanla>解析到服务器<br><hanla></hanla>dns<hanla></hanla>劫持就是伪造<hanla></hanla>dns<br><hanla></hanla>这里我们把百度指定到<hanla></hanla>8.1<hanla></hanla>上运行，假设<hanla></hanla>8.1<hanla></hanla>就是你的<hanla></hanla>vps<br><hanla></hanla>用<hanla></hanla>kali   那个下载网页的工具<hanla></hanla>httrack，偷密码我们可以用退出登录点击登录的那个页面  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwXeG"><img src="https://s3.jpg.cm/2021/10/12/IwwXeG.png" alt="IwwXeG.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwUKX"><img src="https://s3.jpg.cm/2021/10/12/IwwUKX.png" alt="IwwUKX.png"></a></p>
+<p><hanla></hanla>用<hanla></hanla>flash<hanla></hanla>配合木马，拿他权限也可以</p>
+<h3 id="ettercap"><a href="#ettercap" class="headerlink" title="ettercap"></a>ettercap</h3><p>ettercap<br><hanla></hanla>它是一款功能强大的欺骗攻击工具，<br><hanla></hanla>既可以实现<hanla></hanla>arp<hanla></hanla>欺骗也可以实现复杂的中间人攻击。  </p>
+<p>支持命令行和图形界面<br><hanla></hanla>ettercap -G 图像界面  点击<hanla></hanla>hosts –Scan for hosts</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwuqD"><img src="https://s3.jpg.cm/2021/10/12/IwwuqD.png" alt="IwwuqD.png"></a></p>
+<p><hanla></hanla>扫描完后点<hanla></hanla>hosts – hosts list</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iww1Hp"><img src="https://s3.jpg.cm/2021/10/12/Iww1Hp.png" alt="Iww1Hp.png"></a></p>
+<p>点击下面<br><hanla></hanla>add to target1  add to target 2 添加网关和需要攻击的目标</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwHg6"><img src="https://s3.jpg.cm/2021/10/12/IwwHg6.png" alt="IwwHg6.png"></a></p>
+<p><hanla></hanla>选择<hanla></hanla>arp<hanla></hanla>攻击  poisoning（中毒） 然后<hanla></hanla>ok</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwJZT"><img src="https://s3.jpg.cm/2021/10/12/IwwJZT.png" alt="IwwJZT.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwEsW"><img src="https://s3.jpg.cm/2021/10/12/IwwEsW.png" alt="IwwEsW.png"></a></p>
+<p><hanla></hanla>在<hanla></hanla>xp<hanla></hanla>进行登录可以看到已经获取到了密码</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwseS"><img src="https://s3.jpg.cm/2021/10/12/IwwseS.png" alt="IwwseS.png"></a></p>
+<p><hanla></hanla>如果要进行<hanla></hanla>dns<hanla></hanla>欺骗 /etc/ettercap/etter.dns<br><hanla></hanla>可以查看上面格式</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwYah"><img src="https://s3.jpg.cm/2021/10/12/IwwYah.png" alt="IwwYah.png"></a></p>
+<p>然后在重新启动 hosts – scan hosts –hosts list<br><hanla></hanla>arp poisoning  然后点击插件<hanla></hanla>plugins—manage plugins<br><hanla></hanla>双击选中<hanla></hanla>dns<hanla></hanla>欺骗</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwSvQ"><img src="https://s3.jpg.cm/2021/10/12/IwwSvQ.png" alt="IwwSvQ.png"></a></p>
+<p><hanla></hanla>再用<hanla></hanla>xp<hanla></hanla>进行访问就看到我们解析地址已经变了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwNXE"><img src="https://s3.jpg.cm/2021/10/12/IwwNXE.png" alt="IwwNXE.png"></a></p>
+<p><hanla></hanla>这个抓取的时候还可以抓<hanla></hanla>cookie  </p>
+<p><hanla></hanla>如果这个时候想抓<hanla></hanla>https<br><hanla></hanla>可以强制转换成<hanla></hanla>http<br><hanla></hanla>但是有些网站不能用<hanla></hanla>http,<hanla></hanla>你转成<hanla></hanla>http<hanla></hanla>他不接收  </p>
+<p>留个实验<br><hanla></hanla>1.<hanla></hanla>跨网段抓取流量欺骗<br><hanla></hanla>2.<hanla></hanla>抓取<hanla></hanla>https  (强制转换成<hanla></hanla>http<hanla></hanla>抓取）<br>3，抓取图片 dirftnet  </p>
+<h3 id="服务密码攻击"><a href="#服务密码攻击" class="headerlink" title="服务密码攻击"></a>服务密码攻击</h3><p>密码攻击：<br>在线密码攻击<br>网络爆破  网络因素也会影响你爆破进度<br>字典   电脑性能  </p>
+<p>离线密码攻击<br>得到密文  加载字典  本地爆破<br><hanla></hanla>靠<hanla></hanla>cpu<hanla></hanla>或者<hanla></hanla>gpu<hanla></hanla>性能爆破  </p>
+<p>道德黑客攻击，  </p>
+<p>扫描端口  分析服务  进行爆破  </p>
+<ol>
+<li>linux  /22/80/443/21  </li>
+<li>windows (135 139 445  3306 1433 3389  telnet)<br><hanla></hanla>都可以进行爆破  优先跑<hanla></hanla>445<hanla></hanla>端口  </li>
+</ol>
+<h3 id="hydra"><a href="#hydra" class="headerlink" title="hydra"></a>hydra</h3><pre><code><hanla></hanla>参数详解：
+-R 根据上一次进度继续破解
+-S 使用<hanla></hanla>SSL<hanla></hanla>协议连接
+-s 指定端口    这是老版本的，新版本直接<hanla></hanla>ip 后门跟端口就行了
+-l 指定用户名
+-L 指定用户名字典<hanla></hanla>(文件)
+-p 指定密码破解
+-P 指定密码字典<hanla></hanla>(文件)
+-e 空密码探测和指定用户密码探测<hanla></hanla>(ns)
+-C 用户名可以用:<hanla></hanla>分割<hanla></hanla>(username:password)<hanla></hanla>可以代替-l username -p password
+-o 输出文件
+-t 指定多线程数量，默认为<hanla></hanla>16<hanla></hanla>个线程
+-vV 显示详细过程
+server 目标<hanla></hanla>IP
+ 
+service 指定服务名<hanla></hanla>(telnet ftp pop3 mssql mysql ssh ssh2......)
+</code></pre>
+<h4 id="Hydra使用案例"><a href="#Hydra使用案例" class="headerlink" title="Hydra使用案例"></a><hanla></hanla>Hydra<hanla></hanla>使用案例</h4><pre><code><hanla></hanla>使用<hanla></hanla>hydra<hanla></hanla>破解<hanla></hanla>ssh<hanla></hanla>的密码
+hydra -L users.txt -P password.txt -vV -o ssh.log -e ns IP ssh
+破解<hanla></hanla>smb：
+
+hydra -l administrator -P pass.txt IP 
+smb
+破解<hanla></hanla>rdp：
+hydra IP rdp -l administrator -P pass.txt -V
+破解<hanla></hanla>telnet
+ 
+hydra IP telnet -l 用户 -P 密码字典 -t 32 -s 23 -e ns -f -V
+破解<hanla></hanla>ftp：
+hydra IP ftp -l 用户名 -P 密码字典 -t 线程<hanla></hanla>(默认<hanla></hanla>16) -vV
+ 
+hydra IP ftp -l 用户名 -P 密码字典 -e ns -vV
+破解<hanla></hanla>cisco：
+hydra -P pass.txt IP cisco
+ 
+hydra -m cloud -P pass.txt 10.36.16.18 cisco-enable
+
+爆<hanla></hanla>ssh:
+hydra -l administrator -P pass.txt -t 30 -vV -e ns telnet://192.168.18.131
+-e 检查空密码后面要加一个<hanla></hanla>ns  高亮就是爆出来了
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwpJL"><img src="https://s3.jpg.cm/2021/10/12/IwwpJL.png" alt="IwwpJL.png"></a></p>
+<p><hanla></hanla>然而<hanla></hanla>smb<hanla></hanla>和<hanla></hanla>telnet<hanla></hanla>不是一个吗？为什么爆破失败了</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwFK2"><img src="https://s3.jpg.cm/2021/10/12/IwwFK2.png" alt="IwwFK2.png"></a></p>
+<p><hanla></hanla>爆<hanla></hanla>3389  居然误报了！！！</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwmWH"><img src="https://s3.jpg.cm/2021/10/12/IwwmWH.png" alt="IwwmWH.png"></a></p>
+<p>爆公司员工公司名称  csdnpass.txt<br><hanla></hanla>pass.txt<hanla></hanla>经常用来爆密码<br><hanla></hanla>ip<hanla></hanla>网段字典<br>各种字典等  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwwvgf"><img src="https://s3.jpg.cm/2021/10/12/Iwwvgf.png" alt="Iwwvgf.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwoGU"><img src="https://s3.jpg.cm/2021/10/12/IwwoGU.png" alt="IwwoGU.png"></a></p>
+<p>国外社工库<br>比如存在数据库是加密的<br><hanla></hanla>他们会加一个<hanla></hanla>js<hanla></hanla>代码记录字典密码<br>还有字典生成器<br><hanla></hanla>pass.jar<hanla></hanla>社工字典，爆后台，管理员邮箱   域名    </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwKJr"><img src="https://s3.jpg.cm/2021/10/12/IwwKJr.png" alt="IwwKJr.png"></a></p>
+<p>kali  里面的字典生成器</p>
+<h3 id="Crunch"><a href="#Crunch" class="headerlink" title="Crunch"></a>Crunch</h3><p>crunch 是一种创建密码字典的工具，该字典通常用于暴力破解。<br><hanla></hanla>使用<hanla></hanla>crunch<hanla></hanla>工具生成的密码可以发送到终端、文件或另一个程序。  </p>
+<p>用法：</p>
+<p>crunch min max charset  options  </p>
+<p>crunch 6 8 zhang2008 -o /root/pass.txt<br>crunch 7 7 –f charset.lst numeric -o /root/pass.txt</p>
+<p>crunch  8  8  -f /usr/share/crunch/charset.lst numeric<br><hanla></hanla>这样生成大约有<hanla></hanla>858M<hanla></hanla>太大了<br>也可以边生成变爆破，这样没有文件落地<br><hanla></hanla>可以用<hanla></hanla>hashcat  但是如果是在线爆就可以写个<hanla></hanla>python<hanla></hanla>脚本  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwwhz5"><img src="https://s3.jpg.cm/2021/10/12/Iwwhz5.png" alt="Iwwhz5.png"></a></p>
+<p>还有个工具美杜莎 </p>
+<h3 id="Medusa"><a href="#Medusa" class="headerlink" title="Medusa"></a>Medusa</h3><pre><code><hanla></hanla>medusa 工具是通过并行登录暴力破解的方法，尝试获取远程验证服务访问权限。
+medusa<hanla></hanla>能够验证的远程服务，如
+ftp/http/imap/mssql/netware/nntp/pcanywhere/pop3/snmp/sshv2/telnet/vnc 
+等服务密码
+
+&nbsp;
+基本命令为：
+medusa –h target_ip –u username –P path_to_passwordlist –M authentication_service_to_attack
+medusa –h 192.168.235.96 –u root –P /pentest/passwords/wordlists/rockyou.txt –M&nbsp;ssh
+这个爆破比<hanla></hanla>hydra<hanla></hanla>慢太多了
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwyGC"><img src="https://s3.jpg.cm/2021/10/12/IwwyGC.png" alt="IwwyGC.png"></a></p>
+<h3 id="rarcrack"><a href="#rarcrack" class="headerlink" title="rarcrack"></a>rarcrack</h3><p><hanla></hanla>hydra<hanla></hanla>最快<br><hanla></hanla>该软件用于暴力破解压缩文件的密码，但仅支持<hanla></hanla>RAR, ZIP, 7Z<hanla></hanla>这三种类型的压缩包<br>执行命令:<br> rarcrack 文件名<br>-threads 线程数 -type rar|zip|7z  </p>
+<p>rarcrack&nbsp;test.rar&nbsp;–10&nbsp;–rar  </p>
+<p>如果允许出现错误<br>那么可以执行<br><hanla></hanla>sudo apt-get install libxml2-dev libxslt-dev<hanla></hanla>进行修复。  </p>
+<h2 id="离线密码破解"><a href="#离线密码破解" class="headerlink" title="离线密码破解"></a>离线密码破解</h2><h3 id="Hashcat"><a href="#Hashcat" class="headerlink" title="Hashcat"></a><hanla></hanla>Hashcat</h3><pre><code><hanla></hanla>这有篇文章可以查看一下参数
+https://blog.csdn.net/cpongo3/article/details/93995803
+
+
+Hashcat<hanla></hanla>系列软件是比较牛逼的密码破解软件，系列软件包含
+Hashcat、oclHashcat；还有一个单独新出的<hanla></hanla>oclRausscrack。
+其区别为<hanla></hanla>Hashcat<hanla></hanla>只支持<hanla></hanla>cpu<hanla></hanla>破解；
+oclHashcat<hanla></hanla>和<hanla></hanla>oclGausscrack<hanla></hanla>则支持<hanla></hanla>gpu<hanla></hanla>加速。
+oclHashcat<hanla></hanla>则分为<hanla></hanla>AMD<hanla></hanla>版和<hanla></hanla>NIVDA<hanla></hanla>版。
+
+用法：
+使用字典破解密码
+hashcat a.hash -m 0 -a 0 pass  -o 123.txt   （pass<hanla></hanla>是个密码字典) 
+掩码破解
+破解<hanla></hanla>7<hanla></hanla>位纯数字密码
+hashcat -m 0 -a 3 test.hash ?d?d?d?d?d?d?d
+破解<hanla></hanla>7<hanla></hanla>位字母加数字的 xiao2008
+hashcat -m 0 -a 3 test.hash ?l?l?l?ld?d?d?d
+自定义组合破解
+破解<hanla></hanla>5<hanla></hanla>位未知密码并且自定义密码组合
+hashcat -m 0 -a 3 test.hash --custom-charset1=xiao --custom-charset2=?d  ?1?2?2?2?2
+
+hashcat --help
+他的爆破原理相当于
+我有一个密文字典我对应使用加密与密文进行匹配，匹配上就爆出来了
+甚至能识别<hanla></hanla>wifi<hanla></hanla>的加密类型
+一秒可以加载<hanla></hanla>1.4<hanla></hanla>亿个密码
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iww2he"><img src="https://s3.jpg.cm/2021/10/12/Iww2he.png" alt="Iww2he.png"></a></p>
+<p>这里与另一个工具有关系<br><hanla></hanla>Hash-identifier<br><hanla></hanla>用来识别算法的  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwCWy"><img src="https://s3.jpg.cm/2021/10/12/IwwCWy.png" alt="IwwCWy.png"></a></p>
+<p>  基本使用<br><hanla></hanla>-m –hash-type 指定你的加密类型 md5<hanla></hanla>就是后面跟个<hanla></hanla>0<br><hanla></hanla>-a  –attack-mode<hanla></hanla>爆破模式  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iww9ct"><img src="https://s3.jpg.cm/2021/10/12/Iww9ct.png" alt="Iww9ct.png"></a></p>
+<p><hanla></hanla>-a  –attack-mode<hanla></hanla>爆破模式<br><hanla></hanla>straight 直的  使用字典<br><hanla></hanla>combination 结合体<br><hanla></hanla>brute-force 强力攻击   边生成边爆<br><hanla></hanla>hybrid wordlist + mask 混合字表<hanla></hanla>+<hanla></hanla>掩码<br><hanla></hanla>hybrid mask + wordlist  混合掩码<hanla></hanla>+<hanla></hanla>字表<br>可以查看一下官方使用帮助  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwTwR"><img src="https://s3.jpg.cm/2021/10/12/IwwTwR.png" alt="IwwTwR.png"></a></p>
+<p><hanla></hanla>这里有两个文件   a.txt 里面保存的是 afasf    的<hanla></hanla>md5<hanla></hanla>加密值即<hanla></hanla>3a5865674b010049caafcdc68f5e6b1b<br><hanla></hanla>pa.txt<hanla></hanla>里面是一些明文，其中包括了<hanla></hanla>afasf  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwwaiz"><img src="https://s3.jpg.cm/2021/10/12/Iwwaiz.png" alt="Iwwaiz.png"></a></p>
+<p>hashcat  a.txt -m 0 -a 0 pa.txt –force<br><hanla></hanla>不使用 –force 会报错，因为不知道使用<hanla></hanla>cpu<hanla></hanla>还是<hanla></hanla>gpu  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Iwwxlu"><img src="https://s3.jpg.cm/2021/10/12/Iwwxlu.png" alt="Iwwxlu.png"></a></p>
+<p>xiao123<br><hanla></hanla>md5<hanla></hanla>加密值<hanla></hanla>e2f5e798186344470f784f353a80ef7f<br><hanla></hanla>hashcat a.txt -m 0 -a 3 ?l?l?l?l?d?d?d  因为<hanla></hanla>xiao123<hanla></hanla>前四位小写字母  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwwDEG"><img src="https://s3.jpg.cm/2021/10/12/IwwDEG.png" alt="IwwDEG.png"></a></p>
+<p>自定义组合<br><hanla></hanla>test1234   md5<hanla></hanla>加密值<hanla></hanla>16d7a4fca7442dda3ad93c9a726597e4<br>hashcat c.txt -m 0 -a 3 –custom-charset1=?l?d  ?1?1?1?1?1?1?1?1  –force </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IwoltH"><img src="https://s3.jpg.cm/2021/10/12/IwoltH.png" alt="IwoltH.png"></a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
